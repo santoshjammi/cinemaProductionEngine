@@ -134,36 +134,41 @@ class VideoComposerAgent(ProductionAgent):
                 # Input: image (looping)
                 cmd.extend(['-loop', '1', '-i', str(img_file)])
                 
-                # Input: voiceover if available
-                inputs_started = False
+                # Check audio inputs
+                audio_inputs = []
                 if vo_file and Path(vo_file).exists():
                     cmd.extend(['-i', str(vo_file)])
-                    inputs_started = True
+                    audio_inputs.append('voice')
                 
-                # Input: music if available
                 if music_file and Path(music_file).exists():
                     cmd.extend(['-i', str(music_file)])
+                    audio_inputs.append('music')
                 
                 # Video filter: scale and crop to 1920x1080
-                vf = f'scale=1920:1080:force_original_aspect_ratio=decrease,crop=1920:1080'
+                filter_complex_parts = [
+                    f'[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[v]'
+                ]
                 
-                if inputs_started:
-                    # Complex audio mixing with voice + music
-                    af = '[0:v]' + vf + '[v];'
-                    
-                    # Mix voice and music
-                    if music_file and Path(music_file).exists():
-                        af += f'[1:a][2:a]amix=inputs=2:duration=longest[a]'
-                    else:
-                        af += '[1:a][a]'
-                    
-                    cmd.extend(['-vf', vf])
-                    cmd.extend(['-af', af + f',atrim=0:{dur},asetpts=PTS-STARTPTS'])
+                if len(audio_inputs) == 2:
+                    filter_complex_parts.append(
+                        f'[1:a]volume=1.0[vo];[2:a]volume=0.3[mu];[vo][mu]amix=inputs=2:duration=longest,atrim=0:{dur},asetpts=PTS-STARTPTS[a]'
+                    )
+                elif len(audio_inputs) == 1:
+                    volume_val = 1.0 if audio_inputs[0] == 'voice' else 0.3
+                    filter_complex_parts.append(
+                        f'[1:a]volume={volume_val},atrim=0:{dur},asetpts=PTS-STARTPTS[a]'
+                    )
                 else:
-                    cmd.extend(['-vf', vf])
+                    # Generate silent audio if no audio inputs are available
+                    cmd.extend(['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000'])
+                    filter_complex_parts.append(
+                        f'[1:a]atrim=0:{dur},asetpts=PTS-STARTPTS[a]'
+                    )
                 
-                # Output settings
                 cmd.extend([
+                    '-filter_complex', ';'.join(filter_complex_parts),
+                    '-map', '[v]',
+                    '-map', '[a]',
                     '-t', str(dur),
                     '-c:v', 'libx264',
                     '-preset', 'medium',

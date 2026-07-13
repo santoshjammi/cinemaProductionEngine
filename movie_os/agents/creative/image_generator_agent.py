@@ -147,7 +147,9 @@ class ImageGeneratorAgent(ProductionAgent):
                 )
                 
                 if result.get('success') and result.get('image_path'):
-                    image_paths.append(result['image_path'])
+                    import shutil
+                    shutil.copy(result['image_path'], str(output_file))
+                    image_paths.append(str(output_file))
                     logger.info(f"Scene {scene_num}: Image generated ({output_file.stat().st_size if output_file.exists() else 'unknown'} bytes)")
                 else:
                     # Log detailed error before falling back
@@ -156,14 +158,14 @@ class ImageGeneratorAgent(ProductionAgent):
                     
                     # Fallback to placeholder
                     placeholder = images_dir / f"scene_{scene_num:02d}.png"
-                    await self._create_placeholder_image(prompt, placeholder)
+                    self._create_placeholder_image(prompt, placeholder)
                     image_paths.append(str(placeholder))
                     logger.warning(f"Scene {scene_num}: Using placeholder image")
                     
             except Exception as e:
                 logger.error(f"Scene {scene_num}: Generation failed: {e}")
                 placeholder = images_dir / f"scene_{scene_num:02d}.png"
-                await self._create_placeholder_image(prompt, placeholder)
+                self._create_placeholder_image(prompt, placeholder)
                 image_paths.append(str(placeholder))
         
         return image_paths if image_paths else self._generate_placeholder_images(context)
@@ -181,7 +183,7 @@ class ImageGeneratorAgent(ProductionAgent):
             image_paths.append(str(img_path))
         return image_paths
     
-    async def _create_placeholder_image(self, prompt: str, output_path: Path) -> Path:
+    def _create_placeholder_image(self, prompt: str, output_path: Path) -> Path:
         """Create a placeholder gradient image."""
         try:
             from PIL import Image, ImageDraw, ImageFont

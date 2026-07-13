@@ -235,23 +235,41 @@ class MusicGeneratorAgent(ProductionAgent):
 
     def _extract_music_cues_from_screenplay(self, screenplay_content: str) -> List[Dict[str, Any]]:
         """Extract musical cues from screenplay content."""
-        # This is a simplified implementation - in reality, this would parse the screenplay
-        # to extract musical intent and emotional beats
+        import re
+        # Look for scene headings to determine how many scenes there are
+        scene_headings = re.findall(r'###\s*(?:SCENE|Scene)\s+(\d+)', screenplay_content, re.IGNORECASE)
+        scene_nums = sorted(list(set(int(s) for s in scene_headings)))
         
-        # For now, return a basic structure
-        return [
-            {
-                "scene": 1,
-                "theme": "warm_intimate",
-                "tempo": "medium",
-                "instrumentation": ["piano", "strings"],
-                "emotional_beat": "comfort"
-            },
-            {
-                "scene": 2,
-                "theme": "tension_build",
-                "tempo": "slow",
-                "instrumentation": ["strings", "percussion"],
-                "emotional_beat": "tension"
-            }
+        if not scene_nums:
+            scene_nums = list(range(1, 14))  # Fallback to 13 scenes
+            
+        # Define some atmospheric themes for different stages of the movie
+        theme_sequence = [
+            "warm_intimate",  # Scene 1: Baseline routine
+            "ambient",        # Scene 2: Parallel office workspace
+            "mysterious",     # Scene 3: Growing distance
+            "tension",        # Scene 4: Misunderstanding
+            "dramatic",       # Scene 5: Irreversible moment (climax)
+            "melancholic",    # Scene 6: Aftermath
+            "melancholic",    # Scene 7: Emotional withdrawal
+            "melancholic",    # Scene 8: Isolation deepens
+            "tension",        # Scene 9: Moment of clarity
+            "ambient",        # Scene 10: Failed connection
+            "melancholic",    # Scene 11: Acceptance of distance
+            "ambient",        # Scene 12: New normal
+            "warm_intimate"   # Scene 13: Final hope
         ]
+        
+        cues = []
+        for scene_num in scene_nums:
+            # Map theme dynamically based on sequence
+            theme = theme_sequence[(scene_num - 1) % len(theme_sequence)]
+            cues.append({
+                "scene": scene_num,
+                "theme": theme,
+                "tempo": "slow" if theme in ["melancholic", "tension", "mysterious"] else "medium",
+                "instrumentation": ["piano", "strings"] if theme == "warm_intimate" else ["synthesizer", "strings"],
+                "emotional_beat": theme,
+                "duration": 60  # Default duration in seconds
+            })
+        return cues

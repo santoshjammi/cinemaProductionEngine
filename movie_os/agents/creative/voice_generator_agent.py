@@ -156,27 +156,71 @@ class VoiceGeneratorAgent(ProductionAgent):
 
     def _extract_dialogue_from_screenplay(self, screenplay_content: str) -> List[Dict[str, Any]]:
         """Extract dialogue lines from screenplay content."""
-        # This is a simplified implementation - in reality, this would parse the screenplay
-        # to extract dialogue lines and character information
+        import re
         
-        # For now, return a basic structure
-        return [
-            {
-                "scene": 1,
-                "character": "ETHAN",
-                "dialogue": "You know what I noticed?",
-                "voice_settings": {
-                    "language": "en-US",
-                    "voice_name": "en-US-JennyNeural"
-                }
-            },
-            {
-                "scene": 1,
-                "character": "CLAIRE",
-                "dialogue": "Don't start with the poetry thing.",
-                "voice_settings": {
-                    "language": "en-US",
-                    "voice_name": "en-US-AriaNeural"
-                }
-            }
-        ]
+        # Split screenplay by scene headers
+        scene_blocks = re.split(r'(?i)###\s*(?:SCENE|Scene)\s+', screenplay_content)
+        
+        dialogue_lines = []
+        
+        for block in scene_blocks:
+            if not block.strip():
+                continue
+                
+            # Get scene number from the first line
+            header_line = block.split('\n')[0]
+            scene_match = re.match(r'^(\d+)', header_line)
+            if not scene_match:
+                continue
+            scene_num = int(scene_match.group(1))
+            
+            # Extract dialogue section and narration section
+            dialogue_text_parts = []
+            
+            # Find dialogue section
+            dialogue_part = ""
+            if "#### Dialogue" in block:
+                # Get content between #### Dialogue and the next #### header or next scene boundary
+                dialogue_content = block.split("#### Dialogue")[1]
+                dialogue_part = dialogue_content.split("####")[0]
+            
+            # Parse spoken text inside quotes from the dialogue part
+            quotes = re.findall(r'["“]([^"”]+)["”]', dialogue_part)
+            for q in quotes:
+                clean_q = q.strip()
+                if clean_q:
+                    dialogue_text_parts.append(clean_q)
+            
+            # Find narration section
+            narration_part = ""
+            if "#### Narration" in block:
+                narration_content = block.split("#### Narration")[1]
+                narration_part = narration_content.split("####")[0]
+                
+            # Narration lines are usually wrapped in asterisks
+            narrations = re.findall(r'\*([^*]+)\*', narration_part)
+            for n in narrations:
+                # Strip "Ethan's thoughts:" prefix if present to make it sound better
+                clean_n = re.sub(r'^(?:\w+\'s thoughts:|\w+:)\s*', '', n, flags=re.IGNORECASE).strip()
+                if clean_n:
+                    dialogue_text_parts.append(clean_n)
+            
+            # Join all dialogue/narration parts for this scene
+            scene_text = " ".join(dialogue_text_parts).strip()
+            
+            # Fallback: if no dialogue or narration was parsed, use the scene title/purpose
+            if not scene_text:
+                purpose_match = re.search(r'\*\*Purpose:\*\*\s*([^\n]+)', block, re.IGNORECASE)
+                if purpose_match:
+                    scene_text = f"Scene {scene_num}: {purpose_match.group(1).strip()}"
+                else:
+                    scene_text = f"This is scene {scene_num} of Emotional Withdrawal."
+            
+            dialogue_lines.append({
+                "scene_number": scene_num,
+                "text": scene_text
+            })
+            
+        # Sort by scene number
+        dialogue_lines.sort(key=lambda x: x["scene_number"])
+        return dialogue_lines

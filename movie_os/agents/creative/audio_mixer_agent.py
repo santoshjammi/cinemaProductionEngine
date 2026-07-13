@@ -104,39 +104,78 @@ class AudioMixerAgent(ProductionAgent):
             Path(mixed_audio_path).write_text("Placeholder - no audio assets")
             return mixed_audio_path
         
+        # Get scene durations from context or use defaults (60s per scene)
+        scenes = getattr(context, 'scenes', []) or []
+        scene_durations = {}
+        for scene in scenes:
+            if isinstance(scene, dict):
+                dur = scene.get('duration', 60)
+                num = scene.get('scene_number', 1)
+                scene_durations[num] = dur
+        
+        # Calculate cumulative offsets in milliseconds
+        offsets_ms = []
+        current_offset_ms = 0
+        max_scenes = max(len(voice_paths), len(music_paths))
+        for i in range(1, max_scenes + 1):
+            offsets_ms.append(current_offset_ms)
+            dur = scene_durations.get(i, 60)
+            current_offset_ms += dur * 1000
+
         # Build FFmpeg filter_complex for multi-layer mixing
-        # Voiceover at 100% volume, music at 30% volume
         inputs = []
+        vo_inputs = []
+        mu_inputs = []
+        
+        for path in voice_paths:
+            if Path(path).exists():
+                vo_inputs.append((len(inputs) // 2, path))
+                inputs.extend(['-i', path])
+                
+        for path in music_paths:
+            if Path(path).exists():
+                mu_inputs.append((len(inputs) // 2, path))
+                inputs.extend(['-i', path])
+        
         filter_parts = []
+        vo_pads = []
+        mu_pads = []
         
-        for i, vo in enumerate(voice_paths):
-            if Path(vo).exists():
-                inputs.extend(['-i', vo])
-                filter_parts.append(f'[{i}:a]volume=1.0[vo{i}]')
-        
-        for i, music in enumerate(music_paths):
-            if Path(music).exists():
-                idx = len(voice_paths) + i
-                inputs.extend(['-i', music])
-                filter_parts.append(f'[{idx}:a]volume=0.3[music{i}]')
-        
-        if not filter_parts:
+        import re
+        for idx, path in vo_inputs:
+            scene_match = re.search(r'scene_(\d+)', Path(path).name)
+            scene_num = int(scene_match.group(1)) if scene_match else (idx + 1)
+            offset = offsets_ms[scene_num - 1] if (scene_num - 1) < len(offsets_ms) else 0
+            
+            filter_parts.append(f'[{idx}:a]volume=1.0,adelay={offset}|{offset}[vo{idx}]')
+            vo_pads.append(f'[vo{idx}]')
+            
+        for idx, path in mu_inputs:
+            scene_match = re.search(r'scene_(\d+)', Path(path).name)
+            scene_num = int(scene_match.group(1)) if scene_match else (idx - len(vo_inputs) + 1)
+            offset = offsets_ms[scene_num - 1] if (scene_num - 1) < len(offsets_ms) else 0
+            
+            filter_parts.append(f'[{idx}:a]volume=0.3,adelay={offset}|{offset}[mu{idx}]')
+            mu_pads.append(f'[mu{idx}]')
+            
+        if not vo_pads and not mu_pads:
             logger.warning("No valid audio files found for mixing")
             Path(mixed_audio_path).write_text("Placeholder - no valid audio")
             return mixed_audio_path
-        
-        # Create crossfade chain for voiceovers
-        if len([p for p in voice_paths if Path(p).exists()]) > 1:
-            # Chain voiceover tracks with crossfades
-            vo_count = len([p for p in voice_paths if Path(p).exists()])
-            for i in range(vo_count - 1):
-                filter_parts.append(f'[vo{i}][music{i}]acrossfade=d=5:c1=tri:c2=tri[vf{i}]')
-        
-        # Final mix: combine all tracks
-        all_tracks = [f'[vf{i}]' for i in range(len([p for p in voice_paths if Path(p).exists()]))]
-        if all_tracks:
-            filter_parts.append(f"{''.join(all_tracks)}amix=inputs={len(all_tracks)}:duration=longest[aout]")
-        
+            
+        # Mix the tracks sequentially
+        if vo_pads:
+            filter_parts.append(f"{''.join(vo_pads)}amix=inputs={len(vo_pads)}:duration=longest[all_vo]")
+        if mu_pads:
+            filter_parts.append(f"{''.join(mu_pads)}amix=inputs={len(mu_pads)}:duration=longest[all_mu]")
+            
+        if vo_pads and mu_pads:
+            filter_parts.append("[all_vo][all_mu]amix=inputs=2:duration=longest[aout]")
+        elif vo_pads:
+            filter_parts.append("[all_vo]anull[aout]")
+        else:
+            filter_parts.append("[all_mu]anull[aout]")
+            
         # Build command
         cmd = ['ffmpeg', '-y'] + inputs + [
             '-filter_complex', ';'.join(filter_parts),
