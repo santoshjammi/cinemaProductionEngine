@@ -1,0 +1,104 @@
+# Thumbnail prompt
+#
+# Generates a thumbnail prompt for a story. The thumbnail is the
+# most-clickable asset on YouTube — it must work at small sizes,
+# in dark mode, and against competing thumbnails in a sidebar.
+#
+# Used by: post-pipeline metadata generator (Phase 9)
+
+metadata:
+  id: metadata.thumbnail.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate a thumbnail prompt for a story. The thumbnail is the
+    most-clickable asset — it must work at small sizes, in dark mode,
+    and against competing thumbnails.
+  role: image
+  capability: image
+  tags:
+    - metadata
+    - thumbnail
+    - youtube
+    - image
+  supported_models:
+    - flux-dev
+    - sdxl
+    - sd3
+  recommended_temperature: 0.7
+  recommended_max_tokens: 200
+  avg_tokens: 100
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: subject
+    type: string
+    required: true
+    description: The main subject of the thumbnail (e.g., "a man and woman, faces apart")
+  - name: mood
+    type: string
+    required: true
+    description: The mood (e.g., "tense", "melancholic", "lonely")
+  - name: title
+    type: string
+    required: true
+    description: The video title (will appear as text overlay on the thumbnail)
+  - name: visual_anchor
+    type: string
+    required: true
+    description: Short visual description for the SDXL/FLUX prompt
+  - name: style_anchor
+    type: string
+    required: false
+    default: "cinematic photograph, sharp focus, high contrast, saturated colors, vertical 16:9 composition"
+    description: The style anchor — thumb-optimized
+
+constraints:
+  - rule: "Maximum 50 words in the prompt"
+    severity: must
+  - rule: "Must work at small sizes (320x180) — avoid small details"
+    severity: must
+  - rule: "Must work in dark mode — avoid subtle gradients"
+    severity: must
+  - rule: "Composition: ONE focal point, maximum 2 subjects"
+    severity: must
+  - rule: "Leave space for the title text overlay (top or bottom 30%)"
+    severity: must
+  - rule: "Colors: saturated, high-contrast — not muted or pastel"
+    severity: must
+  - rule: "Emotion: clear and immediate — viewer should feel it in 0.5 seconds"
+    severity: must
+
+examples:
+  - description: "Emotional withdrawal thumbnail"
+    input:
+      title: "The Night He Stopped Reaching For Her"
+      subject: "a man lying awake, his wife asleep beside him, hand hovering"
+      mood: "tense melancholy"
+    output: |
+      cinematic photograph, sharp focus, high contrast, saturated colors, vertical 16:9 composition,
+      a man lying awake, his wife asleep beside him, hand hovering above her shoulder,
+      tense melancholy, dramatic side lighting, intimate, close-up,
+      deep blue shadows, warm amber accent, space for title overlay at top
+
+negative_prompts:
+  - "blurry"
+  - "small details"
+  - "subtle"
+  - "muted"
+  - "pastel"
+  - "busy background"
+  - "text"
+  - "watermark"
+
+body: |
+  {{style_anchor}},
+  {{subject}},
+  {{mood}} mood,
+  {{visual_anchor}},
+  dramatic lighting, deep shadows, warm accent,
+  space for title overlay at top,
+  immediate emotional impact, 0.5 second readability

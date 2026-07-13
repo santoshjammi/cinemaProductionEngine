@@ -1,0 +1,99 @@
+# Story title generator prompt
+#
+# Given a story (synopsis, dna, narrative, scenes), generate 3-5 candidate
+# titles for the video. Each title should be evocative but searchable.
+#
+# Used by: post-pipeline metadata generator (Phase 9)
+# Output: a list of title suggestions
+
+metadata:
+  id: metadata.title.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate 3-5 candidate titles for a story. Titles should be evocative
+    (click-worthy without clickbait) and searchable (clear keywords).
+  role: structured
+  capability: story
+  tags:
+    - metadata
+    - title
+    - youtube
+    - discoverability
+  supported_models:
+    - any-local-llm
+  recommended_temperature: 0.6
+  recommended_max_tokens: 300
+  avg_tokens: 150
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: story_md
+    type: string
+    required: true
+    description: The full story narrative markdown
+  - name: dna
+    type: string
+    required: true
+    description: The Story DNA as YAML
+  - name: logline
+    type: string
+    required: false
+    default: ""
+    description: The one-sentence logline (if available)
+
+constraints:
+  - rule: "Generate 3-5 candidate titles"
+    severity: must
+  - rule: "Output MUST be valid JSON (a list of strings)"
+    severity: must
+  - rule: "Titles should be evocative but not clickbait. No 'You won't believe' or 'X reasons why'."
+    severity: must
+  - rule: "Titles should be 5-12 words long"
+    severity: must
+  - rule: "Each title should hint at the emotional territory without giving away the ending"
+    severity: must
+
+examples:
+  - description: "Emotional withdrawal story"
+    input:
+      logline: "A man stops reaching for his wife — not because he stopped loving her, but because intimacy stopped feeling safe."
+    output: |
+      [
+        "The Night He Stopped Reaching For Her",
+        "When Intimacy Became a Performance",
+        "The Distance That Grew Without Warning",
+        "Why Some Men Stop Initiating Intimacy After Marriage"
+      ]
+
+negative_prompts:
+  - "clickbait"
+  - "you won't believe"
+  - "X reasons why"
+  - "shocking"
+  - "exposed"
+  - "the truth about"
+
+body: |
+  You are a YouTube title strategist for cinematic psychological storytelling.
+
+  Given a story, generate 3-5 candidate titles. Each title should be:
+  - 5-12 words
+  - Evocative but not clickbait (no "You won't believe", no "X reasons why")
+  - Searchable (clear keywords for discoverability)
+  - Hinting at the emotional territory without giving away the ending
+
+  The story:
+
+  Logline: {{logline}}
+
+  Story DNA:
+  {{dna}}
+
+  Story (first 500 chars):
+  {{story_md[:500]}}
+
+  Output a JSON array of 3-5 title strings. No commentary, no markdown:

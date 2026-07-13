@@ -1,0 +1,1177 @@
+# ================================================================
+# PSYCHOLOGICAL CINEMA — MASTER PRODUCTION STANDARD
+# ================================================================
+# Version: 5.1 (2026-07-07 — feedback_04: micro-tension storytelling)
+#
+# v5.1 changelog (vs v5.0):
+#   - NEW: Rule 19 — characters must be imperfect, not composed
+#   - NEW: Rule 20 — emotional devastation hides in ordinary gestures
+#   - NEW: Rule 21 — sound must create physical emotional proximity
+#          (5+ SFX layers on the irreversible_moment beat, volume 0.42)
+#   - NEW: Rule 22 — voice must fracture on emotional moments
+#          (vocal_fracture: SSML breath pre-pad + break tags)
+#   - NEW: ordinary_gesture_anchors in PROMPT_LIBRARY.yaml
+#   - NEW: extended character_template with imperfection registers
+#   - See EmotionalWithdrawal/FORMULA.md v1.1 and emotional_impact_engine.md
+#
+# v5.0 (prior): emotional_impact_engine (4 sub-engines),
+#               silence_engine, voice_modulation_engine, micro_tension.
+#
+# v4.0 (prior): 3-zone music, per-scene ambient SFX, hero character
+#               consistency, platform export.
+# 
+# This is the single source of truth for generating psychological
+# cinema videos. It covers EVERY step from story input to final
+# video upload, with all refinements learned through production.
+#
+# USAGE:
+#   1. Create a niche directory: Psychology/<NicheName>/
+#   2. Create a story file: <NicheName>/VID##_story.md
+#   3. Create a video manifest: <NicheName>/VID##_template.yaml
+#      (copy from VID01_template.yaml, change story_file + characters)
+#   4. Run: python scripts/psychological_pipeline.py \
+#          --playbook Psychology/psychological_cinema_standard.yaml \
+#          --manifest Psychology/<NicheName>/VID##_template.yaml
+#
+# The pipeline reads this standard + the niche context files + the
+# story, and produces: story.md, transcript.txt, final.mp4
+# All output goes to: output/videos/<pipeline_id>/
+#
+# PLATFORMS: YouTube (16:9), Instagram (1:1 or 9:16), Facebook (16:9)
+# ================================================================
+
+psychological_cinema_standard:
+
+  version: "5.1"
+
+  # ============================================================
+  # BRAND UNIVERSE — applies to ALL psychology niches
+  # ============================================================
+  brand:
+    name: "Beneath The Silence"
+    genre:
+      - emotional_documentary
+      - cinematic_monologue
+      - psychological_narrative
+    
+    tagline: "Emotional truth, observed — not explained."
+    
+    core_feelings:
+      - loneliness
+      - emotional_withdrawal
+      - silent_grief
+      - exhaustion
+      - fear_of_rejection
+      - emotional_numbness
+      - self_protection
+    
+    audience_experience:
+      - emotional_recognition      # "I know this feeling."
+      - psychological_identification # "This is my story."
+      - reflective_silence          # Sitting with the truth.
+      - emotional_immersion         # Drawn into the world.
+    
+    emotional_rules:
+      - "Never explain emotions too directly."
+      - "Reveal emotional truth gradually."
+      - "Use implication over exposition."
+      - "Pain should feel observed, not dramatized."
+      - "Nuance is the moat — protect it aggressively."
+    
+    forbidden:
+      - emotional_manipulation
+      - outrage_content
+      - gender_wars
+      - over_explanation
+      - algorithmic_hook_spam
+      - fake_motivation
+      - forced_virality
+      - motivational_energy
+      - podcast_energy
+      - therapy_language
+      - educational_exposition
+      - social_media_style_hooks
+    
+    success_metrics:
+      desired_audience_response:
+        - reflective_comments
+        - emotional_identification
+        - rewatches
+        - silent_engagement
+        - emotional_sharing
+      avoid_optimization_for:
+        - rage_clicks
+        - controversy
+        - hyperactive_retention_hacks
+        - low_attention_content
+
+  # ============================================================
+  # NARRATIVE PHILOSOPHY — rules for every story
+  # ============================================================
+  narrative_philosophy:
+
+    # The strongest moments are not the sad moments.
+    # They are ALMOST moments — almost touching, almost speaking,
+    # almost reconnecting. Tension lives in interruption, not despair.
+    core_principle: "Emotionally interrupted relationships — not broken ones."
+    
+    rules:
+      - rule: "Emotional contrast before collapse"
+        problem: "Without contrast, heaviness becomes wallpaper. Viewers adapt."
+        solution: "Insert warmth/memory/tenderness BEFORE the collapse. Something to mourn."
+        implementation: "Scene 2-3 must contain: laughter, closeness, domestic warmth. Even 12 seconds changes everything."
+        mandatory: true
+      
+      - rule: "Recognition over analysis"
+        problem: "Narration sounds like psychology commentary."
+        solution: "Sound internally discovered, not explained."
+        bad_example: "Maybe he started to feel unwanted."
+        good_example: "After a while, he stopped knowing whether she still desired him… or was simply used to him being there."
+        mandatory: true
+      
+      - rule: "Emotional modulation, not flatline"
+        problem: "If every scene is sad, dark, reflective — audience stops feeling."
+        solution: "Energy must rise AND fall. Warmth (7) → Normalcy (4) → Collapse (2) → Almost (5, spike) → Climax (1)."
+        mandatory: true
+      
+      - rule: "Uncomfortable duality"
+        problem: "Monotonous one-sided suffering causes fatigue."
+        solution: "Show BOTH partners hurting. She is exhausted too. He is not the only victim."
+        implementation: "At least one scene must show HER grief, HER exhaustion, HER withdrawal."
+        mandatory: true
+      
+      - rule: "Almost moments are the core"
+        problem: "The sad moments are not the strongest moments."
+        solution: "The almost moment (almost touching, almost speaking) is the emotional centerpiece."
+        implementation: "Every video MUST contain at least one almost_moment scene."
+        mandatory: true
+      
+      - rule: "Duration discipline"
+        requirement: "Keep videos 4-7 minutes initially."
+        why: "Shorter forces precision. Precision creates rewatchability. Rewatchability builds audience."
+        mandatory: true
+      
+      - rule: "Climax is recognition, not prescription"
+        requirement: "The final line must be a quiet truth, not advice."
+        forbidden_endings: "No 'you should', no 'this is why', no lessons."
+        good_endings:
+          - "Not all distance is anger. Sometimes distance is grief."
+          - "They still love each other. But love without safety becomes performance."
+          - "They still live in the same house. But they don't live in the same life."
+        mandatory: true
+
+  # ============================================================
+  # EMOTIONAL IMPACT ENGINE (v5.0) — the 4 sub-engines
+  # ============================================================
+  # Full operational spec lives in:
+  #   Psychology/EmotionalWithdrawal/emotional_impact_engine.md
+  #   Psychology/EmotionalWithdrawal/FORMULA.md
+  # The pipeline reads these 4 sub-engines from the manifest and applies
+  # them at the moment level. Every video MUST satisfy all 4.
+
+  emotional_impact_engine:
+
+    # ----------------------------------------------------------------
+    # 1. irreversible_moment
+    # ----------------------------------------------------------------
+    # Exactly ONE scene per video. The pipeline rejects manifests with
+    # zero or more than one `irreversible_moment: true` scene.
+    irreversible_moment:
+      mandatory: true
+      count_per_video: 1
+      objective:
+        - emotional_memory_creation      # viewer remembers days later
+        - sensory_immersion              # feels physically present
+        - psychological_shift            # emotional state permanently altered
+
+      structure:
+        pre_moment:
+          description: "The scene before the trigger. Emotional build-up, restrained music."
+          emotional_state: [emotional_build_up, tension_accumulation, restrained_distance]
+          audio: [low_ambient_support, subtle_room_tone, restrained_music]
+          narration:
+            style: [observational, reflective, emotionally_restrained]
+        trigger_moment:
+          description: "The scene marked `irreversible_moment: true`. The interruption IS the moment."
+          emotional_state: [interruption, hesitation, emotional_risk, internal_conflict]
+          visual_behavior:
+            - unfinished_gesture
+            - hand_withdrawal
+            - eye_contact_break
+            - interrupted_touch
+            - redirected_attention
+          audio_transition:
+            remove: [music, emotional_padding]
+            amplify: [breathing, cloth_movement, room_tone, silence]
+          narration_transition:
+            style: [softer_delivery, breath_fragility, longer_pauses, emotional_fracture]
+          tts_prosody_override:
+            rate: "-30%"
+            volume: "-20%"
+            pitch: "-12Hz"
+          music_volume: 0.0
+          ambient_volume: 1.0
+          silence_after: 3.0
+          voiceover_max_words: 12
+          shot_preset: irreversible_moment
+          ken_burns: "ken-burns (negative amplitude — slow drift backward)"
+        post_moment:
+          description: "The scene after the trigger. Unresolved ache, lingering silence."
+          emotional_state: [unresolved_ache, quiet_devastation, emotional_aftershock]
+          audio: [delayed_ambient_return, fragile_soundscape, lingering_silence]
+          narration:
+            style: [minimal, emotionally_exhausted, unresolved]
+          silence_before: 2.0
+          music_volume: 0.5  # music re-enters, but quieter than before
+
+      pipeline_assertions:
+        - "Exactly 1 scene with irreversible_moment: true exists"
+        - "That scene's voiceover is <=12 words OR silence_instead: true"
+        - "That scene's music_volume is overridden to 0.0"
+        - "That scene's TTS uses the dramatic prosody override (rate=-30, volume=-20, pitch=-12)"
+        - "The previous scene is in Act 2"
+        - "The next scene has silence_before >= 1.5"
+
+    # ----------------------------------------------------------------
+    # 2. silence_engine
+    # ----------------------------------------------------------------
+    silence_engine:
+      philosophy:
+        - "Silence is storytelling."
+        - "Emotional weight requires space."
+        - "Silence creates anticipation."
+      rules:
+        - "Use silence before emotional truths."
+        - "Use silence after emotional interruption."
+        - "Never continuously fill emotional space."
+        - "Silence should feel intentional."
+      types:
+        silence_before:
+          description: "N seconds of room tone before this scene's narration begins"
+          audio: "ambient at full volume, music muted, narration absent"
+        silence_after:
+          description: "N seconds of room tone after this scene's narration ends"
+          audio: "ambient at full volume, music muted, narration absent"
+        silence_instead:
+          description: "This scene has NO narration. Only ambient + room tone carry it."
+          audio: "ambient at full volume, music muted, narration absent for entire scene"
+      minimum_requirement: "At least 2 scenes per video must have silence_before or silence_after >= 1.5s"
+      irreversible_moment_rule: "The irreversible moment scene is ALWAYS silence_instead: true plus silence_after: 3.0. The next scene has silence_before: 2.0."
+
+    # ----------------------------------------------------------------
+    # 3. voice_modulation_engine
+    # ----------------------------------------------------------------
+    voice_modulation_engine:
+      philosophy: "Voice follows the emotional arc but breaks progression on the irreversible moment."
+      progression: [observational, vulnerable, fractured, emotionally_exhausted]
+      modulation_rules:
+        - "Voice should soften during emotional exposure."
+        - "Breathing should remain audible during fragile moments."
+        - "Pauses should emotionally land before narration continues."
+      prosody_table:
+        default:
+          rate: "-15%"
+          volume: "-10%"
+          pitch: "-5Hz"
+          description: "Reflective, present, not yet exposed"
+          applies_when: "act == 'act_1_observation' or no override"
+        vulnerable:
+          rate: "-20%"
+          volume: "-12%"
+          pitch: "-7Hz"
+          description: "Showing through. The voice is opening."
+          applies_when: "act == 'act_2_inner_reality' and energy <= 3"
+        fractured:
+          rate: "-22%"
+          volume: "-15%"
+          pitch: "-8Hz"
+          description: "The voice is breaking slightly."
+          applies_when: "act == 'act_3_psychological_truth'"
+        emotionally_exhausted:
+          rate: "-25%"
+          volume: "-18%"
+          pitch: "-10Hz"
+          description: "The last thing the voice can manage."
+          applies_when: "phase == 'climax' and silence_instead != true"
+        irreversible_moment:
+          rate: "-30%"
+          volume: "-20%"
+          pitch: "-12Hz"
+          description: "A register the rest of the video never uses. The sudden drop is what makes the moment stand out."
+          applies_when: "scene.irreversible_moment == true"
+          breathing_layer_db: "+3dB"
+
+    # ----------------------------------------------------------------
+    # 4. micro_tension_engine
+    # ----------------------------------------------------------------
+    micro_tension_engine:
+      philosophy: "Emotion is interrupted, not displayed. The strongest emotions leak through behaviors the character doesn't intend."
+      required_behaviors:
+        - unfinished_movements
+        - hesitation
+        - redirected_attention
+        - almost_touching
+        - almost_speaking
+        - emotional_withdrawal
+      avoid:
+        - direct_emotional_display
+        - melodrama
+        - emotional_overacting
+      enforcement: "The prompt builder parses scene_description and asserts that at least 1 of the 6 required behaviors is present. If none is detected, the scene is regenerated."
+      forbidden_visual_patterns:
+        - "staring sadly at camera"
+        - "crying openly"
+        - "dramatic pose"
+        - "head in hands"
+        - "looking into the distance dramatically"
+        - "tear rolling down cheek in slow motion"
+        - "intense emotional expression"
+      environmental_imperfections:
+        description: "Every scene must contain >=2 of these. Spaces must feel inhabited, not staged."
+        categories:
+          fabric_wear: ["wrinkled blankets, rumpled sheets", "pillows with head shapes still pressed in", "worn cushion, faded throw pillow"]
+          kitchen_mess: ["half-empty mug on the counter", "dishes in the sink", "a single unwashed glass by the bed", "a sock on the hallway floor"]
+          light_imperfection: ["flickering lamp, single bulb", "shadows pooling in a corner", "the TV's standby light glowing red"]
+          hallway_clutter: ["shoes kicked off at an angle", "a coat half on a hook", "mail on the counter not sorted", "keys dropped not placed"]
+          door_state: ["a door not quite closed", "a door not quite open", "the bathroom door cracked an inch"]
+          reflections: ["their face in the dark window", "kitchen light reflected in the hallway mirror", "rain on a window with a face behind it"]
+          texture_grain: ["35mm film grain throughout", "slight motion blur on edges", "soft focus on periphery", "a faint scratch on the lens"]
+          signs_of_life: ["a water ring on the nightstand", "toothpaste smudge on the mirror", "fingerprint on a phone screen", "a pen mark on the back of a hand"]
+
+    # ----------------------------------------------------------------
+    # Validation — the pipeline runs all of these before producing
+    # ----------------------------------------------------------------
+    validation:
+      exactly_one_irreversible_moment: true
+      irreversible_moment_prosody_override_required: true
+      irreversible_moment_silence_instead_or_short_vo: true
+      at_least_two_scenes_with_silence: true
+      at_least_one_scene_with_duality: true
+      every_scene_has_micro_behavior: true
+      every_scene_has_environmental_imperfection: true
+      voiceovers_use_trailing_implication: true
+      total_duration_4_to_7_minutes: true
+
+  # ============================================================
+  # VIDEO ARCHITECTURE — 3-act structure, 11 scenes
+  # ============================================================
+  video_architecture:
+
+    structure:
+      - act_1_observation
+      - act_2_inner_reality
+      - act_3_psychological_truth
+    
+    act_1_observation:
+      title: "Observation"
+      objective: "Introduce recognizable external behavior."
+      viewer_response: "I know this feeling."
+      scenes: 4
+    
+    act_2_inner_reality:
+      title: "Inner Reality"
+      objective: "Reveal hidden emotional mechanism."
+      viewer_response: "I didn't realize this was underneath it."
+      emotional_layers: [fear, shame, exhaustion, resentment, inadequacy, loneliness]
+      scenes: 4
+    
+    act_3_psychological_truth:
+      title: "Psychological Truth"
+      objective: "Deliver emotionally painful realization."
+      viewer_response: "That truth hurts."
+      narrative_style: [reflective, restrained, devastating_but_quiet]
+      scenes: 3
+    
+    total_scenes: 11
+    target_duration: "4-7 minutes"
+
+  # ============================================================
+  # NARRATIVE ARC — 9 phases across 3 acts
+  # ============================================================
+  # The LLM must generate exactly these phases in this order.
+  # Each phase defines: purpose, mood, energy (1-10), narration style,
+  # camera direction, and Ken Burns effect.
+  
+  narrative_arc:
+
+    act_1:  # OBSERVATION — viewer recognizes the behavior
+      phases:
+        - phase: hook
+          beat: opening_hook
+          scene_count: 1
+          purpose: "Immediate emotional recognition. Not statistics. Not advice. A frozen moment."
+          mood: tense_restraint
+          energy: 3
+          target_duration: "20-30s"
+          narration_style: "Low, restrained, pause-heavy. Set the emotional temperature."
+          camera_note: "Close-up, practical light, frozen gesture"
+          ken_burns: ken-burns
+        
+        - phase: warmth
+          beat: contrast_memory
+          scene_count: 2
+          purpose: "Show what was lost. REAL warmth — laughter, tenderness, closeness. Something to mourn. This is the ONLY warmth in the entire video. It must feel genuine, not nostalgic-sad. The audience must FEEL the warmth, not just observe it."
+          mood: warm_nostalgic
+          energy: 7
+          target_duration: "20-30s each"
+          narration_style: "Softer, almost fond. Trailing off. Memory voice. NOT sad — warm. The sadness comes LATER when this is gone."
+          camera_note: "Golden hour light. The ONLY warm-lit scenes in the entire video. Soft, diffused, amber glow. NOT blue, NOT dark. These scenes must feel like a different film."
+          visual_note: "Show REAL intimacy — her hand on his arm, his head thrown back laughing, her leaning on his shoulder. Not posed — candid, lived-in, accidental."
+          ken_burns: zoom-in
+          mandatory: true
+          why: "Without this the collapse has no weight. The audience needs to mourn something. Sadness after warmth becomes heartbreak. Sadness without contrast becomes texture."
+        
+        - phase: normalcy
+          beat: outside_version
+          scene_count: 1
+          purpose: "Show how invisible this is from outside. Polite. Functional. Empty."
+          mood: flat_normal
+          energy: 4
+          target_duration: "20-30s"
+          narration_style: "Measured, observational. 'From the outside, nothing looks wrong.'"
+          camera_note: "Medium shot, domestic space, distance between bodies"
+          ken_burns: pan-right
+
+    act_2:  # INNER REALITY — reveal the hidden mechanism
+      phases:
+        - phase: crack
+          beat: first_fracture
+          scene_count: 1
+          purpose: "The first visible crack. A moment that should be small but isn't."
+          mood: quiet_unease
+          energy: 3
+          target_duration: "20-30s"
+          narration_style: "Observational. Noting the small thing that changed everything."
+          camera_note: "Isolated subject, low-key lighting beginning to dominate"
+          ken_burns: zoom-out
+        
+        - phase: collapse
+          beat: internal_collapse
+          scene_count: 2
+          purpose: "Reveal the psychological truth. Not desire that disappears — safety."
+          mood: deepening_darkness
+          energy: 2
+          target_duration: "25-35s each"
+          narration_style: "Slow, intimate, pained. Recognition not analysis."
+          camera_note: "Solo frames, isolation, darkness as character"
+          ken_burns: zoom-out
+        
+        - phase: almost
+          beat: almost_moment
+          scene_count: 1
+          purpose: "THE EMOTIONAL CENTERPIECE. Almost touching. Almost speaking. The interruption IS the story."
+          mood: suspended_ache
+          energy: 5
+          target_duration: "20-30s"
+          narration_style: "Barely above whisper. The almost is stronger than the never."
+          camera_note: "Extreme close-up on hands almost touching. The most important shot in the entire video."
+          ken_burns: ken-burns
+          mandatory: true
+          why: "This is where tension lives. Not in despair. In interruption."
+
+    act_3:  # PSYCHOLOGICAL TRUTH — the devastating realization
+      phases:
+        - phase: retreat
+          beat: defensive_retreat
+          scene_count: 1
+          purpose: "Self-protection. He stops trying. She stops trying. Both retreat."
+          mood: numb_resigned
+          energy: 2
+          target_duration: "20-30s"
+          narration_style: "Flat, defeated. 'Avoiding rejection hurt less than hoping for connection.'"
+          camera_note: "Wide shot showing isolation within shared space"
+          ken_burns: pan-right
+        
+        - phase: duality
+          beat: her_truth
+          scene_count: 1
+          purpose: "She is also exhausted. She also stopped feeling safe. Show both sides."
+          mood: quiet_grief
+          energy: 3
+          target_duration: "20-30s"
+          narration_style: "Turn toward her. 'She learned the same lesson. Just in her own way.'"
+          camera_note: "Her alone — rain, window, tears. Never shown his pain only."
+          ken_burns: pan-left
+          mandatory: true
+          why: "Prevents monotonous male suffering. Human, not gendered."
+        
+        - phase: climax
+          beat: final_truth
+          scene_count: 1
+          purpose: "THE CLIMAX. The devastating line. Not advice. Not a lesson. A quiet truth."
+          mood: devastating_quiet
+          energy: 1
+          target_duration: "25-40s"
+          narration_style: "Quiet, final, slow. The last sentence must be unforgettable."
+          camera_note: "Parallel to opening — same bedroom, same bed, but now the distance is permanent. Fade to black."
+          ken_burns: ken-burns
+          mandatory: true
+          climax_rules:
+            - "Must be a RECOGNITION, not a prescription"
+            - "No advice. No 'you should'. No 'this is why'."
+            - "A quiet truth that lands like a stone dropping."
+            - "Something the viewer recognizes in their own life."
+            - good_examples:
+              - "Not all distance is anger. Sometimes distance is grief."
+              - "They still love each other. But love without safety becomes performance."
+              - "They still live in the same house. But they don't live in the same life."
+
+  # ============================================================
+  # NARRATION ENGINE — "internally discovered", not "written"
+  # ============================================================
+  # Expert feedback 01 Issue 3: "Narration sounds authored, not internally discovered."
+  # Expert feedback 02 Issue 3: "Video explains TOO MUCH. Audience should FEEL the
+  # meaning before consciously understanding it. LESS narration. More silence.
+  # Let the VISUAL carry the emotion. Maximum 1-3 sentences per scene."
+  narration_engine:
+    tone: [intimate, emotionally_restrained, reflective, observant, psychologically_precise]
+    avoid: [motivational_energy, podcast_energy, therapy_language, educational_exposition, social_media_style_hooks, authored, analytical, clinical, over_explanation]
+    
+    writing_formula: [observation, specificity, silence, implication]
+    
+    narration_rules:
+      - "Narration should sound internally discovered — like someone thinking, not writing."
+      - "Do not over-explain emotional states."
+      - "Use pauses intentionally."
+      - "Sentences should feel human, not optimized."
+      - "Sound LIVED, not AUTHORED. Sound like it comes from inside the experience."
+      - "Replace analytical observations with embodied ones — 'he stopped knowing' not 'he experienced'."
+      - "Add ambiguity. Add ache. Add humanity. Remove certainty."
+      - "EXPERT FEEDBACK 02: LESS IS MORE. Maximum 1-3 sentences per scene. Maximum 25 words."
+      - "EXPERT FEEDBACK 02: The narration should NOT describe what's on screen. It should add a layer the visual can't."
+      - "EXPERT FEEDBACK 02: The viewer should FEEL the meaning before consciously understanding it."
+      - "EXPERT FEEDBACK 02: If the visual shows hesitation, do NOT narrate 'he hesitated.' Narrate something adjacent."
+    
+    preferred_sentence_style:
+      - "After a while, he stopped reaching for her first."  # 10 words
+      - "The silence didn't arrive suddenly."                 # 5 words
+      - "They still spoke every day. Just not honestly."      # 8 words
+      - "Even small moments started feeling risky."            # 6 words
+    
+    # BAD patterns to explicitly avoid
+    forbidden_patterns:
+      - "Maybe he started feeling unwanted."  # → Too analytical
+      - "This is what happens when..."          # → Too explanatory
+      - "He was experiencing..."               # → Too clinical
+      - "Let's talk about..."                   # → Too podcast
+      - "In this video..."                      # → Too YouTube
+    
+    tension_model:
+      preferred: [interrupted_intimacy, almost_moments, silence, emotional_hesitation]
+      avoid: [loud_arguments, overdrama, melodrama, exaggerated_conflict]
+
+  # ============================================================
+  # VISUAL ENGINE — cinematic realism, not "generated" looking
+  # ============================================================
+  # Expert feedback 01 Issue 1: "Visuals feel too generated — illustrative,
+  # symbolic, not lived-in, observational, cinematic."
+  # Expert feedback 01 Issue 5: "Too visually explicit — show implication
+  # not explanation."
+  # Expert feedback 02 Issue 1: "Characters feel SYMBOLIC — need micro-behaviors:
+  # awkward glance timing, interrupted sentences, nervous hand movement,
+  # distracted eye contact, unfinished gestures. Not emotional posing."
+  # Expert feedback 02 Issue 2: "Visuals still too CLEAN — need clutter, dim
+  # shadows, texture, grain, reflections, asymmetry, environmental realism.
+  # Spaces must feel INHABITED."
+  
+  visual_engine:
+    themes:
+      - isolation_in_shared_spaces
+      - nighttime_honesty
+      - emotional_distance
+      - routine_without_presence
+      - interrupted_connection
+    
+    recurring_motifs:
+      - same_bed_distance
+      - kitchen_silence
+      - late_night_scrolling
+      - almost_touching_hands
+      - empty_hallways
+      - rain_against_windows
+      - driving_in_silence
+      - untouched_coffee
+      - half_open_bedroom_door
+      - empty_chair
+      - unwashed_mug
+      - shoes_kicked_off
+      - mail_on_counter
+    
+    # IMPLICATION RULE — show the consequence, not the emotion
+    implication_rules:
+      - "NEVER directly illustrate the narration. The visual should IMPLY the emotion."
+      - "Instead of 'sad face' → show 'untouched coffee on the counter'"
+      - "Instead of 'lonely man' → show 'empty chair beside a full one'"
+      - "Instead of 'couple fighting' → show 'two toothbrushes, one moved to the far side of the sink'"
+      - "Instead of 'he stopped reaching' → show 'his hand resting on his own knee, not the space between them'"
+      - "The viewer must emotionally complete the meaning themselves."
+    
+    # MICRO-BEHAVIOR RULES (expert feedback 02 Issue 1)
+    # Characters must show micro-behaviors, not emotional posing
+    micro_behavior_rules:
+      - "Show awkward glance timing — eyes flick to her, then back to phone"
+      - "Show interrupted gestures — hand starts to reach, then withdraws"
+      - "Show nervous hand movement — fingers drumming, picking at label"
+      - "Show distracted eye contact — looking at her, then away, then at the wall"
+      - "Show unfinished movements — mouth opens as if to speak, then closes"
+      - "Show micro-contradictions — he almost says something, changes his mind, checks phone instead. She notices, pretends not to."
+      - "NEVER show 'emotional posing' — no posed sadness, no dramatic staring"
+    
+    # ENVIRONMENTAL MESSINESS (expert feedback 02 Issue 2)
+    environmental_messiness:
+      - "cluttered counter with unwashed mugs"
+      - "shoes kicked off at the door, one pair tipped over"
+      - "mail and keys scattered on the entry table"
+      - "wrinkled, unmade bed"
+      - "dishes in the sink, not staged"
+      - "dust particles in a beam of light"
+      - "condensation on a cold glass"
+      - "a jacket draped over a chair, not hung up"
+      - "asymmetric framing — subject off-center, negative space dominates"
+      - "dim shadows in corners, not evenly lit"
+      - "reflections in windows — street lights, rain, passing cars"
+      - "grain and texture — never clean, never polished, never curated"
+    
+    camera_style:
+      movement: [slow, minimal, observational, handheld_micro_movement, parallax]
+      framing: [negative_space, soft_focus, close_emotional_framing, intimate_composition, asymmetric, imperfect]
+      psychology: "Camera feels accidentally observed, not intentionally constructed. Like the viewer is standing in the doorway, witnessing something private. Imperfect framing — slightly off-center, slightly too close, slightly too far."
+    
+    lighting_style:
+      preferred: [warm_low_light, practical_lighting, natural_shadows, nighttime_ambience, lighting_flicker, dim_shadows_in_corners]
+      avoid: [over_stylized_lighting, hyper_saturated_colors, high_energy_visuals, even_lighting, clean_lighting]
+    
+    visual_system:
+      style: "cinematic photorealism, 35mm film grain, muted desaturated tones, lived-in realism, accidental observation, environmental messiness, imperfect framing"
+      color_palette:
+        dominant: "cool blue undertones"
+        practical_lights: "warm amber"
+        shadows: "deep but not crushed, dim corners"
+        highlights: "soft, rolled off"
+      texture: "shallow depth of field, natural film grain, soft contrast, physical imperfection, clutter, reflections"
+      consistency_anchors:
+        - "Cool blue undertones in every scene — never warm overall"
+        - "Warm amber only from practical light sources (phone, lamp, TV)"
+        - "Shallow depth of field with bokeh — never deep focus"
+        - "Film grain texture — never clean digital look"
+        - "Muted desaturated palette — never vibrant"
+        - "Low light — darkness is a character, not absence of light"
+        - "Distance in shared spaces — together but apart"
+        - "Nighttime dominates — daytime only in memory scenes"
+        - "Environmental messiness in every scene — clutter, dust, unwashed mugs"
+        - "Physical imperfection — wrinkles, dust, condensation, mess"
+        - "Imperfect framing — off-center, asymmetric, accidentally observed"
+      negative_prompt: >
+        cartoon, anime, illustration, painting, 3d render, cgi, video game,
+        blurry, low quality, distorted, deformed, disfigured, bad anatomy,
+        extra limbs, extra fingers, watermark, signature, text,
+        oversaturated, hdr, plastic skin, duplicate, cloned,
+        overlapping subjects, messy composition, chaotic,
+        multiple scenes, collage, split screen, bright daylight,
+        cheerful, stock photo, commercial photography, staged, perfect,
+        smooth, airbrushed, digital art, concept art, clean, polished,
+        curated, composed, symmetric, even lighting, emotional posing
+
+  # ============================================================
+  # SOUND DESIGN ENGINE — 3-zone music + per-scene ambient SFX
+  # ============================================================
+  # Expert feedback Issue 4: "Sound must become the emotional nervous system.
+  # Need room tone, silence, breathing, texture, environmental intimacy.
+  # The viewer should feel physically inside the scene."
+  sound_design_engine:
+    emotional_audio_goal: "Create subconscious emotional immersion. Sound must become the emotional nervous system, not just support the video."
+    
+    # Narration — soft, tired, intimate, restrained
+    narration_audio:
+      tts_engine: "edge-tts"
+      voice: "en-US-AndrewMultilingualNeural"
+      voice_tags: ["Warm", "Authentic", "Honest"]
+      rate: "-15%"
+      volume: "-10%"
+      pitch: "-5Hz"
+      sample_rate: 44100
+      channels: 2
+      merge_bitrate: "192k"
+      voice_style: [soft, conversational, tired, emotionally_restrained, intimate]
+      avoid: [trailer_voice, radio_voice, hype_voice, overly_clean_delivery]
+    
+    # 3-zone music architecture — music shifts with the narrative arc
+    music_zones:
+      act_1:
+        name: "ambient_piano"
+        description: "Sparse A-minor piano notes + low sub-drone. Grounding, familiar, warm-but-melancholic."
+        key: "A_minor"
+        volume_in_mix: 0.35
+        synthesis:
+          - "Sub-drone at 55Hz (A1) with breathing movement"
+          - "Piano notes: A2, E3, A3, C4, E4, G4 — sparse, 2-4s apart"
+          - "6 harmonics per note, exponential decay envelope"
+          - "Reduce volume 10% per pattern repeat to avoid monotony"
+      
+      act_2:
+        name: "dark_drone"
+        description: "Low D1 drone + dissonant tritone notes (D vs Bb). Ominous, uneasy, tension building."
+        key: "D_minor"
+        volume_in_mix: 0.25
+        synthesis:
+          - "Deep drone at 36.7Hz (D1) + 55Hz (A1) for body"
+          - "Dissonant notes: D2, Bb2 (tritone = devil's interval), Eb2 (minor second)"
+          - "6% detuned pairs create beating/dissonance"
+          - "Slow 500ms attack, long decay"
+          - "Reduce volume 15% per repeat — diminishing, fading hope"
+      
+      act_3:
+        name: "near_silence"
+        description: "Single sustained A1 note fading to nothing. The absence IS the impact. Let the climax breathe."
+        key: "A_minor"
+        volume_in_mix: 0.15
+        synthesis:
+          - "Single sustained 55Hz (A1) note, barely audible"
+          - "2s attack, sustain, then exponential fade to zero starting at 30%"
+          - "One last piano note (A2) at the very beginning — like a last heartbeat"
+          - "Room tone volume INCREASED to 0.30 to fill the void"
+      
+    music_avoid: [epic_music, inspirational_music, orchestral_buildup, excessive_melody]
+    
+    # Per-scene ambient SFX — each scene gets its own ambient bed
+    # Expert feedback: "distant fan hum, bedsheet movement, subtle breathing,
+    # nighttime ambience — these tiny sounds create emotional proximity."
+    ambient_audio:
+      room_tone_volume: 0.20
+      climax_room_tone_volume: 0.30
+      required_elements: [room_tone, distant_traffic, rain, fan_hum, breathing, bedsheet_movement, kitchen_ambience, footsteps]
+      philosophy: "Subconscious presence. Realism over noticeability. The viewer should feel physically inside the scene."
+      
+      # Per-scene ambient mapping — each beat gets specific SFX
+      per_scene_ambient:
+        opening_hook:
+          sounds: [nighttime_ambience, distant_fan_hum, subtle_breathing]
+          description: "Bedroom at night — fan hum, breathing, sheets"
+          volume: 0.25
+        contrast_memory:
+          sounds: [morning_birds_distant, kitchen_sounds, warm_ambience]
+          description: "Warm morning — birds, kitchen, life"
+          volume: 0.22
+        outside_version:
+          sounds: [kitchen_ambience, distant_traffic, cutlery_sounds]
+          description: "Domestic routine — kitchen, traffic, dishes"
+          volume: 0.20
+        first_fracture:
+          sounds: [car_idle, rain_on_windshield, distant_traffic]
+          description: "Parked car — engine hum, rain, silence"
+          volume: 0.22
+        internal_collapse:
+          sounds: [room_tone, breathing, clock_ticking_distant]
+          description: "Empty room — clock, breathing, nothing else"
+          volume: 0.20
+        almost_moment:
+          sounds: [nighttime_ambience, breathing, fabric_movement]
+          description: "Bedroom — silence, breathing, sheets shifting"
+          volume: 0.25
+        defensive_retreat:
+          sounds: [tv_glow_hum, gaming_sounds_distant, room_tone]
+          description: "Living room — TV hum, controller clicks, isolation"
+          volume: 0.20
+        her_truth:
+          sounds: [rain_against_window, crying_breath, room_tone]
+          description: "Bedroom — rain, uneven breathing, tears"
+          volume: 0.28
+        final_truth:
+          sounds: [nighttime_ambience, breathing, fan_hum, silence]
+          description: "Bedroom — fan, breathing, the sound of nothing left to say"
+          volume: 0.30
+    
+    # Silence rules
+    silence_rules:
+      - "Silence is part of the soundtrack."
+      - "Do not constantly fill emotional space."
+      - "Use silence before emotional truths."
+      - "Act 3 should feel like the music has abandoned the viewer — just voice and room tone."
+      - "Let 2-3 seconds of pure silence exist between some scenes — let the truth land."
+      # v5.0 — silence is now ENGINEERED, not accidental.
+      # See emotional_impact_engine.silence_engine for the full spec.
+      - "v5.0: Each scene can carry silence_before / silence_after / silence_instead."
+      - "v5.0: The irreversible moment scene is ALWAYS silence_instead + silence_after=3.0."
+      - "v5.0: The scene AFTER the irreversible moment has silence_before=2.0."
+      - "v5.0: At least 2 scenes per video must use silence_before or silence_after."
+
+  # ============================================================
+  # IMAGE GENERATION ENGINE — SDXL + CLIP chain-of-verification
+  # With character consistency via img2img hero references
+  # ============================================================
+  image_engine:
+    model:
+      name: "stabilityai/stable-diffusion-xl-base-1.0"
+      type: "sdxl"
+      dtype: "float16"
+      variant: "fp16"
+      device: "mps"
+      resolution:
+        width: 1024
+        height: 576
+    
+    generation:
+      num_inference_steps: 30
+      guidance_scale: 7.5
+      num_candidates: 4
+      min_clip_score: 0.30
+      max_refine_rounds: 2
+      candidate_seeds: [42, 137, 1024, 7777]
+      refinement_seeds: [314, 2718, 9999, 5678]
+      # Character reference — uses img2img with hero image if available
+      # 0.3 = very faithful to face, 0.45 = balanced, 0.6 = more scene flexibility
+      character_reference_strength: 0.45
+    
+    # CRITICAL: SDXL's CLIP encoder (ViT-L/14) has a 77-token hard limit.
+    # Anything beyond token 77 is SILENTLY DROPPED.
+    # The prompt builder must put the most important content FIRST:
+    #   1. Scene description (what to draw) — MUST be within 77 tokens
+    #   2. Character anchors (who is in it)
+    #   3. Shot language (camera, lighting — condensed)
+    # The builder actively counts tokens and trims from the end.
+    prompt_priority_order:
+      - "scene_description"
+      - "character_anchors"
+      - "visual_cause_of_emotion"
+      - "shot_language"
+      - "color_bias"
+    
+    # Identity anchoring — character anchors repeated VERBATIM in every scene
+    # for cross-scene character consistency. SDXL has no native character lock.
+    identity_anchoring:
+      technique: "Repeat 3-5 disambiguating visual attributes verbatim per scene"
+      example: "man mid-30s, short dark brown hair, stubble, grey t-shirt"
+      rule: "Pronouns and 'the same character' do NOT work. State the attributes."
+    
+    # Character consistency — hero reference images in characters/ directory
+    character_consistency:
+      description: >
+        For consistent character appearance across scenes and videos,
+        create one 'hero' reference image per character in the niche's
+        characters/ directory. The pipeline will use img2img to maintain
+        the same face/body across all scenes.
+      directory: "characters/"
+      files:
+        - "characters/husband_hero.png"
+        - "characters/wife_hero.png"
+      generation_command: "python scripts/generate_heroes.py --niche <NicheName>"
+      regeneration_command: "python scripts/generate_heroes.py --niche <NicheName> --regenerate husband --seed 50"
+      workflow:
+        - "1. Generate hero images for each character"
+        - "2. Open the images to review — are the faces clear and simple?"
+        - "3. If not, regenerate with different seed or refine the anchors"
+        - "4. Once satisfied, run the main pipeline — it will use img2img automatically"
+        - "5. The same character will appear in every scene"
+      img2img_strength_guide:
+        "0.3": "Very faithful to hero face, less scene flexibility — use for close-up scenes"
+        "0.45": "Balanced — recommended default. Maintains face, allows scene composition."
+        "0.6": "More scene flexibility, less character fidelity — use for wide shots"
+    
+    # CLIP verification — score candidates against the prompt
+    verification:
+      engine: "clip"
+      model: "openai/clip-vit-base-patch32"
+      scoring: "cosine_similarity_normalized"
+      min_score: 0.30
+      refine_strategy: "simplify_and_retarget"
+      refine_negatives_add: "duplicate, cloned, overlapping, messy, chaotic, collage"
+
+  # ============================================================
+  # AI PIPELINE — models and their responsibilities
+  # ============================================================
+  ai_pipeline:
+    
+    # Step 1: Narrative generation — Qwen3-Coder-30B via LMStudio
+    narrative_generation:
+      model: "qwen3-coder-30b-a3b-instruct-mlx"
+      provider: "LMStudio (local, http://localhost:1234)"
+      responsibilities:
+        - "Read story markdown + playbook + context files + feedback rules"
+        - "Generate 11 scenes following the narrative arc exactly"
+        - "Each scene: beat, phase, act, mood, energy, voiceover, visual description, shot language"
+        - "Enforce mandatory rules: contrast scene, almost moment, duality, devastating climax"
+      temperature: 0.7
+      max_tokens: 4000
+    
+    # Step 2: Emotional refinement — second LLM pass
+    emotional_refinement:
+      model: "supergemma4-26b-uncensored-mlx-v2"
+      provider: "LMStudio (local)"
+      responsibilities:
+        - "Rewrite each scene's voiceover for emotional depth"
+        - "Replace analysis with recognition"
+        - "Add ambiguity, ache, humanity"
+        - "Clean LLM artifacts (<turn|>, <|end|>, etc.)"
+        - "Ensure the climax line is devastating and unforgettable"
+      temperature: 0.6
+      max_tokens: 2000
+    
+    # Step 3: Image generation — SDXL + CLIP
+    image_generation:
+      model: "stabilityai/stable-diffusion-xl-base-1.0"
+      device: "MPS (Apple M1 Max 64GB unified memory)"
+      pipeline:
+        - "Generate 4 candidate images per scene (different seeds)"
+        - "Score each candidate with CLIP against the prompt"
+        - "Select highest-scoring candidate"
+        - "If score < 0.30, refine prompt and regenerate (max 2 rounds)"
+      prompt_builder:
+        technique: "5-aspect skeleton (OpenMontage): Scene description → Characters → Emotion cause → Shot language → Style"
+        critical_rule: "Scene description FIRST — must be within CLIP's 77-token limit"
+        emotional_translation: "Replace emotional adjectives with visual causes (sad → tears on cheek, shoulders slumped)"
+    
+    # Step 4: Narration — edge-tts
+    text_to_speech:
+      engine: "edge-tts"
+      voice: "en-US-AndrewMultilingualNeural"
+      prosody: "rate=-15%, volume=-10%, pitch=-5Hz (default — see voice_modulation_engine for per-scene overrides)"
+      why_this_voice: "Tagged Warm/Authentic/Honest — not Passion (GuyNeural) or Authority (Christopher)"
+      # v5.0 — per-scene prosody overrides
+      per_scene_prosody:
+        default: "rate=-15%, volume=-10%, pitch=-5Hz"
+        vulnerable: "rate=-20%, volume=-12%, pitch=-7Hz (Act 2, energy<=3)"
+        fractured: "rate=-22%, volume=-15%, pitch=-8Hz (Act 3)"
+        emotionally_exhausted: "rate=-25%, volume=-18%, pitch=-10Hz (climax scenes without silence_instead)"
+        irreversible_moment: "rate=-30%, volume=-20%, pitch=-12Hz (the scene marked irreversible_moment: true)"
+    
+    # Step 5: Music — 3-zone procedural synthesis
+    music_generation:
+      engine: "numpy + scipy additive synthesis"
+      zones: 3
+      act_1: "Ambient piano (A minor, sparse notes, sub-drone)"
+      act_2: "Dark drone (D minor, dissonant tritones, low rumble)"
+      act_3: "Near-silence (single sustained note fading to nothing)"
+    
+    # Step 6: Ambient SFX
+    ambient_sfx:
+      engine: "FFmpeg noise synthesis"
+      room_tone: "Brown noise, lowpass filtered, 0.20 volume"
+      climax_room_tone: "Increased to 0.30 in Act 3 to fill the void"
+    
+    # Step 7: Audio mixing
+    audio_mixing:
+      engine: "FFmpeg amix with normalize=0"
+      layers:
+        - narration: "volume=0.7, weight=1 (soft, not amplified)"
+        - music: "volume varies by act (0.35/0.25/0.15), weight=1"
+        - ambient: "volume=0.20/0.30, weight=0.5"
+      critical_setting: "normalize=0 — prevents amix from dividing by input count"
+    
+    # Step 8: Video assembly
+    video_assembly:
+      ken_burns_effects: [ken-burns, zoom-in, zoom-out, pan-right, pan-left]
+      clip_duration: "Matches TTS audio duration (narration drives the pace)"
+      assembly: "FFmpeg concat with absolute paths"
+      codec: "libx264, CRF 18, yuv420p"
+      fps: 24
+
+  # ============================================================
+  # PRODUCTION WORKFLOW — 10 steps from story to upload
+  # ============================================================
+  production_workflow:
+
+    step_1_psychological_truth_mapping:
+      description: "Read the story source (VID##_story.md). Understand the emotional truth being explored."
+      input: "Story markdown file"
+      output: "Story text passed to LLM"
+    
+    step_2_narrative_structure_generation:
+      description: "Qwen3-Coder reads story + playbook + context + feedback rules. Generates 11 scenes following the narrative arc."
+      input: "Story + playbook + narrative_arc + characters + feedback rules"
+      output: "Generated manifest YAML with 11 scenes (beat, mood, energy, voiceover, visual description, shot language)"
+      model: "qwen3-coder-30b-a3b-instruct-mlx"
+      temperature: 0.7
+    
+    step_3_emotional_script_refinement:
+      description: "Second LLM pass rewrites each voiceover for emotional depth. Cleans artifacts. Ensures climax is devastating."
+      input: "11 scenes with draft voiceovers"
+      output: "11 scenes with refined voiceovers (recognition, not analysis)"
+      model: "supergemma4-26b-uncensored-mlx-v2"
+      temperature: 0.6
+    
+    step_4_review_checkpoint:
+      description: "PAUSE for human review. Write story.md and transcript.txt to video output directory. Ask: proceed, edit, or abort?"
+      input: "Refined scenes"
+      output: "story.md + transcript.txt in output/videos/<pipeline_id>/"
+      interactive: true
+      options: ["y = proceed to production", "edit = pause for manual edits", "N = abort"]
+      resume_command: "Re-run with --skip-narrative after editing"
+    
+    step_5_scene_visualization:
+      description: "Generate 4 candidate images per scene with SDXL. Score each with CLIP. Select best. Refine if below threshold."
+      input: "Scene descriptions + character anchors + shot language"
+      output: "11 verified images (1024×576 PNG)"
+      model: "stabilityai/stable-diffusion-xl-base-1.0"
+      verification: "CLIP ViT-B/32, min score 0.30"
+      critical: "Prompt builder puts scene description FIRST (within CLIP 77-token limit)"
+      time_per_scene: "~4 minutes (4 candidates × ~50s each)"
+    
+    step_6_narration_chunk_generation:
+      description: "Generate TTS for each scene's voiceover using edge-tts with Andrew voice (soft, slow, low pitch)."
+      input: "Refined voiceover text per scene"
+      output: "11 WAV audio files"
+      voice: "en-US-AndrewMultilingualNeural"
+      prosody: "rate=-15%, volume=-10%, pitch=-5Hz"
+    
+    step_7_ambient_sound_layering:
+      description: "Generate room tone (brown noise, filtered) as continuous ambient bed."
+      input: "Total video duration"
+      output: "room_tone.wav"
+    
+    step_8_music_generation:
+      description: "Generate 3 music zones matching the 3 acts. Act 1: ambient piano. Act 2: dark drone. Act 3: near-silence."
+      input: "Act durations + act assignments per scene"
+      output: "act1_piano.wav + act2_dark.wav + act3_silence.wav"
+      synthesis: "numpy + scipy additive synthesis"
+      act_1_volume: 0.35
+      act_2_volume: 0.25
+      act_3_volume: 0.15
+    
+    step_9_audio_mixing_and_video_assembly:
+      description: "Mix narration + act-appropriate music + ambient per scene. Generate Ken Burns clips. Merge audio+video. Concat all scenes."
+      input: "TTS audio + music zones + room tone + scene images"
+      output: "final.mp4 (h264 + AAC 44.1kHz)"
+      music_per_scene: "Scene's act determines which music zone is used"
+      ambient_per_scene: "Act 3 gets increased room tone (0.30) to fill the void"
+    
+    step_10_silence_and_pacing_review:
+      description: "Review the final video. Check: does the climax land? Does the music fade correctly? Are there truncated voiceovers?"
+      checklist:
+        - "Climax line is devastating and quiet"
+        - "Act 3 music is barely audible — silence speaks"
+        - "No voiceover is truncated (minimum 15 words per scene)"
+        - "Total duration 4-7 minutes"
+        - "Emotional modulation visible: warmth → collapse → almost spike → silence"
+        - "story.md and transcript.txt in output directory"
+
+  # ============================================================
+  # PLATFORM EXPORT — YouTube, Instagram, Facebook
+  # ============================================================
+  platform_export:
+    
+    youtube:
+      aspect_ratio: "16:9"
+      resolution: "1024x576 (upscaled to 1920x1080 for upload)"
+      format: "MP4 (h264 + AAC)"
+      duration: "4-7 minutes"
+      description_template: >
+        A psychological cinema piece about {topic}.
+        
+        No advice. No lessons. Just recognition.
+        
+        #BeneathTheSilence #PsychologicalCinema #{niche_hashtag}
+      tags: [psychological, emotional, cinema, short film, narrative, BeneathTheSilence]
+    
+    instagram:
+      aspect_ratio: "1:1 or 9:16"
+      note: "Requires re-generation with different resolution. Set width=576 height=1024 for 9:16."
+      duration: "Best under 90 seconds for Reels. Use the strongest 4-5 scenes."
+      caption_template: >
+        {climax_line}
+        
+        Watch the full video on YouTube. Link in bio.
+        
+        #BeneathTheSilence #PsychologicalCinema #{niche_hashtag}
+    
+    facebook:
+      aspect_ratio: "16:9"
+      resolution: "1024x576"
+      format: "MP4 (h264 + AAC)"
+      duration: "4-7 minutes (Facebook favors 3+ minute videos for monetization)"
+      description_template: >
+        This isn't advice. It's recognition.
+        
+        If you've been here, you know.
+        
+        #BeneathTheSilence #{niche_hashtag}
+
+  # ============================================================
+  # CHARACTER TEMPLATE — per-niche customization
+  # ============================================================
+  # Each niche defines its own characters. Copy this structure
+  # and fill in the anchors. These are repeated VERBATIM in every
+  # scene prompt for character consistency across SDXL generations.
+  
+  character_template:
+    protagonist:
+      name: ""          # e.g., "James"
+      role: ""          # e.g., "protagonist"
+      anchors:           # 3-5 disambiguating visual traits — VERBATIM per scene
+        - ""             # e.g., "man in his mid-30s"
+        - ""             # e.g., "short dark brown hair"
+        - ""             # e.g., "light stubble beard"
+        - ""             # e.g., "grey t-shirt"
+      emotional_range:   # visual descriptions of emotions (not adjectives)
+        - "restraint: hand frozen mid-reach, fingers curled"
+        - "shame: head bowed, hunched shoulders"
+        - "numbness: blank thousand-yard stare, slack jaw"
+        - "grief: motionless, eyes open but unfocused"
+    
+    partner:
+      name: ""          # e.g., "Sarah"
+      role: ""          # e.g., "partner — also human, also hurting"
+      anchors:
+        - ""
+        - ""
+        - ""
+      emotional_range:
+        - "warmth: leaning on his shoulder, eyes closed, peaceful"
+        - "distance: facing away, not making eye contact"
+        - "exhaustion: tired expression, slumped posture"
+        - "grief: tears falling silently, staring at nothing"
+
+  # ============================================================
+  # OUTPUT DIRECTORY STRUCTURE — what the pipeline produces
+  # ============================================================
+  output_structure:
+    description: "Everything is written to output/videos/<pipeline_id>/"
+    files:
+      story.md: "Full story with all 11 scenes — visual descriptions, voiceovers, metadata"
+      transcript.txt: "Voiceover text only, scene by scene — clean transcript"
+      final.mp4: "The final video (h264 + AAC, 4-7 minutes)"
+      scene_images: "11 SDXL-generated images (1024×576 PNG, CLIP-verified)"
+      audio: "11 TTS narration files + 11 mixed audio files (narration + music + ambient)"
+      clips: "11 Ken Burns video clips (no audio)"
+      final_clips: "11 clips with merged audio (video + mixed audio)"
+      music: "3 music zone files (act1_piano.wav, act2_dark.wav, act3_silence.wav)"
+      sfx: "room_tone.wav (ambient bed)"
+      concat.txt: "FFmpeg concat list"
+
+  # ============================================================
+  # PIPELINE COMMANDS — how to run
+  # ============================================================
+  commands:
+    
+    # Full pipeline — story → scenes → review → images → TTS → music → video
+    full:
+      cmd: "python scripts/psychological_pipeline.py --playbook <playbook.yaml> --manifest <manifest.yaml>"
+      description: "Generates everything from scratch. Pauses at review checkpoint."
+    
+    # Auto-approve — skip the review checkpoint
+    auto:
+      cmd: "python scripts/psychological_pipeline.py --playbook <playbook.yaml> --manifest <manifest.yaml> --auto-approve"
+      description: "Generates everything without pausing for review."
+    
+    # After editing — skip narrative, just regenerate video
+    after_edit:
+      cmd: "python scripts/psychological_pipeline.py --playbook <playbook.yaml> --manifest <manifest>_refined.yaml --skip-narrative"
+      description: "Skip story generation. Use when you've edited the voiceovers and want to regenerate the video."
+    
+    # Regenerate video only — skip narrative and images
+    video_only:
+      cmd: "python scripts/psychological_pipeline.py --playbook <playbook.yaml> --manifest <manifest> --skip-narrative --skip-images --auto-approve"
+      description: "Re-generate TTS, music, and video assembly. Images and story stay the same."
+
+  # ============================================================
+  # EDITING STYLE
+  # ============================================================
+  editing_pipeline:
+    cuts: [slow, emotionally_motivated, breathing_room]
+    avoid: [fast_cutting, overstimulation, excessive_motion]
+    silence_as_tool: "Silence between scenes is intentional. It lets the previous truth land before the next one begins."
+    ken_burns_effects:
+      ken-burns: "Slow push-in with slight drift — the default, good for most scenes"
+      zoom-in: "Steady zoom toward subject — increasing intimacy"
+      zoom-out: "Pull back revealing isolation — increasing distance"
+      pan-right: "Pan across the space — showing the environment"
+      pan-left: "Pan back — returning, retreating"

@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "video-gen"
+version = "0.1.0"
+description = "Video generation pipeline"
+readme = "README.md"
+authors = [{name = "OpenClaw", email = "openclaw@example.com"}]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.31.0",
+    "PyYAML>=6.0",
+    "ddgs>=9.0.0",
+    "wikipedia>=1.4.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=5.0.0",
+    "crawl4ai>=0.9.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pylint>=3.0.0",
+    "flake8>=6.0.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-v --cov=src --cov-report=html --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.pylint.messages_control]
+disable = [
+    "C0111",  # missing-docstring
+    "C0103",  # invalid-name
+]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

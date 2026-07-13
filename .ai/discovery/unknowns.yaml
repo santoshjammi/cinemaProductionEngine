@@ -1,0 +1,22 @@
+# Unknowns - Unobservable System Details
+---
+unobservable_elements:
+  - topic: "Local GPU VRAM and Hardware Allocations"
+    status: "UNKNOWN"
+    description: "The exact amount of VRAM (e.g. 8GB vs 16GB vs 24GB) and whether ComfyUI is backed by CUDA (NVIDIA) or MPS (Apple Silicon) is not observable from code files alone. This directly impacts the draft vs production render speeds."
+
+  - topic: "Ollama Model Availability"
+    status: "UNKNOWN"
+    description: "Which specific versions/quantizations of Ollama models (e.g. qwen2.5:32b, deepseek-coder-v2:latest) are currently downloaded on the runtime host machine is unknown until check_llm_health is run locally."
+
+  - topic: "Microsoft Edge TTS Rate Limits"
+    status: "UNKNOWN"
+    description: "Whether Microsoft enforces strict request limits, connection timeouts, or bandwidth throttling on the web endpoints utilized by the voice synthesis engine is unknown."
+
+  - topic: "FFmpeg Memory Limits for 20-minute Videos"
+    status: "UNKNOWN"
+    description: "The peak RAM consumption and local storage overhead required when compiling a full 20-minute video (with dozens of high-res image files, audio tracks, and transitions) is unknown. It could trigger memory leaks or out-of-memory crashes depending on system capacity."
+
+  - topic: "Local ComfyUI Port Mapping and SSL Settings"
+    status: "UNKNOWN"
+    description: "Whether the ComfyUI host machine utilizes reverse proxies, standard CORS settings, or specific SSL certificates to authenticate websocket connections from the backend is unknown."

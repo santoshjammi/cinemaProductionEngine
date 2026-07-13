@@ -1,0 +1,139 @@
+# 9-Scene Brief: "The Night He Stopped Reaching For Her"
+#
+# A short cinematic piece about a married man's emotional withdrawal.
+# 9 scenes, 5-7s each (~50-60s total). Each scene has:
+#   - title, act, phase, beat
+#   - scene_description (the visual moment)
+#   - voiceover (the narration line)
+#   - music_cue, target_duration_seconds, energy, shot_size
+#
+# Designed to test the full multi-agent pipeline end-to-end:
+#   story → visual (FLUX) → voice (EdgeTTS) → music → publishing (ffmpeg)
+
+title: "The Night He Stopped Reaching For Her"
+synopsis: "A newly married man, once affectionate, gradually stops reaching for his wife. Each scene is a small moment in the slow retreat."
+dna:
+  archetype: "slow_withdrawal"
+  emotional_arc: "recognition → contrast → normalcy → first_fracture → collapse → irreversible_moment → almost_moment → defensive_retreat → quiet_grief"
+  visual_tone: "muted warm tones, shallow depth of field, intimate domestic spaces"
+  pacing: "slow, contemplative, Ken Burns push-ins"
+
+scenes:
+  - number: 1
+    title: "Lying Awake"
+    act: "act_1_observation"
+    phase: "hook"
+    beat: "opening_hook"
+    energy: 2
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "A man lies awake in bed at night, eyes open, staring at the ceiling. His wife sleeps beside him, her back turned."
+    voiceover: "There are nights when he lies awake, just a few inches away, and chooses not to reach."
+    music_cue: {zone: "act_1", volume: 0.3}
+    ken_burns_effect: "ken-burns"
+
+  - number: 2
+    title: "The Memory of Warmth"
+    act: "act_1_observation"
+    phase: "warmth"
+    beat: "contrast_memory"
+    energy: 6
+    target_duration_seconds: 5.0
+    shot_language: {shot_size: "medium"}
+    scene_description: "A flash of warmth — the same couple laughing in the kitchen, sunlight, his hand on her waist. Faded, golden."
+    voiceover: "He remembers a version of himself that wasn't afraid of this."
+    music_cue: {zone: "act_1", volume: 0.4}
+    ken_burns_effect: "zoom-in"
+
+  - number: 3
+    title: "Morning Routine"
+    act: "act_1_observation"
+    phase: "normalcy"
+    beat: "outside_version"
+    energy: 4
+    target_duration_seconds: 5.0
+    shot_language: {shot_size: "wide"}
+    scene_description: "The couple at the breakfast table, both on phones, coffee cooling, quiet domesticity that looks like a life."
+    voiceover: "From the outside, nothing is wrong."
+    music_cue: {zone: "act_2", volume: 0.2}
+    ken_burns_effect: "pan-left"
+
+  - number: 4
+    title: "The First Fracture"
+    act: "act_2_inner_reality"
+    phase: "crack"
+    beat: "first_fracture"
+    energy: 3
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "He sits on the edge of the bed after a rejection, head in hands. The door is half-closed."
+    voiceover: "There was a moment, small enough to miss, when it started to feel dangerous."
+    music_cue: {zone: "act_2", volume: 0.3}
+    ken_burns_effect: "ken-burns"
+
+  - number: 5
+    title: "The Irreversible Moment"
+    act: "act_2_inner_reality"
+    phase: "collapse"
+    beat: "irreversible_moment"
+    energy: 1
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "close-up"}
+    irreversible_moment: true
+    scene_description: "He is at the bathroom mirror at 3am, water running, his face empty. A flash — almost a punch. He turns away."
+    scene_description_alt: "Her hand on the door handle, half-open, she almost came in. She didn't."
+    voiceover: "He learned to swallow the wanting before it could be refused."
+    music_cue: {zone: "sting", volume: 0.5}
+    ken_burns_effect: "ken-burns"
+
+  - number: 6
+    title: "The Almost Touch"
+    act: "act_2_inner_reality"
+    phase: "almost"
+    beat: "almost_moment"
+    energy: 5
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "His hand reaches across the sheets toward her shoulder, stops an inch away, withdraws. She doesn't stir."
+    voiceover: "He still loves her. He's just stopped letting her know."
+    music_cue: {zone: "act_2", volume: 0.35}
+    ken_burns_effect: "zoom-in"
+
+  - number: 7
+    title: "Defensive Retreat"
+    act: "act_3_psychological_truth"
+    phase: "retreat"
+    beat: "defensive_retreat"
+    energy: 2
+    target_duration_seconds: 5.0
+    shot_language: {shot_size: "medium"}
+    scene_description: "A long shower running. The sound of water. He stands under it, eyes closed, somewhere else."
+    voiceover: "The bathroom became the one room where the silence belonged to him."
+    music_cue: {zone: "act_3", volume: 0.3}
+    ken_burns_effect: "zoom-out"
+
+  - number: 8
+    title: "Her Quiet Grief"
+    act: "act_3_psychological_truth"
+    phase: "duality"
+    beat: "her_truth"
+    energy: 3
+    target_duration_seconds: 5.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "She sits on the couch in the dark, a book unopened on her lap, looking at the door he walked through."
+    voiceover: "She stopped asking because the no had become louder than the yes."
+    music_cue: {zone: "act_3", volume: 0.3}
+    ken_burns_effect: "pan-right"
+
+  - number: 9
+    title: "The Final Truth"
+    act: "act_3_psychological_truth"
+    phase: "climax"
+    beat: "final_truth"
+    energy: 1
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "wide"}
+    scene_description: "Two silhouettes on opposite ends of a long couch, the TV casting a cold blue light. The distance between them is the whole film."
+    voiceover: "Intimacy didn't die. It just stopped feeling safe enough to reach for."
+    music_cue: {zone: "act_3", volume: 0.4}
+    ken_burns_effect: "ken-burns"

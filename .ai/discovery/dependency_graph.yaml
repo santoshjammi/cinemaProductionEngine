@@ -1,0 +1,68 @@
+# Dependency Graph - Movie OS Cinema Production Engine
+---
+components:
+  frontend_nextjs:
+    name: "Frontend (Next.js)"
+    depends_on:
+      - "backend_fastapi (API client communication via Axios)"
+
+  backend_fastapi:
+    name: "Backend (FastAPI)"
+    depends_on:
+      - "backend_services (project, pipeline, video, tts, image services)"
+      - "movie_os_package (imports domain schemas, config specifications)"
+
+  backend_services:
+    name: "FastAPI App Services"
+    depends_on:
+      - "movie_os_package (leverages capability registry, providers, and multi-agent graph)"
+      - "system_packages (torch, diffusers, imageio, coqui-tts)"
+
+  movie_os_agents_graph:
+    name: "Movie OS Graph Orchestrator (LangGraph)"
+    depends_on:
+      - "movie_os_orchestrators (ProductionOrchestratorAgent, RevisionAgent)"
+      - "movie_os_agents (creative, planning, generation, post_production, evaluation agent subsets)"
+      - "movie_os_state (MovieState, ProductionContext)"
+
+  movie_os_orchestrators:
+    name: "Orchestration Agents"
+    depends_on:
+      - "movie_os_agents (sequential phase loops and evaluation triggers)"
+      - "movie_os_state (ProductionContext state management)"
+
+  movie_os_agents:
+    name: "Functional Agents"
+    depends_on:
+      - "movie_os_capabilities (CapabilityRegistry for dispatching work to adapters)"
+      - "movie_os_llm_client (get_llm_client for text generations)"
+
+  movie_os_capabilities:
+    name: "Capability Layer"
+    depends_on:
+      - "movie_os_providers (interfaces binded to registries)"
+      - "movie_os_domain (inputs/outputs validated against Pydantic definitions)"
+
+  movie_os_providers:
+    name: "Provider Implementations"
+    depends_on:
+      - "movie_os_llm_clients (comfyui_client, ollama llm_client)"
+      - "movie_os_infra (ffmpeg_engine, audio_mixer)"
+      - "external_servers (ComfyUI server, Ollama server, Microsoft Edge TTS API)"
+
+  movie_os_asset_store:
+    name: "Asset Store"
+    depends_on:
+      - "sqlite3 (persistent database layer)"
+      - "sqlite-vec (binary vector extension for semantic matching)"
+      - "sentence-transformers (local model embedding computations)"
+
+  movie_os_infra:
+    name: "Infrastructure Layer"
+    depends_on:
+      - "system_ffmpeg (system binary command execution)"
+
+  movie_os_llm_clients:
+    name: "LLM / Generation Clients"
+    depends_on:
+      - "external_servers (Ollama server, ComfyUI engine)"

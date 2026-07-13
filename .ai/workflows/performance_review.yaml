@@ -1,0 +1,10 @@
+# Workflow: Performance Review
+---
+workflow:
+  name: "performance_review"
+  description: "Standard workflow instructions for performance review tasks."
+  steps:
+    - "1. Research context and identify dependencies."
+    - "2. Define execution scope and verification tests."
+    - "3. Implement targeted changes without breaking interfaces."
+    - "4. Run pytest verification suite."

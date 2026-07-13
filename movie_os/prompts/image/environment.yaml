@@ -1,0 +1,135 @@
+# Environment reference prompt
+#
+# Used to generate the "hero" reference image for an environment
+# (apartment, therapist office, temple, village, etc.). This image
+# is used as a reference for visual consistency across scenes.
+#
+# Used by: environment hero image generator (Phase 6)
+# Supports: flux-dev, sdxl, sd3
+
+metadata:
+  id: image.environment.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate an environment hero image for a location. The output is
+    used as a reference for visual consistency across scenes that
+    take place in the same environment. Should feel inhabited, not staged.
+  role: image
+  capability: image
+  tags:
+    - image
+    - environment
+    - reference
+    - hero
+    - consistency
+  supported_models:
+    - flux-dev
+    - sdxl
+    - sd3
+  recommended_temperature: 0.6
+  recommended_max_tokens: 200
+  avg_tokens: 100
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: location_name
+    type: string
+    required: true
+    description: The location name (e.g., "James & Sarah's Bedroom")
+  - name: location_type
+    type: string
+    required: true
+    description: "interior / exterior / mixed"
+  - name: architectural_style
+    type: string
+    required: true
+    description: "modern, victorian, industrial, etc."
+  - name: time_of_day
+    type: string
+    required: false
+    default: "night"
+    description: Time of day for the reference image
+  - name: weather
+    type: string
+    required: false
+    default: "clear"
+    description: Weather conditions
+  - name: lighting_setup
+    type: string
+    required: false
+    default: "ambient + practical"
+    description: Lighting setup (natural, practical, dramatic, etc.)
+  - name: color_palette
+    type: string
+    required: false
+    default: "muted, cool blue undertones, warm amber practical lights"
+    description: Color palette description
+  - name: notable_features_text
+    type: string
+    required: false
+    default: ""
+    description: Notable features as a pre-formatted string (e.g., "unmade bed, mail on nightstand, phone glow")
+  - name: description
+    type: string
+    required: false
+    default: ""
+    description: A one-sentence description of the environment
+  - name: style_anchor
+    type: string
+    required: false
+    default: "cinematic photorealism, 35mm film grain, wide angle, no people, lived-in"
+    description: The style anchor
+
+constraints:
+  - rule: "Maximum 80 words in the final prompt"
+    severity: must
+  - rule: "NO PEOPLE in the reference image — just the environment"
+    severity: must
+  - rule: "Must include notable features (the visual anchors that should persist)"
+    severity: must
+  - rule: "Must feel inhabited, not staged"
+    severity: must
+  - rule: "Wide angle — capture the whole space, not a detail"
+    severity: must
+
+examples:
+  - description: "Bedroom at night"
+    input:
+      location_name: "James & Sarah's Bedroom"
+      location_type: "interior"
+      architectural_style: "modern"
+      time_of_day: "night"
+      notable_features: ["unmade bed", "mail on nightstand", "phone glow", "rumpled sheets"]
+    output: |
+      cinematic photorealism, 35mm film grain, wide angle, no people, lived-in,
+      James & Sarah's Bedroom, modern interior, night,
+      unmade bed, mail on nightstand, phone glow, rumpled sheets,
+      muted cool blue undertones, warm amber practical light from lamp,
+      inhabited, not staged, observed
+
+negative_prompts:
+  - "cartoon"
+  - "anime"
+  - "illustration"
+  - "staged"
+  - "perfect"
+  - "people"
+  - "person"
+  - "human"
+  - "model home"
+  - "showroom"
+
+body: |
+  {{style_anchor}},
+  {{location_name}},
+  {{location_type}}, {{architectural_style}},
+  {{time_of_day}}{{', ' + weather if weather != 'clear' else ''}},
+  {{lighting_setup}} lighting,
+  {{color_palette}},
+  {{notable_features_text}},
+  {{description}},
+  inhabited, not staged, observed

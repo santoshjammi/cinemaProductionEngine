@@ -1,0 +1,90 @@
+id: 5f179e95-d67a-42e3-a2ef-6b66d4b60a13
+key: ethan_morrison
+name: Ethan Morrison
+role: protagonist
+tags:
+- emotional_withdrawal
+- married_husband
+- fear_based_withdrawal
+physical:
+  age: 32
+  gender: male
+  ethnicity: ''
+  height_cm: null
+  build: average, slight stoop when tired
+  hair: dark hair, slightly messy, receding at temples
+  eyes: ''
+  distinguishing_features:
+  - slight stubble
+  - faint lines around eyes
+  visual_anchor: man mid-30s, dark hair slightly messy, stubble, grey t-shirt half-tucked,
+    lived-in face
+psychological:
+  personality_traits:
+  - quiet
+  - observant
+  - emotionally restrained
+  - protective
+  emotional_tendencies:
+  - withdraws under stress
+  - goes silent when hurt
+  - overthinks social cues
+  psychological_wounds:
+  - anticipated rejection from wife
+  - childhood pressure to be 'the strong one'
+  defense_mechanisms:
+  - rationalization
+  - avoidance
+  - displacement into work
+  core_fear: being unwanted / unlovable as he is
+  core_desire: to feel safe reaching for his wife again
+speech:
+  speaking_style: short sentences, trailing off, avoids eye contact when vulnerable
+  vocabulary_level: conversational
+  verbal_tics:
+  - '...'
+  - I just thought...
+  - it's nothing
+  silence_tendencies: goes quiet when hurt, retreats to internal monologue
+voice:
+  pitch: low-medium
+  pace: slow, measured
+  tone: warm but guarded
+  accent: general American
+  tts_voice: en-US-GuyNeural
+  tts_provider: edge
+wardrobe:
+  default_outfit: grey t-shirt half-tucked, dark jeans, barefoot at home
+  signature_items:
+  - grey t-shirt
+  - worn leather belt
+  style_notes: comfort over style, slight dishevelment
+expressions:
+  expressions:
+  - 'restraint: hand frozen mid-reach, eyes watchful'
+  - 'shame: head bowed, hunched shoulders'
+  - 'numbness: blank stare, slack jaw'
+  - 'grief: motionless, eyes unfocused'
+  - 'tired: heavy eyes, posture not straight'
+  - 'awkward: one sleeve half-rolled, off-center'
+  - 'distracted: looking away mid-thought'
+  - 'delayed: emotional response 5 seconds too long'
+relationships: []
+history:
+  backstory: Married 8 years. Was affectionate and playful in courtship. Work stress
+    has increased over the past 2 years. Has experienced several moments of rejection
+    from Claire that he's internalized as evidence of his unworthiness.
+  significant_events: []
+  last_story_id: null
+arc:
+  starting_state: confident, affectionate, playful
+  ending_state: quietly recognizing that his fear of rejection has created the very
+    distance he was trying to avoid
+  key_moments:
+  - the first 'not tonight' he didn't speak about
+  - the long showers to avoid the bedroom
+  - the almost-touching moment in the kitchen
+  - Claire's quiet question that finally lands
+reference_images: []
+created_at: '2026-07-08'
+notes: ''

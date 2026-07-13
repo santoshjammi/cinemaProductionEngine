@@ -1,0 +1,8 @@
+# Release Process
+---
+releases:
+  versioning: "Semantic Versioning (SemVer)"
+  stages:
+    - "Run pytest suite locally to verify 408 tests pass"
+    - "Verify Next.js build and run Playwright E2E checks"
+    - "Tag main branch and generate release package"

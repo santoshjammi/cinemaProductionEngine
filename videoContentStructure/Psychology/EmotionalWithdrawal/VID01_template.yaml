@@ -1,0 +1,293 @@
+# VID01 — The Night He Stopped Reaching For Her
+# ================================================================
+# MASTER TEMPLATE for all videos under EmotionalWithdrawal/
+# Copy this file → VID##_template.yaml, change story_file, run pipeline.
+#
+# NARRATIVE ARC — 12 scenes across 3 acts, ~4-7 minutes
+# The arc controls mood, pacing, and emotional energy per phase.
+# ================================================================
+
+manifest_version: "3.0"
+
+# Story source — the LLM reads this to generate scenes
+story_file: "VID01.md"
+
+# Topic context files (shared across all videos in this directory)
+context_files:
+  - "CONTEXT.md"
+  - "FEEDBACK_DIGEST.md"
+  - "STYLE_GUIDE.yaml"
+  - "PROMPT_LIBRARY.yaml"
+
+# Parent playbook — applies to all Psychology videos
+playbook_file: "../psychological_cinema_playbook.yaml"
+
+# ============================================================
+# NARRATIVE ARC — controls how the LLM structures the story
+# ============================================================
+# This defines the emotional journey. The LLM must generate
+# exactly this many scenes, in this order, with these moods.
+# Each phase has a target duration range so the total is 4-7 min.
+
+narrative_arc:
+
+  # ACT 1 — OBSERVATION (the viewer recognizes the behavior)
+  # "I know this feeling."
+  act_1:
+    title: "Observation"
+    viewer_response: "I know this feeling."
+    scenes:
+
+      - phase: hook
+        beat: opening_hook
+        scene_count: 1
+        purpose: "Immediate emotional recognition. Not statistics. Not advice. A frozen moment of withdrawal."
+        mood: tense_restraint
+        energy: 3
+        target_duration: "20-30s"
+        narration_style: "Low, restrained, pause-heavy. Set the emotional temperature."
+        camera_note: "Close-up, practical light, frozen gesture"
+        ken_burns: ken-burns
+
+      - phase: warmth
+        beat: contrast_memory
+        scene_count: 2
+        purpose: "Show what was lost. Laughter, tenderness, closeness. Something to mourn."
+        mood: warm_nostalgic
+        energy: 7
+        target_duration: "20-30s each"
+        narration_style: "Softer, almost fond. Trailing off. Memory voice."
+        camera_note: "Golden hour or warm light. The ONLY warm scenes in the entire video."
+        ken_burns: zoom-in
+        feedback_rule: "MANDATORY — without this the collapse has no weight"
+
+      - phase: normalcy
+        beat: outside_version
+        scene_count: 1
+        purpose: "Show how invisible this is from outside. Polite. Functional. Empty."
+        mood: flat_normal
+        energy: 4
+        target_duration: "20-30s"
+        narration_style: "Measured, observational. 'From the outside, nothing looks wrong.'"
+        camera_note: "Medium shot, domestic space, distance between bodies"
+        ken_burns: pan-right
+
+  # ACT 2 — INNER REALITY (reveal the hidden mechanism)
+  # "I didn't realize this was underneath it."
+  act_2:
+    title: "Inner Reality"
+    viewer_response: "I didn't realize this was underneath it."
+    scenes:
+
+      - phase: crack
+        beat: first_fracture
+        scene_count: 1
+        purpose: "The first visible crack. A moment that should be small but isn't."
+        mood: quiet_unease
+        energy: 3
+        target_duration: "20-30s"
+        narration_style: "Observational. Noting the small thing that changed everything."
+        camera_note: "Isolated subject, low-key lighting beginning to dominate"
+        ken_burns: zoom-out
+
+      - phase: collapse
+        beat: internal_collapse
+        scene_count: 2
+        purpose: "Reveal the psychological truth. Not desire that disappears — safety."
+        mood: deepening_darkness
+        energy: 2
+        target_duration: "25-35s each"
+        narration_style: "Slow, intimate, pained. Recognition not analysis. 'He stopped knowing whether she still wanted him... or was just used to him being there.'"
+        camera_note: "Solo frames, isolation, darkness as character"
+        ken_burns: zoom-out
+
+      - phase: almost
+        beat: almost_moment
+        scene_count: 1
+        purpose: "THE EMOTIONAL CENTERPIECE. Almost touching. Almost speaking. The interruption IS the story."
+        mood: suspended_ache
+        energy: 5
+        target_duration: "20-30s"
+        narration_style: "Barely above whisper. The almost is stronger than the never."
+        camera_note: "Extreme close-up on hands almost touching. The most important shot."
+        ken_burns: ken-burns
+        feedback_rule: "MANDATORY — this is where tension lives. Not in despair. In interruption."
+
+  # ACT 3 — PSYCHOLOGICAL TRUTH (the devastating realization)
+  # "That truth hurts."
+  act_3:
+    title: "Psychological Truth"
+    viewer_response: "That truth hurts."
+    scenes:
+
+      - phase: retreat
+        beat: defensive_retreat
+        scene_count: 1
+        purpose: "Self-protection. He stops trying. She stops trying. Both retreat."
+        mood: numb_resigned
+        energy: 2
+        target_duration: "20-30s"
+        narration_style: "Flat, defeated. 'Avoiding rejection hurt less than hoping for connection.'"
+        camera_note: "Wide shot showing isolation within shared space"
+        ken_burns: pan-right
+
+      - phase: duality
+        beat: her_truth
+        scene_count: 1
+        purpose: "She is also exhausted. She also stopped feeling safe. Show both sides."
+        mood: quiet_grief
+        energy: 3
+        target_duration: "20-30s"
+        narration_style: "Turn toward her. 'She learned the same lesson. Just in her own way.'"
+        camera_note: "Her alone — rain, window, tears. Never shown his pain only."
+        ken_burns: pan-left
+        feedback_rule: "MANDATORY — prevents monotonous male suffering. Human, not gendered."
+
+      - phase: climax
+        beat: final_truth
+        scene_count: 1
+        purpose: "THE CLIMAX. The devastating line. Not advice. Not a lesson. A quiet truth that drops like a stone."
+        mood: devastating_quiet
+        energy: 1
+        target_duration: "25-40s"
+        narration_style: "Quiet, final, slow. The last sentence should be unforgettable. A truth the viewer recognizes in their own life."
+        camera_note: "Parallel to opening — same bedroom, same bed, but now the distance is permanent. Fade to black at the end."
+        ken_burns: ken-burns
+        climax_rules:
+          - "Must be a RECOGNITION, not a prescription"
+          - "No advice. No 'you should'. No 'this is why'."
+          - "A quiet truth: 'Not all distance is anger. Sometimes distance is grief.'"
+          - "Or: 'They still love each other. But love without safety becomes performance.'"
+          - "Or: 'They still live in the same house. They just don't live in the same life.'"
+
+# Total scenes: 12 (1+2+1+1+2+1+1+1+1+2 = wait, let me recount)
+# Hook(1) + Warmth(2) + Normalcy(1) + Crack(1) + Collapse(2) + Almost(1) + Retreat(1) + Duality(1) + Climax(1) = 11 scenes
+# Target duration: 11 scenes × ~25s = ~275s = ~4.5 minutes
+
+# ============================================================
+# MODEL CONFIG
+# ============================================================
+model:
+  name: "stabilityai/stable-diffusion-xl-base-1.0"
+  type: "sdxl"
+  dtype: "float16"
+  variant: "fp16"
+  device: "mps"
+  resolution:
+    width: 1024
+    height: 576
+
+# ============================================================
+# GENERATION PARAMS
+# ============================================================
+generation:
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  num_candidates: 4
+  min_clip_score: 0.30
+  max_refine_rounds: 2
+  candidate_seeds: [42, 137, 1024, 7777]
+  refinement_seeds: [314, 2718, 9999, 5678]
+  # Character reference — uses img2img with hero image if available
+  # 0.3 = very faithful to face, 0.45 = balanced, 0.6 = more scene flexibility
+  character_reference_strength: 0.45
+
+# ============================================================
+# CHARACTERS — identity anchors repeated verbatim per scene
+# ============================================================
+characters:
+  husband:
+    name: "James"
+    role: "protagonist"
+    anchors:
+      - "man in his mid-30s"
+      - "short dark brown hair"
+      - "light stubble beard"
+      - "grey t-shirt"
+    emotional_range:
+      - "restraint: hand frozen mid-reach, fingers curled"
+      - "shame: head bowed, hunched shoulders"
+      - "numbness: blank thousand-yard stare, slack jaw"
+      - "grief: motionless, eyes open but unfocused"
+
+  wife:
+    name: "Sarah"
+    role: "partner — also human, also hurting"
+    anchors:
+      - "woman in her early 30s"
+      - "long wavy auburn hair"
+      - "white sleep shirt"
+    emotional_range:
+      - "warmth: leaning on his shoulder, eyes closed, peaceful"
+      - "distance: facing away, not making eye contact"
+      - "exhaustion: tired expression, slumped posture"
+      - "grief: tears falling silently, staring at nothing"
+
+# ============================================================
+# VISUAL SYSTEM — shared across all scenes
+# ============================================================
+visual_system:
+  style: "cinematic photorealism, 35mm film grain, muted desaturated tones"
+  color_palette:
+    dominant: "cool blue undertones"
+    practical_lights: "warm amber"
+    shadows: "deep but not crushed"
+    highlights: "soft, rolled off"
+  texture: "shallow depth of field, natural film grain, soft contrast"
+  consistency_anchors:
+    - "Cool blue undertones in every scene — never warm overall"
+    - "Warm amber only from practical light sources (phone, lamp, TV)"
+    - "Shallow depth of field with bokeh — never deep focus"
+    - "Film grain texture — never clean digital look"
+    - "Muted desaturated palette — never vibrant"
+    - "Low light — darkness is a character, not absence of light"
+    - "Distance in shared spaces — together but apart"
+    - "Nighttime dominates — daytime only in memory scenes"
+  negative_prompt: >
+    cartoon, anime, illustration, painting, 3d render, cgi, video game,
+    blurry, low quality, distorted, deformed, disfigured, bad anatomy,
+    extra limbs, extra fingers, watermark, signature, text,
+    oversaturated, hdr, plastic skin, duplicate, cloned,
+    overlapping subjects, messy composition, chaotic,
+    multiple scenes, collage, split screen, bright daylight,
+    cheerful, stock photo, commercial photography
+
+# ============================================================
+# SCENES — generated by the pipeline from narrative_arc + story
+# The LLM generates scenes following the arc above.
+# ============================================================
+scenes: []
+
+# ============================================================
+# POST-PROCESSING
+# ============================================================
+video:
+  fps: 24
+  codec: "libx264"
+  pix_fmt: "yuv420p"
+  crf: 18
+  preset: "medium"
+
+audio:
+  tts_engine: "edge-tts"
+  voice: "en-US-AndrewMultilingualNeural"
+  rate: "-15%"
+  volume: "-10%"
+  pitch: "-5Hz"
+  sample_rate: 44100
+  channels: 2
+  merge_bitrate: "192k"
+
+music:
+  style: "ambient_piano"
+  key: "A_minor"
+  volume_in_mix: 0.35
+
+ambient:
+  room_tone_volume: 0.20
+
+verification:
+  engine: "clip"
+  model: "openai/clip-vit-base-patch32"
+  min_score: 0.30
+  max_refine_rounds: 2

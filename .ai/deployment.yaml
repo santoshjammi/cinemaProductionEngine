@@ -1,0 +1,8 @@
+# Deployment Guide
+---
+deployment:
+  mode: "Local development execution"
+  scripts:
+    - "setup.sh: Initializes python venv and fetches model requirements."
+    - "start-backend.sh: Launches FastAPI backend server."
+    - "start-frontend.sh: Launches Next.js frontend client dashboard."

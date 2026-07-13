@@ -1,0 +1,36 @@
+# Technology Inventory - Movie OS Technology Stack
+---
+languages:
+  - name: "Python"
+    version: ">=3.8 (FastAPI runs on >=3.10 in CI, local developer environment uses Python 3.11)"
+    use: "Backend application, CLI utility commands, multi-agent orchestrator, capabilities, providers, and test scripts."
+  - name: "TypeScript"
+    version: "^5.4.0"
+    use: "Frontend components logic, state management stores, and type definitions."
+  - name: "JavaScript"
+    version: "ECMAScript 2020 / Node.js runtime"
+    use: "Next.js configuration scripts, PostCSS compiler presets, and build configurations."
+  - name: "Shell Script (Bash)"
+    version: "POSIX standard"
+    use: "Development environment initialization (setup.sh), service starting (start-backend.sh, start-frontend.sh), and automated model downloading."
+
+database_systems:
+  - name: "SQLite"
+    use: "Local vector search asset storage (assets.db) and LangGraph execution node checkpoints database."
+  - name: "sqlite-vec"
+    use: "Precompiled SQLite binary extension allowing floating-point vector distance calculations (L2, cosine) directly in SQL queries."
+
+media_and_synthesis_engines:
+  - name: "FFmpeg"
+    version: "System binary integration"
+    use: "Executes Ken Burns camera movements (zoom/pan), scene cuts, crossfades, multi-layer audio mixing (narration + music + sfx), volume ducking, and burns text subtitles into final MP4 video output files."
+  - name: "Microsoft Edge TTS API"
+    use: "Real-time speech synthesis API supplying voice narrator tracks and actor dialogues without needing high local GPU compute power."
+  - name: "numpy"
+    use: "Procedural sound generation executing mathematical operations to synthesize sound effects (e.g. rain, ambient room tone) and simple dramatic musical chords."
+
+network_protocols:
+  - name: "HTTP REST API"
+    use: "Communication protocol between frontend client and FastAPI server, and when dispatching story tasks to local LLMs (Ollama / LMStudio)."
+  - name: "WebSockets"
+    use: "Asynchronous duplex communication channel used to stream live progress indicators from ComfyUI rendering cycles and edge-tts synthesis pipelines."

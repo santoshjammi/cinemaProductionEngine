@@ -1,0 +1,259 @@
+# Grammar: Documentary
+# Content type: Factual documentaries, investigative pieces, educational content
+# Tone: Informative, engaging, authoritative yet accessible
+
+name: documentary
+version: "1.0.0"
+description: "Grammar for documentary content — factual, engaging, authoritative visual and audio language"
+
+---
+
+## Dialogue Rules
+
+### Style
+- Narration reads like expert storyteller — authoritative but conversational
+- Interview subjects speak naturally (not scripted)
+- Expert commentary concise and accessible
+- No jargon without explanation
+- Dialogue includes questions that drive narrative forward
+
+### Narration Style
+- Clear, confident voice (like a trusted guide)
+- Moderate pace — not rushed, not slow
+- Varied inflection to maintain engagement
+- Pauses for emphasis on key facts or revelations
+- Tone: Curious, investigative, respectful of subject matter
+
+### Interview Style
+- Natural conversation, not formal Q&A
+- Subjects speak from personal experience
+- Experts provide context and analysis
+- Balance between emotional stories and factual information
+
+### Prohibited
+- No sensationalism or clickbait language
+- No unverified claims presented as fact
+- No biased or manipulative narration
+- No dramatic reenactment dialogue that feels scripted
+
+---
+
+## Camera Language
+
+### Shot Types
+- **Wide shots:** Establishing locations, context, scale
+- **Medium shots:** Interview subjects, key actions
+- **Close-ups:** Details, evidence, emotional reactions
+- **Aerial/drone shots:** Geographic context, scope
+- **Handheld:** Documentary realism, behind-the-scenes feel
+- **Static tripod:** Formal interviews, stable observations
+
+### Camera Movement
+- **Slow pans:** Exploring locations and environments
+- **Tracking shots:** Following subjects through spaces
+- **Handheld:** Documentary authenticity (use purposefully)
+- **Steadicam:** Smooth movement for polished documentary feel
+- **Zoom:** For emphasis on details or reactions
+
+### Framing
+- Rule of thirds for naturalistic composition
+- Headroom appropriate to interview style
+- Eye-level framing for interviews (respectful, equal)
+- Include environmental context in interview shots
+- Golden ratio for landscape/architectural shots
+
+---
+
+## Lighting Rules
+
+### Primary Approach
+- **Natural light:** Primary source whenever possible (authenticity)
+- **Practical lighting:** Existing lights in locations
+- **Supplemental fill:** Subtle, never obvious
+- **Golden hour:** For establishing shots and emotional moments
+
+### Color Palette
+- **Primary:** Natural, true-to-life colors
+- **Secondary:** Muted tones for serious content, brighter for hopeful segments
+- **Accent:** Use location's natural color palette
+- Avoid: Overly saturated or stylized grading
+
+### Lighting Progression
+| Act | Light Quality | Mood |
+|-----|--------------|------|
+| Introduction (Hook) | Natural, establishing | Curiosity, context |
+| Investigation (Plot) | Varied by location | Discovery, tension |
+| Climax (Revelation) | Dramatic natural light | Revelation, impact |
+| Resolution | Warm, hopeful | Understanding, hope |
+
+---
+
+## Music Rules
+
+### Theme Structure
+- **Main documentary theme:** Subtle, memorable, supports narrative without dominating
+- **Investigation theme:** Tense, rhythmic — for research/exploration sequences
+- **Emotional theme:** Gentle, reflective — for personal stories
+- **Resolution theme:** Hopeful, warm — for conclusions
+
+### Instrumentation
+- Orchestral elements (strings, piano) for emotional depth
+- Subtle electronic elements for investigation sequences
+- World instruments appropriate to subject matter
+- Minimal percussion — avoid driving rhythm
+- Silence used strategically for impact
+
+### Intensity Guidelines
+- **Introduction:** Very soft (0.1-0.2) — establish mood without distraction
+- **Investigation:** Soft to moderate (0.2-0.4) — support tension without overwhelming
+- **Emotional moments:** Soft (0.1-0.3) — enhance without manipulating
+- **Climax/Revelation:** Moderate (0.3-0.5) — peak without melodrama
+- **Resolution:** Soft to moderate (0.2-0.4) — hopeful, reflective
+
+### Documentary Music Principles
+- Music should support facts, not manipulate emotion
+- Avoid "Hollywood" scoring that tells viewer how to feel
+- Use silence as a tool — let moments breathe
+- Traditional/instrumental music appropriate to culture/subject
+
+---
+
+## Voice Rules
+
+### Narration
+- Clear, authoritative, conversational voice
+- Moderate pace with varied inflection
+- Pauses for emphasis on key facts
+- Tone: Curious, investigative, respectful
+- Never sensational or dramatic
+
+### Interview Audio
+- Clean, clear audio is mandatory
+- Natural room tone (not dead silence)
+- Subjects speak naturally, not formally
+- B-roll audio layered subtly under interviews
+
+### Sound Design
+- Location sound enhances authenticity
+- Ambient sounds support setting
+- No artificial sound effects unless clearly labeled
+- Music and narration never compete for attention
+
+---
+
+## Transition Rules
+
+### Scene Transitions
+- **Hard cuts:** Most common — documentary realism
+- **Cross-dissolve:** For time passage or location changes
+- **Match cuts:** Connecting related ideas visually
+- **J-cuts/L-cuts:** Audio leads video for smooth flow
+
+### Pacing Between Scenes
+- Tight pacing for investigation sequences
+- Extended pauses for emotional moments
+- Never rush important revelations
+- Total video should have investigative rhythm: discovery → analysis → revelation
+
+---
+
+## Color Grading
+
+### Style
+- **Naturalistic** as primary approach
+- True-to-life colors with subtle enhancement
+- Moderate contrast — not flat, not HDR-styled
+- Location-appropriate color temperature
+- Subtle film grain for texture (optional)
+
+### Progression
+| Act | Color Treatment | Mood |
+|-----|----------------|------|
+| Introduction | Natural, establishing | Context, curiosity |
+| Investigation | Varied by location | Discovery, tension |
+| Climax | Enhanced natural light | Revelation, impact |
+| Resolution | Warm, hopeful | Understanding |
+
+---
+
+## Evaluation Criteria
+
+### Factual Accuracy (threshold: 1.0 — mandatory pass)
+- [ ] All facts verified and sourced
+- [ ] No misrepresentation of subjects or events
+- [ ] Balanced perspective on controversial topics
+- [ ] Expert consultation where applicable
+- [ ] Clear distinction between fact and opinion
+
+### Story Quality (threshold: 0.75)
+- [ ] Clear narrative arc with compelling investigation
+- [ ] Balance of facts and human stories
+- [ ] Pacing maintains engagement throughout
+- [ ] Revelation/ending feels earned, not forced
+
+### Visual Quality (threshold: 0.75)
+- [ ] Footage supports narrative and facts
+- [ ] Interviews shot professionally and respectfully
+- [ ] B-roll enhances understanding of subject
+- [ ] No misleading imagery or editing
+
+### Audio Quality (threshold: 0.75)
+- [ ] Narration clear, authoritative, engaging
+- [ ] Interview audio clean and natural
+- [ ] Music supports without manipulating
+- [ ] Sound design authentic to locations
+
+---
+
+## Production Constraints
+
+### Duration Guidelines
+- **Short documentary:** 10-15 minutes (web/documentary short)
+- **Standard documentary:** 25-40 minutes (TV/streaming)
+- **Extended documentary:** 50-90 minutes (feature-length)
+- **Series episode:** 30-60 minutes
+
+### Content Guidelines
+- Verify all facts before production
+- Obtain releases from all interview subjects
+- Respect privacy and dignity of subjects
+- Provide context for complex topics
+- Include multiple perspectives on controversial issues
+
+### Visual Guidelines
+- Establish locations clearly with wide shots
+- Interview backgrounds should be relevant to subject
+- B-roll must support narrative, not fill time
+- Use graphics/charts only when they enhance understanding
+
+---
+
+## Scene Structure Template
+
+### Act 1: Introduction/Hook — 20% of total duration
+- Compelling opening (question, fact, or human story)
+- Establish subject and context
+- Introduce key characters/experts
+- Pose the central question/investigation
+
+### Act 2: Investigation/Development — 45% of total duration
+- Explore the subject through interviews and footage
+- Present evidence and analysis
+- Introduce complications or unexpected findings
+- Build toward revelation
+
+### Act 3: Climax (Revelation) — 20% of total duration
+- Key discovery or turning point
+- Emotional peak of human story
+- Revelation that changes understanding
+- Music reaches emotional peak
+
+### Act 4: Resolution/Conclusion — 15% of total duration
+- Answer the central question
+- Show impact and consequences
+- Reflect on broader implications
+- End with memorable image or thought
+
+---
+
+*Grammar loaded from documentary/grammar.yaml*

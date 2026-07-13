@@ -1,0 +1,98 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "flux1-dev-bf16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load FLUX Diffusion Model (bf16 for MPS)"}
+  },
+  "2": {
+    "inputs": {
+      "clip_name1": "clip_l.safetensors",
+      "clip_name2": "t5xxl_fp8_e4m3fn.safetensors",
+      "type": "flux",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "Load Dual CLIP (CLIP-L + T5-XXL)"}
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "flux-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load FLUX VAE"}
+  },
+  "4": {
+    "inputs": {
+      "image": "PLACEHOLDER_REFERENCE_IMAGE"
+    },
+    "class_type": "LoadImage",
+    "_meta": {"title": "Load Reference Image"}
+  },
+  "5": {
+    "inputs": {
+      "pixels": ["4", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {"title": "VAE Encode Reference"}
+  },
+  "6": {
+    "inputs": {
+      "text": "PLACEHOLDER_PROMPT",
+      "clip": ["2", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "CLIP Text Encode (Positive Prompt)"}
+  },
+  "7": {
+    "inputs": {
+      "text": "PLACEHOLDER_NEGATIVE_PROMPT",
+      "clip": ["2", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "CLIP Text Encode (Negative Prompt)"}
+  },
+  "8": {
+    "inputs": {
+      "conditioning": ["6", 0],
+      "guidance": 3.5
+    },
+    "class_type": "FluxGuidance",
+    "_meta": {"title": "FLUX Guidance (positive)"}
+  },
+  "9": {
+    "inputs": {
+      "seed": 42,
+      "steps": 20,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.75,
+      "model": ["1", 0],
+      "positive": ["8", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler (img2img, denoise=0.75)"}
+  },
+  "10": {
+    "inputs": {
+      "samples": ["9", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "11": {
+    "inputs": {
+      "filename_prefix": "FluxDev_Img2Img",
+      "images": ["10", 0]
+    },
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save Image (img2img)"}
+  }
+}

@@ -1,0 +1,59 @@
+# Module Graph - Movie OS Package Modules
+---
+modules:
+  movie_os.domain:
+    path: "movie_os/domain/"
+    dependencies: []
+    description: "Defines the core structural Pydantic data schemas representing story structure, character descriptors, scene/shot settings, and prompts."
+
+  movie_os.config:
+    path: "movie_os/config/"
+    dependencies:
+      - "movie_os.domain (indirect configurations)"
+    description: "Configuration loader, YAML parsing, and schema validation classes."
+
+  movie_os.capabilities:
+    path: "movie_os/capabilities/"
+    dependencies:
+      - "movie_os.domain (for Intent and Asset validation schema mapping)"
+      - "movie_os.config (for parsing enabled flags and configs)"
+    description: "Definition of abstract capability wrappers (Image, Video, Voice, etc.) and the central dispatch registry."
+
+  movie_os.providers:
+    path: "movie_os/providers/"
+    dependencies:
+      - "movie_os.capabilities (inherits abstract provider classes)"
+      - "movie_os.infra (for FFmpeg and mixing logic)"
+      - "movie_os.llm (for network model invocations)"
+    description: "Concrete implementations mapping capabilities to local services (FLUX via ComfyUI, Ollama, EdgeTTS, procedural numpy audio)."
+
+  movie_os.infra:
+    path: "movie_os/infra/"
+    dependencies: []
+    description: "Raw FFmpeg and audio mixer engine wrappers executing shell commands."
+
+  movie_os.llm:
+    path: "movie_os/llm/"
+    dependencies: []
+    description: "Network clients interfacing with local Ollama APIs and ComfyUI server sockets."
+
+  movie_os.asset_store:
+    path: "movie_os/asset_store/"
+    dependencies:
+      - "movie_os.domain (for indexing Asset and Render objects)"
+    description: "SQLite vector database layer holding metadata and embeddings of output visual/audio files."
+
+  movie_os.data_layer:
+    path: "movie_os/data_layer/"
+    dependencies:
+      - "movie_os.domain (for loading CharacterDNA and EnvironmentDNA objects)"
+    description: "Entity database layer writing character and environment details to persistent files."
+
+  movie_os.agents:
+    path: "movie_os/agents/"
+    dependencies:
+      - "movie_os.capabilities (for requesting registered capabilities)"
+      - "movie_os.domain (for manipulating story entities)"
+      - "movie_os.infra (compositor maps assets to media engines)"
+      - "movie_os.asset_store (registers outputs into sqlite databases)"
+    description: "The LangGraph orchestrator and the 26 creative/planning/generation/post-production/evaluation agents."

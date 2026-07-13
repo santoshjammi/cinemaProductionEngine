@@ -1,0 +1,5 @@
+# Security Policy
+---
+policy:
+  dependencies: "Continuous scanning using pip-audit configured in CI workflows."
+  isolation: "Local host bindings (localhost:11434, localhost:8188) to avoid external data exposure."

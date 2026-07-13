@@ -1,0 +1,21 @@
+# Session State - Movie OS AIOS Bootstrap
+---
+current_task: "Bootstrap complete repository AI Operating System (AIOS)"
+completed_work:
+  - "✅ Created core configuration files in .ai/"
+  - "✅ Created workflow protocols in .ai/workflows/"
+  - "✅ Created prompt helpers in .ai/prompts/"
+  - "x Created copilot-instructions in .github/"
+  - "✅ Created developer instructions in .github/instructions/"
+  - "✅ Created agent persona mappings in .github/agents/"
+  - "✅ Created prompt templates in .github/prompts/"
+  - "✅ Created project-level root markdown guides linking to core specs"
+next_actions:
+  - "1. Apply Pydantic graph.py dictionary get() lookup bugfix"
+  - "2. Apply Ollama client.py legacy fallback method name bugfix"
+  - "3. Run e2e pipeline verify check"
+files_in_scope:
+  - "movie_os/agents/graph.py"
+  - "movie_os/llm/client.py"
+out_of_scope:
+  - "All other repository content"

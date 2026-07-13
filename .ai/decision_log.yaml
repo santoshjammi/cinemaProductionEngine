@@ -1,0 +1,6 @@
+# Decision Log
+---
+decisions:
+  - id: "comfyui_flux"
+    date: "2026-07-08"
+    description: "Switched default image pipeline in Phase 5 from SDXL base to FLUX.1 via ComfyUI to improve character consistency."

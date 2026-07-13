@@ -1,0 +1,559 @@
+manifest_version: '3.0'
+story_file: VID01.md
+context_files:
+- CONTEXT.md
+- FEEDBACK_DIGEST.md
+- STYLE_GUIDE.yaml
+- PROMPT_LIBRARY.yaml
+- FORMULA.md
+- emotional_impact_engine.md
+playbook_file: ../psychological_cinema_playbook.yaml
+narrative_arc:
+  act_1:
+    title: Observation
+    viewer_response: I know this feeling.
+    scenes:
+    - phase: hook
+      beat: opening_hook
+      scene_count: 1
+      purpose: Immediate emotional recognition. Not statistics. Not advice. A frozen
+        moment of withdrawal.
+      mood: tense_restraint
+      energy: 3
+      target_duration: 20-30s
+      narration_style: Low, restrained, pause-heavy. Set the emotional temperature.
+      camera_note: Close-up, practical light, frozen gesture
+      ken_burns: ken-burns
+    - phase: warmth
+      beat: contrast_memory
+      scene_count: 2
+      purpose: Show what was lost. Laughter, tenderness, closeness. Something to mourn.
+      mood: warm_nostalgic
+      energy: 7
+      target_duration: 20-30s each
+      narration_style: Softer, almost fond. Trailing off. Memory voice.
+      camera_note: Golden hour or warm light. The ONLY warm scenes in the entire video.
+      ken_burns: zoom-in
+      feedback_rule: MANDATORY — without this the collapse has no weight
+    - phase: normalcy
+      beat: outside_version
+      scene_count: 1
+      purpose: Show how invisible this is from outside. Polite. Functional. Empty.
+      mood: flat_normal
+      energy: 4
+      target_duration: 20-30s
+      narration_style: Measured, observational. 'From the outside, nothing looks wrong.'
+      camera_note: Medium shot, domestic space, distance between bodies
+      ken_burns: pan-right
+  act_2:
+    title: Inner Reality
+    viewer_response: I didn't realize this was underneath it.
+    scenes:
+    - phase: crack
+      beat: first_fracture
+      scene_count: 1
+      purpose: The first visible crack. A moment that should be small but isn't.
+      mood: quiet_unease
+      energy: 3
+      target_duration: 20-30s
+      narration_style: Observational. Noting the small thing that changed everything.
+      camera_note: Isolated subject, low-key lighting beginning to dominate
+      ken_burns: zoom-out
+    - phase: collapse
+      beat: internal_collapse
+      scene_count: 2
+      purpose: Reveal the psychological truth. Not desire that disappears — safety.
+      mood: deepening_darkness
+      energy: 2
+      target_duration: 25-35s each
+      narration_style: Slow, intimate, pained. Recognition not analysis. 'He stopped
+        knowing whether she still wanted him... or was just used to him being there.'
+      camera_note: Solo frames, isolation, darkness as character
+      ken_burns: zoom-out
+    - phase: almost
+      beat: almost_moment
+      scene_count: 1
+      purpose: THE EMOTIONAL CENTERPIECE. Almost touching. Almost speaking. The interruption
+        IS the story.
+      mood: suspended_ache
+      energy: 5
+      target_duration: 20-30s
+      narration_style: Barely above whisper. The almost is stronger than the never.
+      camera_note: Extreme close-up on hands almost touching. The most important shot.
+      ken_burns: ken-burns
+      feedback_rule: MANDATORY — this is where tension lives. Not in despair. In interruption.
+  act_3:
+    title: Psychological Truth
+    viewer_response: That truth hurts.
+    scenes:
+    - phase: retreat
+      beat: defensive_retreat
+      scene_count: 1
+      purpose: Self-protection. He stops trying. She stops trying. Both retreat.
+      mood: numb_resigned
+      energy: 2
+      target_duration: 20-30s
+      narration_style: Flat, defeated. 'Avoiding rejection hurt less than hoping for
+        connection.'
+      camera_note: Wide shot showing isolation within shared space
+      ken_burns: pan-right
+    - phase: duality
+      beat: her_truth
+      scene_count: 1
+      purpose: She is also exhausted. She also stopped feeling safe. Show both sides.
+      mood: quiet_grief
+      energy: 3
+      target_duration: 20-30s
+      narration_style: Turn toward her. 'She learned the same lesson. Just in her
+        own way.'
+      camera_note: Her alone — rain, window, tears. Never shown his pain only.
+      ken_burns: pan-left
+      feedback_rule: MANDATORY — prevents monotonous male suffering. Human, not gendered.
+    - phase: climax
+      beat: final_truth
+      scene_count: 1
+      purpose: THE CLIMAX. The devastating line. Not advice. Not a lesson. A quiet
+        truth that drops like a stone.
+      mood: devastating_quiet
+      energy: 1
+      target_duration: 25-40s
+      narration_style: Quiet, final, slow. The last sentence should be unforgettable.
+        A truth the viewer recognizes in their own life.
+      camera_note: Parallel to opening — same bedroom, same bed, but now the distance
+        is permanent. Fade to black at the end.
+      ken_burns: ken-burns
+      climax_rules:
+      - Must be a RECOGNITION, not a prescription
+      - No advice. No 'you should'. No 'this is why'.
+      - 'A quiet truth: ''Not all distance is anger. Sometimes distance is grief.'''
+      - 'Or: ''They still love each other. But love without safety becomes performance.'''
+      - 'Or: ''They still live in the same house. They just don''t live in the same
+        life.'''
+model:
+  name: stabilityai/stable-diffusion-xl-base-1.0
+  type: sdxl
+  dtype: float16
+  variant: fp16
+  device: mps
+  resolution:
+    width: 1024
+    height: 576
+generation:
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  num_candidates: 4
+  min_clip_score: 0.3
+  max_refine_rounds: 2
+  candidate_seeds:
+  - 42
+  - 137
+  - 1024
+  - 7777
+  refinement_seeds:
+  - 314
+  - 2718
+  - 9999
+  - 5678
+  character_reference_strength: 0.45
+characters:
+  husband:
+    name: James
+    role: protagonist
+    # v1.1.3 — CONDENSED anchors (imperfection kept, verbosity reduced)
+    # Was 30+ tokens, now ~14. Leaves room for the scene description.
+    anchors:
+    - man mid-30s, dark hair slightly messy, stubble, grey t-shirt half-tucked
+    emotional_range:
+    - 'restraint: hand frozen mid-reach'
+    - 'shame: head bowed, hunched'
+    - 'numbness: blank stare, slack jaw'
+    - 'grief: motionless, eyes unfocused'
+    - 'tired: heavy eyes, posture not straight'
+    - 'awkward: one sleeve half-rolled, off-center'
+    - 'distracted: looking away mid-thought'
+    - 'delayed: emotional response 5 seconds too long'
+  wife:
+    name: Sarah
+    role: partner — also human, also hurting
+    # v1.1.3 — CONDENSED anchors (imperfection kept, verbosity reduced)
+    # Was 25+ tokens, now ~12.
+    anchors:
+    - woman early 30s, auburn hair slightly tangled, white shirt, cardigan half-off
+    emotional_range:
+    - 'warmth: leaning on his shoulder, eyes closed'
+    - 'distance: facing away, gap between bodies'
+    - 'exhaustion: tired, delayed response, slumped'
+    - 'tired: heavy eyes, holding herself differently'
+    - 'awkward: fidgeting with sleeve hem'
+    - 'distracted: looking away, fiddling with mug'
+    - 'delayed: emotional response 5 seconds too long'
+    - 'grief: tears falling silently, staring at nothing'
+visual_system:
+  style: cinematic photorealism, 35mm film grain, muted desaturated tones
+  color_palette:
+    dominant: cool blue undertones
+    practical_lights: warm amber
+    shadows: deep but not crushed
+    highlights: soft, rolled off
+  texture: shallow depth of field, natural film grain, soft contrast
+  consistency_anchors:
+  - Cool blue undertones in every scene — never warm overall
+  - Warm amber only from practical light sources (phone, lamp, TV)
+  - Shallow depth of field with bokeh — never deep focus
+  - Film grain texture — never clean digital look
+  - Muted desaturated palette — never vibrant
+  - Low light — darkness is a character, not absence of light
+  - Distance in shared spaces — together but apart
+  - Nighttime dominates — daytime only in memory scenes
+  negative_prompt: 'cartoon, anime, illustration, painting, 3d render, cgi, video
+    game, blurry, low quality, distorted, deformed, disfigured, bad anatomy, extra
+    limbs, extra fingers, watermark, signature, text, oversaturated, hdr, plastic
+    skin, duplicate, cloned, overlapping subjects, messy composition, chaotic, multiple
+    scenes, collage, split screen, bright daylight, cheerful, stock photo, commercial
+    photography
+
+    '
+scenes:
+- scene_number: 1
+  title: Frozen Gesture
+  phase: hook
+  beat: opening_hook
+  act: act_1_observation
+  mood: tense_restraint
+  energy: 3
+  voiceover: No one notices the exact night it happens.
+  scene_description: He lies in bed beside his wife, phone glow illuminating half
+    his face. His hand hovers above her shoulder before withdrawing back toward himself.
+  visual_cause_of_emotion: Hand starts to reach, then stops mid-motion. His eyes flick
+    to her face and away.
+  shot_language:
+    shot_size: close-up
+    lighting_key: practical_lighting
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  ken_burns_effect: ken-burns
+  duration_hint: 20-30s
+- scene_number: 2
+  title: Morning Laughter
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: warm_nostalgic
+  energy: 7
+  voiceover: Her weight against him used to feel like home.
+  scene_description: Golden hour sunlight streams through curtains onto a kitchen
+    counter where they laugh together. Her arm is draped over his shoulder as he kisses
+    her temple.
+  visual_cause_of_emotion: She falls asleep on his shoulder. Her head nestled into
+    him.
+  shot_language:
+    shot_size: wide
+    lighting_key: warm_low_light
+    lens_mm: 35
+    depth_of_field: soft
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: zoom-in
+  duration_hint: 20-30s
+- scene_number: 3
+  title: Late Night Silence
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: warm_nostalgic
+  energy: 7
+  voiceover: A whisper, then nothing.
+  scene_description: Warm light from bedside lamp reflects off their faces as she
+    whispers into his ear. Her lips brush against his cheek before he turns to face
+    away.
+  visual_cause_of_emotion: She whispers into his ear. Her lips brush against him.
+  shot_language:
+    shot_size: medium
+    lighting_key: warm_low_light
+    lens_mm: 50
+    depth_of_field: soft
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: zoom-in
+  duration_hint: 20-30s
+- scene_number: 4
+  title: Domestic Politeness
+  phase: normalcy
+  beat: outside_version
+  act: act_1_observation
+  mood: flat_normal
+  energy: 4
+  voiceover: Everything looked the same on the surface.
+  scene_description: He eats breakfast while she gets ready in the bathroom. The silence
+    between them feels normal as they move through their morning routine.
+  visual_cause_of_emotion: He eats breakfast while she gets ready in the bathroom.
+    The silence between them feels normal.
+  shot_language:
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: deep
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: pan-right
+  duration_hint: 20-30s
+- scene_number: 5
+  title: First Fracture
+  phase: crack
+  beat: first_fracture
+  act: act_2_inner_reality
+  mood: quiet_unease
+  energy: 3
+  voiceover: It started with something small.
+  scene_description: He checks his phone instead of saying goodnight. She watches
+    him, waiting for the usual kiss.
+  visual_cause_of_emotion: Checks phone instead of speaking. His eyes flick to her
+    face and back down.
+  shot_language:
+    shot_size: close-up
+    lighting_key: practical_lighting
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: zoom-out
+  duration_hint: 20-30s
+- scene_number: 6
+  title: Emotional Distance
+  phase: collapse
+  beat: internal_collapse
+  act: act_2_inner_reality
+  mood: deepening_darkness
+  energy: 2
+  voiceover: He just stopped reaching first.
+  scene_description: He lies in bed alone, staring at the ceiling. His pillow is empty
+    where she once slept.
+  visual_cause_of_emotion: Lies in bed alone, staring at the ceiling. His pillow is
+    empty.
+  shot_language:
+    shot_size: close-up
+    lighting_key: dim_shadows_in_corners
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  ken_burns_effect: zoom-out
+  duration_hint: 25-35s
+- scene_number: 7
+  title: Unspoken Truth
+  phase: collapse
+  beat: internal_collapse
+  act: act_2_inner_reality
+  mood: deepening_darkness
+  energy: 2
+  voiceover: They still spoke every day... just not honestly.
+  scene_description: She sits at the kitchen table turning a page she isn't reading.
+    He stands at the counter scrolling through his phone, then sets it down, then
+    picks it up again. The unwashed mug from yesterday is still by the sink.
+    A sock lies on the hallway floor neither of them has picked up. They don't
+    look at each other. The fridge hums.
+  visual_cause_of_emotion: Turns a page she isn't reading. Sets the phone down, picks
+    it up again. The unwashed mug, the sock, the fridge hum.
+  shot_language:
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: zoom-out
+  duration_hint: 25-35s
+  # v5.0 — pre_moment (the scene before the irreversible moment)
+  pre_moment: true
+  silence_after: 1.5
+  # v5.0 — micro-behaviors
+  micro_behaviors:
+    - redirected_attention
+    - unfinished_movements
+  # v5.0 — environmental imperfections (>=2 required)
+  environmental_imperfections:
+    - unwashed mug from yesterday by the sink
+    - sock on the hallway floor
+    - fridge hum
+    - books she isn't reading
+- scene_number: 8
+  title: Setting the Table
+  phase: almost
+  beat: irreversible_moment
+  act: act_2_inner_reality
+  mood: suspended_ache
+  energy: 5
+  # v5.0 — IRREVERSIBLE MOMENT. The voiceover here is intentionally short
+  # (≤12 words) so the visual carries the moment. v1.1: vocal_fracture is
+  # applied to make the voice feel emotionally unstable.
+  irreversible_moment: true
+  silence_instead: false
+  silence_after: 3.0
+  tts_prosody_override:
+    rate: "-30%"
+    volume: "-20%"
+    pitch: "-12Hz"
+  # v1.1 — short voiceover (10 words) for vocal_fracture to work on
+  voiceover: "She stopped. The second fork... she didn't know why."
+  # v1.1 — Rule 20: ordinary-gesture anchor (not a "this is the emotional moment" shot)
+  scene_description: "She is setting the table. Plate, fork, knife. Plate, fork, knife. She stops at the second fork. She picks it up, sets it down, picks it up again. She does not finish. The table is half-set. She leans on the counter with both hands and doesn't move. The second fork is in her hand but she's not placing it. Her cardigan is half falling off one shoulder. A glass of water she brought in is on the counter, untouched. The fridge hums. Nothing is said. The second fork, the one that stopped her, is still in her hand."
+  visual_cause_of_emotion: She is setting the table. She stops at the second fork. She picks it up, sets it down, picks it up again. She does not finish. She leans on the counter with both hands and doesn't move.
+  shot_language:
+    preset: irreversible_moment
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - wife
+  ken_burns_effect: ken-burns
+  duration_hint: 12-15s
+  # v1.1 — micro-behaviors
+  micro_behaviors:
+    - unfinished_movements
+    - hesitation
+    - emotional_withdrawal
+  # v1.1 — environmental imperfections
+  environmental_imperfections:
+    - second fork, the one that stopped her, still in her hand
+    - cardigan half falling off one shoulder
+    - untouched glass of water
+    - fridge hum
+    - half-set table
+- scene_number: 9
+  title: Defiant Retreat
+  phase: retreat
+  beat: defensive_retreat
+  act: act_3_psychological_truth
+  mood: numb_resigned
+  energy: 2
+  # v5.0 — post_moment: the scene right after the irreversible moment
+  post_moment: true
+  silence_before: 2.0
+  voiceover: After a while, you stop trying to be the one who reaches first.
+  scene_description: He sits alone on the living room couch, TV on mute, controller
+    in his lap but he's not playing. She stands in the doorway, watching him not
+    play. Her hand rests on the door frame; she almost says something, doesn't.
+    A glass of water sits on the coffee table, untouched. The room is dim.
+    A jacket is draped over the arm of the chair.
+  visual_cause_of_emotion: Sits alone, TV on mute, controller in his lap but not
+    playing. She stands in the doorway, almost says something, doesn't.
+  shot_language:
+    shot_size: wide
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  - wife
+  ken_burns_effect: pan-right
+  duration_hint: 20-30s
+  micro_behaviors:
+    - emotional_withdrawal
+    - almost_speaking
+  environmental_imperfections:
+    - TV on mute
+    - untouched glass of water
+    - jacket draped over chair
+    - dim room
+- scene_number: 10
+  title: Her Grief
+  phase: duality
+  beat: her_truth
+  act: act_3_psychological_truth
+  mood: quiet_grief
+  energy: 3
+  # v5.0 — EMOTIONAL ASYMMETRY (Rule 6). Her grief is her own.
+  shows_duality: true
+  voiceover: She is exhausted too. She just learned the same lesson. In her own way.
+  scene_description: She stands alone at the kitchen window at night, both hands
+    flat on the sill, looking at nothing. Her face is lit by the dim streetlight
+    outside. A single tear falls but she doesn't wipe it. A half-drunk cup of
+    tea has gone cold on the counter. A note she'd started writing to him —
+    just two words — is folded in half beside the cup. She doesn't finish it.
+  visual_cause_of_emotion: Both hands flat on the sill. A single tear falls, she
+    doesn't wipe it. The note, half-written, two words. The cold tea.
+  shot_language:
+    shot_size: close-up
+    lighting_key: practical_lighting
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - wife
+  ken_burns_effect: pan-left
+  duration_hint: 20-30s
+  micro_behaviors:
+    - emotional_withdrawal
+    - unfinished_movements
+    - hesitation
+  environmental_imperfections:
+    - half-drunk cup of tea gone cold
+    - note half-written, two words
+    - streetlight through window
+    - dim kitchen at night
+- scene_number: 11
+  title: Final Truth
+  phase: climax
+  beat: final_truth
+  act: act_3_psychological_truth
+  mood: devastating_quiet
+  energy: 1
+  voiceover: Not all distance is anger. Sometimes it's just grief.
+  scene_description: He lies in bed alone, staring at the ceiling. The same bedroom
+    now feels like a different life. The sheets are twisted. Her pillow still
+    holds the shape of her head. A glass of water on the nightstand is half-empty.
+    The room is dark. The only light is the streetlight through the curtain.
+  visual_cause_of_emotion: Lies in bed alone, staring at the ceiling. Sheets twisted.
+    Her pillow still holds the shape of her head. Half-empty glass.
+  shot_language:
+    shot_size: medium
+    lighting_key: moonlight
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - husband
+  ken_burns_effect: ken-burns
+  duration_hint: 25-40s
+  # v5.0 — closing silence for the final truth to land
+  silence_after: 2.0
+  micro_behaviors:
+    - emotional_withdrawal
+    - unfinished_movements
+  environmental_imperfections:
+    - sheets twisted
+    - her pillow still holds her head's shape
+    - half-empty glass of water
+    - streetlight through curtain
+video:
+  fps: 24
+  codec: libx264
+  pix_fmt: yuv420p
+  crf: 18
+  preset: medium
+audio:
+  tts_engine: edge-tts
+  voice: en-US-AndrewMultilingualNeural
+  rate: -15%
+  volume: -10%
+  pitch: -5Hz
+  sample_rate: 44100
+  channels: 2
+  merge_bitrate: 192k
+music:
+  style: ambient_piano
+  key: A_minor
+  volume_in_mix: 0.35
+ambient:
+  room_tone_volume: 0.2
+verification:
+  engine: clip
+  model: openai/clip-vit-base-patch32
+  min_score: 0.3
+  max_refine_rounds: 2

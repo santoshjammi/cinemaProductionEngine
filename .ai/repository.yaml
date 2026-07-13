@@ -1,0 +1,9 @@
+# Repository Overview
+---
+repository:
+  type: "Python Modular Package & Monorepo Structure"
+  directories:
+    movie_os: "Core package containing capability registry, provider adapters, agents, and configurations."
+    backend: "FastAPI server exposing endpoints to drive video generation tasks."
+    frontend: "Next.js UI dashboard client."
+    docs: "Product designs, Multi-Agent specifications, and planning details."

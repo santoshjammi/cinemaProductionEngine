@@ -1,0 +1,415 @@
+# Style Guide — Emotional Withdrawal Universe
+# Shared visual system for all videos in this directory.
+# Referenced by VID##_sdxl.yaml manifests via `style_guide: STYLE_GUIDE.yaml`
+
+# ============================================================
+# VISUAL IDENTITY
+# ============================================================
+
+identity:
+  name: "Emotional Withdrawal Cinematic"
+  category: "psychological-cinematic-realism"
+  mood: "melancholic, intimate, restrained, quietly devastating"
+  pace: "slow, immersive, deliberate"
+  best_for: "Emotional documentaries, psychological storytelling, relationship narratives"
+
+# ============================================================
+# COLOR SYSTEM
+# ============================================================
+# Cool blue undertones in every scene. Warm amber ONLY from practical
+# light sources (phone, lamp, TV). Never warm overall.
+
+visual_language:
+  color_palette:
+    dominant: "cool blue undertones"
+    practical_lights: "warm amber (phone glow, lamp, TV screen)"
+    shadows: "deep but not crushed — detail visible in darkness"
+    highlights: "soft, rolled off — never harsh or clipped"
+    skin_tones: "natural, slightly desaturated — never vibrant"
+    moonlight: "cool blue-white through curtains"
+    interior_warm: "tungsten amber from lamps — never ambient warm"
+  composition: "centered or rule-of-thirds, negative space for isolation, layered depth (FG/MG/BG separation)"
+  texture: "35mm film grain, natural, organic — never clean digital"
+
+# ============================================================
+# CONSISTENCY ANCHORS
+# ============================================================
+# These are repeated (adapted, not verbatim) across scenes to maintain
+# visual coherence without making scenes identical.
+
+consistency_anchors:
+  - "Cool blue undertones in every scene — never warm overall"
+  - "Warm amber only from practical light sources (phone, lamp, TV)"
+  - "Shallow depth of field with bokeh — never deep focus for intimate scenes"
+  - "Film grain texture — never clean digital look"
+  - "Muted desaturated palette — never vibrant or oversaturated"
+  - "Low light environments — darkness is a character, not absence of light"
+  - "Distance in shared spaces — two people in frame but emotionally apart"
+  - "Nighttime or low-light settings dominate — daytime is rare and brief"
+
+# ============================================================
+# SHOT LANGUAGE LIBRARY
+# ============================================================
+# Reusable shot language presets for the prompt builder.
+# Each scene references one of these via `shot_language_preset`.
+
+shot_presets:
+  intimate_close:
+    shot_size: "close_up"
+    lighting_key: "practical_phone"
+    lens_mm: 50
+    depth_of_field: "shallow"
+    description: "Intimate close-up, practical light source, shallow bokeh"
+
+  quiet_medium:
+    shot_size: "medium"
+    lighting_key: "tungsten_warm"
+    lens_mm: 35
+    depth_of_field: "medium"
+    description: "Medium shot, warm tungsten, moderate depth"
+
+  isolation_portrait:
+    shot_size: "medium_close"
+    lighting_key: "low_key"
+    lens_mm: 85
+    depth_of_field: "shallow"
+    description: "Isolated portrait, dramatic low-key, telephoto compression"
+
+  numbness_wide:
+    shot_size: "medium"
+    lighting_key: "practical_phone"
+    lens_mm: 35
+    depth_of_field: "shallow"
+    description: "Wide-ish medium, screen-lit numbness, shallow DoF"
+
+  final_truth:
+    shot_size: "close_up"
+    lighting_key: "moonlight"
+    lens_mm: 50
+    depth_of_field: "shallow"
+    description: "Close-up, moonlight, shallow DoF, devastating quiet"
+
+  warmth_memory:
+    shot_size: "medium"
+    lighting_key: "golden_hour"
+    lens_mm: 50
+    depth_of_field: "shallow"
+    description: "Warm golden hour memory, soft and tender — contrast scene"
+
+  almost_moment:
+    shot_size: "extreme_close_up"
+    lighting_key: "moonlight"
+    lens_mm: 85
+    depth_of_field: "shallow"
+    description: "Extreme close-up on hands almost touching, moonlight"
+
+  # NEW (v5.0) — the irreversible moment shot
+  # The most important shot in the video. Used on the SINGLE scene marked
+  # `irreversible_moment: true` in the manifest. Extreme close-up, dramatic
+  # side-light, very shallow depth. The interrupted action is the subject.
+  irreversible_moment:
+    shot_size: "extreme_close_up"
+    lighting_key: "dramatic_side_light"
+    lens_mm: 85
+    depth_of_field: "extreme_shallow"
+    description: "Extreme close-up on an interrupted gesture — hand that almost reached, sentence that almost began. Dramatic side-light, single source. The body catches itself and redirects, but the witness sees what almost happened."
+    framing_notes:
+      - "Subject fills 70-80% of frame"
+      - "One strong side-light source, deep shadow on opposite side"
+      - "Slight motion blur on the interrupted action"
+      - "Eye contact is broken, redirected, or absent"
+      - "Background out of focus, but contains a SECOND figure (the witness)"
+
+# ============================================================
+# ENVIRONMENTAL IMPERFECTION SYSTEM (v5.0)
+# ============================================================
+# Every scene MUST contain ≥2 of these. Spaces must feel inhabited, not staged.
+# The LLM prompt requires these explicitly; the prompt builder injects
+# ≥2 randomly into each scene_description to guarantee compliance.
+
+environmental_imperfections:
+  fabric_wear:
+    - "wrinkled blankets, rumpled sheets"
+    - "pillows with the shape of heads still pressed in"
+    - "worn cushion, faded throw pillow"
+    - "sheets twisted, one corner untucked"
+  kitchen_mess:
+    - "half-empty mug on the counter"
+    - "dishes in the sink, a few still waiting"
+    - "a single unwashed glass by the bed"
+    - "a sock on the hallway floor"
+  light_imperfection:
+    - "flickering lamp, single bulb, dim corner"
+    - "a lamp that's not quite centered"
+    - "shadows pooling in a corner"
+    - "the TV's standby light glowing red in the dark"
+  hallway_clutter:
+    - "shoes kicked off at an angle"
+    - "a coat half on a hook"
+    - "mail on the counter, not sorted"
+    - "keys dropped, not placed"
+  door_state:
+    - "a door not quite closed"
+    - "a door not quite open"
+    - "the bathroom door cracked an inch"
+  reflections:
+    - "their face in the dark window"
+    - "the kitchen light reflected in the hallway mirror"
+    - "rain on a window with a face behind it"
+  texture_grain:
+    - "35mm film grain throughout"
+    - "slight motion blur on edges"
+    - "soft focus on the periphery"
+    - "a faint scratch or dust on the lens"
+  signs_of_life:
+    - "a water ring on the nightstand"
+    - "toothpaste smudge on the bathroom mirror"
+    - "fingerprint on a phone screen"
+    - "a pen mark on the back of a hand"
+
+# ============================================================
+# NEGATIVE PROMPT EXTENSIONS (v5.0)
+# ============================================================
+# Append these to the universal negative prompt on every scene.
+# These are the patterns expert feedback 03 forbade.
+
+negative_prompt_extensions:
+  - "staring sadly at camera"
+  - "crying openly"
+  - "dramatic pose"
+  - "head in hands"
+  - "looking into the distance dramatically"
+  - "tear rolling down cheek in slow motion"
+  - "intense emotional expression"
+  - "sad man alone"
+  - "sad woman alone"
+  - "posed emotion"
+  - "stock photo emotion"
+  - "theatrical sadness"
+  - "performed grief"
+  - "clean modern interior"
+  - "staged photo"
+  - "perfect lighting"
+  - "empty sterile room"
+  # v1.1 — Rule 19: characters must be imperfect, not composed
+  - "perfectly styled hair"
+  - "flawless skin"
+  - "magazine cover pose"
+  - "idealized portrait"
+  - "studio lighting"
+  - "beauty shot"
+  - "attractive couple"
+  - "romantic framing"
+  - "candlelit dinner"
+  - "flawless composition"
+
+# ============================================================
+# LIGHTING VOCABULARY
+# ============================================================
+# Maps lighting_key values to natural-language prompt phrases.
+
+lighting_vocabulary:
+  practical_phone: "phone screen glow as the only practical light source"
+  tungsten_warm: "warm tungsten interior lamp glow"
+  low_key: "dramatic low-key lighting with deep shadows"
+  moonlight: "cool moonlight through curtains"
+  golden_hour: "warm golden hour sunlight, soft and tender"
+  blue_hour: "cool blue hour twilight"
+  overcast_soft: "soft overcast diffused light"
+  volumetric: "volumetric light rays through atmosphere"
+  rim_lit: "rim lighting on subject edges"
+  silhouette: "backlit silhouette against window"
+
+# ============================================================
+# CAMERA SHOT SIZES
+# ============================================================
+
+shot_size_vocabulary:
+  extreme_wide: "extreme wide establishing shot"
+  wide: "wide shot showing full environment"
+  medium_wide: "medium-wide shot framing subject with surroundings"
+  medium: "medium shot, waist up"
+  medium_close: "medium close-up, chest up"
+  close_up: "close-up shot"
+  extreme_close_up: "extreme close-up detail shot"
+  over_shoulder: "over-the-shoulder framing"
+
+# ============================================================
+# DEPTH OF FIELD
+# ============================================================
+
+dof_vocabulary:
+  shallow: "shallow depth of field with bokeh"
+  medium: "medium depth of field"
+  deep: "deep focus, everything sharp"
+
+# ============================================================
+# CHARACTER ANCHORS
+# ============================================================
+# Identity anchors repeated verbatim in every scene for consistency.
+# Modify per video but keep the structure: 3-5 disambiguating visual traits.
+
+character_template:
+  protagonist:
+    anchors:
+      - "man in his {age}"
+      - "{hair_description}"  # v1.1 — should include imperfection: "slightly messy", "slightly too long", "tousled"
+      - "{facial_hair}"        # v1.1 — should include imperfection: "a few days unshaven", "patchy"
+      - "{clothing}"           # v1.1 — should include imperfection: "half-tucked shirt", "sleeve half-rolled", "collar folded"
+    # v1.1 — extended emotional_range with imperfection registers (Rule 19)
+    emotional_range:
+      - "restraint: hand frozen mid-reach, fingers curled, held breath"
+      - "shame: head bowed, hunched shoulders, avoiding eye contact"
+      - "numbness: blank thousand-yard stare, slack jaw, limp hands"
+      - "grief: motionless, eyes open but unfocused, hand hovering"
+      - "tired: heavy eyes, mouth not quite smiling, posture not quite straight"
+      - "awkward: slightly off-center, slightly uncomfortable, one sleeve half-rolled"
+      - "distracted: looking away, mid-thought elsewhere, hand mid-gesture"
+      - "delayed: emotional response 5 seconds too long, body catches up late"
+      - "asymmetric: hair not quite in place, one collar folded, shirt half-tucked"
+      - "unfinished: starts a motion, stops, returns hand to where it was"
+  partner:
+    anchors:
+      - "woman in her {age}"
+      - "{hair_description}"  # v1.1 — "slightly tangled", "tied back loosely", "stray strand"
+      - "{clothing}"           # v1.1 — "sleeve falling off shoulder", "cardigan half-on"
+    # v1.1 — extended emotional_range with imperfection registers (Rule 19)
+    emotional_range:
+      - "warmth: leaning on his shoulder, eyes closed, peaceful"
+      - "distance: facing away, not making eye contact, gap between bodies"
+      - "exhaustion: tired expression, delayed response, slumped posture"
+      - "tired: heavy eyes, mouth not quite smiling, holding herself differently than before"
+      - "awkward: not quite comfortable, fidgeting with her hands, the hem of her sleeve"
+      - "distracted: looking away, mid-thought elsewhere, fiddling with a mug handle"
+      - "delayed: emotional response 5 seconds too long, body catches up late"
+      - "asymmetric: hair slightly tangled, one strap falling off shoulder, cardigan half-on"
+      - "unfinished: starts a motion, stops, returns hand to where it was"
+
+# ============================================================
+# NEGATIVE PROMPT
+# ============================================================
+# Universal negative prompt for all scenes.
+
+negative_prompt: >
+  cartoon, anime, illustration, painting, 3d render, cgi, video game,
+  blurry, low quality, distorted, deformed, disfigured, bad anatomy,
+  extra limbs, extra fingers, watermark, signature, text,
+  oversaturated, hdr, plastic skin, duplicate, cloned,
+  overlapping subjects, messy composition, chaotic,
+  multiple scenes, collage, split screen, bright daylight,
+  cheerful, stock photo, commercial photography
+
+# ============================================================
+# KEN BURNS EFFECTS
+# ============================================================
+
+ken_burns_effects:
+  - "ken-burns"    # Slow push-in with slight drift
+  - "zoom-in"      # Steady zoom toward subject
+  - "zoom-out"     # Pull back revealing isolation
+  - "pan-right"    # Pan across the space
+  - "pan-left"     # Pan back across
+
+# ============================================================
+# AUDIO
+# ============================================================
+
+audio:
+  tts_engine: "edge-tts"
+  voice: "en-US-AndrewMultilingualNeural"
+  sample_rate: 44100
+  channels: 2
+  merge_bitrate: "192k"
+  voice_direction: "Low, restrained, unhurried. Not dramatic — intimate. Pause-heavy. Recognition, not performance."
+
+  # NEW (v5.0) — voice_modulation_engine
+  # The voice progresses through 4 emotional registers across the video.
+  # Each scene's prosody is set automatically by act + energy level,
+  # unless the scene is marked `irreversible_moment: true` (which uses
+  # the dramatic override) or has a `tts_prosody_override` set.
+  voice_modulation:
+    default:
+      rate: "-15%"
+      volume: "-10%"
+      pitch: "-5Hz"
+      description: "Reflective, present, not yet exposed"
+    vulnerable:
+      rate: "-20%"
+      volume: "-12%"
+      pitch: "-7Hz"
+      description: "Showing through. The voice is opening. Mid-video."
+      triggers:
+        - "act == 'act_2_inner_reality' and energy <= 3"
+        - "scene marked 'voice_fragile: true'"
+    fractured:
+      rate: "-22%"
+      volume: "-15%"
+      pitch: "-8Hz"
+      description: "The voice is breaking slightly. Act 3 default."
+      triggers:
+        - "act == 'act_3_psychological_truth'"
+    emotionally_exhausted:
+      rate: "-25%"
+      volume: "-18%"
+      pitch: "-10Hz"
+      description: "The last thing the voice can manage. Endings only."
+      triggers:
+        - "phase == 'climax' and silence_instead != true"
+    irreversible_moment:
+      rate: "-30%"
+      volume: "-20%"
+      pitch: "-12Hz"
+      description: "A register the rest of the video never uses. The sudden drop is what makes the moment stand out."
+      triggers:
+        - "scene marked 'irreversible_moment: true'"
+      breathing_layer_db: "+3dB"  # breath-forward, audible
+      # v1.1 — VOCAL FRACTURE (Rule 22)
+      # When the irreversible moment has a voiceover (i.e. NOT silence_instead),
+      # the TTS service applies additional treatments to make the voice feel
+      # emotionally unstable — not dramatic, just fragile.
+      vocal_fracture:
+        description: "Breath pre-pad + SSML break tags + breath audio pre-pad. Makes the voice feel like it's catching itself, not performing."
+        applies_when: "scene.irreversible_moment == true AND voiceover is non-empty AND silence_instead != true"
+        treatments:
+          - name: "breath_pre_pad"
+            description: "Prepend <break time=\"400ms\"/> to the SSML so the voice enters from silence, not from a clean word"
+          - name: "ssml_break_tags"
+            description: "Insert <break time=\"300ms\"/> before any emotionally loaded word"
+            loaded_words:
+              - still
+              - almost
+              - dangerous
+              - tired
+              - grief
+              - afraid
+              - love
+              - lost
+              - alone
+              - home
+              - safe
+              - reaching
+              - remember
+              - quiet
+              - enough
+          - name: "breath_audio_pre_pad"
+            description: "A 200ms breath audio layer is mixed in before the TTS so the voice begins on an inhale"
+            source: "synthesized via FFmpeg brown noise + sine wave at 0.3Hz"
+
+  # NEW (v5.0) — silence_engine
+  # Silence is part of the soundtrack. Three types, all per-scene.
+  silence_rules:
+    types:
+      silence_before:
+        description: "N seconds of room tone before this scene's narration begins"
+        audio_config: "ambient track at full volume, music muted, narration absent"
+        duration_unit: "seconds"
+      silence_after:
+        description: "N seconds of room tone after this scene's narration ends"
+        audio_config: "ambient track at full volume, music muted, narration absent"
+        duration_unit: "seconds"
+      silence_instead:
+        description: "This scene has NO narration. Only ambient + room tone carry it."
+        audio_config: "ambient track at full volume, music muted, narration absent for entire scene"
+        implication: "The scene's voiceover field is ignored. Ken Burns duration is set by duration_hint."
+    minimum_requirement: "At least 2 scenes per video must have silence_before or silence_after ≥ 1.5s"
+    irreversible_moment_rule: "The irreversible moment scene is ALWAYS silence_instead: true plus silence_after: 3.0. The next scene has silence_before: 2.0."

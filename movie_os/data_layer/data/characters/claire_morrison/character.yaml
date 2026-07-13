@@ -1,0 +1,88 @@
+id: 5b445705-b6f5-4ab2-b4c1-030f2177d3f3
+key: claire_morrison
+name: Claire Morrison
+role: partner
+tags:
+- emotional_withdrawal
+- married_wife
+physical:
+  age: 30
+  gender: female
+  ethnicity: ''
+  height_cm: null
+  build: slim, soft shoulders
+  hair: auburn, slightly tangled, usually down
+  eyes: ''
+  distinguishing_features:
+  - auburn hair
+  - thoughtful eyes
+  - small scar on left wrist (old, faded)
+  visual_anchor: woman early 30s, auburn hair slightly tangled, white shirt, cardigan
+    half-off, thoughtful eyes
+psychological:
+  personality_traits:
+  - warm
+  - expressive
+  - intuitive
+  - exhausted
+  emotional_tendencies:
+  - interprets Ethan's withdrawal as rejection
+  - moves toward when hurt
+  - bottles then explodes
+  psychological_wounds:
+  - father was emotionally unavailable
+  - fears being a burden
+  defense_mechanisms:
+  - confrontation after long silence
+  - busyness as avoidance
+  - false cheerfulness
+  core_fear: being too much, or not enough
+  core_desire: to feel chosen again
+speech:
+  speaking_style: soft, short sentences when hurt; long flowing when safe
+  vocabulary_level: conversational
+  verbal_tics:
+  - I'm fine
+  - It's okay
+  - you don't have to...
+  silence_tendencies: goes silent when truly hurt, then asks one devastating question
+voice:
+  pitch: medium-high
+  pace: measured, slows when emotional
+  tone: warm, slightly tired
+  accent: general American
+  tts_voice: en-US-JennyNeural
+  tts_provider: edge
+wardrobe:
+  default_outfit: white shirt, cardigan half-off her shoulder, jeans, bare feet
+  signature_items:
+  - white linen shirt
+  - oversized grey cardigan
+  style_notes: casual elegance, slightly disheveled by the end of the day
+expressions:
+  expressions:
+  - 'warmth: leaning on his shoulder, eyes closed'
+  - 'distance: facing away, gap between bodies'
+  - 'exhaustion: tired, delayed response, slumped'
+  - 'tired: heavy eyes, holding herself differently'
+  - 'awkward: fidgeting with sleeve hem'
+  - 'distracted: looking away, fiddling with mug'
+  - 'delayed: emotional response 5 seconds too long'
+  - 'grief: tears falling silently, staring at nothing'
+relationships: []
+history:
+  backstory: Married 8 years. Was expressive and warm in courtship. Has been initiating
+    less as Ethan's withdrawal grew. Recently started a new job that takes more of
+    her energy. Misses the man she married but doesn't know how to reach him.
+  significant_events: []
+  last_story_id: null
+arc:
+  starting_state: warm, expressive, hopeful
+  ending_state: quietly grieving, but also recognizing her own role in the distance
+  key_moments:
+  - the first morning she stopped trying to touch him
+  - the email she almost sent
+  - the almost-question that she finally asks
+reference_images: []
+created_at: '2026-07-08'
+notes: ''

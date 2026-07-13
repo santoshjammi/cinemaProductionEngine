@@ -1,0 +1,240 @@
+# Scene Blueprint Schema — v1.0
+
+> **The deterministic structure of every scene in every videoGen psychological cinema video.**
+>
+> Every scene in every manifest MUST conform to this schema.
+> The pipeline reads this schema, generates assets, composes, and outputs the scene.
+> Renderers (M1 Max SDXL, OpenMontage, future providers) consume this schema.
+
+---
+
+## Why a schema
+
+Without a schema, every video creator invents new fields. The pipeline has to handle every variant. The schema eliminates that variance.
+
+With a schema, every scene is **deterministic** — given a scene blueprint, the same render always produces the same video. This is the foundation for:
+- A/B testing different scenes
+- Reusing scenes across videos
+- Training agents to write scenes
+- Plugging in different renderers (SDXL, Flux, OpenAI, Runway, Kling)
+
+---
+
+## The schema
+
+```yaml
+# Every scene in every videoGen video MUST have these fields.
+scene:
+  # ---------- IDENTITY ----------
+  id: string                          # kebab-case, unique within manifest
+  index: int                          # 1-11, position in 3-act grid
+  title: string                       # short, evocative
+  beat: enum                         # one of the 11 canonical beats
+  act: enum                          # act_1_observation | act_2_inner_reality | act_3_psychological_truth
+  phase: enum                        # hook | warmth | normalcy | crack | collapse | almost | retreat | duality | climax
+  duration_seconds: float            # 3.0 to 12.0
+  energy: int                        # 1-10, matches pacing curve
+
+  # ---------- EMOTIONAL STATE ----------
+  emotional_state:
+    primary: enum                     # restrained | numb | grief | warmth | shame | exhausted | yearning | defensive | resigned
+    secondary: enum | null           # optional secondary emotion
+    subtext: string                   # 1-2 sentences: what the audience FEELS even if not shown
+
+  # ---------- VISUAL SYMBOLISM ----------
+  visual_symbolism:
+    symbols: list[string]             # e.g. ["unwashed mug", "rumpled sheets", "phone glow"]
+    imperfection: list[string]         # e.g. ["messy hair", "half-tucked shirt"]
+    what_is_NOT_shown: string         # the emotion that must be IMPLIED, never illustrated
+
+  # ---------- CAMERA LANGUAGE ----------
+  camera_language:
+    shot_size: enum                   # extreme_wide | wide | medium_wide | medium | medium_close | close_up | extreme_close_up
+    movement: enum                    # static | slow_push_in | slow_pull_out | pan_left | pan_right | handheld_drift | parallax_drift
+    framing: enum                     # centered | rule_of_thirds | off_center | asymmetric | through_doorway | through_window
+    depth_of_field: enum              # deep | medium | shallow | extreme_shallow
+    lens_mm: int                      # 24 | 35 | 50 | 85
+    lighting_key: enum                # high_key | low_key | natural | golden_hour | blue_hour | tungsten_warm | practical_phone | moonlight | overcast_soft | dramatic_side_light
+
+  # ---------- SOUNDTRACK ZONE ----------
+  soundtrack_zone:
+    music_zone: enum                  # act_1 | act_2 | act_3 | silent
+    music_volume: float               # 0.0 to 1.0
+    ambient_sfx_profile: string       # beat name (e.g. "irreversible_moment")
+    ambient_volume: float             # 0.0 to 1.0
+    silence_before_seconds: float     # 0.0 to 5.0
+    silence_after_seconds: float      # 0.0 to 5.0
+    silence_instead: bool             # if true: no narration, only ambient
+
+  # ---------- NARRATION ----------
+  narration:
+    text: string                      # the voiceover, ≤25 words (or ≤12 for irreversible)
+    prosody_register: enum            # default | vulnerable | fractured | emotionally_exhausted | irreversible_moment
+    vocal_fracture: bool              # true for irreversible_moment
+    breath_pre_pad_ms: int            # 0 (default) or 400 (irreversible moment)
+    break_words: list[string]         # words preceded by 300ms silence (irreversible moment only)
+    emphasis_words: list[string]      # words highlighted in subtitles
+    # The pipeline applies prosody automatically based on prosody_register
+
+  # ---------- SUBTITLE ----------
+  subtitle_emphasis:
+    emphasis_words: list[string]      # words highlighted in gold
+    pause_after_words: list[string]   # words followed by 500ms pause
+    phrase_pacing: bool               # true = one phrase per caption
+    max_words_per_caption: int        # default 6
+
+  # ---------- TRANSITION ----------
+  transition_type:
+    in_transition: enum               # cut | fade_black | slow_dissolve | match_cut | none
+    out_transition: enum              # cut | fade_black | slow_dissolve | match_cut | none
+    silence_gap_seconds: float        # additional silence between scenes
+
+  # ---------- RENDER HINTS ----------
+  render_hints:
+    mode: enum                        # txt2img | img2img_from_hero | motion_clip | stock_footage
+    hero_reference: string | null     # path to hero image if mode is img2img
+    negative_prompts: list[string]    # additional negatives beyond the global set
+    micro_behaviors: list[string]     # unfinished_movements, hesitation, redirected_attention, almost_touching, almost_speaking, emotional_withdrawal
+    environmental_imperfections: list[string]  # ≥2 required: fabric_wear, kitchen_mess, light_imperfection, hallway_clutter, door_state, reflections, texture_grain, signs_of_life
+
+  # ---------- IRREVERSIBLE MOMENT FLAGS (only on the 1 scene that's the wound) ----------
+  irreversible_moment: bool           # true on EXACTLY 1 scene per video
+  pre_moment: bool                   # true on the scene immediately before the irreversible moment
+  post_moment: bool                  # true on the scene immediately after the irreversible moment
+
+  # ---------- DUALITY (her grief) ----------
+  shows_duality: bool                # true on EXACTLY 1 scene (typically scene 10) showing her own grief
+```
+
+---
+
+## Field constraints
+
+### Required fields (every scene)
+
+- `id`, `index`, `title`, `beat`, `act`, `phase`, `duration_seconds`, `energy`
+- `emotional_state.primary`, `emotional_state.subtext`
+- `visual_symbolism.symbols` (≥2)
+- `camera_language` (all fields)
+- `soundtrack_zone` (all fields)
+- `narration.text` (or `soundtrack_zone.silence_instead: true`)
+- `render_hints.micro_behaviors` (≥1)
+- `render_hints.environmental_imperfections` (≥2)
+
+### Video-level constraints (pipeline asserts)
+
+- **Exactly 1** scene has `irreversible_moment: true`
+- **Exactly 1** scene has `shows_duality: true`
+- **Exactly 2** scenes have `beat: contrast_memory` (scenes 2-3, both warm)
+- The scene BEFORE `irreversible_moment` has `pre_moment: true`
+- The scene AFTER has `post_moment: true`
+- **≥2** scenes use `silence_before_seconds` or `silence_after_seconds` ≥ 1.5
+- The `irreversible_moment` scene has `silence_instead: true` OR `narration.text` length ≤ 12 words
+- The `irreversible_moment` scene has `narration.prosody_register: irreversible_moment`
+- The `irreversible_moment` scene has `vocal_fracture: true` (if voiceover exists)
+
+### Energy must match pacing curve
+
+`scene.energy` must equal the value in `pacing_curve` for that index.
+
+---
+
+## Example scene (canonical, from VID01)
+
+```yaml
+- id: emotional-withdrawal-08-setting-the-table
+  index: 8
+  title: "Setting the Table"
+  beat: irreversible_moment
+  act: act_2_inner_reality
+  phase: almost
+  duration_seconds: 12.0
+  energy: 5
+
+  emotional_state:
+    primary: restrained
+    secondary: yearning
+    subtext: "She does not know why she stopped. The viewer recognizes this pause — it has happened to them."
+
+  visual_symbolism:
+    symbols: ["second fork", "half-set table", "untouched glass of water", "cardigan half-off shoulder"]
+    imperfection: ["messy hair", "cardigan slipping", "fridge hum"]
+    what_is_NOT_shown: "The argument. The collapse. The whole relationship. Just the freeze."
+
+  camera_language:
+    shot_size: medium
+    movement: static
+    framing: rule_of_thirds
+    depth_of_field: shallow
+    lens_mm: 50
+    lighting_key: natural
+
+  soundtrack_zone:
+    music_zone: silent
+    music_volume: 0.0
+    ambient_sfx_profile: irreversible_moment
+    ambient_volume: 0.42
+    silence_before_seconds: 0.0
+    silence_after_seconds: 3.0
+    silence_instead: false
+
+  narration:
+    text: "She stopped. The second fork... she didn't know why."
+    prosody_register: irreversible_moment
+    vocal_fracture: true
+    breath_pre_pad_ms: 400
+    break_words: [stopped]
+    emphasis_words: [stopped, second, fork]
+    # Pipeline applies rate=-30% vol=-20% pitch=-12Hz automatically
+
+  subtitle_emphasis:
+    emphasis_words: [stopped, second, fork]
+    pause_after_words: [stopped]
+    phrase_pacing: true
+    max_words_per_caption: 5
+
+  transition_type:
+    in_transition: fade_black
+    out_transition: cut
+    silence_gap_seconds: 0.0
+
+  render_hints:
+    mode: img2img_from_hero
+    hero_reference: characters/wife_hero.png
+    negative_prompts: [candlelit_dinner, finished_meal, romantic_framing]
+    micro_behaviors: [unfinished_movements, hesitation, emotional_withdrawal]
+    environmental_imperfections: [kitchen_mess, fabric_wear, signs_of_life]
+
+  irreversible_moment: true
+  pre_moment: false
+  post_moment: false
+  shows_duality: false
+```
+
+---
+
+## What the pipeline does with a scene
+
+```
+scene ──────► narrative_generator (LLM) writes voiceover, scene_description
+       ──────► image_generator (SDXL or img2img from hero) produces 1024x576 frame
+       ──────► tts_service (edge-tts) produces WAV with prosody_register applied
+       ──────► ken_burns (video_service) animates the still image
+       ──────► ambient_sfx (ffmpeg synthesis) produces the beat's ambient bed
+       ──────► audio_mixer mixes narration + music + ambient
+       ──────► subtitle_generator (whisperx) produces word-level SRT
+       ──────► subtitle_burner overlays SRT onto video (or Remotion subs)
+       ──────► scene clip (final_clips/scene_NNN.mp4)
+```
+
+Every render backend implements the same interface. New providers (Flux, Kling, OpenAI) plug in by reading this schema and writing the same output format.
+
+---
+
+## Versioning
+
+| Version | Date | Change |
+|---------|------|--------|
+| 1.0 | 2026-07-07 | Initial schema. Derived from VID01_template_refined.yaml + FORMULA.md v1.1. |
+
+This file is the **scene contract**. Renderers, agents, and templates all conform to it. When you change it, every existing manifest may need migration.

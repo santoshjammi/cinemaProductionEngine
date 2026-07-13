@@ -1,0 +1,233 @@
+# VID01 — Emotional Withdrawal
+# Cinematic Video Generation Manifest
+# Model: Stable Diffusion XL (stabilityai/stable-diffusion-xl-base-1.0)
+# Runtime: Apple M1 Max 64GB unified memory, MPS backend, float16
+# Aspect: 16:9 (1024x576)
+# Inference: 30 steps, guidance_scale 7.5
+# Verification: CLIP ViT-B/32, 4 candidates per scene, min_score 0.30
+
+manifest_version: "1.0"
+
+model:
+  name: "stabilityai/stable-diffusion-xl-base-1.0"
+  type: "sdxl"
+  dtype: "float16"
+  variant: "fp16"
+  device: "mps"
+  resolution:
+    width: 1024
+    height: 576
+
+generation:
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  num_candidates: 4
+  min_clip_score: 0.30
+  max_refine_rounds: 2
+  candidate_seeds: [42, 137, 1024, 7777]
+  refinement_seeds: [314, 2718, 9999, 5678]
+
+# Character identity anchors — repeated VERBATIM in every scene
+# This is the key technique from OpenMontage for cross-scene consistency.
+# SDXL has no native character lock, so we rely on:
+#   1. Verbatim physical description in every prompt
+#   2. Fixed seed families for structural similarity
+#   3. CLIP verification to reject images that drift from the prompt
+characters:
+  husband:
+    name: "James"
+    role: "protagonist"
+    anchors:
+      - "man in his mid-30s"
+      - "short dark brown hair"
+      - "light stubble beard"
+      - "grey t-shirt"
+    emotional_range:
+      - "restraint, held-back gesture, frozen mid-reach"
+      - "accumulated shame, head bowed, hunched shoulders"
+      - "numbness, blank thousand-yard stare, slack jaw"
+      - "grief, motionless, eyes open but unfocused"
+  wife:
+    name: "Sarah"
+    role: "supporting"
+    anchors:
+      - "woman in her early 30s"
+      - "long wavy auburn hair"
+      - "white sleep shirt"
+    emotional_range:
+      - "asleep, peaceful, unaware"
+      - "distant, facing away, not making eye contact"
+      - "awake but still, staring at ceiling"
+
+# Visual system — keeps scenes coherent without making them identical.
+# Adapted per scene, NOT pasted verbatim (OpenMontage technique).
+visual_system:
+  style: "cinematic photorealism, 35mm film grain, muted desaturated tones"
+  color_palette:
+    dominant: "cool blue undertones"
+    practical_lights: "warm amber"
+    shadows: "deep but not crushed"
+    highlights: "soft, rolled off"
+  texture: "shallow depth of field, natural film grain, soft contrast"
+  consistency_anchors:
+    - "Cool blue undertones in every scene — never warm overall"
+    - "Warm amber only from practical light sources (phone, lamp, TV)"
+    - "Shallow depth of field with bokeh — never deep focus"
+    - "Film grain texture — never clean digital look"
+    - "Muted desaturated palette — never vibrant or oversaturated"
+  negative_prompt: >
+    cartoon, anime, illustration, painting, 3d render, cgi, video game,
+    blurry, low quality, distorted, deformed, disfigured, bad anatomy,
+    extra limbs, extra fingers, watermark, signature, text,
+    oversaturated, hdr, plastic skin, duplicate, cloned,
+    overlapping subjects, messy composition, chaotic,
+    multiple scenes, collage, split screen
+
+# Scene definitions — each scene is ONE frame, not a montage.
+# The prompt follows the 5-aspect skeleton adapted from OpenMontage:
+#   [Shot] + [Lighting] + [Lens] + [DoF] + [Characters] + [Scene Description]
+# Emotional adjectives are replaced with their visual causes
+# (OpenMontage rule: "sad character" → "tears on cheek, shoulders slumped")
+scenes:
+  - scene_number: 1
+    title: "Opening Hook — The Night It Happens"
+    voiceover: >
+      Nobody notices the exact night it happens. The night a man stops
+      reaching for the woman he loves. Not because he stopped loving her.
+      But because somewhere along the way... intimacy stopped feeling safe.
+    duration_hint: "14s"
+    shot_language:
+      shot_size: "close_up"
+      lighting_key: "practical_phone"
+      lens_mm: 50
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Dark bedroom at night, phone screen glow as the only light source,
+      illuminating half of his face, wife asleep beside him under white
+      sheets, his hand reaching toward her shoulder but frozen mid-gesture,
+      fingers slightly curled, gap between his hand and her shoulder
+    visual_cause_of_emotion: "hand frozen mid-reach, fingers slightly curled, held breath stillness"
+    ken_burns_effect: "ken-burns"
+    # The final prompt is assembled as:
+    #   {shot_language}, {character_anchors}, {scene_description}, {visual_cause}, {color_bias}
+    # All truncated to fit SDXL's token limit (~250 tokens for best results)
+
+  - scene_number: 2
+    title: "The Outside Version — Nothing Looks Wrong"
+    voiceover: >
+      From the outside, nothing looks wrong. They still talk. Still laugh
+      sometimes. Still share a bed. Still remember groceries and birthdays
+      and school meetings. But emotional distance rarely arrives like an
+      explosion. It arrives quietly. Through hesitation. Through accumulated
+      silence. Through moments too small to defend... but too painful to forget.
+    duration_hint: "28s"
+    shot_language:
+      shot_size: "medium"
+      lighting_key: "tungsten_warm"
+      lens_mm: 35
+      depth_of_field: "medium"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Man and woman sitting at a kitchen table eating dinner in silence,
+      plates of food between them, both looking down at their plates,
+      not making eye contact, gap between their hands on the table,
+      plain suburban kitchen with overhead fluorescent light
+    visual_cause_of_emotion: "two people facing same direction but not touching, gap between bodies"
+    ken_burns_effect: "zoom-in"
+
+  - scene_number: 3
+    title: "The Internal Collapse — Vulnerability Becomes Dangerous"
+    voiceover: >
+      People assume men stop initiating intimacy because they lose attraction.
+      Sometimes that's true. But often... what disappears first isn't desire.
+      It's emotional safety. Rejection changes people slowly. Especially the
+      quiet kind. The kind that never becomes a fight. A sigh. A delayed
+      response. A tired expression. A moment that says: Not tonight. And after
+      enough of those moments... vulnerability starts feeling dangerous.
+    duration_hint: "35s"
+    shot_language:
+      shot_size: "medium_close"
+      lighting_key: "low_key"
+      lens_mm: 85
+      depth_of_field: "shallow"
+    characters_present: ["husband"]
+    scene_description: >
+      Man sitting alone in his parked car at night, streetlights outside,
+      staring straight ahead at the dark windshield, hands gripping the
+      steering wheel, head bowed slightly forward, empty passenger seat,
+      rain droplets on side window
+    visual_cause_of_emotion: "head bowed, avoiding eye contact, hunched shoulders"
+    ken_burns_effect: "zoom-out"
+
+  - scene_number: 4
+    title: "The Defensive Retreat — Self-Protection"
+    voiceover: >
+      So he adapts. He stops trying as often. Stops risking embarrassment.
+      Stops reaching first. Not out of punishment. Out of self-protection.
+      Because eventually the brain learns something dangerous: avoiding
+      rejection hurts less than hoping for connection.
+    duration_hint: "20s"
+    shot_language:
+      shot_size: "medium"
+      lighting_key: "practical_phone"
+      lens_mm: 35
+      depth_of_field: "shallow"
+    characters_present: ["husband"]
+    scene_description: >
+      Man sitting alone on a living room couch in darkness, blue TV glow
+      illuminating his face, game controller in his hands, slack jaw,
+      blank thousand-yard stare at the screen, empty couch beside him,
+      dim room with only screen light
+    visual_cause_of_emotion: "blank thousand-yard stare, slack facial muscles, limp hands"
+    ken_burns_effect: "pan-right"
+
+  - scene_number: 5
+    title: "The Final Truth — Distance Is Grief"
+    voiceover: >
+      The tragedy of emotional withdrawal is that it often happens between
+      two people who still love each other. But love without emotional safety
+      slowly becomes performance. And eventually... people stop reaching for
+      places where they no longer feel emotionally wanted. Not all distance
+      is anger. Sometimes distance is grief.
+    duration_hint: "21s"
+    shot_language:
+      shot_size: "close_up"
+      lighting_key: "moonlight"
+      lens_mm: 50
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Dark bedroom at night, both lying in bed facing the ceiling,
+      moonlight through curtains, his hand resting on the white sheet
+      near her hand but not touching, two inches of space between their
+      fingers, cool blue moonlight on white sheets
+    visual_cause_of_emotion: "frozen pose, no motion blur, complete stillness"
+    ken_burns_effect: "pan-left"
+
+# Post-processing
+video:
+  fps: 24
+  codec: "libx264"
+  pix_fmt: "yuv420p"
+  crf: 18
+  preset: "medium"
+
+audio:
+  tts_engine: "edge-tts"
+  voice: "en-US-GuyNeural"
+  sample_rate: 44100
+  channels: 2
+  format: "wav"
+  merge_bitrate: "192k"
+
+# Chain of verification
+verification:
+  engine: "clip"
+  model: "openai/clip-vit-base-patch32"
+  scoring: "cosine_similarity_normalized"
+  min_score: 0.30
+  refine_strategy: "simplify_and_retarget"
+  refine_negatives_add: >
+    duplicate, cloned, overlapping subjects, messy composition,
+    chaotic, multiple scenes, collage

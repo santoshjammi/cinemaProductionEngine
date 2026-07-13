@@ -1,0 +1,7 @@
+# Dependency Mapping
+---
+dependencies:
+  frontend: ["backend_fastapi"]
+  backend: ["movie_os_capabilities", "movie_os_infra"]
+  movie_os_capabilities: ["movie_os_providers"]
+  movie_os_providers: ["ollama_client", "comfyui_client", "ffmpeg"]

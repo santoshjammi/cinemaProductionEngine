@@ -1,0 +1,407 @@
+manifest_version: '4.0'
+story_file: story.md
+context_files:
+- context.md
+playbook_file: ../psychological_cinema_standard.yaml
+narrative_arc:
+  act_1:
+    title: Observation
+    viewer_response: I know this feeling.
+    scenes:
+    - phase: hook
+      beat: opening_hook
+      scene_count: 1
+      mood: tense_restraint
+      energy: 3
+      ken_burns: ken-burns
+    - phase: warmth
+      beat: contrast_memory
+      scene_count: 2
+      mood: warm_nostalgic
+      energy: 7
+      ken_burns: zoom-in
+    - phase: normalcy
+      beat: outside_version
+      scene_count: 1
+      mood: flat_normal
+      energy: 4
+      ken_burns: pan-right
+  act_2:
+    title: Inner Reality
+    viewer_response: I didn't realize this was underneath it.
+    scenes:
+    - phase: crack
+      beat: first_fracture
+      scene_count: 1
+      mood: quiet_unease
+      energy: 3
+      ken_burns: ken-burns
+    - phase: collapse
+      beat: internal_collapse
+      scene_count: 1
+      mood: deepening_darkness
+      energy: 2
+      ken_burns: zoom-out
+    - phase: collapse
+      beat: irreversible_moment
+      scene_count: 1
+      mood: silence
+      energy: 1
+      ken_burns: ken-burns
+    - phase: almost
+      beat: almost_moment
+      scene_count: 1
+      mood: tension
+      energy: 5
+      ken_burns: zoom-in
+  act_3:
+    title: Psychological Truth
+    viewer_response: That truth hurts.
+    scenes:
+    - phase: retreat
+      beat: defensive_retreat
+      scene_count: 1
+      mood: numb_protection
+      energy: 2
+      ken_burns: pan-left
+    - phase: duality
+      beat: her_truth
+      scene_count: 1
+      mood: quiet_grief
+      energy: 3
+      ken_burns: pan-left
+    - phase: climax
+      beat: final_truth
+      scene_count: 1
+      mood: devastating_quiet
+      energy: 1
+      ken_burns: ken-burns
+model:
+  name: stabilityai/stable-diffusion-xl-base-1.0
+  type: sdxl
+  dtype: float16
+  variant: fp16
+  device: mps
+  resolution:
+    width: 1024
+    height: 576
+generation:
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  num_candidates: 4
+  min_clip_score: 0.3
+  max_refine_rounds: 2
+  candidate_seeds:
+  - 42
+  - 137
+  - 1024
+  - 7777
+  refinement_seeds:
+  - 314
+  - 2718
+  - 9999
+  - 5678
+  character_reference_strength: 0.45
+characters:
+  ethan:
+    name: Ethan Morrison
+    role: protagonist
+    anchors:
+    - Ethan Morrison (32), real person with lived-in appearance, imperfect and human
+    emotional_range:
+    - 'restraint: hand frozen mid-reach'
+    - 'tired: heavy eyes, posture not straight'
+    - 'awkward: one sleeve half-rolled, off-center'
+    - 'distracted: looking away mid-thought'
+    - 'delayed: emotional response 5 seconds too long'
+  claire:
+    name: Claire Morrison
+    role: partner
+    anchors:
+    - Claire Morrison (30), real person with lived-in appearance, imperfect and human
+    emotional_range:
+    - 'restraint: hand frozen mid-reach'
+    - 'tired: heavy eyes, posture not straight'
+    - 'awkward: one sleeve half-rolled, off-center'
+    - 'distracted: looking away mid-thought'
+    - 'delayed: emotional response 5 seconds too long'
+visual_system:
+  style: cinematic photorealism, 35mm film grain, muted desaturated tones
+  color_palette:
+    dominant: cool blue undertones
+    practical_lights: warm amber
+    shadows: deep but not crushed
+    highlights: soft, rolled off
+  texture: shallow depth of field, natural film grain, soft contrast
+  negative_prompt: cartoon, anime, illustration, painting, 3d render, cgi, video game, blurry, low quality,
+    distorted, deformed, disfigured, bad anatomy, extra limbs, extra fingers, watermark, signature, text,
+    oversaturated, hdr, plastic skin, duplicate, cloned, overlapping subjects
+scenes:
+- scene_number: 1
+  title: The Quiet Beginning
+  phase: hook
+  beat: opening_hook
+  act: act_1_observation
+  mood: restrained_tension
+  energy: 3
+  voiceover: He was the kind of man who made love feel like conversation. But now, he watches from a distance.
+  scene_description: Ethan sits at the kitchen table reading the newspaper while Claire prepares dinner
+    in the background. His eyes flick to his phone every few minutes, then back to the paper. The room
+    feels too wide around them.
+  visual_cause_of_emotion: His eyes dart to his phone, then return to the paper with a slight flicker
+    of hesitation.
+  shot_language:
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  ken_burns_effect: pan-left
+  duration_hint: 20-30s
+- scene_number: 2
+  title: Golden Hour Memory
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: nostalgic_warmth
+  energy: 7
+  voiceover: He used to lean over her shoulder while she worked. He'd brush a strand of hair from her
+    neck.
+  scene_description: Claire sits at their desk, working on a design project. Ethan appears in the doorway
+    with coffee, stepping into the golden hour light streaming through the window. He places it beside
+    her without speaking, then gently brushes a strand of hair from her neck before walking away.
+  visual_cause_of_emotion: His hand brushes the hair with a soft touch, eyes flickering to her face for
+    just a moment before he turns.
+  shot_language:
+    shot_size: medium
+    lighting_key: warm_low_light
+    lens_mm: 50
+    depth_of_field: soft
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: zoom-in
+  duration_hint: 20-30s
+- scene_number: 3
+  title: The Quiet Shift
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: nostalgic_warmth
+  energy: 7
+  voiceover: They were two people who fit together like puzzle pieces. But now, the pieces don't align.
+  scene_description: Ethan and Claire lie in bed, the room dimly lit by moonlight. She turns toward him
+    with her arm outstretched, but he pulls away before she can touch him. The silence between them stretches
+    like a taut rope, and he watches the ceiling with eyes that don't quite meet hers.
+  visual_cause_of_emotion: His body tenses as she reaches toward him, then he turns away with a quiet
+    exhale.
+  shot_language:
+    shot_size: close-up
+    lighting_key: natural_shadows
+    lens_mm: 35
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: pan-right
+  duration_hint: 20-30s
+- scene_number: 4
+  title: The Routine
+  phase: normalcy
+  beat: outside_version
+  act: act_1_observation
+  mood: flat_normality
+  energy: 4
+  voiceover: He brushes his teeth in the bathroom before she wakes. He waits for her to get ready while
+    he reads the paper.
+  scene_description: Ethan stands in front of the bathroom mirror, brushing his teeth while Claire's voice
+    comes from the hallway. He looks at himself in the reflection for a moment, then turns away without
+    speaking. The bathroom door is slightly cracked open as he moves to the study.
+  visual_cause_of_emotion: His eyes flicker in the mirror, reflecting back at himself with a quiet expression
+    of resignation.
+  shot_language:
+    shot_size: medium
+    lighting_key: practical_lighting
+    lens_mm: 50
+    depth_of_field: soft
+  characters_present:
+  - ethan
+  ken_burns_effect: zoom-out
+  duration_hint: 20-30s
+- scene_number: 5
+  title: The First Withdrawal
+  phase: crack
+  beat: first_fracture
+  act: act_2_inner_reality
+  mood: quiet_unease
+  energy: 3
+  voiceover: He'd said yes to dinner, but as they stood in the kitchen together, she could see him checking
+    his phone every few minutes.
+  scene_description: Ethan and Claire stand in the kitchen, both looking at their phones. She watches
+    him check his phone again, then looks away as he turns to the counter. The silence between them feels
+    like a wall.
+  visual_cause_of_emotion: His eyes flick to his phone, then back to the counter with a slight hesitation.
+  shot_language:
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: pan-left
+  duration_hint: 20-30s
+- scene_number: 6
+  title: The Weight of Silence
+  phase: collapse
+  beat: internal_collapse
+  act: act_2_inner_reality
+  mood: deepening_darkness
+  energy: 2
+  voiceover: He'd stopped reaching for her because he was afraid of rejection. The fear had become so
+    strong it paralyzed him.
+  scene_description: Ethan sits alone in the living room, reading a book but not really seeing it. Claire
+    walks by and he looks up for just a moment, then back down to the page. The room feels too wide around
+    him.
+  visual_cause_of_emotion: His eyes flick to the door, then back down to his book with a quiet sigh.
+  shot_language:
+    shot_size: medium
+    lighting_key: natural_shadows
+    lens_mm: 50
+    depth_of_field: soft
+  characters_present:
+  - ethan
+  ken_burns_effect: pan-right
+  duration_hint: 20-30s
+- scene_number: 7
+  title: The Silence That Wasn't There Before
+  phase: collapse
+  beat: irreversible_moment
+  act: act_2_inner_reality
+  mood: silence
+  energy: 1
+  voiceover: ''
+  scene_description: Ethan sits on the edge of their bed, Claire lying beside him in silence. His hand
+    hovers near her arm but doesn't touch. The room is filled with the quiet hum of their shared space,
+    and he stares at the wall.
+  visual_cause_of_emotion: His hand hovers near her arm, fingers tensing slightly before he pulls back.
+  shot_language:
+    shot_size: close-up
+    lighting_key: natural_shadows
+    lens_mm: 35
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: zoom-out
+  duration_hint: 20-30s
+  silence_instead: true
+  irreversible_moment: true
+  shows_duality: true
+  _music_volume_override: 0.0
+- scene_number: 8
+  title: The Almost Moment
+  phase: almost
+  beat: almost_moment
+  act: act_2_inner_reality
+  mood: tension
+  energy: 5
+  voiceover: He wanted to touch her arm like he used to do. But just as his fingers were about to brush
+    against her skin, he stopped himself.
+  scene_description: Ethan sits on the edge of their bed, Claire getting ready for sleep. His hand moves
+    toward her arm but stops mid-motion. He looks at his fingers, then back to the wall as she turns toward
+    him.
+  visual_cause_of_emotion: His hand moves forward, then stops mid-motion with a slight tremor.
+  shot_language:
+    shot_size: close-up
+    lighting_key: natural_shadows
+    lens_mm: 35
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: zoom-in
+  duration_hint: 20-30s
+  vocal_fracture: true
+  shows_duality: true
+- scene_number: 9
+  title: The Defensive Retreat
+  phase: retreat
+  beat: defensive_retreat
+  act: act_3_psychological_truth
+  mood: numb_protection
+  energy: 2
+  voiceover: He'd stopped making the first move because he was afraid that if he did, she might push him
+    away.
+  scene_description: Ethan sits in his study, typing on a laptop while Claire lies in bed next to him.
+    The only sound is the clicking of keys and her breathing. He doesn't look at her, just stares at the
+    screen with a blank expression.
+  visual_cause_of_emotion: His eyes flick to her face for just a moment, then back to the screen with
+    a quiet sigh.
+  shot_language:
+    shot_size: medium
+    lighting_key: practical_lighting
+    lens_mm: 50
+    depth_of_field: soft
+  characters_present:
+  - ethan
+  ken_burns_effect: pan-left
+  duration_hint: 20-30s
+  shows_duality: true
+- scene_number: 10
+  title: Her Quiet Grief
+  phase: duality
+  beat: her_truth
+  act: act_3_psychological_truth
+  mood: quiet_grief
+  energy: 3
+  voiceover: She had learned to expect him to make the first move. Her silence was a different kind of
+    silence now.
+  scene_description: Claire lies in bed, eyes closed but not sleeping. Ethan sits on the edge of the bed
+    nearby, watching her face with a quiet expression that speaks of pain he's learned to hide. Her breathing
+    is soft but heavy.
+  visual_cause_of_emotion: His eyes flicker to her face with quiet recognition, then back to the wall.
+  shot_language:
+    shot_size: close-up
+    lighting_key: natural_shadows
+    lens_mm: 35
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  - claire
+  ken_burns_effect: pan-right
+  duration_hint: 20-30s
+  shows_duality: true
+- scene_number: 11
+  title: The Quiet Truth
+  phase: climax
+  beat: final_truth
+  act: act_3_psychological_truth
+  mood: devastating_quiet
+  energy: 1
+  voiceover: He'd spent so long hiding from rejection that he'd forgotten how to love at all.
+  scene_description: Ethan sits alone in the study, looking at a letter he's written but hasn't sent.
+    The silence is complete now, and the only sound is his own quiet breathing as he stares at the paper.
+  visual_cause_of_emotion: His hand hovers over the letter, then pulls back with quiet resignation.
+  shot_language:
+    shot_size: close-up
+    lighting_key: natural_shadows
+    lens_mm: 35
+    depth_of_field: shallow
+  characters_present:
+  - ethan
+  ken_burns_effect: zoom-out
+  duration_hint: 20-30s
+  silence_instead: true
+  shows_duality: true
+  _music_volume_override: 0.0
+story_factory:
+  version: '1.0'
+  dna_file: dna.yaml
+  context_file: context.md
+  story_file: story.md
+  master_timeline_id: EW-001
+  territory: emotional_withdrawal
+  cluster: fear_based_withdrawal
+  ending: quiet_realization

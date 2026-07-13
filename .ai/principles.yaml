@@ -1,0 +1,12 @@
+# Operating Principles
+---
+principles:
+  - id: "production_first"
+    name: "Production-First Architecture"
+    statement: "The engine is centered around high-quality movie productions rather than simple video clips."
+  - id: "grammar_driven"
+    name: "Grammar-Driven Production"
+    statement: "Every production is governed by a strict production grammar specifying creative limits."
+  - id: "local_first"
+    name: "Local-First Inference"
+    statement: "All critical generative modules should run locally on user hardware (Ollama, ComfyUI, edge-tts) to minimize external dependancies."

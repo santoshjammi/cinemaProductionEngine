@@ -1,0 +1,153 @@
+# Cinematic still frame prompt — for psychological cinema
+# Used by ImageCapability to generate the master frame for each shot.
+#
+# Supports: flux-dev, sdxl, sd3 (any text-to-image model)
+# Replaces the hardcoded prompts in scripts/psychological_pipeline.py
+
+metadata:
+  id: image.cinematic.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Cinematic still frame prompt for psychological cinema. Generates
+    the master frame for a shot — used by both SDXL and FLUX.
+  role: image
+  capability: image
+  tags:
+    - cinematic
+    - psychological
+    - film-still
+    - master-frame
+  supported_models:
+    - flux-dev
+    - flux-schnell
+    - sdxl
+    - sd3
+  recommended_temperature: 0.7
+  recommended_max_tokens: 200
+  avg_tokens: 90
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version, extracted from scripts/psychological_pipeline.py"
+
+variables:
+  - name: subject
+    type: string
+    required: true
+    description: The main subject of the image (the scene_description from the Scene)
+  - name: mood
+    type: string
+    required: true
+    description: The emotional mood (e.g., "tense_restraint", "warm_nostalgic")
+  - name: characters
+    type: list
+    required: false
+    description: List of character dicts with key, name, visual_anchor
+  - name: shot_size
+    type: enum
+    enum_values: [close-up, medium, wide, extreme_wide]
+    required: false
+    default: medium
+    description: Camera shot size
+  - name: lens_mm
+    type: integer
+    required: false
+    default: 50
+    description: Lens focal length in mm
+  - name: lighting_key
+    type: string
+    required: false
+    default: natural_shadows
+    description: Lighting style (warm_low_light, natural_shadows, practical_lighting)
+  - name: style_anchor
+    type: string
+    required: false
+    default: "cinematic photorealism, 35mm film grain, shallow depth of field"
+    description: The style anchor — placed FIRST in the prompt for token priority
+
+constraints:
+  - rule: "Maximum 50 words in the final prompt"
+    severity: must
+  - rule: "Must include the subject verbatim"
+    severity: must
+    examples_pass:
+      - "a man sitting alone in a dark room"
+      - "a woman looking out the window at night"
+    examples_fail:
+      - "a person"
+      - "someone"
+  - rule: "Must include a visual cause of emotion (a micro-behavior)"
+    severity: should
+  - rule: "Must NOT contain the words 'cartoon', 'anime', or 'illustration'"
+    severity: must
+
+examples:
+  - description: "Tense restraint scene (hook)"
+    input:
+      subject: "He lies in bed, hand hovering above her shoulder before withdrawing"
+      mood: "tense_restraint"
+      shot_size: close-up
+      lens_mm: 50
+      lighting_key: practical_lighting
+    output: >
+      cinematic photorealism, 35mm film grain, shallow depth of field,
+      He lies in bed, hand hovering above her shoulder before withdrawing,
+      tense_restraint mood, close-up shot, 50mm lens, practical_lighting,
+      cinematic still, natural film grain, photorealistic, lived-in, observed
+  - description: "Warm memory scene (contrast)"
+    input:
+      subject: "Couple laughing together, golden hour, her head on his shoulder"
+      mood: "warm_nostalgic"
+      shot_size: wide
+      lens_mm: 35
+      lighting_key: warm_low_light
+    output: >
+      cinematic photorealism, 35mm film grain, shallow depth of field,
+      Couple laughing together, golden hour, her head on his shoulder,
+      warm_nostalgic mood, wide shot, 35mm lens, warm_low_light,
+      warm amber golden tones, candid intimate, golden hour light
+
+negative_prompts:
+  - "cartoon"
+  - "anime"
+  - "illustration"
+  - "painting"
+  - "3d render"
+  - "cgi"
+  - "video game"
+  - "blurry"
+  - "low quality"
+  - "distorted"
+  - "deformed"
+  - "disfigured"
+  - "bad anatomy"
+  - "extra limbs"
+  - "extra fingers"
+  - "watermark"
+  - "signature"
+  - "text"
+  - "oversaturated"
+  - "hdr"
+  - "plastic skin"
+  - "duplicate"
+  - "cloned"
+  - "overlapping subjects"
+  - "messy composition"
+  - "chaotic"
+  - "multiple scenes"
+  - "collage"
+  - "split screen"
+  - "bright daylight"
+  - "cheerful"
+  - "stock photo"
+  - "commercial photography"
+
+body: |
+  {{style_anchor}},
+  {{subject}},
+  {{mood}} mood,
+  {{shot_size}} shot,
+  {{lens_mm}}mm lens,
+  {{lighting_key}},
+  cinematic still, natural film grain, photorealistic, lived-in, observed

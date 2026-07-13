@@ -1,0 +1,8 @@
+# Technical Stack
+---
+stack:
+  backend: "FastAPI, Uvicorn, Python >=3.8"
+  frontend: "Next.js, React, Tailwind CSS, Zustand, React Query"
+  inference: "Ollama (LLM), ComfyUI (FLUX), Edge TTS"
+  media: "FFmpeg, numpy procedural audio synthesis"
+  database: "SQLite, sqlite-vec extension"

@@ -1,0 +1,11 @@
+# Core Architecture Spec
+---
+layers:
+  - name: "Domain Model"
+    description: "Pydantic definitions for Stories, Acts, Sequences, Scenes, Shots, and Frame properties."
+  - name: "Capability Registry"
+    description: "Abstract capability interfaces mapping to provider implementations."
+  - name: "Multi-Agent System"
+    description: "LangGraph-backed orchestration graph containing 26 creative, planning, and evaluation agents."
+  - name: "Media Rendering"
+    description: "FFmpeg and numpy-based video compositing and audio mixing pipelines."

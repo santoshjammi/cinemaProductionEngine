@@ -1,0 +1,11 @@
+# Glossary of Terms
+---
+terms:
+  - term: "Production Grammar"
+    definition: "A set of styling defaults (lighting, color grading, aspect ratio, camera shots) defining a cinematic style."
+  - term: "Capability"
+    definition: "An abstract interface wrapping a content generation intent (e.g. Image, Voice, Video, Music)."
+  - term: "Provider"
+    definition: "A concrete adapter matching a capability to an inference engine (e.g. FluxComfyUI, EdgeTTS)."
+  - term: "SceneIntent"
+    definition: "A contract detailing visual, textual, and camera guidelines for rendering a scene."

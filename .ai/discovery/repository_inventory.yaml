@@ -1,0 +1,106 @@
+# Repository Inventory - Movie OS Cinema Production Engine
+---
+root_files:
+  - path: "AGENTS.md"
+    type: "config"
+    description: "Operational rules and persona guidelines for AI coding agents."
+  - path: "app.py"
+    type: "source"
+    description: "Thin backward-compatible wrapper around the pipeline orchestrator."
+  - path: "main.py"
+    type: "source"
+    description: "Legacy CLI entry point for executing standard video generation pipelines."
+  - path: "pyproject.toml"
+    type: "config"
+    description: "Build system and development tools configuration (black, mypy, pylint)."
+  - path: "requirements.txt"
+    type: "config"
+    description: "Core Python dependencies (requests, PyYAML, pytest, search utilities)."
+  - path: "test_ew001_pipeline.py"
+    type: "test"
+    description: "End-to-end pipeline test script for ew001 production using new agents."
+  - path: "verify_pipeline.py"
+    type: "test"
+    description: "Smoke test to verify that the 6 critical agents can be imported and instantiated."
+  - path: "SPEC.md"
+    type: "documentation"
+    description: "General project screenplay specifications."
+  - path: "IMPLEMENTATION_SUMMARY.md"
+    type: "documentation"
+    description: "Status report on the implementation of components."
+  - path: "FINAL_IMPLEMENTATION_SUMMARY.md"
+    type: "documentation"
+    description: "Final wrap-up summary of the implemented features."
+  - path: "EMOTIONAL_WITHDRAWAL_VIDEO_SUMMARY.html"
+    type: "output"
+    description: "HTML visual summary of emotional withdrawal video generation."
+  - path: "scanrio1.json"
+    type: "config"
+    description: "Sample configuration data for pipeline input."
+
+directories:
+  movie_os:
+    path: "movie_os/"
+    description: "Core codebase of the new modular Movie OS package."
+    contents:
+      - "domain/": "Pydantic models defining the core story and production domain (Story, CharacterDNA, EnvironmentDNA, PromptTemplate, Asset)."
+      - "capabilities/": "Capability interfaces and registry definitions."
+      - "providers/": "Concrete implementations of capabilities (Image: FluxComfyUI/SDXL, Voice: EdgeTTS, Story: LMStudio, Music/SFX: Procedural)."
+      - "agents/": "LangGraph state machine and multi-agent roles (creative, planning, generation, post_production, evaluation, orchestration)."
+      - "infra/": "Hardware-level components (FFmpeg engine, multi-layer audio mixer)."
+      - "llm/": "Local LLM client wrapper (Ollama) and ComfyUI client."
+      - "asset_store/": "SQLite-based storage manager, including semantic embedding search (sqlite-vec)."
+      - "config/": "Pydantic configuration schemas, default dictionary settings, and YAML loaders."
+      - "data_layer/": "Filesystem entity storage and registry for characters and environments."
+      - "grammars/": "Production grammar YAML configurations (psychological_cinema, narrative_film, explainer, documentary, shorts, devotional, kids_story)."
+      - "workflows/": "FLUX.1 ComfyUI workflow JSON blueprints."
+      - "tests/": "Unit and integration test suites for all modular phases."
+  backend:
+    path: "backend/"
+    description: "FastAPI server running backend services."
+    contents:
+      - "app/api/": "API routers (v1 endpoints for pipeline execution and project management)."
+      - "app/core/": "System configurations and environment loaders."
+      - "app/models/": "Pydantic schemas used for API inputs and outputs."
+      - "app/services/": "Service layers for pipeline execution, video rendering, TTS audio, image generation, and verification."
+      - "requirements.txt": "Python dependencies specific to the FastAPI backend (PyTorch, diffusers, EdgeTTS)."
+  frontend:
+    path: "frontend/"
+    description: "Next.js web client interface."
+    contents:
+      - "src/": "React component hierarchy, state hooks, and style pages."
+      - "package.json": "NPM package definition, build scripts, and dev dependencies."
+      - "tsconfig.json": "TypeScript configuration."
+      - "next.config.js": "Next.js routing and optimization settings."
+      - "tailwind.config.ts": "Tailwind utility styling configurations."
+  docs:
+    path: "docs/"
+    description: "Repository documentation, blueprints, and designs."
+    contents:
+      - "specs/": "Architecture specifications for multi-agent systems and asset stores."
+      - "superpowers/plans/": "Long term vision plans (story hierarchies, publish-anywhere strategies)."
+      - "PRD_v1.yaml": "Product Requirement Document for Phase 1 Text Engine."
+  pipeline:
+    path: "pipeline/"
+    description: "Legacy pipeline execution logic."
+  story_factory:
+    path: "story_factory/"
+    description: "Legacy story creation files (DNA, context, timeline generators)."
+  openmontage_adapter:
+    path: "openmontage_adapter/"
+    description: "Adapter converting videoGen structures to OpenMontage specifications."
+  videoContentStructure:
+    path: "videoContentStructure/"
+    description: "YAML data and playbooks outlining psychological and thematic structures."
+  scripts:
+    path: "scripts/"
+    description: "Python and Shell scripts for assembly, execution, setup, and model retrieval."
+  tests:
+    path: "tests/"
+    description: "Root-level integration and performance test cases."
+  .github:
+    path: ".github/"
+    description: "GitHub settings and GitHub Actions CI configuration."
+  .project-ai:
+    path: ".project-ai/"
+    description: "Local operational state storage files for coding agents."

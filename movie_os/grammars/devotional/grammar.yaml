@@ -1,0 +1,255 @@
+# Grammar: Devotional
+# Content type: Spiritual/religious content, prayers, bhajans, meditative videos
+# Tone: Reverent, peaceful, transcendent, emotionally moving
+
+name: devotional
+version: "1.0.0"
+description: "Grammar for devotional/spiritual content — reverent, peaceful, transcendent visual and audio language"
+
+---
+
+## Dialogue Rules
+
+### Style
+- Sacred texts quoted with reverence and accuracy
+- Narration reads like prayer or meditation guide
+- Slow, deliberate pacing with pauses for reflection
+- Minimal dialogue — emphasis on narration and music
+- When characters speak: soft, reverent, contemplative
+
+### Narration Style
+- Warm, soothing voice (like a spiritual guide)
+- Moderate to slow pace
+- Pauses after sacred verses for reflection
+- Gentle inflection, never dramatic or theatrical
+- Volume slightly lower than standard — intimate, personal feel
+
+### Character Speech (if applicable)
+- Soft, reverent tones
+- Slow, measured delivery
+- No raised voices or emotional outbursts
+- Dialogue feels like prayer or blessing
+
+### Prohibited
+- No dramatic or theatrical vocalizations
+- No fast-paced dialogue
+- No casual or conversational tone in sacred passages
+- No humor in devotional content (except gentle, reverent warmth)
+
+---
+
+## Camera Language
+
+### Shot Types
+- **Extreme wide shots:** Sacred spaces, nature, horizons — emphasizing transcendence
+- **Slow push-ins:** During prayer moments, drawing viewer into contemplation
+- **Static shots:** For sacred imagery, allowing stillness and reflection
+- **Close-ups:** Hands in prayer, candles, sacred objects, eyes in meditation
+- **Low-angle shots:** Sacred figures, temples, mountains — emphasizing reverence
+
+### Camera Movement
+- **Very slow pans:** Contemplative exploration of sacred spaces
+- **Gentle zooms:** Emphasizing spiritual moments
+- **Static holds:** Extended stillness for meditation (5-10 seconds)
+- **Slow tilts:** Upward toward sky/heavens, downward in reverence
+
+### Framing
+- Symmetrical framing for sacred architecture and figures
+- Rule of thirds for natural landscapes
+- Centered composition for spiritual focal points
+- Generous negative space for contemplation
+- Golden ratio compositions for aesthetic beauty
+
+---
+
+## Lighting Rules
+
+### Primary Approach
+- **Golden hour:** Warm, divine light — primary lighting source
+- **Natural light:** Sunbeams through windows, moonlight, starlight
+- **Candle/glow lighting:** For intimate devotional moments
+- **Backlighting:** Silhouettes against sacred light (sunrise/sunset)
+
+### Color Palette
+- **Primary:** Warm golds, soft whites, gentle blues
+- **Secondary:** Deep purples (meditation), soft greens (nature/devotion)
+- **Accent:** Saffron/orange for spiritual energy, white for purity
+- Avoid: Harsh whites, cold blues, saturated reds
+
+### Lighting Progression
+| Act | Light Quality | Color Temperature | Mood |
+|-----|--------------|-------------------|------|
+| Introduction | Soft dawn light | Warm (3500K) | Anticipation, peace |
+| Devotion/Prayer | Candle/glow or golden hour | Very warm (2800-3200K) | Intimacy, reverence |
+| Climax (Transcendence) | Divine light, sunbeams | Warm gold (4000K+) | Transcendence, bliss |
+| Resolution | Gentle morning light | Warm (3500K) | Peace, fulfillment |
+
+---
+
+## Music Rules
+
+### Theme Structure
+- **Main devotional theme:** Melodic, memorable, singable — the "heart" of the piece
+- **Prayer theme:** Soft, meditative, repetitive (like a mantra)
+- **Transcendence theme:** Expansive, ethereal, uplifting
+- **Nature theme:** Gentle, flowing — for nature/devotion sequences
+
+### Instrumentation
+- Traditional instruments appropriate to tradition (sitar, flute, tabla, bells, etc.)
+- Choral elements for sacred texts
+- Soft strings for emotional depth
+- Ambient pads for meditative atmosphere
+- Nature sounds (birds, water, wind) blended subtly
+- Avoid: Heavy percussion, electronic beats, dissonant harmonies
+
+### Intensity Guidelines
+- **Introduction:** Very soft (0.1-0.2) — gentle invitation
+- **Devotion/Prayer:** Soft to moderate (0.2-0.4) — reverent engagement
+- **Transcendence/Climax:** Moderate to warm (0.3-0.5) — emotional peak without overwhelming
+- **Resolution:** Very soft (0.1-0.2) — peaceful return
+
+### Rhythm and Tempo
+- Slow to moderate tempo (60-80 BPM)
+- Free rhythm for meditation sections
+- Gentle, flowing rhythms for devotional songs
+- Pauses between musical phrases for reflection
+
+---
+
+## Voice Rules
+
+### Narration
+- Warm, soothing, reverent voice
+- Slow pace with deliberate pauses
+- Clear enunciation of sacred texts
+- Volume: intimate, personal (like whispering a secret to the heart)
+- Tone: Never dramatic, always gentle and sincere
+
+### Sacred Text Delivery
+- Quote sacred verses in original language when possible
+- Follow with translation/explanation in softer voice
+- Pause after each verse for reflection (3-5 seconds of music/nature sounds)
+- Respectful pronunciation is mandatory
+
+### Choral/Vocal Elements
+- Soft choral backing for devotional songs
+- Single voice for prayer narration
+- No dramatic vocal performances
+- Harmony should be warm and consonant
+
+---
+
+## Transition Rules
+
+### Scene Transitions
+- **Fade to black:** Most common, peaceful and natural
+- **Cross-dissolve:** For gentle scene changes
+- **Fade to white/gold:** For transcendent moments
+- **Nature transitions:** Clouds moving, water flowing, light changing
+
+### Pacing Between Scenes
+- Extended pauses between major sections (5-10 seconds of music/nature)
+- Never rush spiritual moments
+- Allow silence and stillness as part of the experience
+- Total video should feel like a meditation journey
+
+---
+
+## Color Grading
+
+### Style
+- **desaturated_warm** as base, shifted toward golden/ethereal
+- Soft, dreamy quality throughout
+- Gentle contrast — never harsh
+- Lifted blacks for softness
+- Subtle glow on highlights (especially golden hour scenes)
+
+### Progression
+| Act | Color Treatment | Mood |
+|-----|----------------|------|
+| Introduction | Soft dawn, gentle warmth | Peace, anticipation |
+| Devotion | Golden hour, candlelight glow | Reverence, intimacy |
+| Climax | Divine light, ethereal gold | Transcendence, bliss |
+| Resolution | Morning light, soft and clear | Peace, fulfillment |
+
+---
+
+## Evaluation Criteria
+
+### Spiritual Accuracy (threshold: 1.0 — mandatory pass)
+- [ ] Sacred texts quoted accurately and respectfully
+- [ ] No misrepresentation of spiritual traditions
+- [ ] Appropriate use of sacred symbols and imagery
+- [ ] Consulted with tradition expert if applicable
+
+### Emotional Impact (threshold: 0.75)
+- [ ] Evokes genuine reverence and peace
+- [ ] Music enhances rather than overwhelms devotion
+- [ ] Visuals support spiritual message
+- [ ] Pacing allows for reflection and contemplation
+
+### Visual Quality (threshold: 0.75)
+- [ ] Sacred spaces depicted respectfully and accurately
+- [ ] Lighting creates reverent atmosphere
+- [ ] Color palette supports spiritual mood
+- [ ] No inappropriate or disrespectful imagery
+
+### Audio Quality (threshold: 0.75)
+- [ ] Narration clear, reverent, soothing
+- [ ] Music appropriate to tradition and mood
+- [ ] Sacred texts pronounced correctly
+- [ ] Audio mix balanced for meditation
+
+---
+
+## Production Constraints
+
+### Duration Guidelines
+- **Short devotionals:** 3-5 minutes (daily prayer)
+- **Standard devotional:** 8-12 minutes (bhajan/kirtin style)
+- **Extended meditation:** 15-20 minutes (guided meditation)
+- **Festival/special:** 20-30 minutes
+
+### Content Guidelines
+- Respect all sacred traditions and symbols
+- No commercial or promotional content within devotional sections
+- Include traditional elements appropriate to the tradition
+- End with blessing or peaceful resolution
+
+### Visual Guidelines
+- Sacred spaces must be depicted accurately (consult tradition expert)
+- Religious figures should be shown respectfully (follow tradition guidelines)
+- Nature imagery should enhance, not distract from, spiritual message
+- Avoid overly dramatic or theatrical visuals
+
+---
+
+## Scene Structure Template
+
+### Act 1: Invocation/Opening — 15% of total duration
+- Opening prayer or invocation
+- Establish sacred space or natural setting
+- Gentle musical introduction
+- Set contemplative mood
+
+### Act 2: Devotion/Teaching — 40% of total duration
+- Sacred text recitation with reflection
+- Spiritual teaching or story
+- Devotional song/prayer
+- Nature imagery supporting message
+
+### Act 3: Climax (Transcendence) — 25% of total duration
+- Peak devotional moment (prayer, song, or vision)
+- Music reaches emotional peak
+- Visuals expand to transcendent imagery
+- Moment of spiritual connection
+
+### Act 4: Resolution/Blessing — 20% of total duration
+- Return to peaceful stillness
+- Closing prayer or blessing
+- Gentle musical resolution
+- Final contemplative image
+
+---
+
+*Grammar loaded from devotional/grammar.yaml*

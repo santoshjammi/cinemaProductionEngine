@@ -1,0 +1,76 @@
+# LLM Configuration for Text Cinema Engine
+# Dual-model architecture per PRD_v1.yaml
+
+llm:
+  provider: "ollama"
+  endpoint: "http://localhost:11434"
+  timeout: 120
+
+# PRD-specified models
+#   orchestrator: qwen3-coder-30b-a3b  -> closest available: qwen2.5:32b
+#   creative_writer: deepseek_distilled -> closest available: deepseek-coder-v2:latest
+models:
+  orchestrator:
+    model: "qwen2.5:32b"
+    responsibilities:
+      - workflow_control
+      - schema_generation
+      - validation
+      - continuity_tracking
+    description: "Powers story_generation, scene_decomposition, cinematic_prompt_generation"
+  
+  creative_writer:
+    model: "deepseek-coder-v2:latest"
+    responsibilities:
+      - emotional_dialogue
+      - narration
+      - dramatic_rewrites
+    description: "Powers dialogue_generation"
+
+retry:
+  max_attempts: 3
+  backoff_factor: 2
+  retry_on_timeout: true
+
+stage_settings:
+  story_generation:
+    model_role: "orchestrator"
+    temperature: 0.85
+    max_tokens: 3000
+    top_p: 0.95
+    description: "Higher creativity for story generation"
+  
+  scene_decomposition:
+    model_role: "orchestrator"
+    temperature: 0.7
+    max_tokens: 2500
+    top_p: 0.9
+    description: "Balanced creativity for scene breakdown"
+  
+  dialogue_generation:
+    model_role: "creative_writer"
+    temperature: 0.9
+    max_tokens: 1500
+    top_p: 0.95
+    description: "Higher creativity for natural dialogue"
+  
+  cinematic_prompt_generation:
+    model_role: "orchestrator"
+    temperature: 0.8
+    max_tokens: 2000
+    top_p: 0.9
+    description: "Creative but focused for visual prompts"
+
+metrics:
+  enabled: true
+  output_file: "pipeline/metrics/metrics.yaml"
+
+# Research stage configuration
+# All sources are free, open-source, no API keys required
+research:
+  enabled: true                    # Set to false to skip research
+  max_search_results: 8            # Number of DuckDuckGo results
+  wiki_sentences: 5                # Wikipedia summary length
+  crawl_timeout: 10                # Seconds to wait per page
+  max_crawl_pages: 3               # Max pages to crawl
+  max_crawl_text_length: 1500      # Max chars to extract per page

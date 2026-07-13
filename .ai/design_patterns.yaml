@@ -1,0 +1,7 @@
+# Design Patterns
+---
+patterns:
+  - name: "Capability-Provider Abstraction"
+    use: "Registry dispatcher resolves runtime providers at run-time without breaking consumer agents."
+  - name: "LangGraph Agent Coordination"
+    use: "Manages state transitions and feedback review loops as graph execution nodes."

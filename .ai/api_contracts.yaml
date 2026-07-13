@@ -1,0 +1,5 @@
+# API Contracts
+---
+contracts:
+  projects: "Endpoint /api/v1/projects maps creation and updates."
+  pipeline: "Endpoint /api/v1/pipeline starts rendering and tracks progress logs."

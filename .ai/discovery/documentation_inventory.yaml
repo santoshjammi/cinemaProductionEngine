@@ -1,0 +1,67 @@
+# Documentation Inventory - Movie OS Cinema Production Engine
+---
+documentation_files:
+  - path: "movie_os/README.md"
+    title: "Movie OS — Local AI Movie Operating System Guide"
+    status: "Extremely Detailed"
+    description: "Documents architecture components, capability registry configurations, providers, Character and Environment registries, ComfyUI/FLUX workflows, testing steps, and release versioning."
+
+  - path: "AGENTS.md"
+    title: "AI Agent Rules and Orchestration Instructions"
+    status: "Complete"
+    description: "Outlines core workflow steps (Define, Plan, Build, Verify, Review, Ship), intent-to-skill mappings, operational memory files (.project-ai/), and compression rules."
+
+  - path: "SPEC.md"
+    title: "Screenplay and Story Specification"
+    status: "Complete"
+    description: "Establishes structured markdown format rules, outline formats, creative briefs, scene durations, and dialogue density constraints."
+
+  - path: "IMPLEMENTATION_SUMMARY.md"
+    title: "Phase 4 Agents Implementation Summary"
+    status: "Complete"
+    description: "Summarizes the implementation of the 6 critical agents, verification script creation, and Ollama/EdgeTTS backend integrations."
+
+  - path: "FINAL_IMPLEMENTATION_SUMMARY.md"
+    title: "Final Implementation Summary"
+    status: "Complete"
+    description: "Summarizes final code components, test verification details, and active directory layout definitions."
+
+  - path: "docs/specs/phase8_multi_agent.md"
+    title: "Phase 8 — Multi-Agent Orchestration Specification"
+    status: "Detailed"
+    description: "Defines LangGraph architecture, node descriptions, state structures, evaluation processes, and conditional routing models."
+
+  - path: "docs/specs/phase9_asset_store.md"
+    title: "Phase 9 — Asset and Knowledge Store Specification"
+    status: "Detailed"
+    description: "Outlines SQLite schema, embedding tables, indexing rules, versioning tracking, and vector search requirements."
+
+  - path: "docs/superpowers/plans/2026-06-30-project-story-hierarchy.md"
+    title: "Story Hierarchy and Granularity Spec"
+    status: "Complete"
+    description: "Delineates detailed hierarchy levels from stories down to frames, shot types, camera properties, and actor parameters."
+
+  - path: "docs/superpowers/plans/createOncePublishAnywhere.md"
+    title: "Create Once, Publish Anywhere (COPA) Strategy"
+    status: "Outlined"
+    description: "Outlines content adaptation models for distributing videos to multiple social networks (TikTok, YouTube, Shorts)."
+
+  - path: "docs/enhancementFluxComfyUI.md"
+    title: "FLUX.1 ComfyUI Enhancement Rationale"
+    status: "Outlined"
+    description: "Describes ComfyUI HTTP polling logic, FLUX model advantages, quality profiles, and reference image workflows."
+
+  - path: "openmontage_adapter/README.md"
+    title: "OpenMontage Adapter Integration Guide"
+    status: "Complete"
+    description: "Explains SceneIntent dataclasses, SDXL/Flux rendering backends, and translation adapters between OpenMontage schemas."
+
+  - path: "videoContentStructure/Psychology/EmotionalWithdrawal/CONTEXT.md"
+    title: "Emotional Withdrawal Creative Context"
+    status: "Complete"
+    description: "Provides background clinical insights, mechanisms (anticipated rejection), and emotional dynamics for target videos."
+
+  - path: "videoContentStructure/Psychology/EmotionalWithdrawal/FORMULA.md"
+    title: "Emotional Withdrawal Production Formula"
+    status: "Complete"
+    description: "Outlines pacing, duration limits, scene distributions, voice guidelines, and visual symbolism rules."

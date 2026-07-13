@@ -1,0 +1,35 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.movie_os_cache/
+
+# Node / JS
+node_modules/
+.next/
+dist/
+build/
+test-results/
+playwright-report/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Output and local generated assets
+output/
+productions/
+exports/
+*.mp4
+*.wav
+*.mp3
+*.png
+*.jpg
+*.jpeg
+
+# Heavy weights and external tool installs
+models/

@@ -1,0 +1,167 @@
+# Movie OS Production Grammar — Psychological Cinema
+
+## Vision
+Cinematic storytelling that reveals psychology through believable human stories. Not a psychology channel with visuals — a cinematic storytelling channel that reveals psychology.
+
+schema: movie_os.grammar.v1
+version: 1.0.0
+name: psychological_cinema
+description: >
+  Psychological cinema uses believable human stories to reveal the invisible
+  emotional mechanisms beneath everyday relationships. Every video answers one
+  psychological question through one compelling story. The audience first thinks
+  "I've lived this" and only afterward realizes they've learned something profound.
+
+## Creative Defaults
+defaults:
+  scene_duration_max_seconds: 60
+  dialogue_density: high          # low, medium, high — target 90%+ dialogue
+  pacing: deliberate              # slow, stillness-focused
+  camera_language: intimate_closeups   # shallow DOF, 35-50mm lenses
+  lighting_key: natural_shadows    # muted, cinematic, practical light sources
+  music_style: piano_driven_with_strings_undertones
+  voice_style: warm_male_narrator_or_character_dialogue
+  transitions: crossfade           # smooth, emotional — never hard cuts
+  color_grading: desaturated_warm  # nostalgic, muted tones
+  aspect_ratio: "16:9"
+  resolution: "1280x720"
+  fps: 24
+
+## Dialogue Rules
+dialogue:
+  style: naturalistic_unfinished   # dialogue should feel unfinished, real
+  subtext_priority: high           # what's unsaid matters more than what's said
+  character_voice_distinction: true  # each character must have distinct speech patterns
+  avoid:
+    - exposition_dumps
+    - melodrama
+    - over_acting
+    - explaining_the_theme
+  prefer:
+    - hesitation_and_pause
+    - deflection_and_avoidance
+    - mundane_details_as_emotional_proxy
+    - silence_as_dialogue
+
+## Camera Language
+camera:
+  preferred_lens_mm: [35, 50]
+  depth_of_field: shallow
+  movement: slow_pan_zoom           # never handheld for this grammar
+  framing: intimate_closeups        # tight on faces, negative space for isolation
+  ken_burns:
+    enabled: true
+    speed: slow                     # very slow pans — stillness is meaningful
+    direction: follow_emotion       # pan toward emotional weight
+
+## Lighting Rules
+lighting:
+  key_light: natural_shadows        # practical sources (lamps, windows)
+  fill_light: minimal               # shadows carry emotional weight
+  contrast: high                    # chiaroscuro for tension
+  color_temperature: warm_to_neutral  # never cool/blue (too clinical)
+  avoid:
+    - flat_lighting
+    - studio_lighting
+    - dramatic_spotlight
+
+## Music Rules
+music:
+  style: piano_driven_with_strings_undertones
+  volume_mix:
+    narration_duck: -6dB           # music ducks under voiceover
+    scene_silence: true             # silence is a musical choice
+  themes:
+    main_theme:
+      instruments: [piano, light_strings]
+      mood: nostalgic_warmth
+    fear_theme:
+      instruments: [low_drones, muted_piano]
+      mood: restrained_tension
+    hope_theme:
+      instruments: [acoustic_guitar, piano]
+      mood: quiet_hope
+    sadness_theme:
+      instruments: [cello, piano]
+      mood: melancholy
+    family_theme:
+      instruments: [piano, warm_strings]
+      mood: comfort
+  avoid:
+    - lyrics                       # instrumental only
+    - dramatic_orchestral_swells
+    - electronic_synth
+
+## Voice Rules
+voice:
+  narrator:
+    gender: male
+    tone: warm_cautious            # gentle, exploratory, full of questions
+    rate: "+5%"                    # slightly slower than normal
+    pitch: medium_low
+  character_dialogue:
+    naturalism: high               # realistic speech patterns
+    overlap: minimal               # no talking over each other
+    pauses: true                   # include natural pauses
+
+## Transition Rules
+transitions:
+  default: crossfade
+  duration_seconds: 1.5
+  between_acts: fade_to_black      # black frame between acts
+  emotional_climax: slow_zoom_in   # subtle zoom toward emotional peak
+
+## Color Grading
+color_grading:
+  palette: desaturated_warm         # muted, nostalgic tones
+  saturation: -20%                  # reduced saturation for realism
+  contrast: +15%                    # enhanced contrast for drama
+  shadows: warm_black               # not pure black — warm dark tones
+  highlights: soft_gold             # warm highlights for memory/warmth scenes
+
+## Evaluation Criteria
+evaluation:
+  criteria:
+    - story_quality
+    - dialogue_authenticity
+    - visual_consistency
+    - audio_balance
+    - emotional_impact
+    - character_consistency
+  minimum_scores:
+    story_quality: 0.6
+    dialogue_authenticity: 0.7
+    visual_consistency: 0.7
+    audio_balance: 0.6
+    emotional_impact: 0.5
+    character_consistency: 0.7
+
+## Production Constraints
+constraints:
+  avoid_melodrama: true
+  never_overact: true
+  silence_is_meaningful: true
+  audience_should_feel_uncomfortable: true
+  use_slow_pacing: true
+  camera_never_judges: true
+  music_should_never_manipulate: true
+  dialogue_should_feel_unfinished: true
+
+## Scene Structure Guidelines
+scene_structure:
+  hook_scenes:
+    count: "2-3"
+    duration_total_seconds: "120-180"
+    purpose: "Make audience fall in love with characters before anything changes"
+  plot_scenes:
+    count: "8-12"
+    duration_total_seconds: "480-720"
+    purpose: "Show the slow, almost invisible drift — cause and effect chain"
+  climax_scenes:
+    count: "1-2"
+    duration_total_seconds: "60-120"
+    purpose: "The emotional reveal — what was happening inside both characters"
+  resolution_scenes:
+    count: "1-2"
+    duration_total_seconds: "60-120"
+    purpose: "Recognition, not reconciliation — quiet truth lands"

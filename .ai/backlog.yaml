@@ -1,0 +1,6 @@
+# Backlog Items
+---
+backlog:
+  - "Fix Pydantic config.get() bug in graph.py"
+  - "Fix legacy Ollama fallback method name in client.py"
+  - "Refactor redundant scripts under scripts/ folder"

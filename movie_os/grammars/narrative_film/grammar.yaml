@@ -1,0 +1,259 @@
+# Grammar: Narrative Film
+# Content type: Short films, narrative fiction, dramatic content
+# Tone: Cinematic, emotionally resonant, character-driven
+
+name: narrative_film
+version: "1.0.0"
+description: "Grammar for general narrative short films — cinematic, emotionally resonant, character-driven storytelling"
+
+---
+
+## Dialogue Rules
+
+### Style
+- Naturalistic dialogue — real people don't speak in complete essays
+- Subtext over text — what's unsaid matters more than what is said
+- Characters say what they can, not what they mean
+- Interruptions, pauses, and incomplete sentences add realism
+- Each character has a distinct voice and speech pattern
+
+### Character Voice Guidelines
+- **Protagonist:** Voice evolves with their arc (start → end)
+- **Antagonist/Obstacle:** Distinct from protagonist's voice
+- **Supporting characters:** Brief but distinctive speech patterns
+- **Ensemble:** Each member has recognizable speech rhythm
+
+### Dialogue Principles
+- Show, don't tell — dialogue reveals character through action
+- Avoid exposition dumps — information revealed naturally
+- Use silence as dialogue — what characters choose NOT to say
+- Conflict in every exchange (even quiet ones)
+- Every line should advance plot OR reveal character
+
+### Prohibited
+- No monologues longer than 30 seconds
+- No on-the-nose dialogue ("As you know, Bob...")
+- No melodramatic declarations
+- No dialogue that exists solely to explain the plot
+
+---
+
+## Camera Language
+
+### Shot Types
+- **Close-ups:** Emotional moments, character reactions, intimate details
+- **Medium shots:** Character interactions, dialogue exchanges
+- **Wide shots:** Establishing environments, spatial relationships
+- **Extreme close-ups:** Eyes, hands, objects of significance
+- **Over-the-shoulder:** Dialogue perspective, point of view
+
+### Camera Movement
+- **Static:** Stability, comfort, ordinary moments
+- **Slow push-in:** Growing tension, emotional weight
+- **Slow pull-back:** Distance, loss, realization
+- **Handheld:** Anxiety, instability (use sparingly)
+- **Tracking:** Following movement, connection between characters
+
+### Framing Principles
+- Rule of thirds for naturalistic framing
+- Centered framing for isolation or vulnerability moments
+- Off-center framing for tension or discomfort
+- Shallow depth of field for emotional focus
+- Golden ratio compositions for aesthetic beauty
+
+---
+
+## Lighting Rules
+
+### Primary Approach
+- **Motivated lighting:** Light sources exist within the scene (windows, lamps)
+- **Naturalistic:** Never obvious that lighting is "set"
+- **Emotional lighting:** Light quality matches character's internal state
+- **Golden hour:** For warmth, hope, or nostalgia
+
+### Color Palette
+- **Primary:** Naturalistic with subtle enhancement
+- **Secondary:** Character/theme-appropriate color coding
+- **Accent:** Strategic use of color for emotional emphasis
+- Avoid: Overly stylized or unrealistic color grading
+
+### Lighting Progression
+| Act | Light Quality | Color Temperature | Mood |
+|-----|--------------|-------------------|------|
+| Hook (Act 1) | Warm, inviting | Warm (3200-4000K) | Comfort, normalcy |
+| Plot (Act 2) | Varied by emotional state | Shifts with mood | Tension, discovery |
+| Climax (Act 3) | Dramatic natural light | High contrast | Revelation, peak emotion |
+| Resolution (Act 4) | Return to warmth or new normal | Resolves to theme color | Change, growth, acceptance |
+
+---
+
+## Music Rules
+
+### Theme Structure
+- **Main character theme:** Represents protagonist's emotional journey
+- **Relationship theme:** For connections between characters
+- **Conflict theme:** Tension, obstacles, antagonism
+- **Resolution theme:** Transformation, growth, acceptance
+
+### Instrumentation
+- Orchestral elements for emotional depth (strings, piano)
+- Minimal percussion — avoid driving rhythm
+- Solo instruments for intimate moments
+- Ambient textures for atmosphere
+- Silence used strategically for impact
+
+### Intensity Guidelines
+- **Introduction:** Soft to moderate (0.2-0.4) — establish mood
+- **Development:** Varied by scene (0.1-0.5) — support emotion
+- **Climax:** Moderate to peak (0.4-0.7) — emotional peak without overwhelming
+- **Resolution:** Soft to moderate (0.2-0.4) — reflective, resolved
+
+### Narrative Film Music Principles
+- Music should enhance emotion, not dictate it
+- Use silence as a tool — let moments breathe
+- Character themes evolve with character arc
+- Avoid "Hollywood" scoring that tells viewer exactly how to feel
+
+---
+
+## Voice Rules
+
+### Narration (if applicable)
+- Rare in narrative film — show, don't tell
+- When used: intimate, reflective voice (like memory or journal)
+- Never explain what's already shown visually
+- Narration adds perspective, not information
+
+### Dialogue Delivery
+- Naturalistic acting style
+- Subtext over explicit emotion
+- Pauses and silence as dramatic tools
+- Physical performance supports vocal performance
+
+### Sound Design
+- Location sound enhances authenticity
+- Ambient sounds support setting and mood
+- Foley adds texture to key moments
+- Music and dialogue always balanced — never compete
+
+---
+
+## Transition Rules
+
+### Scene Transitions
+- **Hard cuts:** Most common — maintain dramatic tension
+- **Cross-dissolve:** For time passage or emotional reflection
+- **Match cuts:** Connecting related ideas visually
+- **Fade to black:** Major section breaks or ending
+- **J-cuts/L-cuts:** Audio leads video for smooth flow
+
+### Pacing Between Scenes
+- Varies by genre and tone
+- Tension scenes: Tight pacing, quick cuts
+- Emotional scenes: Extended takes, breathing room
+- Never rush important dramatic moments
+- Total film should have natural rhythm: tension → release → tension → release
+
+---
+
+## Color Grading
+
+### Style
+- **Naturalistic** as primary approach with subtle enhancement
+- Film-like quality (grain, contrast, color response)
+- Character/theme-appropriate color palette
+- Consistent grading throughout (no jarring shifts)
+
+### Progression
+| Act | Color Treatment | Mood |
+|-----|----------------|------|
+| Hook (Act 1) | Warm, inviting, familiar | Comfort, normalcy |
+| Plot (Act 2) | Shifts with emotional journey | Tension, discovery |
+| Climax (Act 3) | High contrast, dramatic | Revelation, peak emotion |
+| Resolution (Act 4) | Resolves to new normal | Growth, acceptance |
+
+---
+
+## Evaluation Criteria
+
+### Story Quality (threshold: 0.75)
+- [ ] Clear narrative arc with compelling conflict
+- [ ] Character motivation clear and relatable
+- [ ] Pacing maintains dramatic tension
+- [ ] Ending feels earned, not forced
+- [ ] Theme emerges naturally from story
+
+### Character Quality (threshold: 0.75)
+- [ ] Protagonist has clear arc (change over time)
+- [ ] Supporting characters enhance main story
+- [ ] Dialogue reveals character authentically
+- [ ] Characters make active choices, not passive
+
+### Visual Quality (threshold: 0.75)
+- [ ] Cinematography supports emotional content
+- [ ] Lighting creates appropriate mood
+- [ ] Camera movement enhances storytelling
+- [ ] Color grading consistent and purposeful
+
+### Audio Quality (threshold: 0.75)
+- [ ] Dialogue clear and naturally delivered
+- [ ] Music enhances without manipulating
+- [ ] Sound design authentic to setting
+- [ ] Audio mix balanced for dramatic impact
+
+---
+
+## Production Constraints
+
+### Duration Guidelines
+- **Micro short:** 1-3 minutes (single moment/idea)
+- **Short film:** 5-15 minutes (complete narrative arc)
+- **Featurette:** 15-30 minutes (complex story, multiple arcs)
+- **Series episode:** 20-40 minutes (serialized narrative)
+
+### Content Guidelines
+- One clear dramatic question driving the narrative
+- Character must make active choices (not passive observer)
+- Conflict must be earned, not manufactured
+- Ending should surprise but feel inevitable in hindsight
+- Theme emerges from story, not imposed on it
+
+### Visual Guidelines
+- Establish setting clearly with wide shots
+- Close-ups for emotional moments
+- Camera movement motivated by character emotion
+- Never use visual effects that distract from story
+- Every shot must serve narrative or character
+
+---
+
+## Scene Structure Template
+
+### Act 1: Setup/Hook — 20% of total duration
+- Establish protagonist in their ordinary world
+- Introduce the dramatic question
+- Show what's at stake
+- Inciting incident disrupts normalcy
+
+### Act 2: Confrontation/Development — 50% of total duration
+- Protagonist pursues goal, faces obstacles
+- Stakes increase progressively
+- Midpoint: major shift in understanding or situation
+- Character makes active choices (not passive reactions)
+- Alliances form and break
+
+### Act 3: Climax — 20% of total duration
+- Final confrontation with central conflict
+- Protagonist must make ultimate choice
+- Emotional peak of the story
+- Dramatic question answered
+
+### Act 4: Resolution — 10% of total duration
+- Show new normal (changed from Act 1)
+- Character's arc complete
+- Theme resonates without being stated
+- Final image lingers with viewer
+
+---
+
+*Grammar loaded from narrative_film/grammar.yaml*

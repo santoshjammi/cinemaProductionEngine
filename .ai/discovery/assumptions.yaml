@@ -1,0 +1,23 @@
+# Assumptions - Architectural and Functional Presumptions
+---
+presumptions:
+  - context: "Ollama Port Bindings"
+    assumption: "Assumes Ollama is running on 'http://localhost:11434' and accepts standard chat / generation payloads."
+
+  - context: "ComfyUI Port Bindings"
+    assumption: "Assumes ComfyUI is running locally on 'http://localhost:8188' and exposes standard websocket channels (/ws) and REST endpoints (/prompt, /history, /view)."
+
+  - context: "LMStudio Port Bindings"
+    assumption: "Assumes LMStudio is running locally on 'http://localhost:1234' with the narrative models loaded."
+
+  - context: "System Tool PATH"
+    assumption: "Assumes 'ffmpeg' and 'ffprobe' are installed on the host operating system and can be invoked globally from any directory without specifying full absolute paths."
+
+  - context: "Local Host Development Ports"
+    assumption: "Assumes the developer runs the frontend client on port 3000 and the backend FastAPI services on port 8000."
+
+  - context: "Local Storage Isolation"
+    assumption: "Assumes all generated images, audio recordings, intermediate video clips, and final compiled mp4 files are stored locally in the project directories under 'output/' or 'productions/' rather than cloud storage."
+
+  - context: "Vector Search Database Extensions"
+    assumption: "Assumes the local SQLite compilation supports loading the precompiled 'sqlite-vec' library, allowing vector calculations."

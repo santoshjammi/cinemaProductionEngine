@@ -1,0 +1,248 @@
+# Grammar: Shorts
+# Content type: Short-form vertical content (TikTok, Reels, YouTube Shorts)
+# Tone: Fast-paced, engaging, scroll-stopping, visually dynamic
+
+name: shorts
+version: "1.0.0"
+description: "Grammar for short-form vertical content — fast-paced, engaging, scroll-stopping visual language"
+
+---
+
+## Dialogue Rules
+
+### Style
+- Hook in first 3 seconds (mandatory)
+- Every sentence must earn the next second of attention
+- Conversational, direct address ("You need to know...")
+- No introductions — jump straight into value
+- End with clear call-to-action or twist
+
+### Narration Style
+- Fast-paced but clear (150-180 words per minute)
+- High energy throughout
+- Pauses only for emphasis on key moments
+- Tone: Direct, enthusiastic, like talking to a friend
+- Use "you" and "your" constantly — make it personal
+
+### On-Screen Text
+- Key words appear as large text overlays
+- Text must be readable in 1 second (scrollers don't wait)
+- Bold, high-contrast fonts
+- Animated text for emphasis
+- Max 3-5 words per text overlay
+
+### Prohibited
+- No slow builds or gradual introductions
+- No passive voice
+- No filler words ("um," "like," "so")
+- No longer than 60 seconds (ideal: 15-45 seconds)
+
+---
+
+## Camera Language
+
+### Shot Types
+- **Close-ups:** Primary framing — face, product, action
+- **Medium shots:** For demonstrations or process shots
+- **Extreme close-ups:** For emphasis on details or reactions
+- **Selfie-style:** For personal/storytelling content
+- **POV shots:** For "showing" experiences
+
+### Camera Movement
+- **Dynamic movement:** Constant motion keeps attention
+- **Quick zooms:** Emphasize key moments
+- **Whip pans:** Between topics for energy
+- **Handheld:** Authentic, energetic feel
+- **Speed ramps:** Slow → fast → slow for dramatic effect
+
+### Framing (Vertical 9:16)
+- Subject centered or rule of thirds vertically
+- Top third: Face/eyes (hook zone)
+- Middle third: Action/content
+- Bottom third: Text/CTA zone
+- Never waste top or bottom space
+
+---
+
+## Lighting Rules
+
+### Primary Approach
+- **Bright and high-contrast:** Catches attention in scroll feed
+- **Ring light or softbox:** For face-focused content
+- **Natural light:** When possible (authentic, free)
+- **LED accents:** For aesthetic/brand content
+
+### Color Palette
+- **Primary:** Bright, saturated colors that pop on small screens
+- **Secondary:** Brand colors for recognition
+- **Accent:** High-contrast colors for text and CTAs
+- Avoid: Muted tones (get lost in scroll feed)
+
+### Lighting Progression
+| Second | Light Quality | Purpose |
+|--------|--------------|---------|
+| 0-3s | Brightest, highest contrast | Hook attention |
+| 3-15s | Consistent, clear | Deliver value |
+| 15-end | Maintain brightness | Keep engagement |
+
+---
+
+## Music Rules
+
+### Theme Structure
+- **Trending audio:** Use popular sounds when relevant (algorithm boost)
+- **Original music:** Upbeat, energetic, loopable
+- **Transition sounds:** Whooshes, clicks for emphasis
+- **Beat drops:** For reveal moments or key points
+
+### Instrumentation
+- Current trending sounds appropriate to platform
+- Upbeat electronic or pop elements
+- Strong beat for rhythm of cuts
+- Sound effects enhance visual transitions
+- Avoid: Slow ballads, ambient music, complex arrangements
+
+### Intensity Guidelines
+- **Hook (0-3s):** Maximum energy — stop the scroll
+- **Body (3-end):** Consistent energy — maintain engagement
+- **CTA/End:** Slight dip or pause before final CTA
+
+### Shorts Music Principles
+- First 3 seconds of audio must be compelling
+- Use trending sounds when relevant (algorithm advantage)
+- Beat-sync cuts to music for satisfaction
+- Sound effects enhance every transition
+
+---
+
+## Voice Rules
+
+### Narration
+- Fast, energetic, direct
+- Start mid-sentence if needed ("...and that's why you're doing it wrong")
+- No "Hey guys" or "Welcome back" — waste of precious seconds
+- Use power words: "secret," "hack," "never," "always," "stop," "start"
+
+### Text-to-Speech (if applicable)
+- Clear, modern TTS voice (ElevenLabs or similar)
+- Natural inflection, not robotic
+- Speed up slightly for energy
+- Never use monotone TTS
+
+### Sound Design
+- Every cut has a sound effect (whoosh, click, pop)
+- Beat drops emphasize key moments
+- Ambient sounds add depth
+- Music and narration always balanced — never compete
+
+---
+
+## Transition Rules
+
+### Scene Transitions
+- **Hard cuts:** Most common — maintain energy
+- **Whip pans:** Between topics for dynamic feel
+- **Zoom transitions:** Into/out of next shot
+- **Text wipes:** Animated text between points
+- **Beat-sync cuts:** Cuts on music beats for satisfaction
+
+### Pacing Between Scenes
+- Every 2-4 seconds: new visual or angle
+- Never hold a static shot longer than 3 seconds
+- Cut on movement or beat for energy
+- Total video: 15-60 seconds (ideal: 20-40 seconds)
+
+---
+
+## Color Grading
+
+### Style
+- **High contrast, saturated:** Pops on small screens
+- **Bright highlights:** Catches attention in scroll feed
+- **Brand-consistent colors:** For recognition
+- **Sharp details:** Small screens reveal flaws — keep it crisp
+
+### Progression
+| Second | Color Treatment | Purpose |
+|--------|----------------|---------|
+| 0-3s | Maximum saturation and contrast | Hook attention |
+| 3-end | Consistent, bright | Maintain engagement |
+| End | Slight warm shift | Positive feeling for CTA |
+
+---
+
+## Evaluation Criteria
+
+### Hook Quality (threshold: 0.85 — critical for shorts)
+- [ ] First 3 seconds stop the scroll
+- [ ] Clear value proposition immediately
+- [ ] Visual and audio hook aligned
+- [ ] No wasted opening seconds
+
+### Engagement (threshold: 0.75)
+- [ ] Pacing maintains attention throughout
+- [ ] Every shot earns its place
+- [ ] No static shots longer than 3 seconds
+- [ ] Beat-sync cuts for satisfaction
+
+### Clarity (threshold: 0.75)
+- [ ] Core message clear in under 10 seconds
+- [ ] Text overlays support narration
+- [ ] Call-to-action clear and visible
+- [ ] No confusion about what's being shown
+
+### Shareability (threshold: 0.70)
+- [ ] Content worth sharing with friends
+- [ ] Emotional reaction triggered (laugh, wow, "I need this")
+- [ ] Relatable to target audience
+- [ ] Memorable hook or twist
+
+---
+
+## Production Constraints
+
+### Duration Guidelines
+- **Quick tip:** 15-30 seconds
+- **Standard short:** 30-45 seconds
+- **Story short:** 45-60 seconds
+- **Series episode:** Consistent length for brand recognition
+
+### Content Guidelines
+- One idea per short (max)
+- Hook in first 3 seconds (mandatory)
+- Clear CTA at end (follow, like, comment, visit link)
+- Loop-friendly — end connects to beginning when possible
+- Vertical format only (9:16)
+
+### Visual Guidelines
+- Bright, high-contrast visuals
+- Large text overlays for key points
+- Dynamic camera movement throughout
+- Face-focused when possible (higher engagement)
+- Brand colors used consistently
+
+---
+
+## Scene Structure Template
+
+### Hook (0-3 seconds) — 5-10% of total duration
+- Visual and audio hook simultaneously
+- "You need to know..." or "Stop doing..." or surprising fact
+- Brightest, most dynamic shot in entire video
+- Text overlay reinforces hook
+
+### Body (3-end-10s) — 75-85% of total duration
+- Deliver value quickly
+- Multiple cuts every 2-4 seconds
+- Each point supported by visual proof
+- Beat-synced transitions for energy
+
+### CTA/End (last 5-10 seconds) — 10-15% of total duration
+- Clear call-to-action (follow, like, comment, visit)
+- Loop back to hook when possible
+- Final frame: branded end card or question
+- Leave viewer wanting more
+
+---
+
+*Grammar loaded from shorts/grammar.yaml*

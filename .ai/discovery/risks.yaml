@@ -1,0 +1,26 @@
+# Risks - Systemic and Code-Level Vulnerabilities
+---
+architectural_risks:
+  - issue: "Local Inference Server Availability"
+    severity: "HIGH"
+    description: "The pipeline depends heavily on local background servers (Ollama on 11434, ComfyUI on 8188). If these servers are offline, have model weights uninstalled, or fail to start, the generation pipeline fails or defaults to placeholder mocks."
+
+  - issue: "Pydantic Configuration Attribute Bug in Graph"
+    severity: "CRITICAL"
+    description: "The graph compilation function 'build_graph()' in 'movie_os/agents/graph.py' calls 'config.get('grammar')' where 'config' is instantiated as a Pydantic v2 'MovieOSConfig' model. Pydantic models do not support '.get()' dictionary lookups, throwing an AttributeError and crashing Graph compilation on startup."
+
+  - issue: "Ollama Legacy Fallback Bug"
+    severity: "HIGH"
+    description: "In 'movie_os/llm/client.py', if an HTTP 404 error is returned by the Ollama chat endpoint, the client attempts to call 'self._generate_legacy_chat_to_generate(...)'. This method is not defined on the class (the actual legacy method name is '_generate_legacy'), resulting in an AttributeError and immediate failure."
+
+  - issue: "sqlite-vec Binary Compatibility"
+    severity: "MEDIUM"
+    description: "Phase 9 semantic searches require the sqlite-vec extension to compute vector distances. Loading precompiled extensions in SQLite depends heavily on the OS (Mac/M1/Intel vs Linux/Windows). Any compilation mismatches will prevent the asset store from starting."
+
+  - issue: "Media Rendering Memory Overhead"
+    severity: "MEDIUM"
+    description: "Compiling multi-minute cinematic videos on a single host computer runs the risk of running out of system RAM or disk space during FFmpeg assembly, particularly when scaling, applying Ken Burns filters, or caching intermediate WAV/MP4 files."
+
+  - issue: "Edge TTS Internet Dependence"
+    severity: "LOW"
+    description: "Microsoft Edge TTS synthesizes voiceovers by connecting to online web services. If the developer's network connection lags or disconnects, narrator audio generation will fail, stopping the pipeline."

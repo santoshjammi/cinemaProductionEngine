@@ -1,0 +1,326 @@
+# VID01 Revised — The Night He Stopped Reaching For Her
+# Incorporates feedback01.md:
+#   - Added contrast/memory scene (Scene 2) — warmth before collapse
+#   - Added "almost moment" scene (Scene 5) — the emotional centerpiece
+#   - Narration rewritten: recognition, not analysis
+#   - Added duality — her perspective too, not just his
+#   - Duration target: 4-7 minutes (shorter forces precision)
+#   - Emotional modulation: intensity rises AND falls
+#
+# Model: Stable Diffusion XL (local, M1 Max 64GB, MPS, float16)
+# Pipeline: scripts/generate_from_yaml.py
+# Style guide: STYLE_GUIDE.yaml
+# Prompt library: PROMPT_LIBRARY.yaml
+
+manifest_version: "1.1"
+
+# Reference shared style system
+style_guide: "STYLE_GUIDE.yaml"
+prompt_library: "PROMPT_LIBRARY.yaml"
+
+model:
+  name: "stabilityai/stable-diffusion-xl-base-1.0"
+  type: "sdxl"
+  dtype: "float16"
+  variant: "fp16"
+  device: "mps"
+  resolution:
+    width: 1024
+    height: 576
+
+generation:
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  num_candidates: 4
+  min_clip_score: 0.30
+  max_refine_rounds: 2
+  candidate_seeds: [42, 137, 1024, 7777]
+  refinement_seeds: [314, 2718, 9999, 5678]
+
+# Character identity anchors — repeated VERBATIM in every scene
+characters:
+  husband:
+    name: "James"
+    role: "protagonist"
+    anchors:
+      - "man in his mid-30s"
+      - "short dark brown hair"
+      - "light stubble beard"
+      - "grey t-shirt"
+    emotional_range:
+      - "restraint: hand frozen mid-reach, fingers curled"
+      - "shame: head bowed, hunched shoulders"
+      - "numbness: blank thousand-yard stare, slack jaw"
+      - "grief: motionless, eyes open but unfocused"
+
+  wife:
+    name: "Sarah"
+    role: "partner — also human, also hurting"
+    anchors:
+      - "woman in her early 30s"
+      - "long wavy auburn hair"
+      - "white sleep shirt"
+    emotional_range:
+      - "warmth: leaning on his shoulder, eyes closed, peaceful"
+      - "distance: facing away, not making eye contact"
+      - "exhaustion: tired expression, slumped posture"
+    note: >
+      Feedback rule: avoid monotonous male suffering.
+      Show her exhaustion too. She also stopped feeling safe — differently.
+
+visual_system:
+  style: "cinematic photorealism, 35mm film grain, muted desaturated tones"
+  color_palette:
+    dominant: "cool blue undertones"
+    practical_lights: "warm amber"
+    shadows: "deep but not crushed"
+    highlights: "soft, rolled off"
+  texture: "shallow depth of field, natural film grain, soft contrast"
+  consistency_anchors:
+    - "Cool blue undertones in every scene — never warm overall"
+    - "Warm amber only from practical light sources (phone, lamp, TV)"
+    - "Shallow depth of field with bokeh — never deep focus"
+    - "Film grain texture — never clean digital look"
+    - "Muted desaturated palette — never vibrant"
+    - "Low light — darkness is a character, not absence of light"
+    - "Distance in shared spaces — together but apart"
+    - "Nighttime dominates — daytime only in memory scenes"
+  negative_prompt: >
+    cartoon, anime, illustration, painting, 3d render, cgi, video game,
+    blurry, low quality, distorted, deformed, disfigured, bad anatomy,
+    extra limbs, extra fingers, watermark, signature, text,
+    oversaturated, hdr, plastic skin, duplicate, cloned,
+    overlapping subjects, messy composition, chaotic,
+    multiple scenes, collage, split screen, bright daylight,
+    cheerful, stock photo, commercial photography
+
+# ============================================================
+# SCENES — 7 beats with emotional modulation
+# ============================================================
+# Structure per feedback:
+#   1. Hook → 2. Warmth/memory (CONTRAST) → 3. Outside version →
+#   4. Internal collapse → 5. Almost moment (CENTERPIECE) →
+#   6. Defensive retreat → 7. Final truth
+#
+# Emotional intensity curve:
+#   tension → warmth → flat normalcy → deep pain → peak (almost) →
+#   numbness → quiet grief
+
+scenes:
+  # --- Beat 1: Opening Hook ---
+  - scene_number: 1
+    title: "Opening Hook — The Night It Happens"
+    beat: "opening_hook"
+    voiceover: >
+      Nobody notices the exact night it happens. The night a man stops
+      reaching for the woman he loves. Not because he stopped loving her.
+      But because somewhere along the way… intimacy stopped feeling safe.
+    duration_hint: "14s"
+    shot_language:
+      shot_size: "close_up"
+      lighting_key: "practical_phone"
+      lens_mm: 50
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Dark bedroom at night, phone screen glow as the only light source,
+      illuminating half of his face, wife asleep beside him under white
+      sheets, his hand reaching toward her shoulder but frozen mid-gesture,
+      fingers slightly curled, gap between his hand and her shoulder
+    visual_cause_of_emotion: "hand frozen mid-reach, fingers slightly curled, held breath stillness"
+    ken_burns_effect: "ken-burns"
+
+  # --- Beat 2: Contrast / Memory (MANDATORY per feedback) ---
+  # This is the warmth before the collapse. Something to lose.
+  - scene_number: 2
+    title: "What Was Lost — Morning Light Memory"
+    beat: "contrast_memory"
+    voiceover: >
+      There was a time when reaching was effortless. When her hand found
+      his across the kitchen table without thinking. When the silence
+      between them was comfortable… not careful.
+    duration_hint: "12s"
+    shot_language:
+      shot_size: "medium"
+      lighting_key: "golden_hour"
+      lens_mm: 50
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Warm kitchen in morning light, sun streaming through window,
+      her sitting on the kitchen counter, his back against the cabinet
+      facing her, coffee cups with steam rising, her hand reaching down
+      to touch his face, natural warm domestic tenderness, golden light
+    visual_cause_of_emotion: "leaning toward each other, hands finding each other naturally, eyes soft"
+    ken_burns_effect: "zoom-in"
+    feedback_note: >
+      MANDATORY contrast scene. Without this, the collapse has no weight.
+      The audience needs to mourn something.
+
+  # --- Beat 3: The Outside Version ---
+  - scene_number: 3
+    title: "The Outside Version — Nothing Looks Wrong"
+    beat: "outside_version"
+    voiceover: >
+      From the outside, nothing looks wrong. They still talk. Still share
+      a bed. Still remember groceries and birthdays. But emotional distance
+      rarely arrives like an explosion. It arrives through hesitation.
+      Through accumulated silence. Through moments too small to defend…
+      but too painful to forget.
+    duration_hint: "25s"
+    shot_language:
+      shot_size: "medium"
+      lighting_key: "tungsten_warm"
+      lens_mm: 35
+      depth_of_field: "medium"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Man and woman sitting at a kitchen table eating dinner in silence,
+      plates of food between them, both looking down at their plates,
+      not making eye contact, gap between their hands on the table,
+      plain suburban kitchen with overhead fluorescent light
+    visual_cause_of_emotion: "two people facing same direction but not touching, gap between bodies"
+    ken_burns_effect: "pan-right"
+
+  # --- Beat 4: The Internal Collapse ---
+  - scene_number: 4
+    title: "The Internal Collapse — Not Desire, Safety"
+    beat: "internal_collapse"
+    voiceover: >
+      People assume men stop initiating because they lose attraction.
+      But often… what disappears first isn't desire. It's emotional safety.
+      A sigh. A delayed response. A tired expression. A moment that says:
+      Not tonight. And after enough of those moments… he stopped knowing
+      whether she still wanted him… or was simply used to him being there.
+    duration_hint: "30s"
+    shot_language:
+      shot_size: "medium_close"
+      lighting_key: "low_key"
+      lens_mm: 85
+      depth_of_field: "shallow"
+    characters_present: ["husband"]
+    scene_description: >
+      Man sitting alone in his parked car at night, streetlights outside,
+      staring straight ahead at the dark windshield, hands gripping the
+      steering wheel, head bowed slightly forward, empty passenger seat,
+      rain droplets on side window
+    visual_cause_of_emotion: "head bowed, avoiding eye contact, hunched shoulders"
+    ken_burns_effect: "zoom-out"
+    feedback_note: >
+      Narration rewritten per feedback: "recognition, not analysis."
+      Instead of "he felt unwanted" → "he stopped knowing whether she still
+      wanted him or was simply used to him being there."
+
+  # --- Beat 5: The Almost Moment (CENTERPIECE per feedback) ---
+  # This is where emotional tension lives — in interruption, not despair.
+  - scene_number: 5
+    title: "The Almost Moment — Two Inches of Air"
+    beat: "almost_moment"
+    voiceover: >
+      The hardest part isn't the distance. It's the almost. The hand that
+      hovers. The words that form and never leave. Two inches of air between
+      his fingers and hers on the white sheet. Close enough to feel the
+      warmth. Far enough to feel the gulf.
+    duration_hint: "20s"
+    shot_language:
+      shot_size: "extreme_close_up"
+      lighting_key: "moonlight"
+      lens_mm: 85
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Extreme close-up of two hands on a white bed sheet in moonlight,
+      his hand hovering two inches from her hand, fingers almost touching
+      but not, cool blue moonlight on white sheets, the gap between their
+      fingers, the warmth radiating but not reaching
+    visual_cause_of_emotion: "two hands almost touching, two inches of air between fingers, frozen before contact"
+    ken_burns_effect: "ken-burns"
+    feedback_note: >
+      MANDATORY centerpiece. This is the emotional core of the entire
+      universe. Not despair — interruption. The almost is stronger than
+      the never.
+
+  # --- Beat 6: The Defensive Retreat ---
+  - scene_number: 6
+    title: "The Defensive Retreat — Self-Protection"
+    beat: "defensive_retreat"
+    voiceover: >
+      So he adapts. Stops reaching first. Not out of punishment. Out of
+      self-protection. Because eventually the brain learns: avoiding
+      rejection hurts less than hoping for connection. And she…
+      she learned the same lesson. Just in her own way.
+    duration_hint: "20s"
+    shot_language:
+      shot_size: "medium"
+      lighting_key: "practical_phone"
+      lens_mm: 35
+      depth_of_field: "shallow"
+    characters_present: ["husband"]
+    scene_description: >
+      Man sitting alone on a living room couch in darkness, blue TV glow
+      illuminating his face, game controller in his hands, slack jaw,
+      blank thousand-yard stare at the screen, empty couch beside him,
+      dim room with only screen light
+    visual_cause_of_emotion: "blank thousand-yard stare, slack facial muscles, limp hands"
+    ken_burns_effect: "pan-right"
+    feedback_note: >
+      Duality added: "she learned the same lesson, just in her own way."
+      This prevents monotonous male suffering and elevates to human
+      psychological storytelling.
+
+  # --- Beat 7: The Final Truth ---
+  - scene_number: 7
+    title: "The Final Truth — Distance Is Grief"
+    beat: "final_truth"
+    voiceover: >
+      The tragedy is that it happens between two people who still love
+      each other. But love without emotional safety slowly becomes
+      performance. And eventually… people stop reaching for places where
+      they no longer feel wanted. Not all distance is anger. Sometimes…
+      distance is grief.
+    duration_hint: "21s"
+    shot_language:
+      shot_size: "close_up"
+      lighting_key: "moonlight"
+      lens_mm: 50
+      depth_of_field: "shallow"
+    characters_present: ["husband", "wife"]
+    scene_description: >
+      Dark bedroom at night, both lying in bed facing the ceiling,
+      moonlight through curtains, his hand resting on the white sheet
+      near her hand but not touching, two inches of space between their
+      fingers, cool blue moonlight on white sheets
+    visual_cause_of_emotion: "frozen pose, no motion blur, complete stillness, hand resting but not touching"
+    ken_burns_effect: "pan-left"
+    feedback_note: >
+      Ends on recognition, not prescription. No advice. No solution.
+      Just recognition: "Sometimes distance is grief."
+
+# ============================================================
+# POST-PROCESSING
+# ============================================================
+
+video:
+  fps: 24
+  codec: "libx264"
+  pix_fmt: "yuv420p"
+  crf: 18
+  preset: "medium"
+
+audio:
+  tts_engine: "edge-tts"
+  voice: "en-US-GuyNeural"
+  sample_rate: 44100
+  channels: 2
+  format: "wav"
+  merge_bitrate: "192k"
+
+verification:
+  engine: "clip"
+  model: "openai/clip-vit-base-patch32"
+  scoring: "cosine_similarity_normalized"
+  min_score: 0.30
+  refine_strategy: "simplify_and_retarget"
+  refine_negatives_add: >
+    duplicate, cloned, overlapping subjects, messy composition,
+    chaotic, multiple scenes, collage

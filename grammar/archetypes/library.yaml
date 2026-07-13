@@ -1,0 +1,340 @@
+# Psychological Archetypes — v1.0
+
+> **The IP of the system. Reusable narrative structures for psychological cinema.**
+>
+> Each archetype is a **template for the emotional logic** of a video. It is not a script; it is a recipe for how to direct emotional systems. Apply it to any story, and you get a coherent emotional arc.
+
+The 7 archetypes in this library were derived from observed psychological patterns. Each one is territory-agnostic — it can be used in `emotional_withdrawal`, `imposter_syndrome`, `loneliness`, `intimacy`, etc.
+
+---
+
+## The 7 archetypes
+
+| Archetype | Tagline | Pacing | Best for |
+|-----------|---------|--------|----------|
+| `slow_withdrawal` | "He stopped reaching before she noticed." | erosion | emotional withdrawal, silent distance |
+| `emotional_shutdown` | "She stopped feeling before he asked." | collapse-then-flat | burnout, protective numbness |
+| `silent_rejection` | "She never said no. She just stopped being there." | absence | unrequited love, ghosting, leaving |
+| `masked_shame` | "He's performing confidence. He believes none of it." | performance-cracking | imposter syndrome, masculine shame, hiding |
+| `internal_collapse` | "The outside looks normal. The inside is a collapse." | contrast-outside-inside | anxiety, depression, hidden grief |
+| `suppressed_desire` | "He wants to say it. He doesn't." | rising-then-silenced | unsaid love, repression, sacrifice |
+| `fear_of_vulnerability` | "Every time he gets close, he pulls back." | approach-retreat-cycle | fear of intimacy, defensive love |
+
+---
+
+## 1. slow_withdrawal
+
+**Tagline**: He stopped reaching before she noticed.
+
+**Pacing**: erosion — gradual loss of connection over time.
+
+**Emotion graph** (energy vs scene):
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 3  7  7  4  3  2  2  5  2  3  1
+```
+
+**Core beats**:
+- A small daily ritual that disappears (hand-holding, kissing goodnight, asking how-the-day-was)
+- Both people notice but neither names it
+- A specific moment when one of them reaches and pulls back (the irreversible moment)
+- A period of pretending nothing is wrong
+- A final recognition that the distance is permanent
+
+**Visual motifs**:
+- Two people in the same frame but not touching
+- One figure turning away, the other not following
+- Phones lit while faces are dark
+- Doors cracked, not closed
+- Refrigerator hum, clock ticking
+
+**Sound motifs**:
+- Ambient hum of an empty room
+- Single piano notes that trail off
+- A door not-quite-closed
+
+**Irreversible moment seed examples**:
+- He almost reaches for her hand, pauses, withdraws
+- She starts to say something, stops, picks up her phone
+- They both reach for the door handle at the same time, hands touch, both pull away
+
+**Narration cadence**: low, restrained, pause-heavy. Recognition not analysis. Long gaps between lines.
+
+**Best territories**: `emotional_withdrawal`, `loneliness`, `intimacy`
+
+---
+
+## 2. emotional_shutdown
+
+**Tagline**: She stopped feeling before he asked.
+
+**Pacing**: collapse-then-flat — fast drop into numbness, then a long flat plateau.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 3  6  2  2  1  1  1  4  1  2  1
+```
+
+**Core beats**:
+- A small but final trigger (a phrase, a look, a missed call)
+- The shutdown happens in seconds, not days
+- A long flat period of mechanical living
+- One moment when the original person flickers back (the irreversible moment)
+- The return to the flat plateau
+
+**Visual motifs**:
+- Mechanical movements (loading dishwasher, brushing teeth, folding laundry)
+- The same shot, the same angle, the same light, for days
+- One face lit by phone glow, the rest of the room dark
+- A window that nobody looks out of
+- Coffee that goes cold, untouched
+
+**Sound motifs**:
+- Low drone
+- Mechanical sounds (kitchen timer, washer, dryer)
+- No music, only ambient
+
+**Irreversible moment seed examples**:
+- She is making tea. She stops mid-pour, stares at the kettle, doesn't turn it on
+- He is folding a shirt. He stops, holds it, sets it down half-folded, walks to the window without turning around
+- She is setting the table. She stops at the second fork, picks it up, sets it down, picks it up again
+
+**Narration cadence**: sparse. Long silences. Single sentences. Almost no emotion in the voice — flat affect, the way depression sounds.
+
+**Best territories**: `emotional_withdrawal`, `loneliness`, `burnout`
+
+---
+
+## 3. silent_rejection
+
+**Tagline**: She never said no. She just stopped being there.
+
+**Pacing**: absence — the relationship thins by what isn't there.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 3  5  5  3  4  3  3  5  4  4  2
+```
+
+**Core beats**:
+- A relationship that was once close
+- A slow absence: texts go unanswered, calls go to voicemail, plans get cancelled
+- The realization that "I love you" hasn't been said in months
+- A confrontation that never happens
+- The slow exit
+
+**Visual motifs**:
+- One side of a bed, made
+- A phone face-down
+- A closet half-empty
+- A toothbrush missing
+- A chair pulled back from the table
+
+**Sound motifs**:
+- Empty room tone
+- Wind through a window
+- A single car passing in the distance
+
+**Irreversible moment seed examples**:
+- He sends a text. She reads it but doesn't reply. He watches the typing indicator appear and disappear.
+- She packs a bag. He watches from the doorway. She doesn't look up.
+- He comes home. Her key is on the counter.
+
+**Narration cadence**: trailing, incomplete. Sentences that end with "..." or never finish. Lots of "almost" and "nearly" and "not quite."
+
+**Best territories**: `loneliness`, `emotional_withdrawal`, `breakup`
+
+---
+
+## 4. masked_shame
+
+**Tagline**: He's performing confidence. He believes none of it.
+
+**Pacing**: performance-cracking — starts confident, cracks slowly.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 4  6  4  5  4  3  3  5  3  4  2
+```
+
+**Core beats**:
+- A performance of confidence (the meeting, the pitch, the public self)
+- A small slip — a hand tremor, a forgotten word, an averted gaze
+- A private moment of collapse (the bathroom mirror, the parking lot, the stairwell)
+- The realization that everyone can see through the performance
+- The choice to keep performing or stop
+
+**Visual motifs**:
+- A suit that fits perfectly and a face that doesn't
+- A reflection in a window that contradicts the public pose
+- Hands that grip too hard
+- A smile that doesn't reach the eyes
+- Empty rooms after the performance
+
+**Sound motifs**:
+- Loud public noise, then sudden quiet
+- A single heartbeat sound
+- Echo in a stairwell
+
+**Irreversible moment seed examples**:
+- In the middle of a confident sentence, he forgets a word. The pause is one second too long. Everyone notices.
+- He sees his reflection in a window and doesn't recognize the person smiling.
+- He rehearses a phrase in the bathroom mirror and the words won't come out.
+
+**Narration cadence**: confident at first, then cracking. Pace slows. Pitch drops. The voice eventually trails off.
+
+**Best territories**: `imposter_syndrome`, `masculine_shame`, `anxiety`, `burnout`
+
+---
+
+## 5. internal_collapse
+
+**Tagline**: The outside looks normal. The inside is a collapse.
+
+**Pacing**: contrast-outside-inside — high functional energy on the outside, low on the inside.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 4  6  3  4  3  2  2  5  2  3  1
+```
+
+**Core beats**:
+- A day that looks normal (laundry, work, school pickup)
+- Internal monologue that contradicts the visible competence
+- A small public moment where the inside leaks out
+- The collapse happens when nobody is watching
+- A second person notices something is wrong
+
+**Visual motifs**:
+- Doing ordinary things with extraordinary care (because the care is all that's holding it together)
+- Lists, calendars, reminders — visible scaffolding
+- A breakdown in a place of competence (the office bathroom, the parking garage, the school hallway)
+- Looking at a phone and putting it down without responding
+
+**Sound motifs**:
+- Quiet domestic sounds
+- A clock ticking
+- A breath held too long
+
+**Irreversible moment seed examples**:
+- She is in the middle of a sentence at work and can't remember the next word. She covers with a cough. The colleague next to her notices.
+- He is making a sandwich and starts to cry. He puts the bread down. He doesn't finish.
+- She is driving and pulls over. She sits in the car for an hour.
+
+**Narration cadence**: even, controlled, then suddenly thin. The voice doesn't crack; it just disappears for a moment.
+
+**Best territories**: `anxiety`, `depression`, `burnout`, `masked_shame`
+
+---
+
+## 6. suppressed_desire
+
+**Tagline**: He wants to say it. He doesn't.
+
+**Pacing**: rising-then-silenced — the desire builds, then is cut off.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 4  7  5  5  6  5  5  6  4  4  3
+```
+
+**Core beats**:
+- A long-held feeling
+- A moment when the words almost come out
+- A reason given (timing, context, risk) for not saying it
+- A second moment when the words are even closer
+- The cost of not saying it
+- The recognition that the moment is gone
+
+**Visual motifs**:
+- Licking lips, swallowing, looking away
+- Hands that almost reach
+- Mouths that open and close
+- A letter never sent, a message never typed
+- A door almost opened, then closed
+
+**Sound motifs**:
+- A held breath
+- A swallow
+- The start of a word that doesn't come
+
+**Irreversible moment seed examples**:
+- He is about to say "I love you." He says "goodnight" instead.
+- She types a message. She deletes it. She locks the phone.
+- He almost takes her hand at the restaurant. He picks up his fork instead.
+
+**Narration cadence**: rising, then abruptly cut. The voice reaches a peak and stops mid-word. Long silence follows.
+
+**Best territories**: `intimacy`, `unrequited_love`, `loneliness`
+
+---
+
+## 7. fear_of_vulnerability
+
+**Tagline**: Every time he gets close, he pulls back.
+
+**Pacing**: approach-retreat-cycle — the protagonist oscillates between getting close and pulling away.
+
+**Emotion graph**:
+```
+scene:  1  2  3  4  5  6  7  8  9  10 11
+energy: 4  6  3  5  4  6  3  5  4  5  3
+```
+
+**Core beats**:
+- A new closeness (a relationship beginning, a vulnerability offered)
+- A retreat (a wall, a joke, a defense)
+- A second approach (closer than the first)
+- A bigger retreat
+- A final approach that holds
+
+**Visual motifs**:
+- Two people sitting together, one inch apart, neither moving
+- A phone call answered, then hung up
+- A door opened, then closed
+- A message typed, then deleted
+- A smile that turns into a frown
+
+**Sound motifs**:
+- A door opening and closing
+- A phone ringing, then silence
+- Footsteps approaching, then retreating
+- A laugh that doesn't quite land
+
+**Irreversible moment seed examples**:
+- He starts to say something honest. He makes a joke instead. The other person laughs. The moment is gone.
+- She leans her head on his shoulder. He stiffens. She moves away.
+- He is about to say "I love you." He says "I'm tired."
+
+**Narration cadence**: oscillating between confident and hesitant. The voice reaches toward something and pulls back. Repetition of phrases.
+
+**Best territories**: `intimacy`, `emotional_withdrawal`, `fear_of_commitment`
+
+---
+
+## How to use an archetype
+
+1. **Pick the archetype** that matches the psychological territory.
+2. **Read the emotion graph** to understand the energy curve.
+3. **Use the beat names** (hook, contrast_memory, etc.) to populate the 11 scenes.
+4. **Pick an irreversible moment seed** and adapt it to your specific story.
+5. **Apply the visual motifs** to the scene descriptions.
+6. **Apply the sound motifs** to the ambient SFX.
+7. **Apply the narration cadence** to the voiceover.
+
+The archetype gives you the **emotional logic**. The story gives you the **specific content**. The canonical spec (`canonical_video_spec.yaml`) gives you the **structure**. Together they produce a coherent video.
+
+---
+
+## Versioning
+
+| Version | Date | Change |
+|---------|------|--------|
+| 1.0 | 2026-07-07 | Initial 7 archetypes. Derived from observed patterns in EmotionalWithdrawal territory. |
+
+When you add a new archetype, also add an example scene blueprint to `scene_blueprints/`.

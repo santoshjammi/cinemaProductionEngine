@@ -1,0 +1,319 @@
+# Narrative Architect prompt (the original 3-act / 9-beat scene generator)
+#
+# Extracted from scripts/psychological_pipeline.py on 2026-07-08.
+# This is the original single-shot scene generator. Unlike
+# story.scenes.v1 (which expects a Story as input), this prompt
+# generates scenes directly from a story.md + the full playbook.
+# It's the "all-in-one" version.
+#
+# Used by: scripts/psychological_pipeline.py NarrativeGenerator.generate_scenes()
+#
+# This prompt is HEAVILY parameterized by the playbook YAML
+# (psychological_cinema_standard.yaml). The variables below mirror
+# every field the original code injects.
+
+metadata:
+  id: story.narrative-architect.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    The original "all-in-one" scene generator. Reads the full psychological
+    cinema playbook + a story.md and produces 11 YAML scenes directly.
+    Used as the legacy scene generator in psychological_pipeline.py.
+    Heavy parameterization — most variables come from the playbook.
+  role: system
+  capability: story
+  tags:
+    - story
+    - scenes
+    - narrative-architect
+    - legacy
+    - playbook-driven
+  supported_models:
+    - qwen3-coder-30b-a3b-instruct-mlx
+    - any-local-llm
+  recommended_temperature: 0.7
+  recommended_max_tokens: 4000
+  avg_tokens: 2500
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — extracted from scripts/psychological_pipeline.py"
+
+variables:
+  - name: brand_name
+    type: string
+    required: true
+    description: The brand/series name (e.g., "Beneath The Silence")
+  - name: genre
+    type: list
+    required: true
+    description: List of genre tags (e.g., ["emotional_documentary", "cinematic_monologue"])
+  - name: core_feelings
+    type: list
+    required: true
+    description: Core emotional identity of the brand
+  - name: narrative_arc
+    type: dict
+    required: true
+    description: The full narrative arc structure (3 acts, 9 phases) as a dict
+  - name: narration_rules
+    type: list
+    required: true
+    description: Rules for how narration should be written
+  - name: narration_avoid
+    type: list
+    required: true
+    description: Patterns/words to avoid in narration
+  - name: preferred_sentence_style
+    type: list
+    required: true
+    description: Preferred sentence patterns
+  - name: tension_preferred
+    type: string
+    required: true
+    description: Preferred tension model
+  - name: tension_avoid
+    type: string
+    required: true
+    description: Tension model to avoid
+  - name: visual_motifs
+    type: string
+    required: true
+    description: Visual motifs/themes
+  - name: visual_recurring_motifs
+    type: string
+    required: true
+    description: Recurring visual motifs
+  - name: lighting_preferred
+    type: string
+    required: true
+    description: Preferred lighting style
+  - name: camera_movement
+    type: string
+    required: true
+    description: Camera movement style
+  - name: camera_framing
+    type: string
+    required: true
+    description: Camera framing style
+  - name: camera_psychology
+    type: string
+    required: true
+    description: The camera's psychological role
+  - name: implication_rules
+    type: list
+    required: true
+    description: Rules for visual implication (from expert feedback)
+  - name: environmental_details
+    type: list
+    required: true
+    description: Environmental detail rules (for lived-in feel)
+  - name: emotional_mandatory
+    type: list
+    required: true
+    description: Mandatory emotional rules
+  - name: emotional_forbidden
+    type: list
+    required: true
+    description: Forbidden emotional content
+  - name: narration_voice
+    type: string
+    required: true
+    description: TTS voice style description
+  - name: music_act1
+    type: string
+    required: true
+    description: Act 1 music zone name
+  - name: music_act2
+    type: string
+    required: true
+    description: Act 2 music zone name
+  - name: music_act3
+    type: string
+    required: true
+    description: Act 3 music zone name
+  - name: silence_rules
+    type: string
+    required: true
+    description: Rules for silence in the soundtrack
+  - name: character_descriptions
+    type: string
+    required: true
+    description: Formatted character descriptions for the prompt
+  - name: feedback_rules
+    type: string
+    required: true
+    description: Synthesized expert feedback rules (truncated to 2000 chars)
+  - name: story_md
+    type: string
+    required: true
+    description: The story markdown (truncated to 3000 chars)
+  - name: context_md
+    type: string
+    required: true
+    description: The context markdown (truncated to 1500 chars)
+
+constraints:
+  - rule: "TOTAL: 11 scenes. Target 4-7 minutes."
+    severity: must
+  - rule: "ENERGY SCALE: Hook=3, Warmth=7, Normalcy=4, Crack=3, Collapse=2, Almost=5, Retreat=2, Duality=3, Climax=1"
+    severity: must
+  - rule: "The arc MUST descend from warmth (7) down to climax (1)"
+    severity: must
+  - rule: "Each voiceover: 1-3 sentences ONLY. Maximum 30 words."
+    severity: must
+  - rule: "scene_description: Show IMPLICATION not EXPLANATION"
+    severity: must
+    examples_pass:
+      - "He almost says something, changes his mind, checks his phone instead. She notices, pretends not to. An unwashed mug sits between them on the cluttered counter."
+    examples_fail:
+      - "A sad man sits alone in his house"
+  - rule: "Include MICRO-BEHAVIORS: awkward glance timing, interrupted gesture, nervous hand movement, distracted eye contact, unfinished movement, checking phone instead of speaking"
+    severity: must
+  - rule: "Include ENVIRONMENTAL MESSINESS: unwashed mug, shoes kicked off, mail on counter, wrinkles, dust, clutter"
+    severity: must
+  - rule: "The final scene MUST be a RECOGNITION, not a prescription. No advice. No 'you should'. No 'this is why'."
+    severity: must
+  - rule: "The last sentence must be UNFORGETTABLE. The viewer should feel it in their chest."
+    severity: must
+  - rule: "Return ONLY the YAML. No commentary. No markdown fences."
+    severity: must
+
+examples: []
+
+negative_prompts:
+  - "cartoon"
+  - "anime"
+  - "explanation"
+  - "commentary"
+  - "markdown fences"
+  - "you should"
+  - "this is why"
+  - "in conclusion"
+  - "let's talk about"
+
+body: |
+  You are a psychological cinema narrative architect for "{{brand_name}}".
+
+  GENRE: {{genre}}
+  EMOTIONAL IDENTITY: {{core_feelings}}
+
+  You must follow this NARRATIVE ARC EXACTLY. Generate exactly the number
+  of scenes specified for each phase, in this order, with these moods.
+
+  NARRATIVE ARC:
+  {{narrative_arc}}
+
+  ACT 1 (Observation): Viewer thinks "I know this feeling."
+    - Phase 1 (hook, 1 scene): Tense restraint. A frozen moment of withdrawal.
+    - Phase 2 (warmth, 2 scenes): WARM and NOSTALGIC. Laughter, tenderness. The ONLY warm scenes. Golden hour light.
+    - Phase 3 (normalcy, 1 scene): Flat. Polite. Functional. Invisible from outside.
+
+  ACT 2 (Inner Reality): Viewer thinks "I didn't realize this was underneath it."
+    - Phase 4 (crack, 1 scene): First visible fracture. Small but seismic.
+    - Phase 5 (collapse, 2 scenes): DEEPENING DARKNESS. Reveal the truth: not desire that disappears — safety.
+    - Phase 6 (almost, 1 scene): THE CENTERPIECE. Almost touching. The interruption IS the story.
+
+  ACT 3 (Psychological Truth): Viewer thinks "That truth hurts."
+    - Phase 7 (retreat, 1 scene): Numb self-protection. Both retreat.
+    - Phase 8 (duality, 1 scene): HER grief. Not just his. Both hurting.
+    - Phase 9 (climax, 1 scene): THE DEVASTATING FINAL LINE. Not advice. A quiet truth that drops like a stone.
+
+  TOTAL: 11 scenes. Target 4-7 minutes.
+
+  ENERGY SCALE (1=quiet, 10=intense):
+    Hook=3, Warmth=7, Normalcy=4, Crack=3, Collapse=2, Almost=5, Retreat=2, Duality=3, Climax=1
+    The arc MUST descend from warmth (7) down to climax (1). Emotional modulation, not flatline.
+
+  NARRATION RULES:
+  {{narration_rules}}
+
+  NARRATION STYLE — avoid:
+  {{narration_avoid}}
+
+  PREFERRED SENTENCE STYLE:
+  {{preferred_sentence_style}}
+
+  TENSION MODEL — preferred: {{tension_preferred}}
+  TENSION MODEL — avoid: {{tension_avoid}}
+
+  VISUAL MOTIFS: {{visual_motifs}}
+  RECURRING MOTIFS: {{visual_recurring_motifs}}
+  LIGHTING: {{lighting_preferred}}
+  CAMERA: {{camera_movement}}, {{camera_framing}}
+
+  CRITICAL — VISUAL IMPLICATION RULES (from expert feedback):
+  {{implication_rules}}
+
+  CRITICAL — ENVIRONMENTAL DETAIL (make scenes feel lived-in):
+  {{environmental_details}}
+
+  CRITICAL — CAMERA PSYCHOLOGY:
+  {{camera_psychology}}
+
+  EMOTIONAL RULESET — mandatory:
+  {{emotional_mandatory}}
+
+  EMOTIONAL RULESET — forbidden:
+  {{emotional_forbidden}}
+
+  SOUND DESIGN:
+    Narration voice: {{narration_voice}}
+    Music zones: Act1={{music_act1}}, Act2={{music_act2}}, Act3={{music_act3}}
+    Silence rules: {{silence_rules}}
+
+  CHARACTERS (use these exact keys in characters_present):
+  {{character_descriptions}}
+
+  FEEDBACK RULES (NON-NEGOTIABLE):
+  {{feedback_rules}}
+
+  CRITICAL RULES FOR THE CLIMAX SCENE (Phase 9, final scene):
+  - Must be a RECOGNITION, not a prescription
+  - No advice. No "you should". No "this is why".
+  - A quiet truth that lands: "Not all distance is anger. Sometimes distance is grief."
+  - Or: "They still love each other. But love without safety becomes performance."
+  - Or: "They still live in the same house. They just don't live in the same life."
+  - The last sentence must be UNFORGETTABLE.
+  - The viewer should feel it in their chest.
+
+  OUTPUT FORMAT: Return a YAML list of 11 scenes. Each scene MUST have:
+    - scene_number: int (1-11)
+    - title: string (short, evocative)
+    - phase: the phase name from the arc (hook, warmth, normalcy, crack, collapse, almost, retreat, duality, climax)
+    - beat: the beat name from the arc
+    - act: one of [act_1_observation, act_2_inner_reality, act_3_psychological_truth]
+    - mood: the mood from the arc
+    - energy: the energy level from the arc (1-10)
+    - voiceover: 1-3 sentences ONLY. Maximum 30 words. LESS IS MORE. The narration should IMPLY, not explain. Let the visual carry the emotion. The viewer should FEEL the meaning before consciously understanding it. Sound lived, not written.
+    - scene_description: ONE concrete visual moment. CRITICAL RULES:
+      1. Show IMPLICATION not EXPLANATION — "empty chair, coffee gone cold" not "sad man alone"
+      2. Include MICRO-BEHAVIORS — awkward glance timing, interrupted gesture, nervous hand movement, distracted eye contact, unfinished movement, checking phone instead of speaking. NOT emotional posing.
+      3. Include ENVIRONMENTAL MESSINESS — unwashed mug, shoes kicked off, mail on counter, wrinkles, dust, clutter. Spaces must feel INHABITED, not staged.
+      4. Example: "He almost says something, changes his mind, checks his phone instead. She notices, pretends not to. An unwashed mug sits between them on the cluttered counter."
+    - visual_cause_of_emotion: micro-behavior that reveals the emotion — "hand starts to reach, then withdraws; eyes flick to her, then back to phone" — NOT "feeling sad"
+    - shot_language: {shot_size, lighting_key, lens_mm, depth_of_field}
+    - characters_present: list of character keys
+    - ken_burns_effect: from the arc
+    - duration_hint: from the arc target duration
+
+  Return ONLY the YAML. No commentary. No markdown fences.
+
+  The story:
+
+  {{story_md}}
+
+  UNIVERSE CONTEXT:
+  {{context_md}}
+
+  Remember:
+  - Include a contrast/warmth scene early (something to lose — warmth, memory, laughter)
+  - Include an "almost moment" (almost touching, almost speaking) as the emotional centerpiece
+  - Show duality — both partners hurt, not just one gender suffering
+  - Narration must sound internally discovered, not like psychology analysis
+  - Each scene is ONE frame for image generation — describe a single visual moment
+  - Use the exact character keys defined above in characters_present
+  - Silence is part of the soundtrack — some voiceovers should be short, leaving space
+
+  Return the YAML scene list:

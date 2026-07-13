@@ -1,0 +1,49 @@
+# Workflow Inventory - Movie OS Workflows
+---
+agent_orchestration_workflows:
+  - name: "LangGraph Multi-Agent Engine (New Path)"
+    orchestrator: "ProductionOrchestratorAgent"
+    steps:
+      - node: "orchestrator"
+        description: "Executes 6 critical creation phases sequentially, followed by a multi-agent evaluation phase and YouTube readiness scan."
+      - node: "revision"
+        description: "Auto-revises low-scoring segments (e.g. story, dialogue, visuals) based on feedback scores and loops back to orchestrator if needed."
+    persistence: "SQLite memory savers checkpointing node transitions to allow resuming crashed runs."
+
+  - name: "LangGraph Multi-Agent Engine (Legacy Path)"
+    orchestrator: "MovieAgent"
+    steps:
+      - node: "movie_agent"
+        description: "Plans the story architecture and formats the screenplay outline."
+      - node: "story_agent"
+        description: "Generates narratives and scenes, fanning out to parallel generation nodes."
+      - node: "visual_agent / voice_agent / music_agent / sfx_agent"
+        description: "Concurrent nodes generating images, recording dialogue voiceovers, composing scores, and rendering sound effects."
+      - node: "qa_agent"
+        description: "Runs verification rules; routes back to visual_agent on visual errors, or forward to publishing."
+      - node: "publishing_agent"
+        description: "Assembles media components into the final output video file."
+
+comfyui_workflows:
+  - name: "FLUX Text-To-Image"
+    file: "movie_os/workflows/flux/flux_txt2img.json"
+    description: "Generates high-quality images from cinematic prompts using FLUX.1 Schnell or Dev checkpoints."
+  - name: "FLUX Image-To-Image"
+    file: "movie_os/workflows/flux/flux_img2img.json"
+    description: "Uses a reference visual asset to refine and enhance lighting, contrast, or camera movement."
+  - name: "FLUX with IPAdapter"
+    file: "movie_os/workflows/flux/flux_with_ipadapter.json"
+    description: "Enforces character face and wardrobe visual consistency by mapping a character's hero reference image using IPAdapter."
+  - name: "FLUX with LoRA"
+    file: "movie_os/workflows/flux/flux_with_lora.json"
+    description: "Runs high-quality generations utilizing style-specific LoRA checkpoints."
+
+ci_cd_workflows:
+  - name: "Security Scan Workflow"
+    file: ".github/workflows/security.yml"
+    trigger: "Push or Pull Request on main branch"
+    steps:
+      - step_1: "Checkout code repository"
+      - step_2: "Setup Python 3.10 virtual environment"
+      - step_3: "Install project requirements and pip-audit"
+      - step_4: "Execute pip-audit, ignoring mocked vulnerabilities (VULN-12345, VULN-67890)"

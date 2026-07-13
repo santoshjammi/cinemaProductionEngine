@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotional Withdrawal Video Generation - Project Summary</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        .project-overview {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .tech-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .tech-card h3 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .status.completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status.in-progress {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status.planned {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        .stage {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+        }
+        .stage h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .stage-content {
+            margin-top: 10px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Emotional Withdrawal Video Generation Project</h1>
+        
+        <div class="project-overview">
+            <h2>Project Overview</h2>
+            <p>This project focuses on building a video generation pipeline specifically tailored for psychology content, with "Emotional Withdrawal" as the primary topic. The system leverages AI to create cinematic videos that explain psychological concepts in an engaging, visual format.</p>
+            <p><span class="status completed">Status: In Progress</span></p>
+        </div>
+
+        <h2>Technical Architecture</h2>
+        
+        <div class="tech-stack">
+            <div class="tech-card">
+                <h3>Core Pipeline</h3>
+                <p>The system uses a multi-stage AI pipeline:</p>
+                <ul>
+                    <li><strong>Story Generation</strong>: Creates structured narratives with emotional arcs</li>
+                    <li><strong>Scene Decomposition</strong>: Breaks stories into cinematic scenes</li>
+                    <li><strong>Dialogue Generation</strong>: Creates natural spoken dialogues for each scene</li>
+                    <li><strong>Cinematic Prompt Generation</strong>: Produces detailed visual prompts for video generation</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>Technology Stack</h3>
+                <p>The project combines:</p>
+                <ul>
+                    <li><strong>Frontend</strong>: Next.js with TypeScript and Tailwind CSS</li>
+                    <li><strong>Backend</strong>: FastAPI for API services</li>
+                    <li><strong>LLMs</strong>: Ollama with qwen2.5:32b and deepseek-coder-v2 models</li>
+                    <li><strong>Video Generation</strong>: Stable Video Diffusion (SVD) or similar</li>
+                    <li><strong>Local Processing</strong>: All AI processing happens locally</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>Psychology Content Focus</h3>
+                <p>The system is specifically optimized for:</p>
+                <ul>
+                    <li>Emotional Withdrawal psychology concept</li>
+                    <li>Clinical and educational video content</li>
+                    <li>Visual storytelling for mental health topics</li>
+                    <li>Accessible, non-stigmatizing presentation of psychological concepts</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Current Implementation</h2>
+        
+        <div class="stage">
+            <h3>Core Pipeline Components</h3>
+            <div class="stage-content">
+                <p>The system currently includes:</p>
+                <ul>
+                    <li>Python-based text generation pipeline with dual-model architecture</li>
+                    <li>Ollama integration for local LLM processing (qwen2.5:32b and deepseek-coder-v2)</li>
+                    <li>Research integration for grounding psychological concepts</li>
+                    <li>Structured output formats (YAML) for all pipeline stages</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stage">
+            <h3>Video Generation Pipeline</h3>
+            <div class="stage-content">
+                <p>The video generation process:</p>
+                <ol>
+                    <li>Accepts psychological topic input (e.g., "Emotional Withdrawal")</li>
+                    <li>Generates structured story with emotional arc</li>
+                    <li>Breaks story into cinematic scenes with camera and lighting details</li>
+                    <li>Creates dialogues for each scene</li>
+                    <li>Generates cinematic prompts for video generation models</li>
+                    <li>Assembles final video clips with optional narration</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>Psychology-Specific Adaptations</h2>
+        
+        <div class="stage">
+            <h3>Content Specialization</h3>
+            <div class="stage-content">
+                <p>The system is adapted for psychology content:</p>
+                <ul>
+                    <li>Emotional tone settings tailored to psychological concepts</li>
+                    <li>Research integration for evidence-based psychology content</li>
+                    <li>Clinical accuracy in storytelling and visual representation</li>
+                    <li>Non-stigmatizing language for sensitive mental health topics</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Project Status</h2>
+        
+        <div class="stage">
+            <h3>Current Progress</h3>
+            <div class="stage-content">
+                <p>The project has made significant progress:</p>
+                <ul>
+                    <li>Complete pipeline architecture designed and documented</li>
+                    <li>Python-based text generation system operational</li>
+                    <li>Frontend and backend structure established</li>
+                    <li>Video generation workflow in development</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Next Steps</h2>
+        
+        <div class="stage">
+            <h3>Implementation Plan</h3>
+            <div class="stage-content">
+                <p>For the Emotional Withdrawal focus:</p>
+                <ol>
+                    <li>Implement specific psychological content templates</li>
+                    <li>Create specialized emotional tone handling for psychology concepts</li>
+                    <li>Develop research integration focused on psychological literature</li>
+                    <li>Optimize video generation for clinical and educational content</li>
+                    <li>Create UI components specifically designed for psychology education</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>Key Features</h2>
+        
+        <div class="stage">
+            <h3>Psychology Education Focus</h3>
+            <div class="stage-content">
+                <p>The system emphasizes:</p>
+                <ul>
+                    <li><span class="highlight">Educational Value</span>: Content designed for psychology students and professionals</li>
+                    <li><span class="highlight">Clinical Accuracy</span>: Evidence-based presentation of psychological concepts</li>
+                    <li><span class="highlight">Visual Learning</span>: Cinematic storytelling for better comprehension of abstract concepts</li>
+                    <li><span class="highlight">Accessibility</span>: Clear, non-stigmatizing presentation of sensitive topics</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Technical Requirements</h2>
+        
+        <div class="stage">
+            <h3>System Dependencies</h3>
+            <div class="stage-content">
+                <p>The system requires:</p>
+                <ul>
+                    <li>Ollama with qwen2.5:32b and deepseek-coder-v2 models</li>
+                    <li>GPU with 8GB+ VRAM for video generation (SVD)</li>
+                    <li>FFmpeg for video assembly</li>
+                    <li>Python 3.8+ with required packages (listed in requirements.txt)</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

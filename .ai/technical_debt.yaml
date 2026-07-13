@@ -1,0 +1,5 @@
+# Technical Debt
+---
+debt:
+  - description: "Duplicate assembly scripts under scripts/ directory (v1 through v6)."
+  - description: "Duplicate agent implementations between legacy pipeline.py and movie_os/agents/ creative classes."

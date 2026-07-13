@@ -1,0 +1,5 @@
+# Documentation Policy
+---
+policy:
+  structure: "All architectures require design specs under docs/specs/."
+  markdown: "All files must link to relevant sub-guides."

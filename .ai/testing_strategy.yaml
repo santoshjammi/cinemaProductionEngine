@@ -1,0 +1,5 @@
+# Testing Strategy
+---
+strategy:
+  python: "Unit tests run via pytest under movie_os/tests/."
+  frontend: "Unit tests run via Vitest, and browser E2E tests run via Playwright."

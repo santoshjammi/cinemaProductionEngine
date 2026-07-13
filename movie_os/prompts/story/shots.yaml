@@ -1,0 +1,155 @@
+# Shot Planning prompt
+#
+# Given a scene's description and emotional context, suggests
+# 1-3 shots that could be used to tell the story. Each shot has:
+#   - shot_size (close-up, medium, wide, extreme_wide)
+#   - camera_movement (static, push-in, pan-right, pan-left, dolly)
+#   - lens_mm (35, 50, 85)
+#   - visual_intent (a short description of what this shot shows)
+#
+# Used by: shot planner (Phase 7) when the LLM wants to suggest
+# shots explicitly rather than using the heuristic defaults.
+#
+# In Phase 7.0, this prompt is optional — the ShotPlanner produces
+# sensible defaults without calling the LLM. Future versions may use
+# this prompt to generate more creative shot lists.
+
+metadata:
+  id: story.shots.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Suggest 1-3 shots for a scene. Each shot is a camera setup.
+    Used by the shot planner (Phase 7) to enrich the default
+    shot list with LLM-generated creative direction.
+  role: structured
+  capability: story
+  tags:
+    - story
+    - shots
+    - camera
+    - cinematic
+  supported_models:
+    - qwen3-coder-30b-a3b-instruct-mlx
+    - qwen2.5:32b
+    - any-local-llm
+  recommended_temperature: 0.4
+  recommended_max_tokens: 600
+  avg_tokens: 350
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: scene_description
+    type: string
+    required: true
+    description: The scene's visual description
+  - name: emotional_state
+    type: string
+    required: true
+    description: The scene's emotional state
+  - name: energy
+    type: integer
+    required: true
+    description: The scene's energy level (1-10)
+  - name: shot_count
+    type: integer
+    required: true
+    default: 2
+    description: How many shots to suggest (1-3)
+  - name: irreversible_moment
+    type: boolean
+    required: false
+    default: false
+    description: Whether this is the irreversible moment scene
+  - name: format_spec
+    type: string
+    required: true
+    description: The expected JSON output format
+
+constraints:
+  - rule: "Output MUST be valid JSON"
+    severity: must
+  - rule: "Suggest exactly the number of shots specified"
+    severity: must
+  - rule: "Each shot must have shot_size, camera_movement, lens_mm, visual_intent"
+    severity: must
+  - rule: "shot_size must be one of: close-up, medium, wide, extreme_wide"
+    severity: must
+    enum_values: [close-up, medium, wide, extreme_wide]
+  - rule: "lens_mm must be one of: 35, 50, 85"
+    severity: must
+    enum_values: [35, 50, 85]
+
+examples:
+  - description: "Tense restraint hook scene"
+    input:
+      scene_description: "He lies in bed, hand hovering above her shoulder before withdrawing."
+      emotional_state: "tense_restraint"
+      energy: 3
+      shot_count: 1
+      irreversible_moment: false
+    output: |
+      [
+        {
+          "shot_number": 1,
+          "shot_size": "close-up",
+          "camera_movement": "static",
+          "lens_mm": 50,
+          "visual_intent": "His hand hovering above her shoulder, frozen mid-air. The intimacy of the moment is captured in the stillness.",
+          "duration_seconds": 12.0
+        }
+      ]
+
+  - description: "Wide warmth scene with 2 shots"
+    input:
+      scene_description: "Couple laughing in golden hour, her head on his shoulder."
+      emotional_state: "warm_nostalgic"
+      energy: 7
+      shot_count: 2
+      irreversible_moment: false
+    output: |
+      [
+        {
+          "shot_number": 1,
+          "shot_size": "wide",
+          "camera_movement": "static",
+          "lens_mm": 35,
+          "visual_intent": "Establishing shot of the couple in golden hour, her head on his shoulder. The wide frame captures the intimacy and the light.",
+          "duration_seconds": 7.5
+        },
+        {
+          "shot_number": 2,
+          "shot_size": "close-up",
+          "camera_movement": "push-in",
+          "lens_mm": 85,
+          "visual_intent": "Close-up of their faces, laughing. The push-in creates momentum and draws the viewer into the moment.",
+          "duration_seconds": 7.5
+        }
+      ]
+
+negative_prompts:
+  - "commentary"
+  - "explanation"
+  - "markdown"
+
+body: |
+  You are a cinematic shot planner. Given a scene's visual description and emotional context, suggest {{shot_count}} shots that would best tell the story.
+
+  Each shot is a single camera setup. For each shot, specify:
+  - shot_size: close-up, medium, wide, or extreme_wide
+  - camera_movement: static, push-in, pan-right, pan-left, or dolly
+  - lens_mm: 35, 50, or 85
+  - visual_intent: a short description of what this shot shows and why
+
+  Scene description: {{scene_description}}
+  Emotional state: {{emotional_state}}
+  Energy: {{energy}}/10
+  Irreversible moment: {{irreversible_moment}}
+
+  Output a JSON array of {{shot_count}} shot objects. Each shot has this shape:
+  {{format_spec}}
+
+  Output ONLY the JSON array, no commentary, no markdown:

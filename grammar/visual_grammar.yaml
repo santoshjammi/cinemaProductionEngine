@@ -1,0 +1,210 @@
+# Visual Grammar — v1.0
+
+> **The shared visual language of every videoGen psychological cinema video.**
+>
+> This file replaces the practice of "prompting" (adjective + adjective + adjective) with
+> **semantic directing** (emotion + visual_symbolism + camera + soundtrack).
+>
+> Every scene blueprint in every project consumes this grammar. The render layer (SDXL,
+> Flux, OpenAI, etc.) translates the semantic tokens into actual pixels.
+
+---
+
+## Why semantic directing
+
+Most AI video failures come from the same root cause: **prompting is underspecified**.
+
+```
+# BAD (prompting)
+prompt: "sad lonely man cinematic"
+```
+
+This produces random, inconsistent, low-quality output. There's no emotional logic.
+
+```
+# GOOD (semantic directing)
+emotional_state: emotional_resignation
+visual_symbolism: [physical_distance, low_light, downward_eye_contact]
+camera: slow_push_in
+soundtrack: low_piano_tension
+```
+
+The renderer translates this into a real prompt. The output is consistent, coherent, and emotionally precise.
+
+---
+
+## The semantic vocabulary
+
+### Emotional states (replaces "emotion" adjectives)
+
+| Token | Translation | Visual cause |
+|-------|-------------|--------------|
+| `restrained` | Holding back, frozen | "hand frozen mid-reach, jaw clenched, body rigid" |
+| `numb` | No feeling, mechanical | "blank stare, slack jaw, mechanical movements" |
+| `grief` | Loss, weight, frozen | "motionless, eyes open but unfocused, hand hovering" |
+| `warmth` | Tenderness, closeness | "leaning on shoulder, eyes closed, peaceful smile" |
+| `shame` | Hiding, small, folded | "head bowed, hunched shoulders, avoiding eye contact" |
+| `exhausted` | Tired, drained | "heavy eyes, slumped posture, delayed response" |
+| `yearning` | Wanting, not having | "looking at something unseen, hands open on knees" |
+| `defensive` | Guarded, walled | "arms crossed, body angled away, jaw tight" |
+| `resigned` | Given up, accepting | "head slightly down, hands still, no expression" |
+| `wounded` | Hurt, present | "lip pressed, eyes wet but not crying, body still" |
+| `interrupted` | Caught in the act | "starts a motion, stops, returns hand to where it was" |
+
+These tokens are **rendered into image prompts** by the prompt builder. They are not used as image prompts directly.
+
+### Visual symbolism (replaces "scene" descriptions)
+
+| Category | Tokens |
+|----------|--------|
+| `physical_distance` | two figures in same frame but not touching, gap between bodies, facing same direction not eye contact |
+| `low_light` | moon through curtain, single lamp, phone glow as only light, flickering bulb, shadows pooling in corner |
+| `downward_eye_contact` | looking at hands, looking at floor, looking at nothing, not meeting eyes |
+| `unfinished_gesture` | hand starts to reach, stops, returns; reaches for door, doesn't, reaches again; fork in hand but not placing |
+| `imperfection` | wrinkled sheets, unwashed mug, dust, fingerprints, mail on counter, half-rolled sleeve |
+| `parallel_suffering` | both figures alone in different rooms, mirror image of solitude, her grief mirroring his |
+| `transition_object` | door not quite closed, light through curtain, phone face-down, water in glass, jacket on chair |
+| `nighttime_honesty` | after midnight, single light source, can't sleep, sitting up in bed, walking through empty house |
+
+The renderer composes 2-4 of these tokens per scene. They describe what is shown, not what is felt.
+
+### Camera language (replaces "shot" descriptions)
+
+| Token | Translation |
+|-------|-------------|
+| `slow_push_in` | "slow push-in, hand-held micro-movement" |
+| `slow_pull_out` | "slow zoom out revealing isolation" |
+| `static` | "locked off, the camera waits" |
+| `parallax_drift` | "subject still, background moves slightly, dreamlike" |
+| `through_doorway` | "shot from hallway, partial frame, voyeuristic" |
+| `through_window` | "shot through glass, reflection visible" |
+| `extreme_close_up` | "extreme close-up on hands" |
+| `medium_distant` | "medium shot, subject in environment" |
+| `asymmetric_frame` | "subject off-center, negative space dominant" |
+
+### Lighting (replaces "lighting" descriptions)
+
+| Token | Translation |
+|-------|-------------|
+| `practical_phone` | "phone screen glow as only practical light source" |
+| `tungsten_warm` | "warm tungsten lamp glow" |
+| `moonlight` | "moonlight through curtains" |
+| `low_key` | "dramatic low-key, deep shadows" |
+| `natural_shadows` | "natural window light, soft shadows" |
+| `dramatic_side_light` | "single side light, deep shadow opposite, theatrical" |
+| `golden_hour` | "warm golden hour (only in contrast_memory scenes)" |
+
+### Soundtrack (replaces "music" descriptions)
+
+| Token | Translation |
+|-------|-------------|
+| `low_piano_tension` | "sparse A-minor piano, sub-drone underneath, hope + warmth" |
+| `dark_drone` | "low D1 drone, dissonant tritones, unease" |
+| `near_silence` | "single sustained A1 note fading, room tone dominant" |
+| `silence_only` | "no music, ambient only" |
+| `breath_forward_ambient` | "breathing audible in mix, low ambient hum, cloth movement" |
+
+---
+
+## How semantic directing works in practice
+
+### Example 1: Before (prompting)
+
+```
+# Generate: "He stopped reaching for her first"
+prompt: "sad lonely man looking away from wife, cinematic, photorealistic, lonely, blue tones, evening light"
+```
+
+This produces 4 different images on 4 runs. No consistency.
+
+### Example 2: After (semantic directing)
+
+```yaml
+scene:
+  id: emotional-withdrawal-06
+  index: 6
+  title: "Emotional Distance"
+  emotional_state:
+    primary: restrained
+    secondary: yearning
+  visual_symbolism: [physical_distance, downward_eye_contact, unfinished_gesture]
+  camera_language:
+    shot_size: medium
+    movement: static
+    framing: asymmetric_frame
+    lighting_key: practical_phone
+  soundtrack_zone:
+    music_zone: act_2
+    ambient_sfx_profile: internal_collapse
+```
+
+The renderer translates this into a real prompt:
+
+> "Cinematic photorealism, 35mm film grain, photorealistic, cinematic film still, shallow depth of field. A man and woman in the same kitchen, several feet apart. He is looking down at his hands. His hand starts to reach toward her, then withdraws. Phone screen glow on his face. Unwashed mug on the counter. Cool blue undertones, deep shadows. She is in the background, slightly out of focus, not looking at him."
+
+This is **deterministic** — the same scene blueprint always produces the same image.
+
+---
+
+## The rendering bridge
+
+The prompt builder (`scripts/generate_from_yaml.py:_build_prompt`) reads the scene blueprint and translates semantic tokens into image generation prompts:
+
+```
+emotional_state.primary="restrained"
+  → "hand frozen mid-reach, jaw clenched, body rigid"
+
+visual_symbolism=["physical_distance", "downward_eye_contact"]
+  → "two figures in same frame but not touching, looking at own hands, not meeting eyes"
+
+camera_language.lighting_key="practical_phone"
+  → "phone screen glow as only light source"
+
+visual_grammar.style="cinematic photorealism"
+  → "cinematic photorealism, 35mm film grain, photorealistic, cinematic still"
+```
+
+The STYLE_ANCHOR is prepended to every prompt to guarantee the visual aesthetic cannot be lost.
+
+---
+
+## The forbidden prompts (replaces "no" rules)
+
+These are the **rendering-language forbidden patterns** that the prompt builder automatically includes in every negative prompt:
+
+```
+cartoon, anime, illustration, painting, drawing,
+comic book, comic, graphic novel, storyboard,
+2d art, line art, ink drawing, pencil sketch,
+vector art, digital illustration, painted, watercolor,
+cel shaded, manga, webtoon,
+3d render, cgi, video game,
+staged, perfect, smooth, airbrushed, digital art, concept art, clean, polished,
+perfectly styled hair, flawless skin, magazine cover pose,
+idealized portrait, studio lighting, beauty shot,
+attractive couple, romantic framing, candlelit dinner,
+flawless composition
+```
+
+These are the visual antipatterns. Every videoGen video rejects them.
+
+---
+
+## How to add a new semantic token
+
+1. **Identify a recurring visual need** (e.g. "we keep needing a 'couple in same bed but apart' shot")
+2. **Name the token** (e.g. `parallel_sleeping_distance`)
+3. **Write the translation** ("two bodies in the same bed, facing the ceiling, not touching, gap of white sheet between")
+4. **Add to this file** under the appropriate category
+5. **Use it in scene blueprints**
+6. **The render layer picks it up automatically**
+
+---
+
+## Versioning
+
+| Version | Date | Change |
+|---------|------|--------|
+| 1.0 | 2026-07-07 | Initial visual grammar. Replaces the practice of "prompting" with semantic directing. |
+
+This file is the **rendering vocabulary**. When you change it, every render backend must be updated.

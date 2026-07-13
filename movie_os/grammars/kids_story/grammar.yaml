@@ -1,0 +1,248 @@
+# Grammar: Kids Story
+# Content type: Children's stories, fairy tales, moral stories for ages 3-10
+# Tone: Warm, imaginative, educational, age-appropriate
+
+name: kids_story
+version: "1.0.0"
+description: "Grammar for children's stories — warm, imaginative, educational content for young audiences"
+
+---
+
+## Dialogue Rules
+
+### Style
+- Simple, clear language appropriate for target age group
+- Repetition of key phrases for learning and engagement
+- Characters speak in short, complete sentences
+- No complex metaphors or abstract concepts
+- Dialogue includes questions to engage young audience
+- Moral lessons woven naturally into conversation
+
+### Character Speech Patterns
+- **Children:** Short sentences, wonder-filled, repetitive
+- **Adults/Parents:** Warm, patient, explanatory but not condescending
+- **Animals/Magical Beings:** Playful, rhythmic, sometimes rhyming
+- **Narrator:** Gentle, storytelling voice, pauses for effect
+
+### Prohibited
+- No sarcasm or irony
+- No complex wordplay
+- No dialogue that could frighten young viewers
+- No moralizing that feels preachy
+
+---
+
+## Camera Language
+
+### Shot Types
+- **Wide shots:** Establish magical/imaginative environments
+- **Medium shots:** Character interactions, facial expressions
+- **Close-ups:** Emotional moments, important objects, animal faces
+- **Low-angle shots:** From child's perspective (eye level with children)
+- **Over-the-shoulder:** Following character's point of view
+
+### Camera Movement
+- **Slow pans:** Gentle exploration of environments
+- **Gentle zooms:** Emphasizing wonder or discovery
+- **Static shots:** For calm, peaceful moments
+- **Occasional handheld:** For playful, energetic sequences (sparingly)
+
+### Framing
+- Rule of thirds for naturalistic framing
+- Centered framing for important characters/moments
+- Include negative space for imagination to breathe
+- Keep horizon lines level (no disorienting angles)
+
+---
+
+## Lighting Rules
+
+### Primary Approach
+- **Day scenes:** Bright, warm, saturated colors
+- **Night scenes:** Soft blues and purples, gentle moonlight
+- **Magical moments:** Warm golden glow, sparkles, light rays
+- **Emotional moments:** Match mood but never too dark or scary
+
+### Color Palette
+- **Act 1 (Introduction):** Bright primary colors, warm tones
+- **Act 2 (Adventure/Challenge):** Varied palette, slightly desaturated during challenges
+- **Act 3 (Resolution):** Return to bright, warm colors, more saturated than Act 2
+
+### Prohibited
+- No harsh shadows or high contrast
+- No dark, gloomy lighting
+- No flickering or strobing effects
+- No red-tinted lighting (can feel threatening)
+
+---
+
+## Music Rules
+
+### Theme Structure
+- **Main theme:** Catchy, memorable melody that represents the story's heart
+- **Character themes:** Simple, distinctive motifs for main characters
+- **Adventure theme:** Upbeat, rhythmic for journey/challenge sequences
+- **Emotional theme:** Gentle, warm for tender moments
+- **Resolution theme:** Triumphant but not overwhelming
+
+### Instrumentation
+- Acoustic instruments preferred (piano, guitar, strings, woodwinds)
+- Light percussion for adventure sequences
+- Chimes or glockenspiel for magical moments
+- Avoid heavy electronic sounds
+- Keep arrangements simple and uncluttered
+
+### Intensity Guidelines
+- **Introduction:** Soft to moderate (0.2-0.4)
+- **Adventure/Challenge:** Moderate to energetic (0.4-0.6)
+- **Emotional moments:** Soft, gentle (0.1-0.3)
+- **Resolution:** Warm, uplifting (0.3-0.5)
+
+---
+
+## Voice Rules
+
+### Narration Style
+- Warm, storytelling voice (like a grandparent or beloved teacher)
+- Clear enunciation, moderate pace
+- Pauses for emphasis and reflection
+- Gentle inflection, never monotone
+- Age-appropriate vocabulary
+
+### Character Voices
+- Distinctive but not caricatured
+- Children: Higher pitch, energetic, wonder-filled
+- Adults: Warm, patient, reassuring
+- Animals/Magical beings: Playful, rhythmic, slightly exaggerated but not cartoonish
+
+### Prohibited
+- No scary or menacing voice tones
+- No overly dramatic vocalizations
+- No fast-paced dialogue that's hard to follow
+- No whispering for tension (can frighten young viewers)
+
+---
+
+## Transition Rules
+
+### Scene Transitions
+- **Cross-dissolve:** Most common, gentle and natural
+- **Fade to white:** For magical transitions or time passage
+- **Match cuts:** Connecting similar shapes/movements between scenes
+- **Wipe transitions:** Occasionally for playful, storybook feel
+
+### Pacing Between Scenes
+- Allow 2-3 seconds for scene establishment
+- Never rush emotional moments
+- Include breathing room between high-energy sequences
+- Total video should have natural rhythm: energy → calm → energy → calm
+
+---
+
+## Color Grading
+
+### Style
+- **desaturated_warm** as base, shifted toward brighter/more saturated for kids content
+- Soft gold highlights throughout
+- Gentle contrast (never harsh)
+- Slightly lifted blacks for softer look
+
+### Progression
+| Act | Color Treatment | Mood |
+|-----|----------------|------|
+| Hook (Act 1) | Bright, warm, saturated | Wonder, excitement |
+| Plot (Act 2) | Varied, slightly desaturated during challenges | Adventure, tension (mild) |
+| Climax (Act 3) | Return to warmth, increasing saturation | Hope, triumph |
+| Resolution (Act 4) | Brightest, warmest, most saturated | Joy, satisfaction |
+
+---
+
+## Evaluation Criteria
+
+### Story Quality (threshold: 0.75)
+- [ ] Age-appropriate content and language
+- [ ] Clear moral or lesson (if applicable)
+- [ ] Engaging plot with wonder and imagination
+- [ ] Characters are relatable and likable
+- [ ] Pacing appropriate for target age group
+
+### Visual Quality (threshold: 0.75)
+- [ ] Bright, appealing visuals
+- [ ] Color palette matches mood and age group
+- [ ] Character designs consistent and appealing
+- [ ] Environments imaginative but not overwhelming
+- [ ] No frightening or disturbing imagery
+
+### Audio Quality (threshold: 0.75)
+- [ ] Narration clear and engaging
+- [ ] Music appropriate for each scene's mood
+- [ ] Sound effects enhance without overwhelming
+- [ ] Voice acting distinctive and age-appropriate
+- [ ] Audio mix balanced (no sudden loud moments)
+
+### Educational Value (threshold: 0.70)
+- [ ] Contains learning opportunity or moral lesson
+- [ ] Lesson woven naturally into story (not preachy)
+- [ ] Age-appropriate concepts and vocabulary
+- [ ] Encourages positive values (kindness, courage, sharing, etc.)
+
+### Safety Check (threshold: 1.0 — mandatory pass)
+- [ ] No frightening or scary content
+- [ ] No inappropriate language or themes
+- [ ] No violent or aggressive imagery
+- [ ] Positive role models throughout
+- [ ] Appropriate for target age group
+
+---
+
+## Production Constraints
+
+### Duration Guidelines
+- **Ages 3-5:** 3-5 minutes total
+- **Ages 6-8:** 5-8 minutes total
+- **Ages 9-10:** 8-12 minutes total
+
+### Scene Structure
+- Maximum 8-10 scenes for younger audiences
+- Clear beginning, middle, end
+- Repetition of key moments for engagement
+- Happy or hopeful ending required
+
+### Character Guidelines
+- 2-4 main characters maximum
+- Clear hero/protagonist children can relate to
+- Supporting characters should enhance story, not complicate it
+- Animals/magical beings should be friendly and helpful
+
+---
+
+## Scene Structure Template
+
+### Act 1: Introduction (Hook) — 20% of total duration
+- Establish main character(s) and world
+- Show ordinary life before adventure
+- Introduce the "call to adventure" or problem
+- End with decision to begin journey
+
+### Act 2: Adventure/Challenge (Plot) — 50% of total duration
+- Journey begins, new friends/enemies encountered
+- Challenges that test character's qualities
+- Learning moments and growth
+- Midpoint: major discovery or setback
+- Rising tension toward climax
+
+### Act 3: Climax — 15% of total duration
+- Final challenge or confrontation
+- Character uses learned lessons to overcome obstacle
+- Moment of triumph (but not too intense)
+- Resolution of main conflict
+
+### Act 4: Resolution — 15% of total duration
+- Return to ordinary world, changed
+- Moral/lesson made clear but not preachy
+- Happy or hopeful ending
+- Final memorable image or moment
+
+---
+
+*Grammar loaded from kids_story/grammar.yaml*

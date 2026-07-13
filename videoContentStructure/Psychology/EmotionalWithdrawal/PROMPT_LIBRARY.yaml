@@ -1,0 +1,297 @@
+# Prompt Library — Reusable Fragments for the Emotional Withdrawal Universe
+# These are building blocks assembled by the prompt builder per scene.
+# Not pasted verbatim — selected and adapted per scene context.
+
+# ============================================================
+# MICRO-BEHAVIORS — emotional leakage, not posing (v5.0)
+# ============================================================
+# From expert feedback 03: emotion is interrupted, not displayed.
+# Every scene must include ≥1 of these as a concrete physical action.
+
+micro_behaviors:
+  unfinished_movements:
+    - "hand starts to reach for her, stops, returns to the phone"
+    - "gets up from the table, sits back down, picks up the fork, sets it down"
+    - "almost picks up the coffee mug, doesn't, looks at the window instead"
+    - "reaches for the door handle, then doesn't, then reaches again"
+  hesitation:
+    - "body language catches itself mid-action"
+    - "leans forward, then pulls back into the chair"
+    - "stands in the doorway a moment too long"
+    - "turns to speak, doesn't, turns away"
+  redirected_attention:
+    - "looks at her, looks away before she can look back"
+    - "checks phone during a pause that should be emotional"
+    - "stares at the TV but isn't watching it"
+    - "suddenly fascinated by the kitchen tile grout"
+  almost_touching:
+    - "two hands on the same surface, two inches of air between them"
+    - "her knee near his under the table, neither moves closer"
+    - "passes him a cup, fingers don't quite touch"
+    - "she tucks her hair behind her ear in his direction but doesn't look at him"
+  almost_speaking:
+    - "lips part as if to say something, then close"
+    - "opens mouth, swallows the words, takes a sip of water instead"
+    - "mouths a word silently, looks at the floor"
+    - "'I was going to say—' then stops, 'never mind'"
+  emotional_withdrawal:
+    - "body folds inward, makes itself smaller"
+    - "hugs own arms, looks at the floor"
+    - "shoulders rise toward ears, jaw tightens"
+    - "shrinks into the corner of the couch, knees drawn up"
+
+# ============================================================
+# IRREVERSIBLE MOMENT PROMPT ANCHORS (v5.0)
+# ============================================================
+# These are the visual signatures of the irreversible moment scene.
+# The LLM is required to include at least one of these anchors in the
+# scene_description for the scene marked `irreversible_moment: true`.
+
+irreversible_moment_anchors:
+  - "an interrupted action: the hand that almost reached, the sentence that almost began, the look that almost landed — the body catches itself and redirects, but the witness sees what almost happened"
+  - "a tiny withdrawal: she starts to say something, stops, picks up her phone; he saw her start, she knows he saw"
+  - "two hands on the same surface, the smallest motion toward each other, then both hands withdraw; the room is otherwise still"
+  - "an almost-honest moment: he looks at her, she looks at him, the air between them is the loudest sound; then she picks up the coffee with both hands and doesn't look up"
+  - "the interrupted touch: their hands brush, both pull back as if burned, neither acknowledges it; the silence that follows is the moment"
+  - "the swallowed sentence: he opens his mouth, his throat moves, he adjusts his collar, walks to the window; she was watching, now she is staring at her own hands"
+
+# ============================================================
+# ORDINARY-GESTURE ANCHORS (v1.1 — feedback 04 Rule 20)
+# ============================================================
+# Hide emotional devastation inside ordinary-looking gestures. The audience
+# must DISCOVER the pain themselves. These anchors make the irreversible
+# moment look like "just life" while unconsciously registering devastation.
+# The LLM picks at least ONE of these for the irreversible_moment scene
+# (in addition to or instead of the original anchors above).
+
+ordinary_gesture_anchors:
+  - "she is making tea. she fills the kettle, sets it on the stove, turns the knob. she does not turn it on. she stands there with her hand still on the knob for a long time. the flame is off. she is looking at the kettle like she forgot what she came in here to do. the room is otherwise still. an unwashed mug sits by the sink from yesterday."
+  - "he is folding a shirt. the motions are mechanical. he stops mid-fold, holds the shirt, looks at the collar. his hand doesn't move. he sets the shirt down, half-folded, and walks to the window without turning around. the half-folded shirt is still on the bed when the camera lingers."
+  - "she is setting the table. plate, fork, knife, plate, fork, knife. she stops at the second fork. she picks it up, sets it down, picks it up again. she does not finish. the table is half-set. she leans on the counter with both hands and doesn't move. nothing is said."
+  - "he is loading the dishwasher. he picks up a plate, holds it, doesn't put it in. he sets it back on the counter. he picks up another plate, holds it, doesn't put it in. the water is running but he isn't rinsing anything. he turns off the water and stands there, hands on the edge of the sink. nothing is said. the sound of the water stopping is the loudest thing in the room."
+  - "she is pouring coffee into two mugs. she fills his, sets it on the counter. she fills hers, half-full, stops, doesn't pour the rest. she holds the pot. she pours the rest out. she stands at the counter with both mugs in front of her, not moving. the fridge hums. her coffee is getting cold."
+  - "he is unlocking the front door after work. the key goes in, turns, but he doesn't push the door open. he stands there for a long time with his hand on the doorknob. from inside, the sound of a TV on mute. he pushes the door open and walks in. he says 'hi.' she says 'hi' back. that's all."
+
+# ============================================================
+# EMOTIONAL VISUAL CAUSES
+# ============================================================
+# From OpenMontage rule: "Replace emotional adjectives with visual causes"
+# Instead of "sad" → describe what sadness LOOKS like.
+
+emotional_visual_causes:
+  restraint:
+    - "hand frozen mid-reach, fingers slightly curled"
+    - "held breath stillness, body rigid but leaning forward"
+    - "jaw clenched, eyes focused but not seeing"
+
+  invisible_distance:
+    - "two people facing same direction but not touching"
+    - "gap between bodies on a shared surface"
+    - "looking at the same thing but seeing different worlds"
+
+  accumulated_shame:
+    - "head bowed, avoiding eye contact, hunched shoulders"
+    - "staring at hands in lap, not looking up"
+    - "body folded inward, making himself smaller"
+
+  vulnerability:
+    - "raw unposed posture, lips slightly parted"
+    - "eyes wet but not crying, looking at something unseen"
+    - "hands open on knees, palms up — an unconscious invitation"
+
+  numbness:
+    - "blank thousand-yard stare, slack jaw, limp hands"
+    - "body present but mind elsewhere, no engagement with environment"
+    - "mechanical movements, no life in the gesture"
+
+  grief:
+    - "motionless, eyes open but unfocused"
+    - "hand hovering near something but not touching"
+    - "face slack, no expression, quiet devastation"
+
+  warmth_memory:
+    - "leaning on his shoulder, eyes closed, peaceful smile"
+    - "laughter, head thrown back, natural and unguarded"
+    - "hands intertwined, fingers interlaced, natural grip"
+
+  almost_moment:
+    - "two hands almost touching, two inches of air between fingers"
+    - "lips parted as if to speak, then closing"
+    - "leaning forward slightly, almost reaching, then pulling back"
+
+  tragic_stillness:
+    - "frozen pose, no motion blur, complete stillness"
+    - "two bodies in the same bed, facing the ceiling, not touching"
+    - "hand resting near hers on the sheet, not touching, will never touch"
+
+# ============================================================
+# SETTING FRAGMENTS
+# ============================================================
+
+settings:
+  dark_bedroom:
+    - "dark bedroom at night"
+    - "white sheets, rumpled"
+    - "pillows still holding the shape of two heads"
+    - "phone screen glow as the only light source"
+
+  kitchen_silence:
+    - "plain suburban kitchen, overhead fluorescent light"
+    - "plates of food between them, half-eaten"
+    - "kitchen table, two chairs, gap between"
+    - "normal domestic space rendered alienating"
+
+  parked_car:
+    - "parked car at night, streetlights outside"
+    - "dark windshield, rain droplets on side window"
+    - "empty passenger seat"
+    - "steering wheel gripped, dashboard glow"
+
+  dark_living_room:
+    - "living room couch in darkness"
+    - "blue TV glow as the only light"
+    - "game controller in hands"
+    - "empty couch beside him"
+
+  moonlit_bedroom:
+    - "dark bedroom, moonlight through curtains"
+    - "cool blue moonlight on white sheets"
+    - "both lying in bed facing the ceiling"
+    - "two inches of sheet between their hands"
+
+  warmth_kitchen:
+    - "warm kitchen, morning light through window"
+    - "coffee cups, steam rising"
+    - "her sitting on the counter, his back against the cabinet"
+    - "close, playful, domestic warmth"
+
+# ============================================================
+# DUALITY PATTERNS — her grief is her own (v5.0)
+# ============================================================
+# Used in the scene marked `shows_duality: true`. The partner's
+# loneliness is her own — not a reflection of his. They are two lonely
+# people in the same house.
+
+duality_patterns:
+  her_alone:
+    - "she stands at the window with her back to him, hands on the sill, not moving"
+    - "she sits on the edge of the bed looking at her own hands, as if she doesn't recognize them"
+    - "she is in the kitchen alone, holding a mug that has gone cold, looking at nothing"
+    - "she is curled on the couch, the TV on mute, her face lit by the screen but not seeing it"
+  her_withdrawal:
+    - "she is exhausted too, but in her own way — she stopped asking because asking felt like begging"
+    - "she stopped reaching first because reaching first meant being the one who could be refused"
+    - "she is performing normalcy, the way he is — they are both pretending for the other"
+    - "she keeps the house tidy now not because she wants to, but because mess would require conversation about why she's stopped caring"
+  her_fear:
+    - "she is afraid that if she says the wrong thing, he will leave, and afraid that if he leaves, she will know she was the problem"
+    - "she is afraid that the love is still there but the safety is gone, and she doesn't know how to rebuild safety when she can't remember what it felt like"
+    - "she is afraid that the almost-moments are the closest they will ever get again"
+  her_truth:
+    - "she learned the same lesson he did, just in her own way"
+    - "both of them are waiting for the other to reach first; both are too afraid"
+    - "the tragedy is that they still love each other — that is what makes the silence unbearable"
+    - "she did not stop loving him; she stopped being able to survive the hope"
+
+# ============================================================
+# VOICEOVER PATTERNS
+# ============================================================
+# From feedback: "Recognition, not analysis"
+# Pattern: ambiguous → ache → humanity → discovery
+
+voiceover_patterns:
+  avoid_analysis:
+    bad: "He started to feel unwanted."
+    good: "After a while, he stopped knowing whether she still desired him… or was simply used to him being there."
+
+  avoid_explanation:
+    bad: "Rejection changes people slowly."
+    good: "A sigh. A delayed response. A tired expression. A moment that says: Not tonight."
+
+  avoid_moralizing:
+    bad: "This is what happens when emotional safety disappears."
+    good: "And after enough of those moments… vulnerability starts feeling dangerous."
+
+  use_recognition:
+    - "Nobody notices the exact night it happens."
+    - "Not all distance is anger. Sometimes distance is grief."
+    - "The tragedy is that it happens between two people who still love each other."
+
+  use_duality:
+    - "She is exhausted too."
+    - "She also stopped feeling emotionally safe — just in different ways."
+    - "Both of them waiting for the other to reach first. Both afraid."
+
+# ============================================================
+# SCENE STRUCTURE TEMPLATES
+# ============================================================
+# Per feedback: every video should include these beats
+
+scene_templates:
+  opening_hook:
+    purpose: "Immediate emotional recognition, not statistics"
+    duration: "20-40s"
+    shot_preset: "intimate_close"
+    visual: "Low light, frozen gesture, silence"
+    voiceover_style: "Low, restrained, pause-heavy"
+
+  contrast_memory:
+    purpose: "Something to lose — warmth before the collapse"
+    duration: "10-15s"
+    shot_preset: "warmth_memory"
+    visual: "Warm light, laughter, closeness, tenderness"
+    voiceover_style: "Softer, almost fond, then trailing off"
+    feedback_rule: "MANDATORY — without this, the collapse has no weight"
+
+  outside_version:
+    purpose: "Show how invisible emotional withdrawal is"
+    duration: "25-35s"
+    shot_preset: "quiet_medium"
+    visual: "Domestic space, polite interaction, gap between bodies"
+    voiceover_style: "Measured, observational"
+
+  internal_collapse:
+    purpose: "Reveal psychological truth"
+    duration: "30-45s"
+    shot_preset: "isolation_portrait"
+    visual: "Isolation, low-key lighting, solo frame"
+    voiceover_style: "Slow, intimate, pained"
+
+  almost_moment:
+    purpose: "The emotional centerpiece — interruption, not despair"
+    duration: "15-25s"
+    shot_preset: "almost_moment"
+    visual: "Almost touching, almost speaking, then pulling back"
+    voiceover_style: "Barely above whisper, trailing off"
+    feedback_rule: "MANDATORY — this is where tension lives"
+
+  # NEW (v5.0) — the irreversible moment
+  # Lives in Act 2 (Phase 5.5 preferred, or co-located with almost_moment).
+  # The pipeline requires exactly ONE scene with this template.
+  irreversible_moment:
+    purpose: "THE WOUND. The one moment that changes the emotional state permanently. An interrupted action, a swallowed sentence, a look that almost landed."
+    duration: "8-15s"
+    shot_preset: "irreversible_moment"
+    visual: "Extreme close-up on an interrupted gesture. The body catches itself and redirects. The witness is in the frame but out of focus. The room is otherwise still."
+    voiceover_style: "silence_instead: true OR ≤12 words. Barely above breath. The voice drops into a register the rest of the video never uses."
+    audio: "No music. Ambient SFX at full volume. The breathing layer is audible. 3 seconds of silence after."
+    tts_prosody_override:
+      rate: "-30%"
+      volume: "-20%"
+      pitch: "-12Hz"
+    feedback_rule: "MANDATORY — exactly ONE per video. The emotional centerpiece of the entire piece."
+
+  defensive_retreat:
+    purpose: "Show transformation — self-protection"
+    duration: "20-30s"
+    shot_preset: "numbness_wide"
+    visual: "Numbness, avoidance, empty routines"
+    voiceover_style: "Flat, defeated, resigned"
+
+  final_truth:
+    purpose: "Emotional resolution, not advice"
+    duration: "20-30s"
+    shot_preset: "final_truth"
+    visual: "Parallel to opening, both present but distant"
+    voiceover_style: "Quiet, final, sorrowful — recognition"
+    feedback_rule: "End on recognition, not prescription"

@@ -1,0 +1,16 @@
+# Core dependencies
+requests>=2.31.0        # HTTP client for Ollama API
+PyYAML>=6.0             # YAML config and output serialization
+pytest>=7.0.0           # Testing framework
+
+# Research dependencies (free, open-source, no API keys)
+ddgs>=9.0.0                   # DuckDuckGo search (renamed from duckduckgo-search)
+wikipedia>=1.4.0            # Wikipedia API
+beautifulsoup4>=4.12.0      # HTML parsing
+lxml>=5.0.0                 # Fast XML/HTML parser
+crawl4ai>=0.9.0             # Web crawling
+
+# Optional: Local ML models (only needed if using built-in CreativeWriter/VisualPromptGenerator)
+# torch>=2.0.0
+# transformers>=4.35.0
+# diffusers>=0.25.0

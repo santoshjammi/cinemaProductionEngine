@@ -1,0 +1,7 @@
+# Project Roadmap
+---
+roadmap:
+  phase_4: "Production Memory System & Critical Agent implementation (Complete)."
+  phase_5: "Full ComfyUI + FLUX Integration."
+  phase_6: "Character & Environment persistent memory registries."
+  phase_7_8_9: "LangGraph orchestration state machine, SQLite vector AssetStore."

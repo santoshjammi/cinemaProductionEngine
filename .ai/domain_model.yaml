@@ -1,0 +1,9 @@
+# Domain Models Schema
+---
+models:
+  - name: "Story"
+    fields: ["title", "logline", "territory", "acts"]
+  - name: "CharacterDNA"
+    fields: ["physical", "psychological", "speech", "voice", "wardrobe"]
+  - name: "EnvironmentDNA"
+    fields: ["lighting", "palette", "ambience", "camera_positions"]

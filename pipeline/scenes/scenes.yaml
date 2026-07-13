@@ -1,0 +1,35 @@
+- camera: wide shot
+  duration: 12 seconds
+  emotion: melancholic
+  id: 1
+  lighting: natural light
+  narration: 'Scene 1: Description of the a lonely astronaut experience'
+  visual_prompt: Visual description for scene 1
+- camera: close-up
+  duration: 12 seconds
+  emotion: melancholic
+  id: 2
+  lighting: dramatic backlight
+  narration: 'Scene 2: Description of the a lonely astronaut experience'
+  visual_prompt: Visual description for scene 2
+- camera: dolly-in
+  duration: 12 seconds
+  emotion: melancholic
+  id: 3
+  lighting: low-key lighting
+  narration: 'Scene 3: Description of the a lonely astronaut experience'
+  visual_prompt: Visual description for scene 3
+- camera: panning shot
+  duration: 12 seconds
+  emotion: melancholic
+  id: 4
+  lighting: soft fill light
+  narration: 'Scene 4: Description of the a lonely astronaut experience'
+  visual_prompt: Visual description for scene 4
+- camera: tracking shot
+  duration: 12 seconds
+  emotion: melancholic
+  id: 5
+  lighting: natural light
+  narration: 'Scene 5: Description of the a lonely astronaut experience'
+  visual_prompt: Visual description for scene 5

@@ -1,0 +1,15 @@
+# Character Consistency Evaluation
+
+overall: 0.76
+threshold: 0.7
+passed: yes
+
+dimensions:
+  visual_appearance:
+    score: 0.75
+    feedback: "Default - no characters to evaluate"
+  voice_consistency:
+    score: 0.80
+    feedback: "Default - no voices to evaluate"
+
+*Evaluated by CharacterConsistencyAgent v1.0.0*

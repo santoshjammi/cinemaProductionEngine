@@ -1,0 +1,70 @@
+id: ef3fff60-6946-4e05-8296-835a5f17fdad
+key: bedroom_morrison
+name: James & Sarah's Bedroom
+location_type: interior
+architectural_style: modern
+lighting:
+  primary_source: bedside lamp + phone glow
+  color_temperature: warm amber + cool phone glow
+  practical_lights:
+  - bedside lamp
+  - phone screen
+  shadow_character: soft, intimate
+  typical_key_to_fill_ratio: '2:1'
+  notes: ''
+palette:
+  dominant: cool blue undertones
+  accent: warm amber practical lights
+  shadows: deep but not crushed
+  highlights: soft, rolled off
+  avoid: []
+ambience:
+  room_tone: low hum of fan
+  primary_sounds:
+  - fan hum
+  - breathing
+  - sheets rustling
+  secondary_sounds:
+  - distant traffic
+  - wind against window
+  reverb_character: dry, bedroom close-mic
+  notes: ''
+camera_positions:
+- name: bedside_low
+  description: low angle from bed level
+  shot_size: medium
+  lens_mm: 50
+  typical_subjects: []
+- name: pillow
+  description: from pillow POV, looking at ceiling
+  shot_size: wide
+  lens_mm: 50
+  typical_subjects: []
+- name: doorway
+  description: from bedroom door, into the room
+  shot_size: wide
+  lens_mm: 50
+  typical_subjects: []
+variants:
+- time_of_day: night
+  weather: clear
+  lighting_overrides: {}
+  ambient_overrides: {}
+  notes: ''
+- time_of_day: late_night
+  weather: clear
+  lighting_overrides: {}
+  ambient_overrides: {}
+  notes: ''
+reference_images: []
+description: A modest modern bedroom. The bed is slightly unmade — neither of them
+  has had the energy to fix it. Mail on the nightstand, a phone face-down, a glass
+  of water. Two pillows. The distance between them is visible.
+notable_features:
+- unmade bed
+- mail on nightstand
+- phone face-down
+- glass of water
+- two pillows with space between
+created_at: '2026-07-08'
+notes: ''

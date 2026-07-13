@@ -1,0 +1,26 @@
+# Technical Observations - Code Quality and Architecture Findings
+---
+observations:
+  - topic: "Dual Architecture Compatibility"
+    type: "Architecture"
+    details: "The system maintains two architecture paths. The legacy path runs script-driven story plans (through story_factory/ and psychological_pipeline.py), while the new modular path runs a capability-centric pluggable agent system in 'movie_os/'. The graph builder auto-detects which to use based on the presence of screenplay.md in the production folder."
+
+  - topic: "Pydantic Dict Method Crash"
+    type: "Code Bug"
+    details: "File: 'movie_os/agents/graph.py', line 111. The statement 'config.get(\"grammar\")' fails with AttributeError when config is passed as a MovieOSConfig object instead of a raw dictionary. Pydantic models must be accessed via attributes (e.g. config.grammar if configured, or converting via config.model_dump().get(\"grammar\"))."
+
+  - topic: "Ollama Fallback Method Name Discrepancy"
+    type: "Code Bug"
+    details: "File: 'movie_os/llm/client.py', line 114. The code tries to invoke 'self._generate_legacy_chat_to_generate(...)', but the actual method name defined at line 157 is '_generate_legacy(...)', causing an AttributeError when falling back."
+
+  - topic: "Script Duplication"
+    type: "Technical Debt"
+    details: "The 'scripts/' directory contains multiple incremental versions of the same file (e.g. final_assemble.py, final_assemble_v2.py through final_assemble_v6.py), indicating a lack of code cleanup during iterations."
+
+  - topic: "Hardware Optimization"
+    type: "Performance"
+    details: "The local image generation provider is optimized for macOS Apple Silicon, specifying 'device: mps' and 'dtype: float16' in default configurations to run on M1 Max hardware efficiently."
+
+  - topic: "Test Infrastructure"
+    type: "Quality Assurance"
+    details: "The codebase has high test coverage with unit, integration, and E2E suites (399+ test cases defined under movie_os/tests/ and frontend/tests). However, the Pydantic dictionary lookup bug currently causes several of the new graph integration tests to fail."

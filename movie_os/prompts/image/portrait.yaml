@@ -1,0 +1,134 @@
+# Character portrait prompt
+#
+# Used to generate the "hero" reference image for a character. This image
+# is used for img2img in subsequent scenes to maintain visual consistency.
+#
+# Used by: character hero image generator (Phase 6)
+# Supports: flux-dev, sdxl, sd3 (any text-to-image model that can do portraits)
+
+metadata:
+  id: image.portrait.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate a portrait hero image for a character. The output is used
+    as a reference for img2img in subsequent scenes, so consistency
+    is critical. The character should look like a real person, not
+    a stock photo.
+  role: image
+  capability: image
+  tags:
+    - image
+    - portrait
+    - character
+    - reference
+    - hero
+    - consistency
+  supported_models:
+    - flux-dev
+    - sdxl
+    - sd3
+  recommended_temperature: 0.6
+  recommended_max_tokens: 200
+  avg_tokens: 100
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: visual_anchor
+    type: string
+    required: true
+    description: The character's short visual anchor (e.g., "man mid-30s, dark hair, stubble, grey t-shirt")
+  - name: age
+    type: integer
+    required: true
+    description: The character's age
+  - name: gender
+    type: string
+    required: true
+    description: The character's gender
+  - name: ethnicity
+    type: string
+    required: false
+    default: ""
+    description: The character's ethnicity (optional)
+  - name: hair
+    type: string
+    required: false
+    default: ""
+    description: Hair description
+  - name: expression
+    type: string
+    required: false
+    default: "neutral"
+    description: The facial expression (neutral, contemplative, melancholic, warm)
+  - name: angle
+    type: string
+    required: false
+    default: "front"
+    description: Camera angle (front, three-quarter, side, back)
+  - name: lighting
+    type: string
+    required: false
+    default: "soft natural light"
+    description: Lighting setup
+  - name: distinguishing_features
+    type: list
+    required: false
+    description: Notable distinguishing features (freckles, scars, etc.)
+  - name: style_anchor
+    type: string
+    required: false
+    default: "cinematic photorealism, 35mm film grain, shallow depth of field, neutral background"
+    description: The style anchor
+
+constraints:
+  - rule: "Maximum 60 words in the final prompt"
+    severity: must
+  - rule: "Character must look like a real person, not a stock photo or model"
+    severity: must
+  - rule: "Must include the visual_anchor verbatim"
+    severity: must
+  - rule: "Must include the age and gender"
+    severity: must
+  - rule: "Background should be neutral — not a specific scene. The character should be reusable across many scenes."
+    severity: must
+
+examples:
+  - description: "Married husband hero"
+    input:
+      visual_anchor: "man mid-30s, dark hair slightly messy, stubble, grey t-shirt half-tucked"
+      age: 32
+      gender: "male"
+      hair: "dark, slightly messy"
+      expression: "contemplative"
+      angle: "three-quarter"
+      lighting: "soft natural light from window"
+    output: |
+      cinematic photorealism, 35mm film grain, shallow depth of field, neutral background,
+      man mid-30s, dark hair slightly messy, stubble, grey t-shirt half-tucked,
+      32 year old male, dark hair, three-quarter view, contemplative expression,
+      soft natural light from window, lived-in, imperfect, not posed
+
+negative_prompts:
+  - "cartoon"
+  - "anime"
+  - "illustration"
+  - "stock photo"
+  - "model"
+  - "perfect"
+  - "posed"
+  - "studio lighting"
+  - "busy background"
+  - "specific scene"
+
+body: |
+  {{style_anchor}},
+  {{visual_anchor}},
+  {{age}} year old {{gender}},
+  {{hair}},
+  {{angle}} view, {{expression}} expression,
+  {{lighting}},
+  lived-in, imperfect, not posed, real person, not a model

@@ -1,0 +1,5 @@
+# Coding Standards
+---
+standards:
+  python: "PEP 8 compliant, formatted with Black, linted with Pylint/Flake8, type-checked with Mypy."
+  typescript: "Strict type checking, Tailwind CSS utilities."

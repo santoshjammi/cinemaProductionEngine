@@ -1,0 +1,175 @@
+1. 
+  scene_number: 1
+  title: "The Night He Stopped Reaching"
+  phase: hook
+  beat: opening_hook
+  act: act_1_observation
+  mood: tense_restraint
+  energy: 3
+  voiceover: "Nobody notices the exact night it happens. The night a man stops reaching for the woman he loves."
+  scene_description: "Dark bedroom. Phone glow lighting half his face. His wife asleep beside him. He almost reaches toward her, stops, pulls hand back."
+  visual_cause_of_emotion: "Hand starts to move toward her, then stops mid-air. His expression flickers, checks phone instead."
+  shot_language: {shot_size: "close-up", lighting_key: "practical_lighting", lens_mm: 50, depth_of_field: "shallow"}
+  characters_present: [husband]
+  ken_burns_effect: ken-burns
+  duration_hint: "20-30s"
+  
+2. 
+  scene_number: 2
+  title: "Her Shoulder"
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: warm_nostalgic
+  energy: 7
+  voiceover: "She fell asleep on his shoulder once. They laughed at the same joke twice that night."
+  scene_description: "Golden hour living room, sunlight streaming through window. Wife laughing, head on husband's shoulder as he holds her close."
+  visual_cause_of_emotion: "She leans into him, laughing with head on shoulder. He kisses her hair."
+  shot_language: {shot_size: "medium", lighting_key: "natural_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband, wife]
+  ken_burns_effect: zoom-in
+  duration_hint: "20-30s"
+  
+3. 
+  scene_number: 3
+  title: "The Room"
+  phase: warmth
+  beat: contrast_memory
+  act: act_1_observation
+  mood: warm_nostalgic
+  energy: 7
+  voiceover: "Sometimes she'd wake him by brushing the hair from his face. He'd smile in sleep."
+  scene_description: "Bedroom at dusk, warm glow from lamp. Wife gently brushes husband's hair from his face while he sleeps."
+  visual_cause_of_emotion: "She pauses, looks at him with love. He stirs slightly."
+  shot_language: {shot_size: "close-up", lighting_key: "practical_lighting", lens_mm: 50, depth_of_field: "shallow"}
+  characters_present: [husband, wife]
+  ken_burns_effect: zoom-in
+  duration_hint: "20-30s"
+  
+4. 
+  scene_number: 4
+  title: "Polite Silence"
+  phase: normalcy
+  beat: outside_version
+  act: act_1_observation
+  mood: flat_normal
+  energy: 4
+  voiceover: "From the outside, nothing looks wrong. They still speak every day."
+  scene_description: "Kitchen counter cluttered with dishes, mail, coffee cup untouched. Husband and wife eating breakfast in silence."
+  visual_cause_of_emotion: "He checks phone instead of looking at her. She notices, continues eating."
+  shot_language: {shot_size: "medium", lighting_key: "natural_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband, wife]
+  ken_burns_effect: pan-right
+  duration_hint: "20-30s"
+  
+5. 
+  scene_number: 5
+  title: "The First Crack"
+  phase: crack
+  beat: first_fracture
+  act: act_2_inner_reality
+  mood: quiet_unease
+  energy: 3
+  voiceover: "The silence didn't arrive suddenly. It came through hesitation."
+  scene_description: "Bedroom door slightly ajar. Husband sitting at edge of bed, hand hovering near the space between them."
+  visual_cause_of_emotion: "His fingers hover over her side of the bed, then drop to his lap. He looks at phone."
+  shot_language: {shot_size: "medium", lighting_key: "dim_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband]
+  ken_burns_effect: zoom-out
+  duration_hint: "20-30s"
+  
+6. 
+  scene_number: 6
+  title: "The Place Between"
+  phase: collapse
+  beat: internal_collapse
+  act: act_2_inner_reality
+  mood: deepening_darkness
+  energy: 2
+  voiceover: "He stopped knowing whether she still wanted him... or was just used to him being there."
+  scene_description: "Bedroom in late night darkness. Husband lying still, eyes closed but not sleeping. Wife asleep beside him."
+  visual_cause_of_emotion: "He lies still, half-awake. He looks at her face once, then turns away."
+  shot_language: {shot_size: "close-up", lighting_key: "practical_lighting", lens_mm: 50, depth_of_field: "shallow"}
+  characters_present: [husband]
+  ken_burns_effect: zoom-out
+  duration_hint: "25-35s"
+  
+7. 
+  scene_number: 7
+  title: "The Distance"
+  phase: collapse
+  beat: internal_collapse
+  act: act_2_inner_reality
+  mood: deepening_darkness
+  energy: 2
+  voiceover: "Even small moments started feeling risky. He began to fear that 'yes' would become 'no'."
+  scene_description: "Kitchen counter with untouched mug and half-empty coffee. Husband standing alone, staring into space."
+  visual_cause_of_emotion: "He checks his phone again. The screen lights up, then dims to darkness."
+  shot_language: {shot_size: "medium", lighting_key: "practical_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband]
+  ken_burns_effect: zoom-out
+  duration_hint: "25-35s"
+  
+8. 
+  scene_number: 8
+  title: "Almost"
+  phase: almost
+  beat: almost_moment
+  act: act_2_inner_reality
+  mood: suspended_ache
+  energy: 5
+  voiceover: "They still spoke every day. Just not honestly."
+  scene_description: "Bedroom doorway slightly open, husband standing just outside the room. His hands hover near her shoulder."
+  visual_cause_of_emotion: "He almost says something, changes his mind, checks phone instead. She notices, pretends not to."
+  shot_language: {shot_size: "extreme_close-up", lighting_key: "practical_lighting", lens_mm: 50, depth_of_field: "shallow"}
+  characters_present: [husband]
+  ken_burns_effect: ken-burns
+  duration_hint: "20-30s"
+  
+9. 
+  scene_number: 9
+  title: "Both Retreat"
+  phase: retreat
+  beat: defensive_retreat
+  act: act_3_psychological_truth
+  mood: numb_resigned
+  energy: 2
+  voiceover: "Avoiding rejection hurt less than hoping for connection."
+  scene_description: "Shared bedroom, two separate sides of the bed. Husband lying on one side alone. Wife sitting quietly at edge of other."
+  visual_cause_of_emotion: "He rolls toward the wall, away from her. She stares into darkness."
+  shot_language: {shot_size: "wide", lighting_key: "practical_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband, wife]
+  ken_burns_effect: pan-right
+  duration_hint: "20-30s"
+  
+10. 
+  scene_number: 10
+  title: "Her Truth"
+  phase: duality
+  beat: her_truth
+  act: act_3_psychological_truth
+  mood: quiet_grief
+  energy: 3
+  voiceover: "She learned the same lesson. Just in her own way."
+  scene_description: "Wife alone in bathroom, rain outside window. She wipes tears from eyes while looking at herself in mirror."
+  visual_cause_of_emotion: "She stares at her reflection, eyes red. The mirror reflects her sadness."
+  shot_language: {shot_size: "close-up", lighting_key: "practical_lighting", lens_mm: 50, depth_of_field: "shallow"}
+  characters_present: [wife]
+  ken_burns_effect: pan-left
+  duration_hint: "20-30s"
+  
+11. 
+  scene_number: 11
+  title: "The Quiet Truth"
+  phase: climax
+  beat: final_truth
+  act: act_3_psychological_truth
+  mood: devastating_quiet
+  energy: 1
+  voiceover: "They still love each other. But love without safety becomes performance."
+  scene_description: "Same bedroom, same bed. Distance between them is now permanent. The two sides of the bed are completely empty."
+  visual_cause_of_emotion: "The view shows the space between them, now fully empty. The bed is cold and unmade."
+  shot_language: {shot_size: "wide", lighting_key: "practical_lighting", lens_mm: 35, depth_of_field: "medium"}
+  characters_present: [husband, wife]
+  ken_burns_effect: ken-burns
+  duration_hint: "25-40s"

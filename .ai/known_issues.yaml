@@ -1,0 +1,9 @@
+# Known Issues
+---
+issues:
+  - id: "pydantic_get_crash"
+    file: "movie_os/agents/graph.py"
+    description: "Config lookup calls config.get('grammar') which crashes when config is a MovieOSConfig model."
+  - id: "ollama_fallback_method"
+    file: "movie_os/llm/client.py"
+    description: "Chat API fallback calls non-existent _generate_legacy_chat_to_generate method."

@@ -1,0 +1,273 @@
+# Canonical Video Spec — v1.0
+
+> **The single source of truth for what a videoGen psychological cinema video IS.**
+>
+> Every video in `projects/<territory>/` derives from this spec.
+> Every template, archetype, and scene blueprint conforms to this spec.
+> Every render (M1 Max SDXL, OpenMontage, future providers) consumes this spec.
+>
+> **If you change this file, the entire production system must be re-validated.**
+
+---
+
+## What a psychological cinema video is
+
+A short (30-180 second) cinematic piece that:
+1. **Belongs to a psychological territory** (e.g. `emotional_withdrawal`)
+2. **Uses a narrative archetype** (e.g. `slow_withdrawal`)
+3. **Follows a fixed emotional arc** (3 acts, 9 phases, 11 scenes)
+4. **Speaks in implication, not exposition**
+5. **Contains exactly one emotionally irreversible moment**
+6. **Is rendered in cinematic photorealism with low-light intimacy**
+7. **Has one consistent narrator voice across all videos in the territory**
+
+It is NOT:
+- An explainer
+- A motivational speech
+- A "5 tips to..." listicle
+- A "what is X" educational piece
+- An entertainment short
+- A news summary
+
+---
+
+## The Canonical Video Spec (the contract)
+
+```yaml
+# Every videoGen psychological cinema video MUST have this structure.
+
+video_spec:
+  # ---------- 1. TERRITORY ----------
+  # Which psychological niche does this video belong to?
+  territory:
+    id: emotional_withdrawal          # kebab-case identifier
+    name: "Emotional Withdrawal"
+    core_emotions: [loneliness, fear, shame, exhaustion, withdrawal]
+    audience_response: "I know this feeling."
+
+  # ---------- 2. ARCHETYPE ----------
+  # Which reusable narrative structure does this video use?
+  archetype:
+    id: slow_withdrawal                # see grammar/archetypes/
+    name: "Slow Withdrawal"
+    pacing_pattern: "erosion"          # how the emotional intensity changes
+    act_count: 3
+    scene_count: 11
+
+  # ---------- 3. EMOTIONAL ARC ----------
+  # The 3-act structure that every video follows.
+  emotional_arc:
+    act_1:
+      title: "Observation"
+      viewer_response: "I know this feeling."
+      energy_range: [3, 7]             # 1=quiet, 10=intense
+      scene_count: 4
+    act_2:
+      title: "Inner Reality"
+      viewer_response: "I didn't realize this was underneath it."
+      energy_range: [2, 5]
+      scene_count: 4
+    act_3:
+      title: "Psychological Truth"
+      viewer_response: "That truth hurts."
+      energy_range: [1, 3]
+      scene_count: 3
+    # Total: 11 scenes, 4-7 minutes target (240-420s)
+
+  # ---------- 4. PACING CURVE ----------
+  # How energy rises and falls across the 11 scenes.
+  # MUST descend from warmth (7) to climax (1).
+  pacing_curve:
+    - scene: 1
+      energy: 3
+      beat: opening_hook
+    - scene: 2
+      energy: 7
+      beat: contrast_memory
+    - scene: 3
+      energy: 7
+      beat: contrast_memory
+    - scene: 4
+      energy: 4
+      beat: outside_version
+    - scene: 5
+      energy: 3
+      beat: first_fracture
+    - scene: 6
+      energy: 2
+      beat: internal_collapse
+    - scene: 7
+      energy: 2
+      beat: internal_collapse
+    - scene: 8
+      energy: 5
+      beat: irreversible_moment        # the wound
+    - scene: 9
+      energy: 2
+      beat: defensive_retreat
+    - scene: 10
+      energy: 3
+      beat: her_truth
+    - scene: 11
+      energy: 1
+      beat: final_truth
+
+  # ---------- 5. VISUAL GRAMMAR ----------
+  # How every scene looks. From grammar/visual_grammar.yaml
+  visual_grammar:
+    style: cinematic photorealism
+    color_palette:
+      dominant: cool blue undertones
+      practical_lights: warm amber
+      shadows: deep but not crushed
+      highlights: soft, rolled off
+    texture: 35mm film grain, shallow depth of field
+    shot_presets: [intimate_close, quiet_medium, isolation_portrait, numbness_wide, final_truth, warmth_memory, almost_moment, irreversible_moment]
+    negative_prompt: |
+      cartoon, anime, illustration, painting, drawing,
+      comic book, comic, graphic novel, storyboard,
+      2d art, line art, ink drawing, pencil sketch,
+      vector art, digital illustration, painted, watercolor,
+      cel shaded, manga, webtoon,
+      3d render, cgi, video game,
+      staged, perfect, smooth, airbrushed, digital art, concept art, clean, polished
+    consistency_anchors:
+      - "Cool blue undertones in every scene — never warm overall"
+      - "Warm amber only from practical light sources (phone, lamp, TV)"
+      - "Shallow depth of field with bokeh — never deep focus"
+      - "Film grain texture — never clean digital look"
+      - "Muted desaturated palette — never vibrant"
+      - "Low light — darkness is a character, not absence of light"
+      - "Distance in shared spaces — together but apart"
+      - "Environmental imperfection in every scene"
+
+  # ---------- 6. SOUNDTRACK PROFILE ----------
+  # 3-zone music architecture.
+  soundtrack_profile:
+    zones:
+      act_1:
+        name: ambient_piano
+        key: A_minor
+        volume_in_mix: 0.35
+        description: "Sparse A-minor piano + sub-drone. Hope + warmth."
+      act_2:
+        name: dark_drone
+        key: D_minor
+        volume_in_mix: 0.25
+        description: "Low D1 drone + dissonant tritones. Unease."
+      act_3:
+        name: near_silence
+        key: A_minor
+        volume_in_mix: 0.15
+        description: "Single sustained note fading. Let the silence speak."
+    # Per-scene ambient SFX — each beat has a different profile
+    ambient_sfx:
+      philosophy: "physically close, not atmospheric"
+      requirement: "every beat has 3+ layers"
+      irreversible_moment_overlay: 5_layers_breath_forward
+
+  # ---------- 7. NARRATION STYLE ----------
+  narration_style:
+    voice: en-US-AndrewMultilingualNeural
+    voice_tags: [Warm, Authentic, Honest]
+    base_prosody:
+      rate: "-15%"
+      volume: "-10%"
+      pitch: "-5Hz"
+    # Per-scene prosody table (voice_modulation_engine)
+    prosody_registers:
+      default: {rate: "-15%", volume: "-10%", pitch: "-5Hz"}
+      vulnerable: {rate: "-20%", volume: "-12%", pitch: "-7Hz"}
+      fractured: {rate: "-22%", volume: "-15%", pitch: "-8Hz"}
+      emotionally_exhausted: {rate: "-25%", volume: "-18%", pitch: "-10Hz"}
+      irreversible_moment: {rate: "-30%", volume: "-20%", pitch: "-12Hz"}
+    # Voiceover length rules
+    voiceover_max_words:
+      default: 25
+      irreversible_moment: 12
+    writing_principles:
+      - "Recognition, not analysis"
+      - "Implication, not exposition"
+      - "Trailing implication — never close an emotion"
+      - "No 'he felt' / 'she felt' / 'they were'"
+      - "No therapy language"
+      - "No moral or lesson"
+
+  # ---------- 8. SUBTITLE STYLE ----------
+  # Slow, emotional captions with phrase-based pacing.
+  subtitle_style:
+    enabled: true
+    engine: whisperx  # word-level timing
+    style: cinematic_bold
+    font: "Helvetica Neue Bold"  # or equivalent
+    position: bottom_center
+    max_words_per_caption: 6
+    color: "#FFFFFF"  # white
+    background: "rgba(0,0,0,0.6)"  # semi-transparent black
+    emphasis_words: [still, almost, dangerous, tired, grief, afraid, love, lost, alone, home, safe, quiet, enough, stopped]
+    emphasis_style:
+      color: "#FFD700"  # gold for emphasis
+      weight: 700
+    pacing: phrase_based  # one phrase at a time, not one word
+    silence_punctuation: true  # ... at pauses, . at full stops
+```
+
+---
+
+## How a video derives from this spec
+
+A video manifest MUST be a complete instantiation of this spec. Every field has a value. Every scene blueprint conforms to the scene structure (see `grammar/scene_blueprint_schema.yaml`). Every territory has its own assets (heroes, references) but uses the same visual grammar + soundtrack profile + narration style.
+
+The pipeline (`scripts/psychological_pipeline.py`) reads the spec, generates assets, composes, and outputs a final video. Every video in every territory flows through the same pipeline.
+
+---
+
+## The 11-scene grid (the canonical sequence)
+
+| Scene | Beat | Act | Energy | Title guidance |
+|-------|------|-----|--------|---------------|
+| 1 | `opening_hook` | 1 | 3 | Frozen moment of withdrawal |
+| 2 | `contrast_memory` | 1 | 7 | Warmth / memory / something to lose |
+| 3 | `contrast_memory` | 1 | 7 | Warmth / memory / something to lose |
+| 4 | `outside_version` | 1 | 4 | The polite, functional outside |
+| 5 | `first_fracture` | 2 | 3 | The first visible crack |
+| 6 | `internal_collapse` | 2 | 2 | The psychological truth |
+| 7 | `internal_collapse` | 2 | 2 | The psychological truth (deep) |
+| **8** | **`irreversible_moment`** | 2 | **5** | **THE WOUND — the one unforgettable moment** |
+| 9 | `defensive_retreat` | 3 | 2 | Self-protection |
+| 10 | `her_truth` | 3 | 3 | Her grief, her own |
+| 11 | `final_truth` | 3 | 1 | The devastating final line |
+
+**Exactly 1 scene per video is `irreversible_moment`.** This is enforced by the pipeline.
+
+---
+
+## What can vary between videos
+
+- The **story** (different story, different niche → different territory)
+- The **archetype** (e.g. `slow_withdrawal`, `emotional_shutdown`)
+- The **characters** (different hero images per video)
+- The **specific scene descriptions** (the actual visual moments)
+- The **voiceover text** (per scene, per video)
+
+## What MUST stay constant
+
+- The 3-act, 11-scene structure
+- The pacing curve (energy descends from 7 to 1)
+- The visual grammar (cool blue, photorealism, 35mm grain)
+- The 3-zone soundtrack
+- The narration voice (Andrew)
+- The prosody registers
+- The irreversible moment requirement (exactly 1, scene 8)
+- The contrast_memory requirement (scenes 2-3 must be warm)
+- The duality requirement (scene 10 must show her grief)
+
+---
+
+## Versioning
+
+| Version | Date | Change |
+|---------|------|--------|
+| 1.0 | 2026-07-07 | Initial canonical spec. Derived from FORMULA.md v1.1 + v5.0 + v1.1.3 of pipeline code. |
+
+This file is **the** spec. When you change it, the entire production system must be re-validated. Other grammar files reference it; they do not redefine it.

@@ -1,0 +1,105 @@
+# Story description generator prompt
+#
+# Given a story, generates a YouTube video description. The description
+# should be searchable, contain the emotional territory keywords, and
+# end with a hook that encourages watching.
+#
+# Used by: post-pipeline metadata generator (Phase 9)
+
+metadata:
+  id: metadata.description.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate a YouTube video description for a story. Should be
+    searchable (territory keywords), emotionally honest, and end
+    with a hook that encourages watching.
+  role: structured
+  capability: story
+  tags:
+    - metadata
+    - description
+    - youtube
+    - seo
+  supported_models:
+    - any-local-llm
+  recommended_temperature: 0.6
+  recommended_max_tokens: 600
+  avg_tokens: 350
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: story_md
+    type: string
+    required: true
+    description: The full story narrative
+  - name: dna
+    type: string
+    required: true
+    description: The Story DNA
+  - name: title
+    type: string
+    required: true
+    description: The chosen video title
+  - name: logline
+    type: string
+    required: true
+    description: The one-sentence logline
+
+constraints:
+  - rule: "Output MUST be valid JSON with fields: description (string), tags (list of 5-10 strings)"
+    severity: must
+  - rule: "Description should be 150-300 words"
+    severity: must
+  - rule: "Include the emotional territory keywords (e.g., 'emotional withdrawal', 'intimacy', 'marriage')"
+    severity: must
+  - rule: "End with a soft hook — a question, a quiet challenge, or a moment of recognition — NOT clickbait"
+    severity: must
+  - rule: "Tags should be searchable keywords, not #hashtags"
+    severity: must
+
+examples:
+  - description: "Emotional withdrawal video description"
+    input:
+      title: "The Night He Stopped Reaching For Her"
+      logline: "A man stops reaching for his wife — not because he stopped loving her, but because intimacy stopped feeling safe."
+    output: |
+      {
+        "description": "An emotionally immersive portrait of how emotional withdrawal happens quietly between two people who still love each other. Through five acts, we witness the exact night it begins, the invisible daily distance, the internal collapse of emotional safety, the defensive retreat into self-protection, and the final tragic truth that distance is not anger — it is grief.\n\nThis is a cinematic psychological narrative. No advice. No explanation. Just the truth, observed.\n\nWhat happens when love becomes pressure?",
+        "tags": ["emotional withdrawal", "marriage", "intimacy", "psychological", "cinematic", "emotional truth", "relationships", "loneliness"]
+      }
+
+negative_prompts:
+  - "clickbait"
+  - "you won't believe"
+  - "shocking"
+  - "subscribe"
+  - "follow me"
+  - "link in description"
+  - "hashtags"
+
+body: |
+  You are a YouTube description strategist for cinematic psychological storytelling.
+
+  Given a story, generate:
+  1. A description (150-300 words) that:
+     - Opens with a one-line setup (1-2 sentences) that hooks without spoiling
+     - Describes the emotional territory clearly (so searchers find it)
+     - Mentions the key themes (love, withdrawal, intimacy, grief, etc.)
+     - Ends with a soft hook — a question, a quiet challenge, or a moment of recognition
+  2. A list of 5-10 searchable tags (NOT #hashtags — just keywords)
+
+  Inputs:
+
+  Title: {{title}}
+  Logline: {{logline}}
+  Story DNA:
+  {{dna}}
+
+  Story (first 500 chars):
+  {{story_md[:500]}}
+
+  Output a JSON object with fields "description" (string) and "tags" (list of strings). No commentary, no markdown:

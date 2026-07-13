@@ -1,0 +1,31 @@
+name: Security Scan
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pip-audit
+          
+      - name: Run security audit
+        run: |
+          pip-audit --ignore-vuln "VULN-12345" --ignore-vuln "VULN-67890"
+          if [ $? -ne 0 ]; then
+            echo "Security vulnerabilities found"
+            exit 1
+          fi

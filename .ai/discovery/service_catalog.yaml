@@ -1,0 +1,64 @@
+# Service Catalog - Movie OS Cinema Production Engine
+---
+web_applications:
+  - name: "Next.js Frontend Client"
+    type: "UI service"
+    technology: "React, Next.js, Tailwind CSS"
+    port: "3000 (default dev port)"
+    description: "Visual dashboard allowing users to prompt stories, review scenes, preview audio clips, trigger rendering, and check evaluations."
+
+  - name: "FastAPI Backend API"
+    type: "API service"
+    technology: "FastAPI, Uvicorn"
+    port: "8000 (default backend port)"
+    description: "Serves endpoints managing active projects, executing workflows, and wrapping model inference."
+
+internal_backend_services:
+  - name: "PipelineService"
+    class: "backend.app.services.pipeline_service.PipelineService"
+    description: "Orchestrates API-driven executions, routing requests to the underlying text/video generation pipeline."
+
+  - name: "ImageService"
+    class: "backend.app.services.image_service.ImageService"
+    description: "Orchestrates picture generation, calling ComfyUI or SDXL pipelines to build scene assets."
+
+  - name: "TTSService"
+    class: "backend.app.services.tts_service.TTSService"
+    description: "Generates spoken narration audio files for script lines using Edge TTS or local synthesis."
+
+  - name: "VideoService"
+    class: "backend.app.services.video_service.VideoService"
+    description: "Orchestrates final scene rendering, compiling images and audio with pan/zoom movements and transitions via FFmpeg."
+
+  - name: "ProjectService"
+    class: "backend.app.services.project_service.ProjectService"
+    description: "Creates and manages local workspace directory directories holding scripts and outputs."
+
+  - name: "ImageVerifier"
+    class: "backend.app.services.image_verifier.ImageVerifier"
+    description: "Utility validating generated image files before post-production compilation."
+
+capability_providers:
+  - name: "FluxComfyUIProvider"
+    class: "movie_os.providers.image.flux_comfyui.FluxComfyUIProvider"
+    description: "Generates visual assets by submitting execution JSON maps to ComfyUI websocket endpoints."
+
+  - name: "SDXLLocalProvider"
+    class: "movie_os.providers.image.sdxl_local.SDXLLocalProvider"
+    description: "Generates visual assets locally on host GPUs via HuggingFace diffusion models."
+
+  - name: "EdgeTTSProvider"
+    class: "movie_os.providers.voice.edge_tts.EdgeTTSProvider"
+    description: "Synthesizes character dialogues and narrator voice tracks using Microsoft Edge TTS APIs."
+
+  - name: "ProceduralMusicProvider"
+    class: "movie_os.providers.music.procedural.ProceduralMusicProvider"
+    description: "Procedurally synthesizes instrumental scores and stings (melancholy, tension, relief) using numpy audio arrays."
+
+  - name: "ProceduralSFXProvider"
+    class: "movie_os.providers.sfx.procedural.ProceduralSFXProvider"
+    description: "Procedurally synthesizes background ambient audios (bedroom, rain, wind) using numpy math waveforms."
+
+  - name: "LMStudioStoryProvider"
+    class: "movie_os.providers.story.lmstudio.LMStudioStoryProvider"
+    description: "Queries local LLM API endpoints (LMStudio) for story elements, screenplays, and structured outlines."

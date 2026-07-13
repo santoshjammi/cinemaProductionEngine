@@ -1,0 +1,30 @@
+- image: null
+  prompt: Cinematic wide shot of Visual description for scene 1. natural light with
+    dramatic composition. melancholic atmosphere. Professional cinematography, 8k
+    resolution.
+  scene_id: 1
+  visual_style: cinematic
+- image: null
+  prompt: Cinematic close-up of Visual description for scene 2. dramatic backlight
+    with dramatic composition. melancholic atmosphere. Professional cinematography,
+    8k resolution.
+  scene_id: 2
+  visual_style: cinematic
+- image: null
+  prompt: Cinematic dolly-in of Visual description for scene 3. low-key lighting with
+    dramatic composition. melancholic atmosphere. Professional cinematography, 8k
+    resolution.
+  scene_id: 3
+  visual_style: cinematic
+- image: null
+  prompt: Cinematic panning shot of Visual description for scene 4. soft fill light
+    with dramatic composition. melancholic atmosphere. Professional cinematography,
+    8k resolution.
+  scene_id: 4
+  visual_style: cinematic
+- image: null
+  prompt: Cinematic tracking shot of Visual description for scene 5. natural light
+    with dramatic composition. melancholic atmosphere. Professional cinematography,
+    8k resolution.
+  scene_id: 5
+  visual_style: cinematic

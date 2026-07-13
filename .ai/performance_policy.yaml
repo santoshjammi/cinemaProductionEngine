@@ -1,0 +1,5 @@
+# Performance Policy
+---
+policy:
+  rendering: "Local image drafts run on FLUX Schnell (4 steps) for fast generation cycles."
+  compilation: "Parallel pipeline execution enabled in configuration default schemas."

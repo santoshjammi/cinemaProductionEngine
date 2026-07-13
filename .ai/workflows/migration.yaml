@@ -1,0 +1,10 @@
+# Workflow: Migration
+---
+workflow:
+  name: "migration"
+  description: "Standard workflow instructions for migration tasks."
+  steps:
+    - "1. Research context and identify dependencies."
+    - "2. Define execution scope and verification tests."
+    - "3. Implement targeted changes without breaking interfaces."
+    - "4. Run pytest verification suite."

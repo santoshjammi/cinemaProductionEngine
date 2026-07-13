@@ -1,0 +1,128 @@
+# TTS narration prosody prompt
+#
+# Generates TTS prosody parameters (rate, volume, pitch) for each
+# scene's voiceover, based on the emotional state and energy.
+#
+# Used by: scene-level TTS service (Phase 4)
+# Output: a dict of {rate, volume, pitch} per scene
+
+metadata:
+  id: voice.narration-prosody.v1
+  version: 1.0.0
+  author: movie_os
+  created_at: 2026-07-08
+  description: >
+    Generate TTS prosody hints (rate, volume, pitch) for each scene's
+    voiceover based on the scene's emotional state and energy. The
+    output is applied to edge-tts (or any SSML-capable TTS) to make
+    the voice match the emotion.
+  role: structured
+  capability: voice
+  tags:
+    - voice
+    - tts
+    - prosody
+    - ssml
+  supported_models:
+    - any-local-llm
+  recommended_temperature: 0.3
+  recommended_max_tokens: 200
+  avg_tokens: 100
+  avg_cost_usd: 0.0
+  changelog:
+    - "1.0.0 — initial version"
+
+variables:
+  - name: scene_number
+    type: integer
+    required: true
+    description: The scene number (1-11)
+  - name: voiceover
+    type: string
+    required: true
+    description: The scene's voiceover text
+  - name: emotional_state
+    type: string
+    required: true
+    description: The scene's emotional state (tense_restraint, warm_nostalgic, etc.)
+  - name: energy
+    type: integer
+    required: true
+    description: The scene's energy level (1-10)
+  - name: irreversible_moment
+    type: boolean
+    required: false
+    default: false
+    description: Whether this is the irreversible moment scene (special handling)
+
+constraints:
+  - rule: "Output MUST be valid JSON"
+    severity: must
+  - rule: "rate, volume, pitch must be SSML-compatible values"
+    severity: must
+    examples_pass:
+      - "+0%"
+      - "-10%"
+      - "-2st"
+    examples_fail:
+      - "0.5"
+      - "fast"
+  - rule: "If irreversible_moment is true, rate must be -25% (slower, more breath)"
+    severity: must
+
+examples:
+  - description: "Hook scene (tense restraint, energy 3)"
+    input:
+      scene_number: 1
+      voiceover: "He was the kind of man who made love feel like conversation. But now, the conversation had stopped."
+      emotional_state: "tense_restraint"
+      energy: 3
+    output: '{"scene_number": 1, "rate": "-5%", "volume": "-5%", "pitch": "-2Hz", "vocal_fracture": false}'
+
+  - description: "Irreversible moment (slow, fractured)"
+    input:
+      scene_number: 7
+      voiceover: ""
+      emotional_state: "silence"
+      energy: 1
+      irreversible_moment: true
+    output: '{"scene_number": 7, "rate": "-25%", "volume": "-18%", "pitch": "-10Hz", "vocal_fracture": false}'
+
+  - description: "Climax (devastating quiet, energy 1)"
+    input:
+      scene_number: 11
+      voiceover: "Not all distance is anger. Sometimes distance is grief."
+      emotional_state: "devastating_quiet"
+      energy: 1
+    output: '{"scene_number": 11, "rate": "-25%", "volume": "-18%", "pitch": "-10Hz", "vocal_fracture": true}'
+
+negative_prompts:
+  - "commentary"
+  - "explanation"
+  - "markdown"
+
+body: |
+  You are a TTS prosody advisor. Given a scene's voiceover and emotional
+  state, output the optimal TTS prosody parameters for edge-tts / SSML.
+
+  Output a JSON object with these fields:
+  - scene_number: int (the input scene number)
+  - rate: SSML rate (e.g., "+0%", "-10%", "-25%")
+  - volume: SSML volume (e.g., "+0%", "-5%", "-18%")
+  - pitch: SSML pitch (e.g., "+0Hz", "-2Hz", "-10Hz")
+  - vocal_fracture: bool — should the voice have breath/fracture effects
+
+  Rules:
+  - High energy (7-10) = rate "+0%" to "+5%", volume "+0%", pitch "+0Hz" to "+2Hz"
+  - Medium energy (4-6) = rate "0%", volume "0%", pitch "0Hz"
+  - Low energy (1-3) = rate "-15%" to "-25%", volume "-10%" to "-20%", pitch "-5Hz" to "-10Hz"
+  - irreversible_moment scenes: always rate "-25%", volume "-18%", pitch "-10Hz"
+  - climax scenes: vocal_fracture: true (the voice should break)
+
+  Scene {{scene_number}}:
+    voiceover: "{{voiceover}}"
+    emotional_state: {{emotional_state}}
+    energy: {{energy}}
+    irreversible_moment: {{irreversible_moment}}
+
+  Output ONLY the JSON object (no commentary, no markdown):

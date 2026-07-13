@@ -1,0 +1,398 @@
+psychological_cinema_playbook:
+
+  version: "1.0"
+
+  brand_universe:
+    name: "Beneath The Silence"
+    genre:
+      - emotional_documentary
+      - cinematic_monologue
+      - psychological_narrative
+
+    emotional_identity:
+      core_feelings:
+        - loneliness
+        - emotional_withdrawal
+        - silent_grief
+        - exhaustion
+        - fear_of_rejection
+        - emotional_numbness
+        - self_protection
+
+      audience_experience:
+        objective:
+          - emotional_recognition
+          - psychological_identification
+          - reflective_silence
+          - emotional_immersion
+
+      emotional_rule:
+        - "Never explain emotions too directly."
+        - "Reveal emotional truth gradually."
+        - "Use implication over exposition."
+        - "Pain should feel observed, not dramatized."
+
+  video_architecture:
+
+    structure:
+      - act_1_observation
+      - act_2_inner_reality
+      - act_3_psychological_truth
+
+    act_1_observation:
+      objective: "Introduce recognizable external behavior."
+      examples:
+        - emotional_distance
+        - silence
+        - intimacy_avoidance
+        - routine_without_connection
+
+      viewer_response:
+        - "I know this feeling."
+
+    act_2_inner_reality:
+      objective: "Reveal hidden emotional mechanism."
+
+      emotional_layers:
+        - fear
+        - shame
+        - exhaustion
+        - resentment
+        - inadequacy
+        - loneliness
+
+      viewer_response:
+        - "I didn't realize this was underneath it."
+
+    act_3_psychological_truth:
+      objective: "Deliver emotionally painful realization."
+
+      narrative_style:
+        - reflective
+        - restrained
+        - devastating_but_quiet
+
+      viewer_response:
+        - "That truth hurts."
+
+  narrative_engine:
+
+    pacing_model:
+      opening:
+        emotion: "slow immersion"
+        duration: "15-40 seconds"
+
+      middle:
+        emotion: "psychological tightening"
+        duration: "60-180 seconds"
+
+      ending:
+        emotion: "quiet devastation"
+        duration: "20-60 seconds"
+
+    emotional_progression:
+      - recognition
+      - vulnerability
+      - realization
+
+    tension_model:
+      preferred:
+        - interrupted_intimacy
+        - almost_moments
+        - silence
+        - emotional_hesitation
+
+      avoid:
+        - loud_arguments
+        - overdrama
+        - melodrama
+        - exaggerated_conflict
+
+  narration_engine:
+
+    narration_style:
+      tone:
+        - intimate
+        - emotionally_restrained
+        - reflective
+        - observant
+        - psychologically_precise
+
+      avoid:
+        - motivational_energy
+        - podcast_energy
+        - therapy_language
+        - educational_exposition
+        - social_media_style_hooks
+
+    writing_formula:
+      formula:
+        - observation
+        - specificity
+        - silence
+        - implication
+
+    narration_rules:
+      - "Narration should sound internally discovered."
+      - "Do not over-explain emotional states."
+      - "Use pauses intentionally."
+      - "Sentences should feel human, not optimized."
+
+    preferred_sentence_style:
+      examples:
+        - "After a while, he stopped reaching for her first."
+        - "The silence didn't arrive suddenly."
+        - "They still spoke every day. Just not honestly."
+
+  visual_engine:
+
+    visual_language:
+      themes:
+        - isolation_in_shared_spaces
+        - nighttime_honesty
+        - emotional_distance
+        - routine_without_presence
+        - interrupted_connection
+
+    recurring_motifs:
+      - same_bed_distance
+      - kitchen_silence
+      - late_night_scrolling
+      - almost_touching_hands
+      - empty_hallways
+      - rain_against_windows
+      - driving_in_silence
+
+    camera_style:
+      movement:
+        - slow
+        - minimal
+        - observational
+
+      framing:
+        - negative_space
+        - soft_focus
+        - close_emotional_framing
+        - intimate_composition
+
+    lighting_style:
+      preferred:
+        - warm_low_light
+        - practical_lighting
+        - natural_shadows
+        - nighttime_ambience
+
+      avoid:
+        - over_stylized_lighting
+        - hyper_saturated_colors
+        - high_energy_visuals
+
+  sound_design_engine:
+
+    emotional_audio_goal:
+      objective: "Create subconscious emotional immersion."
+
+    narration_audio:
+      voice_style:
+        - soft
+        - conversational
+        - tired
+        - emotionally_restrained
+        - intimate
+
+      avoid:
+        - trailer_voice
+        - radio_voice
+        - hype_voice
+        - overly_clean_delivery
+
+    ambient_audio:
+      required_elements:
+        - room_tone
+        - distant_traffic
+        - rain
+        - fan_hum
+        - cloth_movement
+        - kitchen_ambience
+        - footsteps
+        - breathing
+
+    music_design:
+      preferred:
+        - ambient_piano
+        - low_drones
+        - sparse_textures
+        - emotional_space
+
+      avoid:
+        - epic_music
+        - inspirational_music
+        - orchestral_buildup
+        - excessive_melody
+
+    silence_rules:
+      - "Silence is part of the soundtrack."
+      - "Do not constantly fill emotional space."
+      - "Use silence before emotional truths."
+
+  ai_pipeline:
+
+    script_generation:
+
+      primary_model:
+        name: "Qwen3-Coder-30B-A3B-Instruct"
+        provider: "HuggingFace"
+
+      responsibilities:
+        - narrative_structure
+        - scene_progression
+        - cinematic_monologue_generation
+        - pacing_design
+        - psychological_mapping
+
+    emotional_refinement:
+
+      secondary_model:
+        name: "DeepSeek-R1"
+        provider: "HuggingFace"
+
+      responsibilities:
+        - emotional_depth
+        - introspective_rewrites
+        - subtlety_refinement
+        - psychological_precision
+
+    text_to_speech:
+
+      primary_tts:
+        name: "Sesame CSM"
+
+      responsibilities:
+        - cinematic_narration
+        - conversational_delivery
+        - emotional_pacing
+        - human_cadence
+
+      generation_strategy:
+        chunk_size: "2_to_5_sentences"
+
+        rules:
+          - "Generate narration in emotional chunks."
+          - "Never generate full narration in one pass."
+          - "Select best takes manually."
+
+    voice_identity:
+
+      model:
+        name: "Fish Speech"
+
+      responsibilities:
+        - voice_cloning
+        - emotional_texture
+        - narrator_identity
+        - breath_realism
+
+    background_music:
+
+      primary_tool:
+        name: "Stable Audio"
+
+      prompt_style_examples:
+        - "minimal emotional piano"
+        - "late night emotional ambience"
+        - "slow melancholic drone"
+        - "lonely apartment atmosphere"
+
+    sound_effects:
+
+      source:
+        name: "Freesound"
+
+      philosophy:
+        - subconscious_presence
+        - realism_over_noticeability
+        - subtle_emotional_support
+
+  editing_pipeline:
+
+    video_assembly:
+      tool: "OpenMontage"
+
+    final_editing:
+      tool: "DaVinci Resolve"
+
+    editing_style:
+      cuts:
+        - slow
+        - emotionally_motivated
+        - breathing_room
+
+      avoid:
+        - fast_cutting
+        - overstimulation
+        - excessive_motion
+
+  emotional_ruleset:
+
+    mandatory:
+      - "Every scene must carry emotional implication."
+      - "Every silence must mean something."
+      - "Every visual must emotionally echo narration."
+      - "Every sound layer must support intimacy."
+
+    forbidden:
+      - emotional_manipulation
+      - outrage_content
+      - gender_wars
+      - over_explanation
+      - algorithmic_hook_spam
+      - fake_motivation
+      - forced_virality
+
+  success_metrics:
+
+    desired_audience_response:
+      - reflective_comments
+      - emotional_identification
+      - rewatches
+      - silent_engagement
+      - emotional_sharing
+
+    avoid_optimization_for:
+      - rage_clicks
+      - controversy
+      - hyperactive_retention_hacks
+      - low_attention_content
+
+  production_workflow:
+
+    step_1:
+      name: "psychological_truth_mapping"
+
+    step_2:
+      name: "narrative_structure_generation"
+
+    step_3:
+      name: "emotional_script_refinement"
+
+    step_4:
+      name: "scene_visualization"
+
+    step_5:
+      name: "narration_chunk_generation"
+
+    step_6:
+      name: "ambient_sound_layering"
+
+    step_7:
+      name: "music_generation"
+
+    step_8:
+      name: "cinematic_editing"
+
+    step_9:
+      name: "silence_and_pacing_review"
+
+    step_10:
+      name: "final_emotional_consistency_pass"
+
