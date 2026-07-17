@@ -8,6 +8,7 @@ import type { SceneImageResult } from '@/lib/types';
 import type { SceneResult } from '@/lib/types';
 
 interface ImageGalleryProps {
+  pipelineId: string;
   scenes: SceneResult[];
   images: SceneImageResult[];
   isGenerating: boolean;
@@ -16,6 +17,7 @@ interface ImageGalleryProps {
 }
 
 export default function ImageGallery({
+  pipelineId,
   scenes,
   images,
   isGenerating,
@@ -98,7 +100,7 @@ export default function ImageGallery({
             } else if (img?.status === 'completed' && img.imageUrl) {
               content = (
                 <img
-                  src={getImageUrl("", sceneNum)}
+                  src={getImageUrl(pipelineId, sceneNum)}
                   alt={`Scene ${sceneNum}`}
                   className="w-full h-full object-cover"
                   onError={(e) => {

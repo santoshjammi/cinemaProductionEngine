@@ -33,3 +33,7 @@ exports/
 
 # Heavy weights and external tool installs
 models/
+
+# Aider Studio (auto-added)
+REPO_MAP.md
+.aider/

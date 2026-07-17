@@ -207,6 +207,7 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
         <TabsContent value="images" className="space-y-6 mt-6">
           {pipeline?.scenes && pipeline?.prompts && (
             <ImageGallery
+              pipelineId={pipeline.id}
               scenes={pipeline.scenes as SceneResult[]}
               images={sceneImages}
               isGenerating={isImageGenRunning}

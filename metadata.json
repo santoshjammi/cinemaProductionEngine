@@ -1,0 +1,8 @@
+{
+  "name": "Text Cinema Engine",
+  "description": "Transform your story ideas into beautiful cinematic video narratives with structured agent pipelines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
