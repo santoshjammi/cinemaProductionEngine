@@ -1,13 +1,27 @@
-# Restart Prompt - Movie OS Cinema Production Engine
-
-The repository has been successfully bootstrapped with a complete AI Operating System (AIOS) under `.ai/`, `.github/`, and root directories.
+# Restart Prompt
 
 ## Current Focus
-Apply code fixes to resolve critical bugs identified during the initial verification and testing:
-1. Fix the Pydantic configuration dictionary lookup bug in `movie_os/agents/graph.py` (line 111).
-2. Fix the legacy fallback method name bug in the Ollama client `movie_os/llm/client.py` (line 114).
+Genesis Engine is complete: 31 agents, 292 tests, output serialization (76 files per run). Ready for real LLM integration and Studio Engine handoff.
 
-## Next Actions
-- Inspect `movie_os/agents/graph.py` around line 111 and replace `config.get(...)` with attribute or dict conversions.
-- Inspect `movie_os/llm/client.py` around line 114 and correct the fallback function name to `_generate_legacy`.
-- Run pytest verification checks.
+## Unfinished Work
+1. Connect to real LLM: start LMStudio, run `python -m movie_os.genesis run --synopsis <file>`
+2. Implement LangGraph state machine in `genesis/graph.py` (currently sequential in engine.py)
+3. Connect Genesis output to Studio Engine per `docs/genesis/specifications/integrations/007 — Genesis-Studio Engine Integration.md`
+4. Run full E2E with real synopsis once LLM is connected
+
+## Constraints
+- All agents produce only text output (no image/audio/video)
+- Output saved as individual files (JSON/YAML/Markdown) in the output directory
+- LLM must be running on `http://127.0.0.1:1234` (LMStudio default) or use `--mock`
+- 292 tests pass, 2 skipped
+
+## Files in Scope
+- `movie_os/genesis/` — all agent files, engine, CLI, serializers, mock_data
+- `tests/genesis/` — all test files
+- `docs/genesis/specifications/` — PKP specs and integration docs
+
+## Next Action
+Start LMStudio on port 1234, then run:
+```bash
+python -m movie_os.genesis run --synopsis ./synopsis/001-psychology-emotional-withdrawal.md --output ./output/genesis/
+```

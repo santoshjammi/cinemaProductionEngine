@@ -1,35 +1,29 @@
-# Current Task - ew001 Pipeline Test
+# Current Task: Complete Genesis Agent Development
 
 ## Objective
-Test the end-to-end pipeline for producing a 15-20 minute ew001 video using the newly implemented agents
+Complete all 31 Genesis agents (7 discovery + 19 PKP + 4 reviewers + 1 chief architect) so they produce only text output saved as individual files for downstream consumption.
 
 ## Constraints
-- Must produce 15-20 minute video with no voids, silent gaps, or meaningless scene clips
-- Must use the 6 critical agents we implemented:
-  - ScreenplayWriterAgent  
-  - DialogueWriterAgent
-  - ImageGeneratorAgent
-  - VoiceGeneratorAgent
-  - MusicGeneratorAgent
-  - VideoComposerAgent + AudioMixerAgent
+- No agent creates image/audio/video — text output only
+- All output saved as individual files (JSON/YAML/Markdown) in the output directory
+- All 292 tests must pass
+- CLI `--mock` flag must produce valid end-to-end pipeline output
 
 ## Done Conditions
-- Pipeline executes without syntax errors  
-- All 6 critical agents can be imported successfully
-- Test script runs and shows pipeline execution flow
-- Ollama integration works or falls back to template generation
+- [x] All 31 agents have build_prompt, parse_response, validate
+- [x] No agent creates media files
+- [x] Output serialization saves individual spec files (JSON/YAML/MD)
+- [x] Completion gate correctly aggregates contradictions and reviews
+- [x] Discovery and review base classes have validate() methods
+- [x] CLI `--mock` produces valid pipeline with 76 output files
+- [x] 292 tests pass, 2 skipped
 
 ## Files in Scope
-- test_ew001_pipeline.py (our test script)
-- movie_os/agents/creative/screenplay_writer_agent.py
-- movie_os/agents/creative/dialogue_writer_agent.py  
-- movie_os/agents/creative/image_generator_agent.py
-- movie_os/agents/creative/voice_generator_agent.py
-- movie_os/agents/creative/music_generator_agent.py
-- movie_os/agents/creative/video_composer_agent.py
-- movie_os/agents/creative/audio_mixer_agent.py
+- `movie_os/genesis/` — all agent files, engine, CLI, serializers
+- `tests/genesis/` — all test files
+- `.project-ai/` — project status files
 
-## Out of Scope Items
-- All other 20+ agents (focusing on critical 6 for pipeline)
-- Full production system testing beyond ew001
-
+## Out of Scope
+- Real LLM integration (LMStudio)
+- Video/audio/image generation
+- Studio Engine handoff

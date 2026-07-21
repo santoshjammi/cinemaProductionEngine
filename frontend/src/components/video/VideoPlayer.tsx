@@ -116,8 +116,8 @@ export default function VideoPlayer({
             ? 'All clips generated. Ready to assemble final video.'
             : 'Generate clips first, then assemble the final video'}
         </p>
-        <Button onClick={onGenerate} disabled={isGenerating || !allClipsDone}>
-          {totalCount > 0 ? 'Assemble Final Video' : 'Generate Final Video'}
+        <Button onClick={onGenerate} disabled={isGenerating || (totalCount > 0 && !allClipsDone)}>
+          {totalCount > 0 ? 'Assemble Final Video' : 'Generate Video'}
         </Button>
       </CardContent>
     </Card>

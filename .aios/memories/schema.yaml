@@ -1,0 +1,20 @@
+# Memory Schema for `videoGen` AIOS
+type: "persistent_store"
+version: "1.0"
+
+stores:
+  - name: "project_memory"
+    path: "/Users/santosh/Desktop/projects/videoGen/.project-ai/PROJECT_MEMORY.yaml"
+    description: "Stable long-term architecture, tech stack, and conventions."
+  
+  - name: "session_state"
+    path: "/Users/santosh/Desktop/projects/videoGen/.project-ai/SESSION_STATE.yaml"
+    description: "Compressed operational state for resumability."
+  
+  - name: "domain_knowledge"
+    path: ".aios/knowledge/"
+    description: "RAG-indexed facts about video generation, codecs, and platform specs."
+
+metadata:
+  last_updated: "2026-07-18"
+  version_controlled: true

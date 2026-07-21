@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
 import type {
   PipelineResult,
   PipelineStage,
@@ -19,6 +18,9 @@ import type {
   SceneImageResult,
   GenerationProgress
 } from '@/lib/types';
+
+// Lazy import for GoogleGenAI — only used when GEMINI_API_KEY is set
+let GoogleGenAI: any = null;
 
 // Use global storage to persist data across Next.js reloads in development
 const globalStore = globalThis as any;
@@ -463,9 +465,10 @@ async function runGeminiPipeline(pipelineId: string, topic: string) {
 
   // Lazily retrieve Gemini API key
   const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-  let ai: GoogleGenAI | null = null;
+  let ai: any = null;
   if (apiKey) {
     try {
+      const { GoogleGenAI } = await import('@google/genai');
       ai = new GoogleGenAI({
         apiKey: apiKey,
         httpOptions: {
@@ -1645,6 +1648,179 @@ export async function POST(req: NextRequest, { params }: { params: { path?: stri
 
     return NextResponse.json(pipeline);
   }
+
+  // POST /api/v1/genesis/run
+  if (path.length === 2 && path[0] === 'genesis' && path[1] === 'run') {
+    const { synopsis } = await req.json();
+    if (!synopsis) {
+      return NextResponse.json({ error: 'Synopsis is required' }, { status: 400 });
+    }
+
+    const sessionId = 'gen-' + Math.random().toString(36).substring(2, 11);
+
+    // Check if a local LLM is available (Ollama or LMStudio)
+    const { execSync } = require('child_process');
+    let localLlmAvailable = false;
+    let backendFlag = '';
+
+    try {
+      // Check Ollama
+      execSync('curl -s http://localhost:11434/api/tags --max-time 2', { timeout: 5000, stdio: 'pipe' });
+      localLlmAvailable = true;
+      backendFlag = '--backend ollama';
+    } catch {
+      try {
+        // Check LMStudio
+        execSync('curl -s http://127.0.0.1:1234/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
+        localLlmAvailable = true;
+        backendFlag = '--backend lmstudio';
+      } catch {
+        localLlmAvailable = false;
+      }
+    }
+
+    if (!localLlmAvailable) {
+      return NextResponse.json({
+        sessionId,
+        error: 'No local LLM available. Please start Ollama (ollama serve) or LMStudio on port 1234, then try again.',
+        gatePassed: false,
+        specs: [],
+        discovery: {},
+        reviews: {},
+        raw: null,
+      }, { status: 503 });
+    }
+
+    const tmpDir = `/tmp/genesis_${sessionId}`;
+    const tmpSynopsis = `${tmpDir}/synopsis.txt`;
+    const tmpOutput = `${tmpDir}/output`;
+
+    try {
+      execSync(`mkdir -p ${tmpDir} ${tmpOutput}`, { timeout: 5000 });
+      // Write synopsis to file, escaping shell special chars
+      const escaped = synopsis.replace(/'/g, "'\\''").replace(/\$/g, '\\$');
+      execSync(`echo '${escaped}' > ${tmpSynopsis}`, { timeout: 5000, shell: true });
+
+      const result = execSync(
+        `cd /Users/santosh/Desktop/projects/videoGen && venv/bin/python -m movie_os.genesis ${backendFlag} run --synopsis ${tmpSynopsis} --output ${tmpOutput}`,
+        { timeout: 300000, encoding: 'utf-8' }
+      );
+
+      // Read the output
+      const fs = require('fs');
+      const resultJson = JSON.parse(fs.readFileSync(`${tmpOutput}/genesis_result.json`, 'utf-8'));
+
+      // Build the GenesisResult response
+      const genesisResult = {
+        sessionId,
+        completeness: resultJson.overall_completeness || 0,
+        gatePassed: resultJson.gate_result?.passed || false,
+        specs: Object.entries(resultJson.specifications || {})
+          .filter(([k]) => k !== '_pkg')
+          .map(([specId, info]: [string, any]) => ({
+            specId,
+            specName: info.spec_name || specId,
+            phase: info.phase || '',
+            validationStatus: info.validation_status || 'unknown',
+            confidence: info.confidence || 'unknown',
+            fields: [],
+          })),
+        discovery: {},
+        reviews: {},
+        raw: resultJson,
+      };
+
+      // Store in global store
+      if (!globalStore._genesisResults) globalStore._genesisResults = {};
+      globalStore._genesisResults[sessionId] = genesisResult;
+
+      return NextResponse.json(genesisResult);
+    } catch (err: any) {
+      return NextResponse.json({
+        sessionId,
+        error: err.message || 'Genesis pipeline failed',
+        gatePassed: false,
+        specs: [],
+        discovery: {},
+        reviews: {},
+        raw: null,
+      }, { status: 200 });
+    }
+  }
+
+
+  // POST /api/v1/genesis2/run
+  if (path.length === 2 && path[0] === 'genesis2' && path[1] === 'run') {
+    const { synopsis } = await req.json();
+    if (!synopsis) {
+      return NextResponse.json({ error: 'Synopsis is required' }, { status: 400 });
+    }
+
+    const sessionId = 'gen2-' + Math.random().toString(36).substring(2, 11);
+
+    const { execSync } = require('child_process');
+    let localLlmAvailable = false;
+
+    try {
+      execSync('curl -s http://localhost:11434/api/tags --max-time 2', { timeout: 5000, stdio: 'pipe' });
+      localLlmAvailable = true;
+    } catch {
+      try {
+        execSync('curl -s http://127.0.0.1:1234/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
+        localLlmAvailable = true;
+      } catch {
+        localLlmAvailable = false;
+      }
+    }
+
+    if (!localLlmAvailable) {
+      return NextResponse.json({
+        sessionId,
+        error: 'No local LLM available. Please start Ollama (ollama serve) or LMStudio on port 1234, then try again.',
+        status: 'failed',
+        phases: [],
+        totalPhases: 12,
+        completedPhases: 0,
+        failedPhases: 0,
+      }, { status: 503 });
+    }
+
+    const tmpDir = `/tmp/genesis2_${sessionId}`;
+    const tmpSynopsis = `${tmpDir}/synopsis.txt`;
+    const tmpOutput = `${tmpDir}/output`;
+
+    try {
+      execSync(`mkdir -p ${tmpDir} ${tmpOutput}`, { timeout: 5000 });
+      const escaped = synopsis.replace(/'/g, "'\\''").replace(/\$/g, '\\$');
+      execSync(`echo '${escaped}' > ${tmpSynopsis}`, { timeout: 5000, shell: true });
+
+      execSync(
+        `cd /Users/santosh/Desktop/projects/videoGen && venv/bin/python -m movie_os.genesis2 run --synopsis ${tmpSynopsis} --output ${tmpOutput}`,
+        { timeout: 3600000, encoding: 'utf-8' }
+      );
+
+      const fs = require('fs');
+      const summary = JSON.parse(fs.readFileSync(`${tmpOutput}/summary.json`, 'utf-8'));
+      const pkg = JSON.parse(fs.readFileSync(`${tmpOutput}/production_knowledge_package.json`, 'utf-8'));
+
+      return NextResponse.json({
+        sessionId,
+        ...summary,
+        package: pkg,
+      });
+    } catch (err: any) {
+      return NextResponse.json({
+        sessionId,
+        error: err.message || 'Genesis2 pipeline failed',
+        status: 'failed',
+        phases: [],
+        totalPhases: 12,
+        completedPhases: 0,
+        failedPhases: 0,
+      }, { status: 200 });
+    }
+  }
+
 
   return NextResponse.json({ error: 'Endpoint not found' }, { status: 404 });
 }

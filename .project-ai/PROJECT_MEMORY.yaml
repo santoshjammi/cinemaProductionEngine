@@ -1,81 +1,64 @@
-# Project Memory - Movie OS Cinema Production Engine
+# Project Memory
 
-## Core Architecture
-- Production-First Architecture: System centered around Production (not video)
-- Grammar-Driven System: Every production selects a Production Grammar
-- Capability-Driven Architecture: Every capability has an interface, Providers implement capabilities  
-- Configuration-First Approach: Everything lives in configuration files
-- Screenplay as Canonical Creative Artifact: Structured Markdown with YAML frontmatter
+## Architecture
+- **Package**: `movie_os` — capability-centric, plug-in local AI movie pipeline
+- **Two architecture paths**:
+  - **Legacy** (backward compatible): MovieAgent → Story → Visual → Voice → Music → QA → Publishing (8 agents)
+  - **New** (Cinema Production Engine): ProductionOrchestratorAgent → 26 agents → Evaluation → Revision
+  - Auto-detection: if `production_dir/screenplay.md` exists, uses new architecture
+- **Domain model**: Pydantic (Story → Act → Sequence → Scene → Shot → Frame)
+- **Capability Registry**: in-code for discovery, config for selection
+- **Provider ABCs**: Image, Video, Voice, Music, SFX, Story, Translation, Research
+- **Prompt system**: YAML-based repository with loader/builder/validator/optimizer/renderer
+- **Multi-agent**: LangGraph StateGraph with Annotated reducers for concurrent updates
+- **Asset store**: SQLite + filesystem + sqlite-vec + sentence-transformers
 
-## Permanent Decisions & Developer Preferences
-- **Local-First AI Development**: The primary path for further development is using local LLM engines (Ollama/LMStudio with Qwen2.5-Coder-32B and Deepseek-Coder-v2). All prompts, guidelines, and context generation must remain highly context-efficient and token-saving to run smoothly on local setups.
+## Tech Stack
+- Python 3.11+, macOS (M1 Max 64GB)
+- **GPU**: MPS (Apple Silicon) — ComfyUI with `--bf16-unet --bf16-vae`
+- **Image**: FLUX.1 Dev bf16 (22.2GB) via ComfyUI, 1024×576, 20 steps production
+- **Voice**: EdgeTTS (en-US-GuyNeural)
+- **Music**: Procedural (numpy synthesis, DramaticStingGenerator)
+- **Video**: ffmpeg concat + Ken Burns + unsharp filter
+- **Orchestration**: LangGraph 1.2.8
+- **Embeddings**: sqlite-vec 0.1.9 + sentence-transformers 5.6.0
+- **Config**: Pydantic v2, YAML
 
-## Current Status - Phase 4 Implementation
-- ✅ Production Memory System documentation created  
-- ✅ Infrastructure layer (FFmpeg engine, audio mixer, LLM client) - Complete
-- ✅ ResearchAgent and StoryArchitectAgent updated with real LLM integration - In Progress
-- ✅ ScreenplayWriterAgent with real LLM integration - Complete
-- ✅ DialogueWriterAgent with real LLM integration - Complete  
-- ✅ ImageGeneratorAgent wired to ComfyUI backend - Complete
-- ✅ VoiceGeneratorAgent wired to Edge TTS backend - Complete
-- ✅ MusicGeneratorAgent with procedural composition - Complete
-- ✅ VideoComposer + AudioMixer wired to infrastructure - Complete
+## Conventions
+- One file per agent, no bigger than 300 lines
+- Agents never call other agents directly — they update state, graph decides next
+- Errors appended to `state["errors"]`; graph routes to QA on errors
+- Agents return partial state updates (only keys they change), not full state
+- Asset store: every generated artifact auto-registered with tags (scene_N, energy_N, phase_X, shot_size, irreversible_moment)
+- Visual agent renders only first shot per scene (publishing agent only uses first shot)
+- Prompt enrichment: adds cinematic qualifiers to prompts without them
+- Music volume: default 0.6 for audibility under voiceover
+- ffmpeg unsharp: `5:5:1.0:5:5:0.0` applied to all scene clips
 
-## Implementation Progress
-### Phase 0: Foundation (base classes, schemas, grammar system)
-- Status: Complete
+## Important Constraints
+- MPS doesn't support fp8 or fp16 for FLUX (NaN output). Use bf16.
+- FLUX model: `flux1-dev-bf16.safetensors` (22.2GB, converted from fp8 via fp16)
+- ComfyUI flags: `--bf16-unet --bf16-vae`
+- 1024×576 render on MPS: 252s (20 steps), 65s (4 steps draft)
+- 9 scenes × 1 shot = ~38 min total render at production quality
+- 15 scenes × 1 shot = ~63 min total render at production quality
+- Backward compat: `story_factory/`, `openmontage_adapter/`, `scripts/psychological_pipeline.py` keep working
 
-### Phase 1: 6 new grammars (kids_story, devotional, documentary, explainer, shorts, narrative_film)
-- Status: Complete
-
-### Phase 2: Migration adapter, dual-arch graph.py, updated CLI, agent exports  
-- Status: Complete
-
-### Phase 3: ew001 migration with title fix
-- Status: Complete
-
-### Phase 4: Production Memory System and Critical Agent Implementation  
-- Status: Complete - All 6 critical agents implemented
-
-## Key Technical Details
-### Production Pipeline Architecture:
-1. Research → Story Architecture → Psychology Review  
-2. Screenplay Writing → Dialogue Refinement
-3. Scene Planning → Shot Planning → Prompt Building → Music Composition
-4. Character Management → Environment Management  
-5. Image Generation → Voice Generation → Music Generation
-6. Audio Mixing → Video Composition → Subtitle Generation
-7. Evaluation (all 7 agents)
-8. YouTube Readiness Check
-
-### Critical Agents Implemented:
-1. ScreenplayWriterAgent - ✅ Complete
-2. DialogueWriterAgent - ✅ Complete  
-3. ImageGeneratorAgent - ✅ Complete
-4. VoiceGeneratorAgent - ✅ Complete
-5. MusicGeneratorAgent - ✅ Complete
-6. VideoComposerAgent + AudioMixerAgent - ✅ Complete
-
-### Infrastructure Components:
-- FFmpeg Engine: Video processing with Ken Burns effects, transitions, color grading
-- Audio Mixer: Multi-layer volume control, fade in/out  
-- LLM Client: Shared Ollama interface with retry logic and fallback models
-
-## Target Deliverable
-15-20 minute video for ew001 production with:
-- No voids in timeline
-- No silent gaps  
-- No meaningless scene clips
-
-## Current Limitations
-- Ollama server not running (HTTP 404 error in test)
-- ComfyUI backend not connected
-- Edge TTS backend not connected  
-- Music generation engine not fully implemented
-
-## Next Steps
-1. Verify Ollama is running and accessible
-2. Connect to ComfyUI backend (running on :8188)
-3. Connect to Edge TTS provider
-4. Implement full music generation engine  
-5. Test end-to-end pipeline with ew001
+## Permanent Decisions
+- Local-first, no cloud APIs required
+- Every AI capability is a plug-in (no hardcoded model/prompt/provider/workflow)
+- Master Timeline = platform-agnostic source of truth; exporters come later
+- FLUX quality modes: draft (4 steps), production (20 steps), high_quality (28 steps + LoRA)
+- Workflow selection: reference_image_paths + use_ipadapter → flux_with_ipadapter; use_img2img → flux_img2img; otherwise quality-based
+- Asset store: SQLite for metadata, filesystem for files, sqlite-vec for embeddings
+- Version chain: immutable v1/v2/... directories, rollback updates current_path pointer
+- **Genesis Engine**: Pre-production intelligence system with 31 agents (7 discovery + 19 PKP + 4 reviewers + 1 chief architect)
+  - All agents produce only text output (no image/audio/video)
+  - Output saved as individual files (JSON/YAML/Markdown) in the output directory
+  - PKG (ProductionKnowledgeGraph) = single source of truth, SQLite-backed, swappable to Neo4j
+  - One LLM call per agent for checkpointing/error recovery
+  - 5 confidence levels: EXPLICIT/INFERRED/CONFIRMED/ASSUMED/UNKNOWN
+  - 19 PKP specs (PKP-00 through PKP-18) in dependency-ordered phases A→G
+  - Completion gate checks 8 criteria before Studio Engine handoff
+  - CLI: `python -m movie_os.genesis run --synopsis <path> [--mock] [--output <dir>]`
+  - 292 tests pass

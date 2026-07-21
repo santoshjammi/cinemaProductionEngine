@@ -10,6 +10,7 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.api.v1.pipeline import router as pipeline_router
 from backend.app.api.v1.projects import router as projects_router
+from backend.app.api.v1.profiles import router as profiles_router
 from backend.app.core.config import settings
 
 logging.basicConfig(
@@ -37,6 +38,7 @@ app.add_middleware(
 
 app.include_router(pipeline_router)
 app.include_router(projects_router)
+app.include_router(profiles_router)
 
 os.makedirs(settings.output_dir, exist_ok=True)
 os.makedirs(settings.video_output_dir, exist_ok=True)

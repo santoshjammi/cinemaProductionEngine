@@ -45,14 +45,14 @@ def _route_after_qa(state: dict) -> str:
     return "publishing_agent"
 
 
-def _detect_architecture(production_dir: Path | None) -> str:
+def _detect_architecture(production_dir: Path | None) -> bool:
     """Auto-detect which architecture to use based on production files.
 
-    Returns: 'new' if screenplay.md exists, 'legacy' otherwise.
+    Returns: True if screenplay.md exists (new architecture), False otherwise.
     """
     if production_dir and (production_dir / "screenplay.md").exists():
-        return "new"
-    return "legacy"
+        return True
+    return False
 
 
 def build_graph(
@@ -79,9 +79,11 @@ def build_graph(
     """
     # Determine which architecture to use
     if use_new_architecture is None:
-        use_new_architecture = _detect_architecture(production_dir)
+        detected = _detect_architecture(production_dir)
+        use_new_architecture = (detected == "new")
 
     arch = "new" if use_new_architecture else "legacy"
+    print(f"\n🎬 Using architecture: {arch}")
     print(f"\n🎬 Using architecture: {arch}")
 
     if arch == "new":
@@ -106,9 +108,15 @@ def _build_new_graph(checkpointer, config, production_dir):
 
     # Build production context
     prod_dir = Path(production_dir) if production_dir else Path.cwd() / "output" / "videos" / "final"
+    grammar = "psychological_cinema"
+    if config is not None:
+        try:
+            grammar = getattr(config, "grammar", "psychological_cinema")
+        except Exception:
+            pass
     context = ProductionContext(
         production_dir=str(prod_dir),
-        grammar=config.get("grammar", "psychological_cinema") if config else "psychological_cinema",
+        grammar=grammar,
     )
 
     # Create orchestrator and revision agents

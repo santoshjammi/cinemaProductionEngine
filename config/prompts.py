@@ -18,11 +18,16 @@ Platform: {platform}
 Story length: {story_length}
 Pacing style: {pacing_style}
 Target audience: {target_audience}
+Target runtime: {target_runtime}
+Target scene count: {target_scene_count}
+Scene class guidance: {scene_class_guidance}
 {setting_info}
 {character_info}
 {research_context}
 
 Use the research context above to ground your story in real facts, settings, and details where appropriate. Do not copy directly — use it as inspiration and reference.
+
+The story MUST be broken into exactly {target_scene_count} story beats. Each beat will become a scene of approximately {scene_duration_range}. Use the scene class guidance to vary scene pacing — open with a hook, build through establishment and dialogue scenes, peak with an emotional_peak or climax, and close with reflection or epilogue.
 
 Return your response as valid JSON with this exact structure:
 {{
@@ -34,15 +39,11 @@ Return your response as valid JSON with this exact structure:
     "end": "<the resolution or final emotional beat>"
   }},
   "beats": [
-    {{"id": 1, "description": "<first scene beat>"}},
-    {{"id": 2, "description": "<second scene beat>"}},
-    {{"id": 3, "description": "<third scene beat>"}},
-    {{"id": 4, "description": "<fourth scene beat>"}},
-    {{"id": 5, "description": "<fifth scene beat>"}}
+    {{"id": 1, "description": "<first scene beat>", "scene_class": "<hook|establishment|dialogue|emotional_peak|montage|reflection|transition|climax|epilogue>"}}
   ]
 }}
 
-Make sure the JSON is valid and properly escaped. Do not include any markdown formatting or code blocks around the JSON."""
+Generate exactly {target_scene_count} beats. Make sure the JSON is valid and properly escaped. Do not include any markdown formatting or code blocks around the JSON."""
 
 
 SCENE_DECOMPOSITION_SYSTEM = """You are a film director and cinematographer tasked with breaking down a story into detailed visual scenes. Each scene must be described with cinematic precision for video production.
@@ -62,14 +63,20 @@ SCENE_DECOMPOSITION_USER_TEMPLATE = """Break down the following story into {num_
 Story title: {title}
 Emotional tone: {emotional_tone}
 Pacing: {pacing}
+Target scene duration: {scene_duration_range}
+Scene class guidance: {scene_class_guidance}
 
 Story beats:
 {beats_text}
+
+Each scene should run approximately {scene_duration_range}. Use the scene_class from each beat to set the pace — hook scenes are shorter (30-60s), dialogue and emotional_peak scenes are longer (90-120s). The scene_class field is soft guidance; follow it when it serves the story.
 
 Return your response as valid JSON with this exact structure for each scene:
 [
   {{
     "id": <scene number>,
+    "scene_class": "<hook|establishment|dialogue|emotional_peak|montage|reflection|transition|climax|epilogue>,
+    "duration": "<target duration in seconds, e.g. 80s>",
     "narration": "<what happens in this scene - vivid description>",
     "emotion": "<dominant emotion: calm, wonder, tense, joyful, sad, fearful, angry>",
     "camera": "<camera movement and angle: wide shot, close-up, tracking shot, dolly-in, pan, etc.>",

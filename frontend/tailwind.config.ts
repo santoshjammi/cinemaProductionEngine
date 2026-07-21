@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
   darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,49 +12,101 @@ module.exports = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1440px',
       },
     },
     extend: {
+      fontFamily: {
+        display: ['SF Pro Display', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['SF Pro Text', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      fontSize: {
+        'hero-display': ['56px', { lineHeight: '1.07', letterSpacing: '-0.28px', fontWeight: '600' }],
+        'display-lg': ['40px', { lineHeight: '1.10', letterSpacing: '0', fontWeight: '600' }],
+        'display-md': ['34px', { lineHeight: '1.47', letterSpacing: '-0.374px', fontWeight: '600' }],
+        'lead': ['28px', { lineHeight: '1.14', letterSpacing: '0.196px', fontWeight: '400' }],
+        'lead-airy': ['24px', { lineHeight: '1.5', letterSpacing: '0', fontWeight: '300' }],
+        'tagline': ['21px', { lineHeight: '1.19', letterSpacing: '0.231px', fontWeight: '600' }],
+        'body': ['17px', { lineHeight: '1.47', letterSpacing: '-0.374px', fontWeight: '400' }],
+        'body-strong': ['17px', { lineHeight: '1.24', letterSpacing: '-0.374px', fontWeight: '600' }],
+        'caption': ['14px', { lineHeight: '1.43', letterSpacing: '-0.224px', fontWeight: '400' }],
+        'caption-strong': ['14px', { lineHeight: '1.29', letterSpacing: '-0.224px', fontWeight: '600' }],
+        'fine-print': ['12px', { lineHeight: '1.0', letterSpacing: '-0.12px', fontWeight: '400' }],
+        'nav-link': ['12px', { lineHeight: '1.0', letterSpacing: '-0.12px', fontWeight: '400' }],
+      },
       colors: {
+        primary: {
+          DEFAULT: '#0066cc',
+          foreground: '#ffffff',
+          focus: '#0071e3',
+          'on-dark': '#2997ff',
+        },
+        canvas: '#ffffff',
+        'canvas-parchment': '#f5f5f7',
+        'surface-pearl': '#fafafc',
+        'surface-tile-1': '#272729',
+        'surface-tile-2': '#2a2a2c',
+        'surface-tile-3': '#252527',
+        'surface-black': '#000000',
+        ink: '#1d1d1f',
+        'ink-muted-80': '#333333',
+        'ink-muted-48': '#7a7a7a',
+        'body-on-dark': '#ffffff',
+        'body-muted': '#cccccc',
+        'divider-soft': '#f0f0f0',
+        hairline: '#e0e0e0',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
+        ring: '#0066cc',
+        background: '#ffffff',
+        foreground: '#1d1d1f',
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#f5f5f7',
+          foreground: '#1d1d1f',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: '#ff3b30',
+          foreground: '#ffffff',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: '#f5f5f7',
+          foreground: '#7a7a7a',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: '#0066cc',
+          foreground: '#ffffff',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: '#ffffff',
+          foreground: '#1d1d1f',
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: '#ffffff',
+          foreground: '#1d1d1f',
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        none: '0px',
+        xs: '5px',
+        sm: '8px',
+        md: '11px',
+        lg: '18px',
+        pill: '9999px',
+        full: '9999px',
+      },
+      spacing: {
+        xxs: '4px',
+        xs: '8px',
+        sm: '12px',
+        md: '17px',
+        lg: '24px',
+        xl: '32px',
+        xxl: '48px',
+        section: '80px',
+      },
+      boxShadow: {
+        'product': 'rgba(0, 0, 0, 0.22) 3px 5px 30px 0px',
+        'hairline': '0 0 0 1px rgba(0, 0, 0, 0.08)',
       },
       keyframes: {
         'accordion-down': {
@@ -78,3 +131,5 @@ module.exports = {
   },
   plugins: [require('tailwindcss-animate')],
 };
+
+export default config;

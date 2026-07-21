@@ -1,0 +1,142 @@
+# GENESIS Production Profiles
+# Each profile defines runtime targets, scene policy, and scene classes.
+# GENESIS selects a profile before story planning and uses it to derive
+# scene count and per-scene duration targets. Scene classes are soft
+# guidance — the LLM is encouraged to follow them but may deviate when
+# the story demands it.
+
+default_profile: youtube_longform
+
+scene_classes:
+  hook:
+    duration_seconds: [30, 60]
+    purpose: "Capture attention immediately"
+  establishment:
+    duration_seconds: [45, 75]
+    purpose: "Introduce setting and characters"
+  dialogue:
+    duration_seconds: [60, 120]
+    purpose: "Character interaction and conflict"
+  emotional_peak:
+    duration_seconds: [90, 120]
+    purpose: "Highest emotional intensity"
+  montage:
+    duration_seconds: [20, 45]
+    purpose: "Compress time or events"
+  reflection:
+    duration_seconds: [60, 90]
+    purpose: "Internal processing and emotional shift"
+  transition:
+    duration_seconds: [15, 30]
+    purpose: "Bridge between narrative beats"
+  climax:
+    duration_seconds: [90, 120]
+    purpose: "Resolve central conflict"
+  epilogue:
+    duration_seconds: [45, 75]
+    purpose: "Closure and lingering emotional impact"
+
+profiles:
+  youtube_longform:
+    label: "YouTube Long-form (15-20 min)"
+    runtime:
+      target_minutes: 18
+      minimum_minutes: 15
+      maximum_minutes: 20
+      variance_percent: 5
+    scene_policy:
+      preferred_scene_duration_seconds: [75, 90]
+      hard_minimum_seconds: 60
+      hard_maximum_seconds: 120
+      preferred_scene_count: [12, 16]
+      minimum_scene_count: 10
+      maximum_scene_count: 18
+    exceptions:
+      - montage
+      - cold_open
+      - dream_sequence
+      - flashback
+      - title_sequence
+      - credits
+
+  short_documentary:
+    label: "Short Documentary (20-30 min)"
+    runtime:
+      target_minutes: 25
+      minimum_minutes: 20
+      maximum_minutes: 30
+      variance_percent: 5
+    scene_policy:
+      preferred_scene_duration_seconds: [80, 100]
+      hard_minimum_seconds: 60
+      hard_maximum_seconds: 120
+      preferred_scene_count: [16, 22]
+      minimum_scene_count: 14
+      maximum_scene_count: 24
+    exceptions:
+      - montage
+      - cold_open
+      - title_sequence
+      - credits
+
+  childrens_story:
+    label: "Children's Story (8-15 min)"
+    runtime:
+      target_minutes: 12
+      minimum_minutes: 8
+      maximum_minutes: 15
+      variance_percent: 5
+    scene_policy:
+      preferred_scene_duration_seconds: [60, 80]
+      hard_minimum_seconds: 45
+      hard_maximum_seconds: 100
+      preferred_scene_count: [9, 14]
+      minimum_scene_count: 7
+      maximum_scene_count: 16
+    exceptions:
+      - montage
+      - cold_open
+      - title_sequence
+      - credits
+
+  devotional_story:
+    label: "Devotional Story (12-18 min)"
+    runtime:
+      target_minutes: 15
+      minimum_minutes: 12
+      maximum_minutes: 18
+      variance_percent: 5
+    scene_policy:
+      preferred_scene_duration_seconds: [70, 90]
+      hard_minimum_seconds: 60
+      hard_maximum_seconds: 120
+      preferred_scene_count: [11, 16]
+      minimum_scene_count: 9
+      maximum_scene_count: 18
+    exceptions:
+      - montage
+      - cold_open
+      - title_sequence
+      - credits
+
+  feature_episode:
+    label: "Feature Episode (30-45 min)"
+    runtime:
+      target_minutes: 38
+      minimum_minutes: 30
+      maximum_minutes: 45
+      variance_percent: 5
+    scene_policy:
+      preferred_scene_duration_seconds: [85, 110]
+      hard_minimum_seconds: 60
+      hard_maximum_seconds: 150
+      preferred_scene_count: [22, 32]
+      minimum_scene_count: 18
+      maximum_scene_count: 36
+    exceptions:
+      - montage
+      - cold_open
+      - dream_sequence
+      - flashback
+      - title_sequence
+      - credits

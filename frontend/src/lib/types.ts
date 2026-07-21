@@ -53,6 +53,7 @@ export interface SceneResult {
   characters: string[];
   emotionalBeat: string;
   duration: string;
+  sceneClass?: string;
 }
 
 export interface DialogueResult {
@@ -102,13 +103,30 @@ export interface PipelineResult {
   updatedAt: string;
 }
 
+export interface ProducerBrief {
+  title: string;
+  logline: string;
+  targetAudience: string;
+  callToAction: string;
+  totalDuration: string;
+  aspectRatio: '9:16' | '16:9' | '1:1';
+  pacingStyle: 'fast' | 'medium' | 'slow' | 'relaxed';
+  visualStyleGuide: string[];
+  musicMood: string;
+  voiceOverStyle: string;
+  multiProductGoals: string[];
+}
+
 export interface PipelineInput {
   topic: string;
   tone?: string;
-  length?: 'short' | 'medium' | 'long';
+  length?: 'short' | 'medium' | 'long' | 'conversational';
   platform?: 'cinematic' | 'youtube' | 'tiktok' | 'instagram';
   enableResearch?: boolean;
   project_id?: string;
+  profileId?: string;
+  // Extended Genesis inputs
+  producerBrief?: ProducerBrief;
 }
 
 export interface VideoClipResult {
@@ -177,4 +195,98 @@ export interface GenerationProgress {
   finalVideo: FinalVideoResult | null;
   overallProgress: number;
   currentStage: string;
+}
+
+export interface AudioResult {
+  sceneNumber: number;
+  sfx: string;
+  musicCue: string;
+  voiceoverScript: string;
+}
+
+// Genesis types
+export interface GenesisSpecField {
+  key: string;
+  label: string;
+  value: any;
+  type: 'text' | 'textarea' | 'array' | 'object' | 'select';
+  options?: string[];
+  description?: string;
+}
+
+export interface GenesisSpecGroup {
+  specId: string;
+  specName: string;
+  phase: string;
+  fields: GenesisSpecField[];
+  validationStatus: string;
+  confidence: string;
+}
+
+export interface GenesisResult {
+  sessionId: string;
+  completeness: number;
+  gatePassed: boolean;
+  specs: GenesisSpecGroup[];
+  discovery: Record<string, any>;
+  reviews: Record<string, any>;
+  raw: any;
+}
+
+// Genesis2 types
+export interface Genesis2PhaseResult {
+  phaseNumber: number;
+  phaseName: string;
+  status: string;
+  draftCount: number;
+  validationIssues: number;
+  critiqueFindings: number;
+}
+
+export interface Genesis2Summary {
+  synopsis: string;
+  version: string;
+  created_at: string;
+  phases: Genesis2PhaseResult[];
+  totalPhases: number;
+  completedPhases: number;
+  failedPhases: number;
+}
+
+export interface Genesis2Package {
+  synopsis: string;
+  version: string;
+  created_at: string;
+  phase_results: Genesis2PhaseResult[];
+  [key: string]: any;
+}
+
+// Production profiles
+export interface ProductionProfileRuntime {
+  target_minutes: number;
+  minimum_minutes: number;
+  maximum_minutes: number;
+  variance_percent?: number;
+}
+
+export interface ProductionProfileScenePolicy {
+  preferred_scene_duration_seconds: [number, number];
+  hard_minimum_seconds: number;
+  hard_maximum_seconds: number;
+  preferred_scene_count: [number, number];
+  minimum_scene_count: number;
+  maximum_scene_count: number;
+}
+
+export interface ProductionProfile {
+  id: string;
+  label: string;
+  default?: boolean;
+  runtime: ProductionProfileRuntime;
+  scene_policy: ProductionProfileScenePolicy;
+}
+
+export interface SceneClassDef {
+  duration_seconds: [number, number];
+  purpose: string;
 }

@@ -30,6 +30,7 @@ _generation_tasks: dict[str, asyncio.Task] = {}
 
 @router.post("/start", response_model=PipelineResponse)
 async def start_pipeline(req: PipelineStartRequest):
+    pb = req.producer_brief
     result = await pipeline_service.start_pipeline(
         topic=req.topic,
         tone=req.tone,
@@ -37,6 +38,8 @@ async def start_pipeline(req: PipelineStartRequest):
         platform=req.platform,
         enable_research=req.enable_research,
         project_id=req.project_id,
+        producer_brief=pb.model_dump() if pb else None,
+        profile_id=req.profile_id,
     )
     return result
 

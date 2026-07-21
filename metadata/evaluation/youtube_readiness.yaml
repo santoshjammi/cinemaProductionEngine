@@ -1,0 +1,15 @@
+# YouTube Readiness Evaluation
+
+overall: 0.80
+threshold: 0.8
+ready: yes
+
+dimensions:
+  timing:
+    score: 0.85
+    feedback: "Default - no video to evaluate"
+  quality:
+    score: 0.75
+    feedback: "Default - no scores to evaluate"
+
+*Evaluated by YouTubeReadinessAgent v1.0.0*

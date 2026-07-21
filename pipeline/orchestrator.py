@@ -15,16 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.models import InputConfig, PipelineOutput, Scene, validate_input, InputValidationError
 from config.ollama_client import OllamaClient, OllamaError
 from pipeline.research import ResearchStage, ResearchContext
-from config.prompts import (
-    STORY_GENERATION_SYSTEM,
-    STORY_GENERATION_USER_TEMPLATE,
-    SCENE_DECOMPOSITION_SYSTEM,
-    SCENE_DECOMPOSITION_USER_TEMPLATE,
-    DIALOGUE_GENERATION_SYSTEM,
-    DIALOGUE_GENERATION_USER_TEMPLATE,
-    CINEMATIC_PROMPT_SYSTEM,
-    CINEMATIC_PROMPT_USER_TEMPLATE,
-)
+from backend.app.services.genesis import StorytellerAgent, PromptEngineerAgent, AudioDirectorAgent
 
 # Configure logging
 logging.basicConfig(
@@ -46,7 +37,10 @@ class StoryGenerator:
         self.llm = llm_client or OllamaClient()
         self.config = config or {}
 
-    def generate(self, input_config: InputConfig, research_context: ResearchContext = None) -> Dict[str, Any]:
+    def generate(self, input_config: InputConfig, research_context: ResearchContext = None,
+                 target_scene_count: int = 5, scene_duration_range: str = "75-90s",
+                 scene_class_guidance: str = "",
+                 target_runtime: str = "15-20 minutes") -> Dict[str, Any]:
         logger.info(f"[StoryGeneration] Generating story for topic: '{input_config.topic}'")
 
         setting_info = f"Setting: {input_config.setting}" if input_config.setting else "Setting: unspecified"
@@ -59,6 +53,13 @@ class StoryGenerator:
         else:
             research_info = "\nResearch Context: (none — generate from your own knowledge)"
 
+        if not scene_class_guidance:
+            scene_class_guidance = (
+                "hook (30-60s), establishment (45-75s), dialogue (60-120s), "
+                "emotional_peak (90-120s), montage (20-45s), reflection (60-90s), "
+                "transition (15-30s), climax (90-120s), epilogue (45-75s)"
+            )
+
         user_prompt = STORY_GENERATION_USER_TEMPLATE.format(
             emotional_tone=input_config.emotional_tone.value,
             topic=input_config.topic,
@@ -66,6 +67,10 @@ class StoryGenerator:
             story_length=input_config.story_length,
             pacing_style=input_config.pacing_style or "normal",
             target_audience=input_config.target_audience or "general",
+            target_runtime=target_runtime,
+            target_scene_count=target_scene_count,
+            scene_duration_range=scene_duration_range,
+            scene_class_guidance=scene_class_guidance,
             setting_info=setting_info,
             character_info=character_info,
             research_context=research_info,
@@ -139,19 +144,33 @@ class SceneDecomposer:
         self.llm = llm_client or OllamaClient()
         self.config = config or {}
 
-    def decompose(self, story_outline: Dict[str, Any]) -> List[Dict[str, str]]:
+    def decompose(self, story_outline: Dict[str, Any],
+                  scene_duration_range: str = "75-90s",
+                  scene_class_guidance: str = "",
+                  target_scene_count: Optional[int] = None) -> List[Dict[str, str]]:
         logger.info("[SceneDecomposition] Decomposing story into scenes")
 
         beats_text = "\n".join(
-            f"Beat {b['id']}: {b['description']}" for b in story_outline.get("beats", [])
+            f"Beat {b['id']}: {b['description']}"
+            + (f" [scene_class={b['scene_class']}]" if b.get("scene_class") else "")
+            for b in story_outline.get("beats", [])
         )
-        num_scenes = len(story_outline.get("beats", []))
+        num_scenes = target_scene_count or len(story_outline.get("beats", []))
+
+        if not scene_class_guidance:
+            scene_class_guidance = (
+                "hook (30-60s), establishment (45-75s), dialogue (60-120s), "
+                "emotional_peak (90-120s), montage (20-45s), reflection (60-90s), "
+                "transition (15-30s), climax (90-120s), epilogue (45-75s)"
+            )
 
         user_prompt = SCENE_DECOMPOSITION_USER_TEMPLATE.format(
             num_scenes=num_scenes,
             title=story_outline.get("title", "Untitled"),
             emotional_tone=story_outline.get("tone", story_outline.get("emotional_tone", "")),
             pacing=story_outline.get("pacing", "normal"),
+            scene_duration_range=scene_duration_range,
+            scene_class_guidance=scene_class_guidance,
             beats_text=beats_text,
         )
 

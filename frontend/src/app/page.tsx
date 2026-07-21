@@ -5,38 +5,47 @@ import { useSearchParams } from 'next/navigation';
 import PipelineView from '@/components/pipeline/PipelineView';
 import HistoryList from '@/components/pipeline/HistoryList';
 import Link from 'next/link';
-import { FolderIcon } from 'lucide-react';
 
 function HomeContent() {
   const searchParams = useSearchParams();
   const projectId = searchParams?.get('projectId');
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
-      <div className="container py-8 space-y-8">
-        <header className="space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+    <>
+      {/* Hero section */}
+      <section className="product-tile-light text-center">
+        <div className="max-w-[980px] mx-auto space-y-4">
+          <h1 className="text-hero-display text-ink">
             Text Cinema Engine
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-lead text-ink-muted-80 max-w-[680px] mx-auto">
             Transform your story ideas into cinematic video narratives
           </p>
-        </header>
-
-        <div className="flex gap-2">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <FolderIcon className="w-4 h-4" />
-            Projects
-          </Link>
+          <div className="flex items-center justify-center gap-3 pt-md">
+            <Link href="/projects" className="btn-primary text-caption">
+              View Projects
+            </Link>
+            <Link href="/" className="btn-secondary-pill text-caption">
+              Learn More
+            </Link>
+          </div>
         </div>
+      </section>
 
-        <PipelineView projectId={projectId || undefined} />
-        <HistoryList />
-      </div>
-    </main>
+      {/* Pipeline section */}
+      <section className="bg-canvas-parchment py-section px-lg">
+        <div className="max-w-[1440px] mx-auto space-y-8">
+          <PipelineView projectId={projectId || undefined} />
+        </div>
+      </section>
+
+      {/* History section */}
+      <section className="bg-canvas py-section px-lg">
+        <div className="max-w-[1440px] mx-auto">
+          <HistoryList />
+        </div>
+      </section>
+    </>
   );
 }
 

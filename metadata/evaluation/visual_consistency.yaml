@@ -1,0 +1,21 @@
+# Visual Consistency Evaluation
+
+overall: 0.78
+threshold: 0.7
+passed: yes
+
+dimensions:
+  character_appearance:
+    score: 0.75
+    feedback: "Characters consistent but some variation in lighting/pose"
+  color_grading:
+    score: 0.80
+    feedback: "Color progression follows grammar rules well"
+  lighting_consistency:
+    score: 0.80
+    feedback: "Lighting matches scene descriptions"
+  style_consistency:
+    score: 0.78
+    feedback: "Naturalistic style maintained throughout"
+
+*Evaluated by VisualConsistencyAgent v1.0.0*

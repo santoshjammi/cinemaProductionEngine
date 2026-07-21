@@ -39,6 +39,8 @@ class InputConfig:
     setting: Optional[str] = None
     pacing_style: Optional[str] = None
     target_audience: Optional[str] = None
+    producer_brief: Optional[Dict[str, Any]] = None
+    producer_brief: Optional[Dict[str, Any]] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Converts config to dictionary for pipeline processing"""
@@ -52,6 +54,8 @@ class InputConfig:
             **(self.setting and {'setting': self.setting} or {}),
             **(self.pacing_style and {'pacing_style': self.pacing_style} or {}),
             **(self.target_audience and {'target_audience': self.target_audience} or {}),
+            **(self.producer_brief and {'producer_brief': self.producer_brief} or {}),
+            **(self.producer_brief and {'producer_brief': self.producer_brief} or {}),
         }
 
 class InputValidationError(Exception):

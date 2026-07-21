@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import StoryInput from './StoryInput';
+import GenesisConfigPanel from './GenesisConfigPanel';
+import Genesis2Panel from './Genesis2Panel';
 import StageIndicator from './StageIndicator';
 import StoryViewer from '@/components/story/StoryViewer';
 import ResearchPanel from './ResearchPanel';
@@ -27,6 +29,8 @@ import type {
   SceneResult,
   DialogueResult,
   PromptResult,
+  GenesisResult,
+  GenesisSpecGroup,
 } from '@/lib/types';
 
 type VideoMode = 'svd' | 'ken-burns';
@@ -55,6 +59,8 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
   const [activeTab, setActiveTab] = useState('input');
   const [selectedScene, setSelectedScene] = useState<number | null>(null);
   const [videoMode, setVideoMode] = useState<VideoMode>('ken-burns');
+  const [genesisSynopsis, setGenesisSynopsis] = useState('');
+  const [genesisResult, setGenesisResult] = useState<GenesisResult | null>(null);
 
   useEffect(() => {
     if (currentPipeline?.id && currentPipeline.status === 'running') {
@@ -68,8 +74,25 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
     }
   }, [currentPipeline?.status]);
 
+  // When viewing an existing pipeline from history, auto-navigate to story tab
+  useEffect(() => {
+    if (currentPipeline && currentPipeline.status === 'completed' && activeTab === 'input') {
+      setActiveTab('story');
+    }
+  }, [currentPipeline?.id]);
+
   const handleStart = async (input: Parameters<typeof startPipeline>[0]) => {
     await startPipeline(input, projectId);
+  };
+
+  const handleGenesisComplete = (result: GenesisResult) => {
+    setGenesisResult(result);
+    setActiveTab('genesis');
+  };
+
+  const handleApplyToPipeline = (specs: GenesisSpecGroup[]) => {
+    // Store the edited specs and proceed to pipeline
+    setActiveTab('story');
   };
 
   const handleStageRetry = async (stage: PipelineStageName) => {
@@ -100,6 +123,18 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
         <TabsList>
           <TabsTrigger value="input">Input</TabsTrigger>
           <TabsTrigger
+            value="genesis"
+            disabled={!genesisSynopsis}
+          >
+            Genesis
+          </TabsTrigger>
+          <TabsTrigger
+            value="genesis2"
+            disabled={!genesisSynopsis}
+          >
+            Genesis2
+          </TabsTrigger>
+          <TabsTrigger
             value="story"
             disabled={!pipeline?.story}
           >
@@ -126,7 +161,7 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
         </TabsList>
 
         <TabsContent value="input" className="space-y-6 mt-6">
-          <StoryInput onStart={handleStart} isLoading={isRunning} />
+          <StoryInput onStart={handleStart} isLoading={isRunning} onSynopsisChange={setGenesisSynopsis} />
 
           {pipeline && pipeline.status === 'running' && (
             <Card>
@@ -152,6 +187,21 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
               </CardContent>
             </Card>
           )}
+        </TabsContent>
+
+        <TabsContent value="genesis" className="space-y-6 mt-6">
+          <GenesisConfigPanel
+            synopsis={genesisSynopsis}
+            onGenesisComplete={handleGenesisComplete}
+            onApplyToPipeline={handleApplyToPipeline}
+          />
+        </TabsContent>
+
+        <TabsContent value="genesis2" className="space-y-6 mt-6">
+          <Genesis2Panel
+            synopsis={genesisSynopsis}
+            onComplete={(pkg) => setActiveTab('story')}
+          />
         </TabsContent>
 
         <TabsContent value="story" className="space-y-6 mt-6">
@@ -212,6 +262,7 @@ export default function PipelineView({ projectId }: PipelineViewProps) {
               images={sceneImages}
               isGenerating={isImageGenRunning}
               onGenerateAll={handleGenerateImages}
+              story={pipeline.story ? { title: pipeline.story.title, synopsis: pipeline.story.synopsis, logline: pipeline.story.logline, emotionalTone: pipeline.story.emotionalTone, themes: pipeline.story.themes } : undefined}
             />
           )}
           {!pipeline?.prompts && (

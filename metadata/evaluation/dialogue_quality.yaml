@@ -1,0 +1,15 @@
+# Dialogue Quality Evaluation
+
+overall: 0.82
+threshold: 0.7
+passed: yes
+
+dimensions:
+  authenticity:
+    score: 0.85
+    feedback: "Default - no screenplay to evaluate"
+  subtext:
+    score: 0.80
+    feedback: "Default - no screenplay to evaluate"
+
+*Evaluated by DialogueQualityAgent v1.0.0*

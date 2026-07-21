@@ -1,0 +1,230 @@
+# 15-Scene Brief: "The Night He Stopped Reaching For Her"
+#
+# Expert feedback v2 — establishes the couple before the collapse.
+# Act 1: Make the audience fall in love with the relationship.
+# Act 2: Death by a thousand paper cuts.
+# Act 3: The emotional reveal.
+#
+# Characters:
+#   Ethan Morrison (32) — marriage counselor, cautious, emotionally reserved
+#   Claire Morrison (30) — graphic designer, creative, deeply intuitive
+#   Married 7 years, 3-year-old daughter (Maya)
+#   He used to leave handwritten notes. She still keeps one in her drawer.
+
+title: "The Night He Stopped Reaching For Her"
+synopsis: "A married couple's slow drift told through accumulated micro-moments. Ethan and Claire have been married seven years. They have a three-year-old daughter. He used to leave handwritten notes. She still keeps one in her drawer. This is the story of how ordinary people quietly become strangers to the people they love."
+dna:
+  archetype: "slow_withdrawal"
+  emotional_arc: "bond → warmth → first_crack → slow_drift → irreversible_moment → almost_moment → realization → psychological_truth"
+  visual_tone: "warm amber tones in Act 1, muted cool tones in Act 2, soft golden hour in Act 3"
+  pacing: "slow, contemplative, Ken Burns push-ins"
+  characters:
+    ethan: "man in his early 30s, short dark brown hair, light stubble, gentle eyes, grey t-shirt, wedding band"
+    claire: "woman in her early 30s, shoulder-length brown hair, warm smile, often in soft sweaters, wedding band"
+
+scenes:
+  # ============================================================
+  # ACT 1 — Make the Audience Fall in Love (4-5 min)
+  # ============================================================
+  - number: 1
+    title: "Morning Coffee"
+    act: "act_1_observation"
+    phase: "hook"
+    beat: "opening_hook"
+    energy: 7
+    target_duration_seconds: 8.0
+    shot_language: {shot_size: "medium"}
+    scene_description: "Early morning in a warm kitchen. Ethan makes coffee before Claire wakes up. He pours two cups, adds sugar to hers — he knows how she takes it. Sunlight streams through the window."
+    voiceover: "They've been married seven years. He still makes her coffee before she asks."
+    music_cue: {zone: "act_1", volume: 0.4}
+    ken_burns_effect: "zoom-in"
+
+  - number: 2
+    title: "The Notes"
+    act: "act_1_observation"
+    phase: "warmth"
+    beat: "contrast_memory"
+    energy: 8
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Claire opens a drawer and finds a folded handwritten note. She smiles. The note says 'I hope I never become someone who makes you feel alone.' She tucks it back carefully."
+    voiceover: "He used to leave handwritten notes for her. She still keeps every one."
+    music_cue: {zone: "act_1", volume: 0.5}
+    ken_burns_effect: "ken-burns"
+
+  - number: 3
+    title: "Kitchen Dance"
+    act: "act_1_observation"
+    phase: "warmth"
+    beat: "contrast_memory"
+    energy: 9
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "wide"}
+    scene_description: "Evening. Ethan and Claire cooking together, laughing. A song plays on a small speaker. She grabs his hand and they dance for five seconds in the kitchen, their daughter Maya giggling nearby."
+    voiceover: "There was a version of them that danced in the kitchen without thinking."
+    music_cue: {zone: "act_1", volume: 0.5}
+    ken_burns_effect: "pan-right"
+
+  - number: 4
+    title: "Falling Asleep Together"
+    act: "act_1_observation"
+    phase: "normalcy"
+    beat: "outside_version"
+    energy: 6
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Night. Ethan and Claire in bed, her head on his chest, his arm around her. They're holding hands. Both asleep. Peaceful."
+    voiceover: "From the outside, they looked like a couple who had figured it out."
+    music_cue: {zone: "act_1", volume: 0.3}
+    ken_burns_effect: "ken-burns"
+
+  # ============================================================
+  # ACT 2 — Death by a Thousand Paper Cuts (6-7 min)
+  # ============================================================
+  - number: 5
+    title: "The First Crack"
+    act: "act_2_inner_reality"
+    phase: "crack"
+    beat: "first_fracture"
+    energy: 4
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "medium"}
+    scene_description: "Ethan at his desk late at night, laptop glowing. He's a marriage counselor — he helps other couples while his own marriage quietly fractures. He rubs his eyes. The house is dark."
+    voiceover: "He was a marriage counselor. He helped other couples find their way back. He didn't notice he was losing his own."
+    music_cue: {zone: "act_2", volume: 0.3}
+    ken_burns_effect: "zoom-out"
+
+  - number: 6
+    title: "The Rejection"
+    act: "act_2_inner_reality"
+    phase: "crack"
+    beat: "first_fracture"
+    energy: 3
+    target_duration_seconds: 8.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Night. Ethan reaches for Claire's hand under the covers. She's half-asleep. She murmurs 'I'm exhausted' and turns away. She means nothing hurtful. He hears 'I'm no longer wanted.' His hand hovers, then slowly withdraws."
+    voiceover: "She rejected a moment. He interpreted it as rejection of himself."
+    music_cue: {zone: "act_2", volume: 0.3}
+    ken_burns_effect: "ken-burns"
+
+  - number: 7
+    title: "The Slow Drift"
+    act: "act_2_inner_reality"
+    phase: "collapse"
+    beat: "internal_collapse"
+    energy: 2
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "wide"}
+    scene_description: "Weeks later. The same bed, but now there's space between them. Ethan lies on his side, facing away. Claire lies on her side, facing away. The distance between them is small. It feels infinite."
+    voiceover: "He stopped initiating. She noticed. She waited for him. He waited for certainty. Neither said anything."
+    music_cue: {zone: "act_2", volume: 0.25}
+    ken_burns_effect: "pan-left"
+
+  - number: 8
+    title: "The Unforgettable Scene"
+    act: "act_2_inner_reality"
+    phase: "collapse"
+    beat: "irreversible_moment"
+    energy: 1
+    target_duration_seconds: 8.0
+    shot_language: {shot_size: "close-up"}
+    irreversible_moment: true
+    scene_description: "Night. Ethan's hand reaches across the sheets toward Claire's shoulder. He pauses. His hand trembles slightly. Slowly, he pulls his hand back. She never wakes up. No dialogue. Just five seconds that change everything."
+    scene_description_alt: "Claire's hand on the pillow, fingers slightly curled. She's asleep, unaware of the moment that just passed. The space between them is empty."
+    voiceover: "He learned to swallow the wanting before it could be refused."
+    music_cue: {zone: "sting", volume: 0.5}
+    ken_burns_effect: "ken-burns"
+
+  - number: 9
+    title: "Her Quiet Withdrawal"
+    act: "act_2_inner_reality"
+    phase: "almost"
+    beat: "almost_moment"
+    energy: 3
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Claire at the kitchen table, alone. She notices he no longer reaches for her hand. She quietly withdraws her own hand from the table. Neither of them says anything."
+    voiceover: "She stopped asking because the no had become louder than the yes."
+    music_cue: {zone: "act_2", volume: 0.3}
+    ken_burns_effect: "zoom-in"
+
+  - number: 10
+    title: "The Bathroom Mirror"
+    act: "act_2_inner_reality"
+    phase: "collapse"
+    beat: "internal_collapse"
+    energy: 2
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Ethan at the bathroom mirror at 3am, water running. His face is empty. He looks at himself — the marriage counselor who couldn't save his own marriage. He turns away from the mirror."
+    voiceover: "For many men, withdrawal isn't a decision made in one night. It's a habit built one quiet disappointment at a time."
+    music_cue: {zone: "act_2", volume: 0.2}
+    ken_burns_effect: "zoom-out"
+
+  - number: 11
+    title: "The Long Shower"
+    act: "act_2_inner_reality"
+    phase: "retreat"
+    beat: "defensive_retreat"
+    energy: 2
+    target_duration_seconds: 5.0
+    shot_language: {shot_size: "medium"}
+    scene_description: "A long shower running. The sound of water. Ethan stands under it, eyes closed, somewhere else. Steam fills the room."
+    voiceover: "The bathroom became the one room where the silence belonged to him."
+    music_cue: {zone: "act_2", volume: 0.2}
+    ken_burns_effect: "zoom-out"
+
+  # ============================================================
+  # ACT 3 — The Emotional Reveal (3-4 min)
+  # ============================================================
+  - number: 12
+    title: "The Anniversary Card"
+    act: "act_3_psychological_truth"
+    phase: "duality"
+    beat: "her_truth"
+    energy: 4
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Claire sits alone on the couch in the dark. She finds an old anniversary card Ethan wrote years ago. She reads it. Her eyes fill with tears. The card says: 'I hope I never become someone who makes you feel alone.'"
+    voiceover: "She found an old card he wrote years ago. It said exactly what she needed to hear. He had already become the person he promised he wouldn't."
+    music_cue: {zone: "act_3", volume: 0.4}
+    ken_burns_effect: "zoom-in"
+
+  - number: 13
+    title: "The Admission"
+    act: "act_3_psychological_truth"
+    phase: "climax"
+    beat: "final_truth"
+    energy: 3
+    target_duration_seconds: 8.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Ethan and Claire sit on opposite ends of the couch. The TV casts a cold blue light. He speaks quietly, not looking at her. 'I didn't stop wanting you. I just became afraid of failing you.' She reaches for his hand. He doesn't pull away."
+    voiceover: "Fear-based withdrawal doesn't begin when love ends. It begins when vulnerability starts feeling more dangerous than distance."
+    music_cue: {zone: "act_3", volume: 0.4}
+    ken_burns_effect: "ken-burns"
+
+  - number: 14
+    title: "The Distance Between"
+    act: "act_3_psychological_truth"
+    phase: "climax"
+    beat: "final_truth"
+    energy: 2
+    target_duration_seconds: 6.0
+    shot_language: {shot_size: "wide"}
+    scene_description: "Two silhouettes on a long couch, now sitting closer. Her hand in his. The TV is off. The room is quiet. They're not okay yet — but they're no longer alone in their silence."
+    voiceover: "Intimacy didn't die. It just stopped feeling safe enough to reach for."
+    music_cue: {zone: "act_3", volume: 0.35}
+    ken_burns_effect: "pan-right"
+
+  - number: 15
+    title: "The Note"
+    act: "act_3_psychological_truth"
+    phase: "climax"
+    beat: "final_truth"
+    energy: 1
+    target_duration_seconds: 7.0
+    shot_language: {shot_size: "close-up"}
+    scene_description: "Morning. A new handwritten note on the kitchen counter. Claire picks it up, reads it. A small smile. The note says: 'I'm still here.' She tucks it into the drawer with the others."
+    voiceover: "He left a new note that morning. It said three words. She put it in the drawer with all the others. Some stories don't end. They just find their way back."
+    music_cue: {zone: "act_3", volume: 0.5}
+    ken_burns_effect: "zoom-in"

@@ -14,6 +14,7 @@ interface ImageGalleryProps {
   isGenerating: boolean;
   onGenerateAll: () => void;
   onRegenerateScene?: (sceneNumber: number) => void;
+  story?: { title: string; synopsis: string; logline: string; emotionalTone: string; themes: string[] };
 }
 
 export default function ImageGallery({
@@ -23,6 +24,7 @@ export default function ImageGallery({
   isGenerating,
   onGenerateAll,
   onRegenerateScene,
+  story,
 }: ImageGalleryProps) {
   const completedCount = images.filter((i) => i.status === 'completed').length;
   const totalCount = scenes.length;
@@ -57,6 +59,23 @@ export default function ImageGallery({
           )}
         </Button>
       </CardHeader>
+      {story && (
+        <CardContent className="border-b pb-4 mb-4">
+          <h3 className="text-sm font-semibold mb-1">{story.title}</h3>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+            {story.synopsis}
+          </p>
+          {story.themes.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {story.themes.map((t, i) => (
+                <span key={i} className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      )}
       <CardContent>
         {totalCount > 0 && completedCount > 0 && (
           <p className="text-sm text-muted-foreground mb-4">

@@ -1,0 +1,18 @@
+# Story Quality Evaluation
+
+overall: 0.85
+threshold: 0.7
+passed: yes
+
+dimensions:
+  structure:
+    score: 0.90
+    feedback: "Default - no screenplay to evaluate"
+  pacing:
+    score: 0.80
+    feedback: "Default - no screenplay to evaluate"
+  emotional_arc:
+    score: 0.85
+    feedback: "Default - no screenplay to evaluate"
+
+*Evaluated by StoryQualityAgent v1.0.0*

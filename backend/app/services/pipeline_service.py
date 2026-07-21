@@ -18,6 +18,7 @@ from pipeline.orchestrator import (
 )
 from pipeline.research import ResearchStage, ResearchContext
 from pipeline.output_saver import OutputSaver
+from pipeline.scene_file_writer import SceneFileWriter
 from backend.app.core.config import settings
 
 logger = logging.getLogger("pipeline_service")
@@ -53,9 +54,11 @@ class PipelineService:
                 )
 
     async def start_pipeline(self, topic: str, tone: Optional[str] = None,
-                             length: str = "medium", platform: str = "cinematic",
+                             length: str = "conversational", platform: str = "cinematic",
                              enable_research: bool = True,
-                             project_id: Optional[str] = None) -> dict:
+                             project_id: Optional[str] = None,
+                             producer_brief: Optional[dict] = None,
+                             profile_id: Optional[str] = None) -> dict:
         pipeline_id = str(uuid.uuid4())
         now = datetime.utcnow().isoformat()
 
@@ -96,6 +99,21 @@ class PipelineService:
             "story_length": length,
             "platform": platform if platform != "cinematic" else "youtube",
         }
+
+        # Attach the GENESIS production profile so downstream stages
+        # (story beats, scene decomposition) can derive scene count and
+        # per-scene duration targets.
+        try:
+            from backend.app.services.profile_service import get_profile, derive_scene_count
+            profile = get_profile(profile_id)
+            config_data["production_profile"] = profile
+            config_data["target_scene_count"] = derive_scene_count(profile_id)
+        except Exception as e:
+            logger.warning("Could not load production profile: %s", e)
+
+        # Pass the full producer brief to the orchestrator for prompt generation
+        if producer_brief:
+            config_data["producer_brief"] = producer_brief
 
         # Validate before passing to pipeline (which also validates internally)
         validate_input(config_data)
@@ -165,6 +183,27 @@ class PipelineService:
             metrics = MetricsCollector(self._config)
             research_stage = ResearchStage(self._config)
 
+            # Derive production profile parameters (soft guidance)
+            profile = raw_input.get("production_profile") or {}
+            runtime_cfg = profile.get("runtime", {})
+            scene_policy = profile.get("scene_policy", {})
+            target_minutes = runtime_cfg.get("target_minutes", 18)
+            min_min = runtime_cfg.get("minimum_minutes", 15)
+            max_min = runtime_cfg.get("maximum_minutes", 20)
+            target_runtime = f"{min_min}-{max_min} minutes (target {target_minutes})"
+            dur_range = scene_policy.get("preferred_scene_duration_seconds", [75, 90])
+            scene_duration_range = f"{dur_range[0]}-{dur_range[1]}s"
+            target_scene_count = raw_input.get("target_scene_count") or 14
+
+            scene_classes = profile.get("scene_classes", {})
+            if scene_classes:
+                scene_class_guidance = ", ".join(
+                    f"{cls} ({v['duration_seconds'][0]}-{v['duration_seconds'][1]}s): {v.get('purpose','')}"
+                    for cls, v in scene_classes.items()
+                )
+            else:
+                scene_class_guidance = ""
+
             # Stage 0: Research
             self._set_stage_status(pipeline_id, "research", "running")
             research_context = None
@@ -178,12 +217,24 @@ class PipelineService:
 
             # Stage 1: Story Generation
             self._set_stage_status(pipeline_id, "story", "running")
-            story_outline = story_gen.generate(input_config, research_context=research_context)
+            story_outline = story_gen.generate(
+                input_config,
+                research_context=research_context,
+                target_scene_count=target_scene_count,
+                scene_duration_range=scene_duration_range,
+                scene_class_guidance=scene_class_guidance,
+                target_runtime=target_runtime,
+            )
             self._set_stage_status(pipeline_id, "story", "completed")
 
             # Stage 2: Scene Decomposition
             self._set_stage_status(pipeline_id, "scenes", "running")
-            scenes_data = scene_decomposer.decompose(story_outline)
+            scenes_data = scene_decomposer.decompose(
+                story_outline,
+                scene_duration_range=scene_duration_range,
+                scene_class_guidance=scene_class_guidance,
+                target_scene_count=target_scene_count,
+            )
             self._set_stage_status(pipeline_id, "scenes", "completed")
 
             # Stage 3: Dialogue Generation
@@ -278,7 +329,8 @@ class PipelineService:
                 "location": s.get("location", s.get("camera", "unknown")),
                 "characters": s.get("characters", []),
                 "emotional_beat": s.get("emotion", "neutral"),
-                "duration": s.get("duration", "10s"),
+                "duration": s.get("duration", "80s"),
+                "scene_class": s.get("scene_class", ""),
             }
             for i, s in enumerate(scenes)
         ]
@@ -335,15 +387,26 @@ class PipelineService:
                 "total_duration": None,
             }
 
-        # Save to disk
+        # Save to disk (YAML files) and canonical scenes.json
         try:
             saver = OutputSaver()
-            saver.save(
+            paths = saver.save(
                 result.story_yaml_content,
                 scenes,
                 result.dialogues_yaml_content,
                 result.prompts_yaml_content,
                 research=result.research_context,
+            )
+            # Extract the run_dir from the saved scenes path
+            scenes_yaml_path = paths.get("scenes", "")
+            run_dir = Path(scenes_yaml_path).parent.parent if scenes_yaml_path else saver.base_dir
+
+            writer = SceneFileWriter(run_dir)
+            writer.write(
+                story=result.story_yaml_content if isinstance(result.story_yaml_content, dict) else {},
+                scenes=[dict(s) if hasattr(s, "__dict__") else s for s in result.scenes_yaml_content],
+                dialogues=result.dialogues_yaml_content or [],
+                prompts=result.prompts_yaml_content or [],
             )
         except Exception as e:
             logger.warning(f"Failed to save output: {e}")

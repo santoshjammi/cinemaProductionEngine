@@ -31,7 +31,7 @@ class Settings(BaseSettings):
 
     # Generation
     max_scenes: int = 12
-    default_story_length: str = "medium"
+    default_story_length: str = "conversational"
 
 
 settings = Settings()

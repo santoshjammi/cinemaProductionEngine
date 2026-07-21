@@ -26,6 +26,18 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+ollama = [
+    "ollama>=0.4.0",
+]
+hf = [
+    "transformers>=4.30.0",
+    "torch>=2.0.0",
+    "accelerate>=0.20.0",
+]
+all = [
+    "movie_os[ollama]",
+    "movie_os[hf]",
+]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",

@@ -1,0 +1,15 @@
+# Emotion Score Evaluation
+
+overall: 0.83
+threshold: 0.7
+passed: yes
+
+dimensions:
+  emotional_arc:
+    score: 0.85
+    feedback: "Default - no screenplay to evaluate"
+  key_moments:
+    score: 0.90
+    feedback: "Default - no screenplay to evaluate"
+
+*Evaluated by EmotionScoreAgent v1.0.0*

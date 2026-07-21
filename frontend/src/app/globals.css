@@ -4,58 +4,76 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-canvas text-ink font-body antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Apple-style pill button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-pill bg-primary text-primary-foreground font-body text-body px-[22px] py-[11px] transition-transform active:scale-95 focus:outline-2 focus:outline-primary-focus;
+  }
+
+  .btn-secondary-pill {
+    @apply inline-flex items-center justify-center rounded-pill bg-transparent text-primary border border-primary font-body text-body px-[22px] py-[11px] transition-transform active:scale-95;
+  }
+
+  .btn-dark-utility {
+    @apply inline-flex items-center justify-center rounded-sm bg-ink text-body-on-dark font-body text-caption px-[15px] py-[8px] transition-transform active:scale-95;
+  }
+
+  .btn-pearl-capsule {
+    @apply inline-flex items-center justify-center rounded-md bg-surface-pearl text-ink-muted-80 font-body text-caption px-[14px] py-[8px] border-3 border-divider-soft transition-transform active:scale-95;
+  }
+
+  /* Apple-style cards */
+  .product-tile-light {
+    @apply w-full bg-canvas text-ink rounded-none py-section px-lg;
+  }
+
+  .product-tile-parchment {
+    @apply w-full bg-canvas-parchment text-ink rounded-none py-section px-lg;
+  }
+
+  .product-tile-dark {
+    @apply w-full bg-surface-tile-1 text-body-on-dark rounded-none py-section px-lg;
+  }
+
+  .store-utility-card {
+    @apply bg-canvas border border-hairline rounded-lg p-lg;
+  }
+
+  /* Apple-style nav */
+  .global-nav {
+    @apply bg-surface-black text-body-on-dark h-[44px] flex items-center px-lg;
+  }
+
+  .sub-nav-frosted {
+    @apply bg-canvas-parchment/80 backdrop-blur-xl h-[52px] flex items-center px-lg border-b border-divider-soft;
+  }
+
+  /* Apple-style text */
+  .text-link {
+    @apply text-primary hover:underline cursor-pointer;
+  }
+
+  .text-link-on-dark {
+    @apply text-primary-on-dark hover:underline cursor-pointer;
+  }
+
+  /* Apple-style input */
+  .search-input {
+    @apply bg-canvas text-ink font-body text-body border border-hairline rounded-pill px-[20px] py-[12px] h-[44px] outline-none focus:ring-2 focus:ring-primary;
   }
 }
 

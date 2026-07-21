@@ -7,11 +7,34 @@ import type {
   Project,
   ProjectCreate,
   ProjectUpdate,
+  ProductionProfile,
+  SceneClassDef,
 } from './types';
+import { toCamelCase } from './utils';
 
 const api = axios.create({
   baseURL: '/api/v1',
   timeout: 30000,
+});
+
+api.interceptors.response.use((res) => {
+  if (res.data && typeof res.data === 'object') {
+    res.data = toCamelCase(res.data);
+  }
+  return res;
+});
+
+// Separate instance for long-running Genesis2 pipeline (no timeout)
+const genesisApi = axios.create({
+  baseURL: '/api/v1',
+  timeout: 0, // no pipeline can take hours
+});
+
+genesisApi.interceptors.response.use((res) => {
+  if (res.data && typeof res.data === 'object') {
+    res.data = toCamelCase(res.data);
+  }
+  return res;
 });
 
 export async function startPipeline(
@@ -131,5 +154,33 @@ export async function deleteProject(id: string): Promise<void> {
 
 export async function getProjectStories(id: string): Promise<{ project_id: string; stories: PipelineResult[] }> {
   const { data } = await api.get(`/projects/${id}/stories`);
+  return data;
+}
+
+// Genesis API
+export async function runGenesis(synopsis: string): Promise<any> {
+  const { data } = await api.post('/genesis/run', { synopsis });
+  return data;
+}
+
+export async function getGenesisResult(sessionId: string): Promise<any> {
+  const { data } = await api.get(`/genesis/${sessionId}`);
+  return data;
+}
+
+// Genesis2 API
+export async function runGenesis2(synopsis: string): Promise<any> {
+  const { data } = await genesisApi.post('/genesis2/run', { synopsis });
+  return data;
+}
+
+// Production profiles API
+export async function listProductionProfiles(): Promise<{ profiles: ProductionProfile[]; sceneClasses: Record<string, SceneClassDef> }> {
+  const { data } = await api.get('/profiles');
+  return data;
+}
+
+export async function getProductionProfile(profileId: string): Promise<any> {
+  const { data } = await api.get(`/profiles/${profileId}`);
   return data;
 }

@@ -42,6 +42,7 @@ class AgentStatus(str, Enum):
     PENDING = "pending"
     RUNNING = "running"
     SUCCESS = "success"
+    PARTIAL = "partial"
     FAILED = "failed"
     REVISED = "revised"
     SKIPPED = "skipped"

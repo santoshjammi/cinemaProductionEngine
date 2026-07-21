@@ -1,0 +1,16 @@
+---
+name: "session-context"
+type: "transient"
+version: "1.0"
+---
+
+# Session Context Template
+
+current_task: ""
+active_agents: []
+pending_workflows: []
+last_checkpoint: null
+next_action: ""
+
+constraints:
+  - "Do not overwrite memory without explicit validation."

@@ -1,21 +1,39 @@
-# Session State - Movie OS AIOS Bootstrap
----
-current_task: "Bootstrap complete repository AI Operating System (AIOS)"
-completed_work:
-  - "✅ Created core configuration files in .ai/"
-  - "✅ Created workflow protocols in .ai/workflows/"
-  - "✅ Created prompt helpers in .ai/prompts/"
-  - "x Created copilot-instructions in .github/"
-  - "✅ Created developer instructions in .github/instructions/"
-  - "✅ Created agent persona mappings in .github/agents/"
-  - "✅ Created prompt templates in .github/prompts/"
-  - "✅ Created project-level root markdown guides linking to core specs"
-next_actions:
-  - "1. Apply Pydantic graph.py dictionary get() lookup bugfix"
-  - "2. Apply Ollama client.py legacy fallback method name bugfix"
-  - "3. Run e2e pipeline verify check"
-files_in_scope:
-  - "movie_os/agents/graph.py"
-  - "movie_os/llm/client.py"
-out_of_scope:
-  - "All other repository content"
+# Session State
+
+## Completed Work
+- **Genesis Engine (v0.8.0)**: Full pre-production intelligence system with 31 agents
+  - 7 Discovery agents: IntentAnalyst, ThemeAnalyst, EmotionAnalyst, ConflictAnalyst, AudienceAnalyst, GapAnalyst, QuestionPlanner
+  - 19 PKP domain agents (PKP-00 through PKP-18): Vision, CreativeStrategy, Project, Research, Story, World, Character, Relationship, Psychology, Narrative, Directorial, ProductionDesign, AudioIntent, EditingLanguage, AnimationIntent, Blueprint, Distribution, Quality, KnowledgeGraph
+  - 4 Review agents: StoryReviewer, CharacterReviewer, NarrativeReviewer, PsychologyReviewer
+  - 1 ChiefArchitect: cross-spec consistency supervisor
+- **ProductionKnowledgeGraph**: SQLite-backed knowledge store with nodes, edges, specs, discovery results, questions, completeness scoring
+- **SessionManager**: Session lifecycle with checkpointing and stage tracking
+- **CompletionGate**: 8-criteria gate check (all specs exist, deps satisfied, validation passed, no critical contradictions, confidence thresholds, reviews completed, knowledge graph complete, blueprint derived)
+- **CLI**: 7 subcommands (run, discover, spec, validate, gate, agents, state) with --mock flag
+- **Mock data**: Rich MockLLMClient with valid JSON responses for all 31 agents
+- **Output serialization**: Individual spec files (JSON/YAML/Markdown) + discovery + review files saved to output directory (76 files per run)
+- **292 tests passing** across 9 test files covering all agents, engine, CLI, PKG, session, gate, models, LLM client, master prompt
+- **Bugs fixed**: Completion gate now correctly aggregates contradictions from review keys; reviews_completed check uses actual review keys; discovery/review base classes have validate() methods; _summarize() called in discovery run(); CLI agents command lists all 31 agents; --mock uses rich mock data
+
+## Pending Work
+- Real LLM integration: start LMStudio, run `python -m movie_os.genesis run --synopsis <file>`
+- Studio Engine handoff: connect Genesis output to the production pipeline
+- LangGraph state machine in genesis/graph.py (currently sequential in engine.py)
+- 15-scene video generation with the new story structure
+
+## Blockers
+- None
+
+## Modified Files
+- `movie_os/genesis/` — all agent files, engine, CLI, serializers, mock_data, completion_gate
+- `tests/genesis/` — all test files (9 test files, conftest.py)
+- `conftest.py` — top-level pytest config for sys.path
+
+## Known Issues
+- None
+
+## Next Actions
+1. Connect to real LLM (LMStudio at port 1234)
+2. Run full E2E with real synopsis
+3. Implement LangGraph state machine in genesis/graph.py
+4. Connect Genesis output to Studio Engine
