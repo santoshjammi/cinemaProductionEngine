@@ -10,7 +10,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 # ---------------------------------------------------------------------------
@@ -69,6 +69,113 @@ class KnowledgeObject(BaseModel):
     validation: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
+    @model_validator(mode="before")
+    @classmethod
+    def _normalize_types(cls, data: Any) -> Any:
+        """Normalize LLM output types before Pydantic validation.
+
+        Real LLMs often output ints where strings are expected, dicts where
+        strings are expected, etc. This validator normalizes common patterns
+        so the strict Pydantic models accept real LLM output.
+        """
+        if not isinstance(data, dict):
+            return data
+        # Fields that expect strings but LLMs may return as dicts or ints
+        _STRING_FIELDS = {
+            "purpose", "creative_intent", "reasoning",
+            "theme", "genre", "subgenre", "mood", "core_question",
+            "audience", "message", "conflict", "transformation",
+            "premise", "setting", "tone", "pacing",
+            "act", "sequence",
+            "history", "culture", "technology", "environment",
+            "architecture", "economy", "politics", "social_structure",
+            "identity", "name", "role", "speech_style", "personality",
+            "color", "lighting", "composition", "textures", "atmosphere",
+            "camera_intent", "lens_suggestions", "movement_philosophy",
+            "environmental_storytelling",
+            "overall_assessment",
+            "internal_conflict", "external_conflict", "weakness", "strength",
+            "transformation_arc", "backstory",
+            "lens_suggestions",
+            "social_structure", "speech_patterns", "voice_direction",
+            "dialogue_rhythm", "conversation_intent", "subtext",
+            "emotional_state",
+        }
+        # Fields that expect lists but LLMs may return as strings or dicts
+        _LIST_FIELDS = {"goals", "success_criteria", "recommended_actions",
+                        "improvement_areas", "visual_motifs", "lighting_scheme",
+                        "scenes", "dialogues", "validation", "rules"}
+        # Fields that expect list[dict] but LLMs may return as a single dict
+        _LIST_DICT_FIELDS = {"timeline", "key_events", "character_specs", "location_specs",
+                             "camera_specs", "lighting_specs", "animation_specs",
+                             "audio_specs", "music_specs", "editing_specs", "rendering_specs",
+                             "cross_references", "version_history"}
+
+        result = dict(data)
+        for key, value in data.items():
+            if value is None:
+                result[key] = value
+            elif key in _STRING_FIELDS:
+                if isinstance(value, (dict, int, float)):
+                    result[key] = str(value)
+                elif isinstance(value, list):
+                    # LLM returned a list for a string field — join the string parts
+                    parts = []
+                    for v in value:
+                        if isinstance(v, str):
+                            parts.append(v)
+                        elif isinstance(v, dict):
+                            # extract first string value
+                            for vv in v.values():
+                                if isinstance(vv, str):
+                                    parts.append(vv)
+                                    break
+                            else:
+                                parts.append(str(v))
+                        else:
+                            parts.append(str(v))
+                    result[key] = ", ".join(parts) if parts else ""
+            elif key in _LIST_FIELDS:
+                if isinstance(value, str):
+                    result[key] = [value]
+                elif isinstance(value, dict):
+                    result[key] = [str(value)]
+                elif isinstance(value, list) and value and all(isinstance(v, dict) for v in value):
+                    # General dict-to-string normalization: extract first string value
+                    result[key] = []
+                    for v in value:
+                        # Try common keys first
+                        for k in ("check", "criterion", "rule", "element", "symbol", "character",
+                                   "emotion", "description", "name", "text", "value", "content"):
+                            if k in v and isinstance(v[k], str):
+                                result[key].append(v[k])
+                                break
+                        else:
+                            # Fallback: take any string value
+                            for vv in v.values():
+                                if isinstance(vv, str):
+                                    result[key].append(vv)
+                                    break
+                            else:
+                                result[key].append(str(v))
+            elif key in _LIST_DICT_FIELDS:
+                if isinstance(value, dict):
+                    if value:
+                        result[key] = [value]
+                    else:
+                        result[key] = []
+                elif isinstance(value, list) and value and all(isinstance(v, str) for v in value):
+                    # Convert list of strings to list of dicts with a default key
+                    result[key] = [{"event": v} for v in value]
+            # Normalize lists of {criterion: ...} dicts to list of strings
+            elif isinstance(value, list) and value and all(isinstance(v, dict) for v in value):
+                if any("criterion" in v for v in value):
+                    result[key] = [str(v.get("criterion", str(v))) for v in value]
+                # Normalize {check, status} dicts to just the check text
+                elif any("check" in v for v in value):
+                    result[key] = [str(v.get("check", str(v))) for v in value]
+        return result
+
 
 # ---------------------------------------------------------------------------
 # Phase 01: Creative Understanding
@@ -107,6 +214,7 @@ class StoryBeat(KnowledgeObject):
 
 class StoryFoundation(KnowledgeObject):
     premise: str = ""
+    dramatic_question: str = ""  # the central question the HOOK poses, PLOT deepens, CLIMAX answers
     acts: list[dict[str, Any]] = Field(default_factory=list)
     major_events: list[str] = Field(default_factory=list)
     emotional_journey: list[str] = Field(default_factory=list)
@@ -141,6 +249,20 @@ class StoryFoundation(KnowledgeObject):
                 data[field] = _to_strings(data[field])
 
         beats = [StoryBeat._from_llm(b) for b in data.pop("story_beats", [])]
+
+        # Coerce acts: if any act is a string, wrap it into a dict
+        acts = data.get("acts", [])
+        if isinstance(acts, list):
+            coerced_acts = []
+            for a in acts:
+                if isinstance(a, str):
+                    coerced_acts.append({"name": a, "description": a, "events": []})
+                elif isinstance(a, dict):
+                    coerced_acts.append(a)
+                else:
+                    coerced_acts.append({"name": str(a), "description": str(a), "events": []})
+            data["acts"] = coerced_acts
+
         return cls(**data, story_beats=beats)
 
 
@@ -201,6 +323,7 @@ class Scene(KnowledgeObject):
     conflict: str = ""
     outcome: str = ""
     emotional_objective: str = ""
+    narrative_beat: str = ""  # hook | plot | turning_point | climax — which beat this scene serves
 
 
 class NarrativeExpansion(KnowledgeObject):
@@ -224,6 +347,7 @@ class ScenePlan(KnowledgeObject):
     transition: str = ""
     duration: str = ""
     dependencies: list[str] = Field(default_factory=list)
+    narrative_beat: str = ""  # hook | plot | turning_point | climax — which beat this scene serves
 
 
 class ScenePlanning(KnowledgeObject):
@@ -234,6 +358,23 @@ class ScenePlanning(KnowledgeObject):
 # Phase 07: Dialogue Planning
 # ---------------------------------------------------------------------------
 
+class DialogueLine(BaseModel):
+    """A single spoken (or inner-voice) line of dialogue.
+
+    speaker: character name (e.g. 'MARK', 'SARAH', or 'MARK_INNER' for the
+             suffering character's whispering inner voice).
+    text: the line as spoken.
+    delivery_intent: performance direction for how the line should be spoken.
+    emotion: emotional tag used for TTS prosody (e.g. 'whisper', 'quiet').
+    line_id: deterministic identity assigned after generation.
+    """
+    line_id: str = ""
+    speaker: str = ""
+    text: str = ""
+    delivery_intent: str = ""
+    emotion: str = "neutral"
+
+
 class DialoguePlan(KnowledgeObject):
     scene_number: int = 0
     conversation_intent: str = ""
@@ -243,6 +384,10 @@ class DialoguePlan(KnowledgeObject):
     dialogue_rhythm: str = ""
     speech_patterns: str = ""
     voice_direction: str = ""
+    # Expanded dialogue: 3-4 spoken exchanges per scene, plus an inner voice
+    # line for the suffering character so their silence is audible.
+    lines: list[DialogueLine] = Field(default_factory=list)
+    inner_voice: list[DialogueLine] = Field(default_factory=list)
 
 
 class DialoguePlanning(KnowledgeObject):
@@ -364,6 +509,9 @@ class PhaseResult(BaseModel):
 # ---------------------------------------------------------------------------
 
 class ProductionKnowledgePackage(BaseModel):
+    episode_id: str = ""
+    run_id: str = ""
+    policy_snapshot_id: str = ""
     synopsis: str = ""
     constraints: dict[str, Any] = Field(default_factory=dict)
     creative_understanding: Optional[CreativeUnderstanding] = None
