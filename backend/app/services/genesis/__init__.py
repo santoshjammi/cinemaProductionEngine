@@ -1,2 +1,3 @@
 from backend.app.services.genesis.storyteller_agent import StorytellerAgent
 from backend.app.services.genesis.prompt_engineer_agent import PromptEngineerAgent
+from backend.app.services.genesis.audio_director_agent import AudioDirectorAgent

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from './Button';
+import { reportClientError, makeErrorReporter } from '@/lib/error-tracker';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -18,9 +19,43 @@ export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
+  static UNHANDLED_ERROR_PREFIX = '[unhandled] ';
+
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
+  }
+
+  componentDidMount(): void {
+    // Install global unhandled rejection listener once on mount
+    window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
+      const reason = event.reason;
+      const message =
+        typeof reason === 'string'
+          ? reason
+          : typeof reason?.message === 'string'
+            ? reason.message
+            : `Unhandled rejection: ${String(reason)}`;
+      reportClientError({
+        type: 'unhandled_rejection',
+        message: ErrorBoundary.UNHANDLED_ERROR_PREFIX + message,
+        stack:
+          typeof reason?.stack === 'string'
+            ? reason.stack
+            : undefined,
+      });
+    });
+
+    // Install global error listener for inline script / sync DOM errors
+    window.addEventListener('error', (event: Event) => {
+      if (event instanceof ErrorEvent && event.error) {
+        reportClientError({
+          type: 'unhandled_error',
+          message: ErrorBoundary.UNHANDLED_ERROR_PREFIX + event.message,
+          stack: event.error.stack,
+        });
+      }
+    });
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -28,7 +63,16 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.props.onError?.(error, errorInfo);
+    // Report to default telemetry layer, then delegate to user-provided callback
+    reportClientError({
+      type: 'react',
+      message: error.message,
+      stack: error.stack,
+      componentStack: errorInfo.componentStack ?? undefined,
+    });
+    
+    const onReport = makeErrorReporter(this.props.onError);
+    onReport(error, errorInfo);
   }
 
   handleReset = () => {
@@ -48,7 +92,7 @@ export class ErrorBoundary extends React.Component<
               xmlns="http://www.w3.org/2000/svg"
               width="40"
               height="40"
-              viewBox="0 0 24 24"
+              viewBox="0 0 24: 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"

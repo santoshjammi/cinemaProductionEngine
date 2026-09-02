@@ -1,0 +1,2 @@
+file '/Users/santosh/Desktop/projects/videoGen/assets/music/cinematic_ambient_piano.mp3'
+file '/Users/santosh/Desktop/projects/videoGen/assets/music/cinematic_ambient_piano.mp3'

@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/Button';
 import { Loader2, Play, Download } from 'lucide-react';
 import type { FinalVideoResult, VideoClipResult } from '@/lib/types';
 import { getFinalVideoUrl } from '@/lib/api';
+import { useEffect, useRef } from 'react';
+import { AdManager } from '@/components/ads/AdManager';
+import { analyticsEventBus } from '@/components/ads/AnalyticsEventBus';
 
 interface VideoPlayerProps {
   finalVideo: FinalVideoResult | null;
@@ -14,16 +17,61 @@ interface VideoPlayerProps {
   clips?: VideoClipResult[];
 }
 
+const VIDEO_AD_SLOTS = [
+  { id: 'preroll_1', position: 'preroll' as const },
+  { id: 'midroll_break_1', position: 'midroll' as const, minGap: 60 },
+  { id: 'postroll_1', position: 'postroll' as const },
+];
+
 export default function VideoPlayer({
   finalVideo,
   onGenerate,
   isGenerating,
   clips,
 }: VideoPlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const completedCount = clips?.filter((c) => c.status === 'completed').length ?? 0;
   const totalCount = clips?.length ?? 0;
   const allClipsDone = totalCount > 0 && completedCount === totalCount;
   const isAssembling = finalVideo?.status === 'assembling';
+
+  useEffect(() => {
+    AdManager.instance().activateAll();
+    return () => AdManager.instance().deactivateAll();
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let lastMidrollCheck = 0;
+    const handleTimeUpdate = () => {
+      const current = video.currentTime || 0;
+      for (const slot of VIDEO_AD_SLOTS) {
+        if (slot.id === 'midroll_break_1') {
+          const mid = Math.floor(video.duration || 0) / 2;
+          if (current >= mid - 1 && current < mid + 1 && current - lastMidrollCheck > (slot as any).minGap) {
+            lastMidrollCheck = current;
+            analyticsEventBus.publish({ eventType: 'impression', slotId: slot.id, timestamp: Date.now(), sessionId: analyticsEventBus.getSessionId() });
+          }
+        }
+      }
+    };
+
+    const handleEnded = () => {
+      const activePostroll = AdManager.instance().requestSlot('postroll_1');
+      if (activePostroll) {
+        analyticsEventBus.publish({ eventType: 'impression', slotId: activePostroll.id, timestamp: Date.now(), sessionId: analyticsEventBus.getSessionId() });
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [finalVideo?.videoUrl]);
 
   if (isGenerating || isAssembling) {
     return (

@@ -1,0 +1,30 @@
+artifact_id: SCENE-EW001-04
+parent_artifact_id: STORY-EW001
+contract_id: CONTRACT-EW001
+
+stage: lost_emotional_safety
+
+description: 
+  "Sarah touches Mark's shoulder from behind. Mark tenses, turns to the wall, and pulls a blanket over himself."
+
+emotional_transition:
+  incoming_state:
+    sarah: { emotion: cautious_hope, intensity: 45, intent: comfort_mark }
+    mark: { emotion: fear_of_exposure, intensity: 65, intent: avoid_emotional_contact }
+  
+  trigger: "Sarah touches Mark's shoulder"
+  
+  observable_response:
+    - "Mark's shoulders tense"
+    - "his breath stops briefly"
+    - "he turns toward the wall"
+  
+  scene_turn:
+    sarah_stops_reaching: true
+  
+  outgoing_state:
+    sarah: { emotion: emotional_unsafety, intensity: 78 }
+    mark: { emotion: regret, intensity: 72 }
+
+constraints:
+  reconciliation_forbidden: true

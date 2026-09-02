@@ -1,0 +1,677 @@
+document:
+  name: Relationship Psychology Content Ontology
+  acronym: RPCO
+  version: '1.0'
+  status: CANONICAL_DRAFT_FOR_CONSTITUTION_INTEGRATION
+  purpose: Canonical map Hermes uses to plan, classify, generate, track and learn from the husband-wife relationship and emotional
+    psychology channel without inventing random topics.
+scope:
+  initial_domain: Husband-wife relationship and emotional psychology
+  audience: Adults approximately 30–55 in the US, Europe, Australia and New Zealand
+  language: English
+  creative_mode: Story-first, constructive, non-clinical cinematic entertainment and reflection
+  excluded_by_default:
+  - abuse-centered plots
+  - coercive-control plots
+  - suicide or self-harm themes
+  - addiction-centered plots
+  - criminal psychology
+  - explicit sexual material
+  - infidelity-driven sensationalism
+  - clinical diagnosis
+  - pseudo-scientific certainty
+  - rage bait
+  - manufactured relationship paranoia
+  - trauma sensationalism
+content_hierarchy:
+- 'L1 Niche: Psychology'
+- 'L2 Domain: Relationship & Emotional Psychology'
+- L3 Problem Family
+- L4 Sub-Series / Mechanism Family
+- L5 Mechanism Variant
+- L6 Story Universe
+- L7 Story Arc
+- L8 Episode or Multi-Part Episode
+- L9 Distribution Assets
+separation_of_concerns:
+  ontology: Defines WHAT relationship-psychology territory exists; independent of recurring characters.
+  psychology_sub_constitution: Defines HOW that territory may be portrayed ethically and narratively.
+  story_universe: Defines recurring character canon and continuity. Mark & Sarah is the flagship universe.
+  episode_contract: Defines one primary mechanism, causal story and intended resolution.
+  commercial_distribution_layer: Defines packaging, platform reuse, retention, monetization and derivatives.
+sub_series_admission_rule:
+  rule: Create a sub-series only when it differs materially in trigger, primary mechanism, recurring viewer question, relationship
+    dynamic, story pattern, or constructive resolution path.
+  anti_pattern: Do not manufacture categories merely to make the taxonomy look larger.
+episode_laws:
+- Exactly one primary psychological mechanism per episode.
+- Secondary mechanisms may support but must not compete with the primary mechanism.
+- 'Responsibility rotates realistically: Mark, Sarah, both, or circumstances.'
+- Never permanently cast one spouse as the flawed partner and the other as the wiser rescuer.
+- Problems must remain plausible in ordinary married life and inside the approved safe scope.
+- Every episode moves toward constructive understanding, repair, healing, meaningful progress, or a greater-good conclusion.
+- Multi-part stories require the complete causal arc and intended final resolution before Part 1 is produced.
+- Temporary personal space may be used constructively; permanent Mark/Sarah separation is prohibited.
+- No diagnosis, therapy impersonation, medical advice, or scientific/clinical authority.
+- Explain what is happening beneath the silence through story first; use concise explicit interpretation only when useful.
+flagship_story_universe:
+  id: UNIVERSE-MARK-SARAH
+  name: Mark & Sarah
+  relationship: Married approximately 14 years
+  location: Seattle–Bellevue–Redmond, Washington State, USA
+  mark:
+    age: 40
+    profession: Software engineer
+  sarah:
+    age: 36
+    profession: Business operations professional working from home
+    family_context: Also carries substantial day-to-day household and family responsibilities
+  children:
+  - approx_age: 12
+  - approx_age: 9
+  - approx_age: 6
+  children_usage_rule: Children become prominent only when the relationship mechanism genuinely involves parenting/family
+    life; otherwise use them as natural background continuity.
+  protected_canon:
+  - Mark and Sarah remain the same recurring people.
+  - Their history accumulates across episodes.
+  - Their marriage is constitutionally protected from permanent separation.
+  - Breakup/divorce cannot be used as cheap suspense.
+  - Temporary emotional distance or healthy personal space may occur when followed by constructive re-engagement.
+problem_families:
+- id: RP-01
+  name: Emotional Withdrawal
+  priority: P0
+  sub_series:
+  - id: RP-01-S01
+    name: Fear-Based Withdrawal
+  - id: RP-01-S02
+    name: Shame-Based Withdrawal
+  - id: RP-01-S03
+    name: Stress-Based Withdrawal
+  - id: RP-01-S04
+    name: Conflict-Avoidant Withdrawal
+  - id: RP-01-S05
+    name: Failure-Based Withdrawal
+  - id: RP-01-S06
+    name: Overwhelm-Based Withdrawal
+  - id: RP-01-S07
+    name: Feeling-Unappreciated Withdrawal
+  - id: RP-01-S08
+    name: Communication-Fatigue Withdrawal
+  - id: RP-01-S09
+    name: Work-Pressure Withdrawal
+  - id: RP-01-S10
+    name: Misunderstanding-Based Withdrawal
+  - id: RP-01-S11
+    name: Self-Protective Withdrawal
+  - id: RP-01-S12
+    name: Responsibility-Burden Withdrawal
+- id: RP-02
+  name: Communication Breakdown
+  priority: P0
+  sub_series:
+  - id: RP-02-S01
+    name: Defensive Listening
+  - id: RP-02-S02
+    name: Unspoken Expectations
+  - id: RP-02-S03
+    name: Wrong-Time Conversations
+  - id: RP-02-S04
+    name: Assumptions Instead of Questions
+  - id: RP-02-S05
+    name: Problem-Solving vs Emotional Support
+  - id: RP-02-S06
+    name: Repeated Old Arguments
+  - id: RP-02-S07
+    name: Tone Misinterpretation
+  - id: RP-02-S08
+    name: Talking Without Hearing
+  - id: RP-02-S09
+    name: Avoided Difficult Conversation
+  - id: RP-02-S10
+    name: Incomplete Conversations
+- id: RP-03
+  name: Feeling Unappreciated
+  priority: P0
+  sub_series:
+  - id: RP-03-S01
+    name: Invisible Household Work
+  - id: RP-03-S02
+    name: Invisible Mental Load
+  - id: RP-03-S03
+    name: Career Sacrifice
+  - id: RP-03-S04
+    name: Emotional Effort
+  - id: RP-03-S05
+    name: Taken-for-Granted Routines
+  - id: RP-03-S06
+    name: Appreciation Language Mismatch
+  - id: RP-03-S07
+    name: Unequal Recognition
+  - id: RP-03-S08
+    name: Effort Without Feedback
+- id: RP-04
+  name: Work–Family Pressure
+  priority: P0
+  sub_series:
+  - id: RP-04-S01
+    name: Long Working Hours
+  - id: RP-04-S02
+    name: Work-From-Home Boundary Failure
+  - id: RP-04-S03
+    name: Job Loss
+  - id: RP-04-S04
+    name: Promotion Pressure
+  - id: RP-04-S05
+    name: Burnout and Home Presence
+  - id: RP-04-S06
+    name: Unequal Flexibility
+  - id: RP-04-S07
+    name: Financial Uncertainty from Work
+  - id: RP-04-S08
+    name: Work Travel and Absence
+  - id: RP-04-S09
+    name: After-Hours Digital Work
+  - id: RP-04-S10
+    name: Career Opportunity Tradeoff
+- id: RP-05
+  name: Vulnerability & Openness
+  priority: P0
+  sub_series:
+  - id: RP-05-S01
+    name: Fear of Appearing Weak
+  - id: RP-05-S02
+    name: Fear of Rejection
+  - id: RP-05-S03
+    name: Difficulty Asking for Help
+  - id: RP-05-S04
+    name: Hiding Failure
+  - id: RP-05-S05
+    name: Difficulty Expressing Affection
+  - id: RP-05-S06
+    name: Fear of Being Misunderstood
+  - id: RP-05-S07
+    name: Admitting Uncertainty
+  - id: RP-05-S08
+    name: Receiving Vulnerability Well
+- id: RP-06
+  name: Trust & Reliability
+  priority: P1
+  sub_series:
+  - id: RP-06-S01
+    name: Small Lies
+  - id: RP-06-S02
+    name: Broken Promises
+  - id: RP-06-S03
+    name: Failure to Communicate Changes
+  - id: RP-06-S04
+    name: Financial Openness
+  - id: RP-06-S05
+    name: Reliability Under Pressure
+  - id: RP-06-S06
+    name: Assumption vs Evidence
+  - id: RP-06-S07
+    name: Rebuilding Everyday Confidence
+- id: RP-07
+  name: Conflict & Repair
+  priority: P0
+  sub_series:
+  - id: RP-07-S01
+    name: Escalation from Small Issues
+  - id: RP-07-S02
+    name: Defensiveness
+  - id: RP-07-S03
+    name: Unfair Words in Anger
+  - id: RP-07-S04
+    name: Need to Be Right
+  - id: RP-07-S05
+    name: Repair Attempt Missed
+  - id: RP-07-S06
+    name: Cooling Off Constructively
+  - id: RP-07-S07
+    name: Returning to the Conversation
+  - id: RP-07-S08
+    name: Shared Responsibility
+- id: RP-08
+  name: Expectations & Assumptions
+  priority: P1
+  sub_series:
+  - id: RP-08-S01
+    name: Mind Reading
+  - id: RP-08-S02
+    name: Different Standards
+  - id: RP-08-S03
+    name: Unspoken Role Expectations
+  - id: RP-08-S04
+    name: Expectation After a Busy Week
+  - id: RP-08-S05
+    name: Intent vs Impact
+  - id: RP-08-S06
+    name: Expectation Reset
+  - id: RP-08-S07
+    name: Comparison to Other Couples
+- id: RP-09
+  name: Quality Time & Connection
+  priority: P0
+  sub_series:
+  - id: RP-09-S01
+    name: Same House, Little Connection
+  - id: RP-09-S02
+    name: Competing Schedules
+  - id: RP-09-S03
+    name: Presence Without Attention
+  - id: RP-09-S04
+    name: Reconnecting After a Busy Season
+  - id: RP-09-S05
+    name: Small Rituals of Connection
+  - id: RP-09-S06
+    name: Different Ideas of Quality Time
+  - id: RP-09-S07
+    name: Protecting Couple Time
+- id: RP-10
+  name: Household Partnership
+  priority: P0
+  sub_series:
+  - id: RP-10-S01
+    name: Unequal Chore Load
+  - id: RP-10-S02
+    name: Invisible Planning Load
+  - id: RP-10-S03
+    name: Different Definitions of Done
+  - id: RP-10-S04
+    name: Helping vs Owning
+  - id: RP-10-S05
+    name: Busy-Season Rebalancing
+  - id: RP-10-S06
+    name: Recognition Before Negotiation
+  - id: RP-10-S07
+    name: Routine Renegotiation
+- id: RP-11
+  name: Financial Pressure & Partnership
+  priority: P1
+  sub_series:
+  - id: RP-11-S01
+    name: Different Spending Priorities
+  - id: RP-11-S02
+    name: Budgeting Under Pressure
+  - id: RP-11-S03
+    name: Savings vs Present Enjoyment
+  - id: RP-11-S04
+    name: Unexpected Expense
+  - id: RP-11-S05
+    name: Job Loss Financial Adjustment
+  - id: RP-11-S06
+    name: Unequal Income Sensitivity
+  - id: RP-11-S07
+    name: Financial Decision Transparency
+- id: RP-12
+  name: Career Setbacks & Identity
+  priority: P0
+  sub_series:
+  - id: RP-12-S01
+    name: Job Loss and Self-Worth
+  - id: RP-12-S02
+    name: Failed Promotion
+  - id: RP-12-S03
+    name: Career Stagnation
+  - id: RP-12-S04
+    name: Returning After a Setback
+  - id: RP-12-S05
+    name: Different Career Seasons
+  - id: RP-12-S06
+    name: Work Recognition vs Home Recognition
+  - id: RP-12-S07
+    name: Career Decision as a Couple
+- id: RP-13
+  name: Affection & Emotional Expression
+  priority: P1
+  sub_series:
+  - id: RP-13-S01
+    name: Affection Assumed but Unsaid
+  - id: RP-13-S02
+    name: Different Expressions of Care
+  - id: RP-13-S03
+    name: Reassurance Needed
+  - id: RP-13-S04
+    name: Affection Lost in Routine
+  - id: RP-13-S05
+    name: Receiving Affection Awkwardly
+  - id: RP-13-S06
+    name: Small Acts of Tenderness
+- id: RP-14
+  name: Apology, Forgiveness & Letting Go
+  priority: P0
+  sub_series:
+  - id: RP-14-S01
+    name: Difficulty Apologizing
+  - id: RP-14-S02
+    name: Apology Without Understanding
+  - id: RP-14-S03
+    name: Repeated Apology, Repeated Behavior
+  - id: RP-14-S04
+    name: Receiving an Apology
+  - id: RP-14-S05
+    name: Letting Go of Scorekeeping
+  - id: RP-14-S06
+    name: Self-Forgiveness After a Mistake
+  - id: RP-14-S07
+    name: Repair Through Action
+- id: RP-15
+  name: Personal Space & Togetherness
+  priority: P1
+  sub_series:
+  - id: RP-15-S01
+    name: Need for Quiet Time
+  - id: RP-15-S02
+    name: Personal Interests
+  - id: RP-15-S03
+    name: Togetherness Expectation
+  - id: RP-15-S04
+    name: Space After Conflict
+  - id: RP-15-S05
+    name: Self-Time Without Guilt
+  - id: RP-15-S06
+    name: Reconnecting After Space
+- id: RP-16
+  name: Decision-Making & Shared Priorities
+  priority: P1
+  sub_series:
+  - id: RP-16-S01
+    name: Different Priorities
+  - id: RP-16-S02
+    name: One-Sided Decision
+  - id: RP-16-S03
+    name: Decision Fatigue
+  - id: RP-16-S04
+    name: Compromise Without Resentment
+  - id: RP-16-S05
+    name: Short-Term vs Long-Term Thinking
+  - id: RP-16-S06
+    name: Revisiting an Old Decision
+- id: RP-17
+  name: Parenting as Partners
+  priority: P1
+  sub_series:
+  - id: RP-17-S01
+    name: Different Parenting Approaches
+  - id: RP-17-S02
+    name: Discipline Consistency
+  - id: RP-17-S03
+    name: Unequal Parenting Load
+  - id: RP-17-S04
+    name: Protecting Couple Identity
+  - id: RP-17-S05
+    name: School and Activity Overload
+  - id: RP-17-S06
+    name: Backing Each Other Up
+  - id: RP-17-S07
+    name: Parenting After a Hard Workday
+- id: RP-18
+  name: Extended Family & In-Law Boundaries
+  priority: P1
+  sub_series:
+  - id: RP-18-S01
+    name: Holiday Expectations
+  - id: RP-18-S02
+    name: Unsolicited Advice
+  - id: RP-18-S03
+    name: Time Allocation Between Families
+  - id: RP-18-S04
+    name: Defending the Marriage Respectfully
+  - id: RP-18-S05
+    name: Boundary Agreement
+  - id: RP-18-S06
+    name: Helping Family Without Overstretching
+- id: RP-19
+  name: Routine, Complacency & Reconnection
+  priority: P1
+  sub_series:
+  - id: RP-19-S01
+    name: Autopilot Marriage
+  - id: RP-19-S02
+    name: Taking Reliability for Granted
+  - id: RP-19-S03
+    name: Loss of Shared Fun
+  - id: RP-19-S04
+    name: Remembering the Couple Before the Routine
+  - id: RP-19-S05
+    name: Small Reconnection Rituals
+  - id: RP-19-S06
+    name: Changing Together
+- id: RP-20
+  name: Insecurity & Reassurance
+  priority: P1
+  sub_series:
+  - id: RP-20-S01
+    name: Professional Insecurity
+  - id: RP-20-S02
+    name: Feeling Less Needed
+  - id: RP-20-S03
+    name: Comparison to Peers
+  - id: RP-20-S04
+    name: Need for Reassurance
+  - id: RP-20-S05
+    name: Misreading Neutral Behavior
+  - id: RP-20-S06
+    name: Reassurance Through Consistency
+- id: RP-21
+  name: Listening & Support Mismatch
+  priority: P0
+  sub_series:
+  - id: RP-21-S01
+    name: Fixing Instead of Listening
+  - id: RP-21-S02
+    name: Listening Without Responding
+  - id: RP-21-S03
+    name: Reassurance Too Soon
+  - id: RP-21-S04
+    name: Advice Not Requested
+  - id: RP-21-S05
+    name: Support Style Mismatch
+  - id: RP-21-S06
+    name: Asking the Support Question
+- id: RP-22
+  name: Life Transitions & Adaptation
+  priority: P1
+  sub_series:
+  - id: RP-22-S01
+    name: New Job
+  - id: RP-22-S02
+    name: Job Loss Transition
+  - id: RP-22-S03
+    name: Moving Home
+  - id: RP-22-S04
+    name: Children Entering New Stages
+  - id: RP-22-S05
+    name: Returning to Work or Changing Work Pattern
+  - id: RP-22-S06
+    name: Aging Relationship, Changing Needs
+- id: RP-23
+  name: Respect, Recognition & Partnership
+  priority: P1
+  sub_series:
+  - id: RP-23-S01
+    name: Being Consulted
+  - id: RP-23-S02
+    name: Public vs Private Respect
+  - id: RP-23-S03
+    name: Recognizing Expertise
+  - id: RP-23-S04
+    name: Respect During Disagreement
+  - id: RP-23-S05
+    name: Acknowledging Contribution
+  - id: RP-23-S06
+    name: Partnership Language
+- id: RP-24
+  name: Digital Life & Attention
+  priority: P1
+  sub_series:
+  - id: RP-24-S01
+    name: Phone During Couple Time
+  - id: RP-24-S02
+    name: Work Notifications at Home
+  - id: RP-24-S03
+    name: Parallel Screen Time
+  - id: RP-24-S04
+    name: Digital Availability Assumptions
+  - id: RP-24-S05
+    name: Attention Fragmentation
+  - id: RP-24-S06
+    name: Creating Device-Free Rituals
+- id: RP-25
+  name: Social Life, Friendship & Couple Balance
+  priority: P2
+  sub_series:
+  - id: RP-25-S01
+    name: Different Social Energy
+  - id: RP-25-S02
+    name: Friend Time vs Couple Time
+  - id: RP-25-S03
+    name: Work Social Commitments
+  - id: RP-25-S04
+    name: Feeling Left Out
+  - id: RP-25-S05
+    name: Maintaining Individual Friendships
+  - id: RP-25-S06
+    name: Shared Community
+cross_cutting_story_dimensions:
+  initiating_context:
+  - ordinary weekday
+  - busy work period
+  - remote-work day
+  - school-week logistics
+  - weekend family time
+  - career setback
+  - career opportunity
+  - unexpected household demand
+  - financial planning moment
+  - extended-family commitment
+  - after a previous unresolved disagreement
+  responsibility_pattern:
+  - primarily Mark
+  - primarily Sarah
+  - both contribute differently
+  - neither is wrong; needs conflict
+  - external circumstance drives pressure
+  resolution_pattern:
+  - complete resolution
+  - meaningful progress
+  - new shared agreement
+  - apology plus behavioral repair
+  - clarified misunderstanding
+  - healthy personal space followed by reconnection
+  - redistribution of responsibility
+  - new communication practice
+  - acceptance of an unavoidable tradeoff
+  - multi-part continuation toward a predefined final resolution
+  emotional_palette:
+  - warmth
+  - humor
+  - teasing
+  - affection
+  - ordinary domestic happiness
+  - awkwardness
+  - tenderness
+  - frustration
+  - sadness
+  - uncertainty
+  - relief
+  - joy
+hermes_planning_algorithm:
+- Read Psychology Sub-Constitution + RPCO before proposing content.
+- Inspect produced/planned inventory; never select topics randomly.
+- Prefer an under-covered high-priority Problem Family or Sub-Series unless ORACLE evidence justifies another choice.
+- Select exactly one primary mechanism and state its viewer-recognition value.
+- Check Mark & Sarah continuity and avoid repeating the same causal situation, conflict choreography, or resolution.
+- Choose a believable initiating life context from the established world.
+- Rotate responsibility patterns across the catalog.
+- Define the complete causal arc and constructive resolution before screenplay generation.
+- Choose single-part vs multi-part based on story integrity, never only engagement tactics.
+- Create an Episode Contract and send it through GENESIS quality gates.
+- Only after narrative approval may PROMETHEUS create production assets.
+- Generate the canonical 16:9 master first and derive platform assets from it.
+- After publishing, ORACLE updates performance by Problem Family, Sub-Series, mechanism variant, hook, format and resolution.
+- Use accumulated evidence to guide coverage without rewriting constitutional boundaries or becoming formulaic.
+episode_contract_template:
+  episode_id: null
+  working_title: null
+  problem_family_id: null
+  sub_series_id: null
+  mechanism_variant: null
+  story_universe_id: UNIVERSE-MARK-SARAH
+  continuity_position: null
+  viewer_problem: null
+  viewer_recognition: null
+  primary_mechanism: null
+  secondary_mechanisms: []
+  initiating_context: null
+  mark_state_before: null
+  sarah_state_before: null
+  children_involvement: background | relevant | central-to-parenting-context
+  responsibility_pattern: null
+  core_conflict: null
+  beneath_the_silence: null
+  resolution_type: null
+  intended_resolution: null
+  single_or_multi_part: null
+  if_multi_part_complete_arc: null
+  continuity_change_after: null
+  commercial_hook_truth: null
+  derived_platform_assets:
+  - YouTube master
+  - YouTube Shorts
+  - Instagram Reels
+  - Facebook derivatives
+  - Pinterest derivatives
+  - Threads derivatives
+coverage_registry_schema:
+  rule: Maintain mutable episode/performance tracking separately; do not rewrite ontology law to track counts.
+  fields:
+  - problem_family_id
+  - sub_series_id
+  - episode_id
+  - status
+  - publish_date
+  - primary_mechanism_variant
+  - story_context
+  - responsibility_pattern
+  - resolution_pattern
+  - format
+  - performance_summary
+  - lessons
+commercial_learning_dimensions:
+- CTR by Problem Family
+- retention by Sub-Series
+- first-30-second retention by hook type
+- completion rate by resolution type
+- Short/Reel conversion to long-form
+- comments indicating recognition or practical value
+- repeat-viewer behavior by story cluster
+- series binge behavior
+- title/thumbnail promise accuracy
+- monetization performance without violating constitutional boundaries
+initial_execution_order:
+- P0 Emotional Withdrawal
+- P0 Communication Breakdown
+- P0 Feeling Unappreciated
+- P0 Work–Family Pressure
+- P0 Vulnerability & Openness
+- P0 Conflict & Repair
+- P0 Quality Time & Connection
+- P0 Household Partnership
+- P0 Career Setbacks & Identity
+- P0 Apology, Forgiveness & Letting Go
+- P0 Listening & Support Mismatch
+- P1/P2 families expand after the flagship production loop is stable and early audience evidence exists.
+ontology_integrity_rule:
+  rule: The ontology contains stable content structure only.
+  prohibited_mutable_fields:
+  - production status
+  - episode counts
+  - publish state
+  - CTR
+  - retention
+  - Oracle performance
+  - monetization
+  mutable_data_location: 10_psychology/20_coverage/PSYCHOLOGY_CONTENT_COVERAGE_REGISTRY.yaml

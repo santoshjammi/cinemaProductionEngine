@@ -150,13 +150,14 @@ def _create_ollama_client(config: dict[str, Any]) -> LLMClient:
     from .llm_ollama import OllamaClient
 
     ollama_cfg = config.get("ollama", {})
+    use_python_api = ollama_cfg.get("python_api", True)
     return OllamaClient(
         url=ollama_cfg.get("url", "http://localhost:11434"),
         model=config.get("default_model", "qwen2.5:32b"),
         temperature=config.get("temperature", 0.7),
         max_tokens=config.get("max_tokens", 4096),
         timeout=config.get("timeout", 120.0),
-        use_python_api=ollama_cfg.get("python_api", True),
+        use_python_api=use_python_api,
     )
 
 
@@ -166,7 +167,7 @@ def _create_lmstudio_client(config: dict[str, Any]) -> LLMClient:
 
     lm_cfg = config.get("lmstudio", {})
     return LLMClient(
-        url=lm_cfg.get("url", "http://127.0.0.1:1234"),
+        url=lm_cfg.get("url", "http://127.0.0.1:11434"),
         model=config.get("default_model", "qwen3-coder"),
         temperature=config.get("temperature", 0.7),
         max_tokens=config.get("max_tokens", 4096),

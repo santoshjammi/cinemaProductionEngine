@@ -1,11 +1,12 @@
-content: A compelling narrative about a lonely astronaut that explores the melancholic
-  aspects of their journey.
+title: "the_space_between_us_v9"
+content: |
+  A quiet, devastating exploration of emotional withdrawal in a marriage. 
+  The tension isn't built on explosions, but on the agonizing silence between two people who used to be close, now separated by a wall of mundane deflection.
 emotional_arc:
-  beginning: Introduction to a lonely astronaut
-  end: Resolution with melancholic reflection
-  middle: Middle section exploring melancholic themes
-emotional_tone: melancholic
+  beginning: "Proximity without intimacy — the horror of being alone together."
+  middle: "The realization that they are no longer speaking the same language."
+  end: "The quiet acceptance of a fracture that was years in the making."
+emotional_tone: melancholic, tense, cinematic
 platform: shorts
+story_length: "60+ seconds"
 scenes: []
-story_length: 60 seconds
-title: a lonely astronaut - melancholic Journey

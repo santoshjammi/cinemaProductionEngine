@@ -1,0 +1,16 @@
+{
+  "artifact_id": "SCENE-EW001-04",
+  "stage": "lost_emotional_safety",
+  "emotional_state": {
+    "sarah": {
+      "emotion": "cautious_hope_to_hurt",
+      "intensity": 75
+    },
+    "mark": {
+      "emotion": "fear_of_exposure",
+      "intensity": 80
+    }
+  },
+  "visual_beat": "Sarah reaches in comfort -> Mark tenses and turns away -> her hand is left emotionally stranded.",
+  "audio_tone": "restrained, quiet, melancholic"
+}

@@ -265,11 +265,19 @@ class ComfyUIClient:
         
         return Path.home() / "ComfyUI" / "output"  # Default fallback
 
+    def _request_timeout(self) -> aiohttp.ClientTimeout:
+        """Return a per-request timeout derived from the configured total."""
+        import aiohttp
+        # cap per-request at 30s so individual network stalls don't block;
+        # the caller's outer timeout still bounds the full polling loop.
+        return aiohttp.ClientTimeout(total=30, connect=10)
+
     async def _get_http(self, path: str) -> Any:
         """Make an HTTP GET request."""
         import aiohttp
         url = f"{self.config.base_url}{path}"
-        async with aiohttp.ClientSession() as session:
+        timeout = self._request_timeout()
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(url) as resp:
                 return await resp.json()
 
@@ -277,9 +285,18 @@ class ComfyUIClient:
         """Make an HTTP POST request."""
         import aiohttp
         url = f"{self.config.base_url}{path}"
-        async with aiohttp.ClientSession() as session:
+        timeout = self._request_timeout()
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(url, json=data) as resp:
                 return await resp.json()
+
+    async def unload_models(self) -> dict:
+        """Unload all models from VRAM using POST /free endpoint."""
+        try:
+            return await self._post_http("/free", {"unload_models": True, "free_memory": True})
+        except Exception as e:
+            logger.warning(f"Failed to unload models: {e}")
+            return {"success": False, "error": str(e)}
 
     async def health_check(self) -> bool:
         """Check if ComfyUI is running."""
@@ -347,7 +364,11 @@ class ComfyUIClient:
             
             while time.time() - start_time < self.config.timeout:
                 await asyncio.sleep(1.0)  # Poll every 1 second instead of 2
-                history = await self._get_http(f"/history/{prompt_id}")
+                try:
+                    history = await self._get_http(f"/history/{prompt_id}")
+                except Exception as exc:
+                    logger.debug(f"ComfyUI /history poll error (likely busy): {exc}")
+                    history = None
                 
                 if not history or prompt_id not in history:
                     continue
@@ -546,8 +567,13 @@ class ComfyUIClient:
             start_time = time.time()
             while time.time() - start_time < self.config.timeout * 3:
                 await asyncio.sleep(self.config.poll_interval * 2)
-                history = await self._get_http(f"/history/{prompt_id}")
-                if not history:
+                try:
+                    history = await self._get_http(f"/history/{prompt_id}")
+                except Exception as exc:
+                    logger.debug(f"ComfyUI /history poll error (likely busy): {exc}")
+                    history = None
+                
+                if not history or prompt_id not in history:
                     continue
                 for node_output in history.get(prompt_id, {}).get("outputs", {}).values():
                     frames_out = node_output.get("videos", [])

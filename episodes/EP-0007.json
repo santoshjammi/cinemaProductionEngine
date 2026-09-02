@@ -1,0 +1,53 @@
+{
+  "episode_id": "EP-0007",
+  "working_title": "The Apology She Never Heard",
+  "synopsis": "Sarah apologizes to Mark for a misunderstanding, but he's so caught in his own guilt that he doesn't hear her. When she repeats it, he realizes he's been projecting his own self-blame onto her. The real apology is the one he gives himself.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "guilty \u2192 defensive \u2192 aware \u2192 released",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0007",
+    "working_title": "The Apology She Never Heard",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": [
+        "Mark",
+        "Sarah"
+      ]
+    },
+    "story": {
+      "primary_mechanism": "self-blame projection",
+      "story_context": "Sarah apologizes to Mark for a misunderstanding, but he's so caught in his own guilt that he doesn't hear her. When she ",
+      "viewer_recognition": "The emotional pattern is recognizable and relatable.",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark and Sarah move toward reconnection through honest vulnerability."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {
+      "required": true
+    },
+    "status": {
+      "contract_state": "approved"
+    }
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

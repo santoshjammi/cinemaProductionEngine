@@ -1,0 +1,102 @@
+# PHASE_1_TEXT_ENGINE.yaml
+
+phase:
+id: phase_1
+name: Text Cinema Engine
+
+objective:
+generate_structured_emotional_stories_for_visual_conversion
+
+status:
+state: active
+priority: critical
+
+inputs:
+required:
+- topic
+- emotional_tone
+- story_length
+- platform
+
+optional:
+- character_constraints
+- setting
+- pacing_style
+- target_audience
+
+pipeline:
+stages:
+- story_generation
+- scene_decomposition
+- dialogue_generation
+- cinematic_prompt_generation
+- yaml_validation
+
+models:
+orchestrator:
+model: qwen3-coder-30b-a3b
+responsibilities:
+- workflow_control
+- schema_generation
+- validation
+- continuity_tracking
+
+creative_writer:
+model: deepseek_distilled
+responsibilities:
+- emotional_dialogue
+- narration
+- dramatic_rewrites
+
+outputs:
+generated_files:
+- story.yaml
+- scenes.yaml
+- prompts.yaml
+
+scene_requirements:
+mandatory_fields:
+- id
+- narration
+- emotion
+- camera
+- lighting
+- visual_prompt
+
+validation_rules:
+
+* all_scenes_must_have_emotional_progression
+* narration_must_be_non_empty
+* prompts_must_include_visual_style
+* scene_order_must_be_sequential
+
+failure_modes:
+
+* repetitive_dialogue
+* emotional_flatness
+* prompt_inconsistency
+* scene_discontinuity
+* weak_hooks
+
+metrics:
+
+* yaml_validation_pass_rate
+* scene_completion_rate
+* emotional_arc_score
+* visual_prompt_quality_score
+
+storage:
+format: yaml
+
+directories:
+stories: pipeline/stories
+scenes: pipeline/scenes
+prompts: pipeline/prompts
+
+future_extensions:
+
+* multilingual_story_generation
+* emotional_memory_integration
+* automated_shorts_extraction
+
+

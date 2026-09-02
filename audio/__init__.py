@@ -1,0 +1,1 @@
+"""Audio module — real CC0 music library + XTTS-v2 emotional TTS."""

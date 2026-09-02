@@ -1,0 +1,79 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "add_noise": true,
+      "cfg": 1.0,
+      "denoise": 1.0,
+      "latent_image": ["5", 0],
+      "model": ["4", 0],
+      "negative": ["7", 0],
+      "positive": ["6", 0],
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "seed": 20260805,
+      "steps": 24,
+      "time_conditioning": null
+    }
+  },
+  "4": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "flux1-dev-bf16.safetensors",
+      "weight_dtype": "bf16"
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "batch_size": 1,
+      "height": 1024,
+      "width": 1024
+    }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": ["8", 0],
+      "force_full_precision": true,
+      "text": "Cinematic wide shot. Sarah in a structured blazer reaches toward Mark, who is half-obscured by the back of a sofa, turned away into deep shadows. A cold blue light from the window highlights Sarah's pleading hand while Mark remains mostly silhouette. Emotional distance, heavy atmosphere, photorealistic, 8k."
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": ["8", 0],
+      "force_full_precision": false,
+      "text": ""
+    }
+  },
+  "8": {
+    "class_type": "DualCLIPLoader",
+    "inputs": {
+      "clip_name1": "clip_l.safetensors",
+      "clip_name2": "t5xxl_fp8_e4m3fn.safetensors",
+      "type": "flux",
+      "version": "flux1-dev"
+    }
+  },
+  "9": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux-vae.safetensors"
+    }
+  },
+  "10": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["3", 0],
+      "vae": ["9", 0]
+    }
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "scene4_flux_genuine",
+      "images": ["10", 0]
+    }
+  }
+}

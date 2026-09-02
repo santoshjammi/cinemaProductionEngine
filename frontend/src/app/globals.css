@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cinematic gradient backgrounds */
 @layer base {
   :root {
     --border: 214.3 31.8% 91.4%;
@@ -19,24 +20,119 @@
 }
 
 @layer components {
-  /* Apple-style pill button */
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-pill bg-primary text-primary-foreground font-body text-body px-[22px] py-[11px] transition-transform active:scale-95 focus:outline-2 focus:outline-primary-focus;
+  /* Marketing-first hero */
+  .hero-gradient {
+    background: linear-gradient(180deg, #0a0a0a 0%, #111113 40%, #0f1420 100%);
   }
 
-  .btn-secondary-pill {
-    @apply inline-flex items-center justify-center rounded-pill bg-transparent text-primary border border-primary font-body text-body px-[22px] py-[11px] transition-transform active:scale-95;
+  .hero-gradient-light {
+    background: linear-gradient(180deg, #0a0a0a 0%, #0f1b2d 45%, #111827 100%);
   }
 
-  .btn-dark-utility {
-    @apply inline-flex items-center justify-center rounded-sm bg-ink text-body-on-dark font-body text-caption px-[15px] py-[8px] transition-transform active:scale-95;
+  .gradient-text {
+    @apply bg-gradient-to-r from-amber-300 via-yellow-200 to-orange-400 bg-clip-text text-transparent;
   }
 
-  .btn-pearl-capsule {
-    @apply inline-flex items-center justify-center rounded-md bg-surface-pearl text-ink-muted-80 font-body text-caption px-[14px] py-[8px] border-3 border-divider-soft transition-transform active:scale-95;
+  .gradient-text-light {
+    @apply bg-gradient-to-r from-amber-200 via-white to-amber-100 bg-clip-text text-transparent;
   }
 
-  /* Apple-style cards */
+  .gradient-accent-line {
+    background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.5), transparent);
+  }
+
+  /* Marketing pills */
+  .pill-badge-dark {
+    @apply rounded-full bg-white/10 text-amber-200 border border-white/10 text-xs font-medium px-4 py-1 tracking-wide;
+  }
+
+  /* Feature cards - dark glassmorphism */
+  .feature-card-dark {
+    background: linear-gradient(180deg, rgba(30, 30, 32, 0.8) 0%, rgba(8, 8, 8, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+  }
+
+  .feature-card-dark:hover {
+    background: linear-gradient(180deg, rgba(40, 40, 36, 0.9) 0%, rgba(20, 15, 8, 0.9) 100%);
+    border-color: rgba(251, 191, 36, 0.15);
+    transform: translateY(-4px);
+  }
+
+  /* Pipeline stage cards */
+  .stage-card {
+    @apply transition-all duration-500;
+  }
+
+  .stage-card:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(245, 158, 11, 0.08) 100%);
+  }
+
+  /* CTA buttons for marketing */
+  .cta-primary {
+    @apply bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold rounded-full px-8 py-4 transition-all duration-300 hover:from-amber-300 hover:to-orange-400 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .cta-secondary {
+    @apply bg-transparent text-white font-bold rounded-full px-8 py-4 border-2 border-white/30 transition-all duration-300 hover:border-white/60 hover:bg-white/5;
+  }
+
+  /* Video showcase */
+  .video-grid-item {
+    @apply relative overflow-hidden rounded-xl aspect-[16/9] bg-slate-800/50 border border-slate-700/30;
+  }
+
+  .video-grid-item::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-red-500/10 to-orange-500/5;
+    pointer-events: none;
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    background: linear-gradient(180deg, rgba(30, 27, 7, 0.6) 0%, rgba(20, 15, 4, 0.8) 100%);
+    border: 1px solid rgba(251, 191, 36, 0.1);
+  }
+
+  /* Stats */
+  .stat-value {
+    @apply text-5xl md:text-7xl font-mono font-bold tracking-tight;
+    background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Apple-style global nav for marketing pages */
+  .global-nav-dark {
+    @apply bg-black/80 backdrop-blur-xl border-b border-white/10;
+  }
+
+  /* Fade-in animations */
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+  .animate-delay-600 { animation-delay: 0.6s; }
+
+  /* Glow */
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  .glow-amber {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  /* Apple-style card */
   .product-tile-light {
     @apply w-full bg-canvas text-ink rounded-none py-section px-lg;
   }
@@ -84,5 +180,9 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+  /* Cinematic text shadow */
+  .text-cine-shadow {
+    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(239, 68, 68, 0.15);
   }
 }

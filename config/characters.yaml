@@ -1,0 +1,58 @@
+# Character → hero-image mapping for visual consistency (agnostic of niche/video).
+#
+# This is the single place to wire in ANY video's characters. Each entry maps
+# a character key to its hero reference image (a single-character portrait).
+# The image stage composites the characters that appear in a video and uses
+# that composite as the img2img anchor, so every character keeps the same
+# identity across all scenes.
+#
+# Key normalization: brief speaker names are matched case-insensitively and
+# stripped of suffixes (e.g. "MARK", "Mark", "mark", "MARK_INNER" → "mark").
+#
+# `default_for_psychology: true` marks Mark & Sarah as the automatic default
+# for psychology videos that don't explicitly name their characters.
+
+version: "1.0"
+
+# The default character set used when a psychology video doesn't specify
+# its own characters. Mark & Sarah are the canonical psychology anchors.
+psychology_default:
+  - mark
+  - sarah
+
+characters:
+  mark:
+    name: Mark
+    role: protagonist
+    hero_image: /Users/santosh/Library/Application Support/Hermes/composer-images/image_ab490c.png
+    visual_anchor: "Asian man mid-30s, dark hair, full beard, grey button-down shirt, calm heavy gaze"
+    tts_voice: en-US-BrianNeural
+
+  sarah:
+    name: Sarah
+    role: supporting_lead
+    hero_image: /Users/santosh/Library/Application Support/Hermes/composer-images/image_433135.png
+    visual_anchor: "Asian woman early 30s, long dark hair, white blouse, warm intelligent gaze"
+    tts_voice: en-US-AriaNeural
+
+  # ── Example: add any other video's characters here ──────────────────────
+  # daniel:
+  #   name: Daniel
+  #   role: protagonist
+  #   hero_image: /path/to/daniel_hero.png
+  #   visual_anchor: "man late 30s, short brown hair, clean-shaven, navy jacket"
+  #   tts_voice: en-US-BrianNeural
+  #
+  # elena:
+  #   name: Elena
+  #   role: supporting_lead
+  #   hero_image: /path/to/elena_hero.png
+  #   visual_anchor: "woman early 30s, shoulder-length auburn hair, cream sweater"
+  #   tts_voice: en-US-AriaNeural
+
+# img2img anchor settings (how tightly the composite locks identity).
+# Lower denoise = faces stay closer to the reference but scenes look more similar.
+img2img:
+  denoise: 0.4
+  width: 1024
+  height: 576

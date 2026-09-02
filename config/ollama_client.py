@@ -25,8 +25,8 @@ class OllamaClient:
         temperature: float = 0.7,
         max_tokens: int = 2000,
         top_p: float = 0.9,
-        timeout: int = 120,
-        retry_attempts: int = 3,
+        timeout: int = 600,
+        retry_attempts: int = 2,
         backoff_factor: int = 2,
     ) -> str:
         """Send a chat request to Ollama and return the assistant's response text.
@@ -82,6 +82,17 @@ class OllamaClient:
                     continue
 
                 logger.info(f"Ollama response received ({len(content)} chars)")
+                from movie_os.llm.runtime_logger import log_runtime_llm_call
+                system_prompt = next((msg["content"] for msg in messages if msg["role"] == "system"), "")
+                user_prompt = next((msg["content"] for msg in messages if msg["role"] == "user"), "")
+                log_runtime_llm_call(
+                    prompt=user_prompt,
+                    response=content,
+                    system_prompt=system_prompt,
+                    model=self.model,
+                    provider="ollama_client",
+                    success=True,
+                )
                 return content
 
             except requests.exceptions.Timeout as e:
@@ -102,6 +113,18 @@ class OllamaClient:
                 logger.info(f"Retrying in {wait_time}s...")
                 time.sleep(wait_time)
 
+        from movie_os.llm.runtime_logger import log_runtime_llm_call
+        system_prompt = next((msg["content"] for msg in messages if msg["role"] == "system"), "")
+        user_prompt = next((msg["content"] for msg in messages if msg["role"] == "user"), "")
+        log_runtime_llm_call(
+            prompt=user_prompt,
+            response="",
+            system_prompt=system_prompt,
+            model=self.model,
+            provider="ollama_client",
+            success=False,
+            error=f"All attempts failed. Last error: {last_error}",
+        )
         raise OllamaError(f"All {retry_attempts} attempts failed. Last error: {last_error}")
 
     def _generate(

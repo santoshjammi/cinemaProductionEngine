@@ -1,0 +1,53 @@
+{
+  "episode_id": "EP-0009",
+  "working_title": "The Comparison Trap",
+  "synopsis": "Sarah scrolls through old photos and starts comparing their relationship to how it used to be. Mark notices her sadness and gently asks what's wrong. She admits she's been measuring today against a memory, and they both realize the present is worth more than the past.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "nostalgic \u2192 sad \u2192 honest \u2192 grounded",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0009",
+    "working_title": "The Comparison Trap",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": [
+        "Mark",
+        "Sarah"
+      ]
+    },
+    "story": {
+      "primary_mechanism": "comparing present to past",
+      "story_context": "Sarah scrolls through old photos and starts comparing their relationship to how it used to be. Mark notices her sadness ",
+      "viewer_recognition": "The emotional pattern is recognizable and relatable.",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark and Sarah move toward reconnection through honest vulnerability."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {
+      "required": true
+    },
+    "status": {
+      "contract_state": "approved"
+    }
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

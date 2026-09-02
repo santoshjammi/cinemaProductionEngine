@@ -135,7 +135,7 @@ def structure_scenes(
     output_path: str | Path | None = None,
     temperature: float = 0.3,
     max_tokens: int = 5000,
-    base_url: str = "http://localhost:1234",
+    base_url: str = "http://localhost:11434",
     api_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
 ) -> MasterTimeline:
     """Convert a story narrative into a Master Timeline.

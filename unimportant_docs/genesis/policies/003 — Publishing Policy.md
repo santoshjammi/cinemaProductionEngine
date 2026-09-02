@@ -1,0 +1,216 @@
+Genesis Policies
+GPOL-003 — Publishing Policy
+
+Document ID: GPOL-003
+Title: Genesis Publishing Policy
+Version: 1.0.0
+Status: Binding Policy
+Authority: Derived from GFS-006, GFS-007, GFS-010, GFS-012
+
+1. Purpose
+
+This policy defines what Genesis is permitted to publish, the production
+readiness levels that gate publication, the distribution formats that may
+ship, the versioning rules that govern released artifacts, and the
+deprecation policy that retires them. It is the boundary between Genesis and
+the Studio Engine: nothing crosses that boundary except as this policy
+allows.
+
+2. Foundational Principle
+
+Genesis publishes knowledge, not media.
+
+Every published artifact is a structured representation of production
+intelligence. Genesis never publishes images, audio, video, or rendered
+output. Media is the Studio Engine's responsibility and begins only after
+Genesis certifies readiness.
+
+3. Production Readiness Levels
+
+Every production occupies one of five levels. Only CERTIFIED productions may
+be published.
+
+3.1 DRAFT
+
+- The PKG exists but is incomplete
+- Confidence may include UNKNOWN on critical paths
+- Not publishable; not visible to downstream engines
+- May be shared with the Creator for review
+
+3.2 VALIDATED
+
+- All validation categories have run
+- BLOCKER findings may remain; MAJOR findings are tracked
+- Not publishable; visible to the Production Orchestrator and Governance
+  Agent only
+
+3.3 APPROVED
+
+- All BLOCKER findings are resolved
+- All required reviews are complete
+- A readiness recommendation exists from the Validation Authority
+- Not publishable until the Governance Authority signs the certificate
+
+3.4 CERTIFIED
+
+- The Production Readiness Certificate is signed
+- All gates in GPOL-002 section 6 have passed
+- Publishable as a Production Knowledge Package
+- Visible to downstream engines under the published distribution formats
+
+3.5 SUPERSEDED
+
+- A newer CERTIFIED version exists for the same production
+- The prior version is retained for provenance and rollback
+- Not publishable as a primary; queryable for history
+
+4. Distribution Formats
+
+A CERTIFIED production shall be published as a Production Knowledge Package
+(PKP) per GFS-010 section 7. The PKP contains:
+
+4.1 Mandatory Components
+
+- The PKG serialized as JSON-LD against the published context
+- A manifest file (JSON) listing every component with its hash and size
+- A validation certificate signed by the Governance Authority
+- A provenance log extract covering the session
+- A dependency manifest listing every ontology version referenced
+- A risk register with explicit acceptances
+
+4.2 Optional Materialized Views
+
+The PKP may include materialized views for downstream convenience:
+
+- Screenplay view (per the Screenplay Format)
+- Storyboard view (per the Shot Plan Format)
+- Production plan view (per the Production Plan Format)
+- Music score view (per the Music Score Format)
+- Character DNA and Environment DNA documents
+- Prompt library (per the Prompt Library Format)
+
+Materialized views are derived; the PKG remains canonical. If a view
+contradicts the PKG, the PKG wins and the view is regenerated.
+
+4.3 Transport
+
+- PKP is distributed as a signed tarball (.tar.gz) plus a detached
+  signature
+- The signature is verified by the Studio Engine before consumption
+- A PKP that fails signature verification is rejected and the event is
+  logged to both Genesis and Studio audit trails
+
+5. Versioning Rules
+
+5.1 PKG Versioning
+
+Per GFS-010 section 6:
+
+- MAJOR: incompatible structural changes (subgraphs removed, ontology
+  namespaces changed)
+- MINOR: additive changes (new nodes, edges, subgraphs)
+- PATCH: confidence upgrades, corrections, refinements
+
+5.2 Publication Rules
+
+- Only CERTIFIED versions may be published
+- A CERTIFIED version is immutable once published
+- A newer CERTIFIED version supersedes the prior; the prior becomes
+  SUPERSEDED but remains queryable
+- A PATCH may be published without a Creator re-review only if no
+  creative-intent node changes
+- A MINOR requires Creator notification; a MAJOR requires Creator
+  sign-off
+
+5.3 Ontology and Specification References
+
+Every PKP manifest shall pin the exact version of every ontology and
+specification it depends on. A PKP that references a floating ontology
+version is invalid. Downstream engines shall not consume a PKP whose
+declared dependencies are not all ACTIVE.
+
+6. Deprecation Policy
+
+6.1 Ontology Deprecation
+
+- An ACTIVE ontology may be deprecated by the Governance Authority
+- DEPRECATED ontologies remain queryable; no new nodes may be created
+  against them
+- Deprecation notice is given at least 6 months before retirement
+- A migration guide is published alongside the deprecation notice
+
+6.2 Specification Deprecation
+
+- Same cadence as ontology deprecation
+- A superseding specification is published before the prior is retired
+- Materialized views generated by the retired specification remain valid
+  for already-certified PKPs
+
+6.3 PKP Deprecation
+
+- A SUPERSEDED PKP is retained per the Data Retention Policy (GPOL-004)
+- A PKP may be revoked only by the Governance Authority for cause (CRITICAL
+  breach, legal request, Creator request)
+- Revocation is logged with reason, authority, and effective date
+- Downstream engines are notified of revocation via the integration channel
+
+7. Publication Channels
+
+- Internal: the PKP is written to the Genesis publication store and indexed
+  by production ID and version
+- Studio Engine: the PKP is pushed to the Studio Engine ingestion endpoint
+  over mTLS with a signed payload
+- Creator dashboard: a read-only view of the certificate and the PKP
+  manifest is exposed via the API (per GC-004)
+- Archive: every CERTIFIED PKP is replicated to an immutable archive per
+  GPOL-004
+
+8. Access Control
+
+- INTERNAL publications are visible to all Genesis roles
+- STUDIO publications are visible to the Studio Engine under its scoped
+  credentials
+- CREATOR publications are visible to the Creator and their delegates
+- ARCHIVE publications are read-only and accessible only to the Governance
+  Authority and auditors
+
+9. Withdrawal
+
+A published PKP may be withdrawn only when:
+
+- A CRITICAL defect is discovered post-publication
+- The Creator requests withdrawal
+- A legal or compliance event requires it
+
+Withdrawal shall:
+
+- Be approved by the Governance Authority
+- Be recorded with reason, authority, and effective date
+- Notify downstream engines within 24 hours
+- Retain the withdrawn PKP in the archive for provenance
+
+Withdrawal does not erase; it disables active consumption.
+
+10. Compliance
+
+This policy is enforced by the Governance Agent and audited by the
+Validation Authority. Every publication event shall produce a publication
+record in the governance log containing:
+
+- Publication ID
+- Production ID and PKG version
+- Readiness level
+- Components shipped with hashes
+- Recipients
+- Timestamp
+- Approving authorities
+
+11. Invariants
+
+- Genesis publishes knowledge, not media.
+- Only CERTIFIED productions may be published.
+- A CERTIFIED version is immutable.
+- Dependencies are pinned, never floating.
+- Deprecation is announced and guided.
+- Withdrawal disables, never erases.
+- Every publication is recorded.

@@ -1,0 +1,53 @@
+{
+  "episode_id": "EP-0010",
+  "working_title": "The Word He Swallowed",
+  "synopsis": "Mark wants to tell Sarah he loves her but the word gets stuck every time. He's rehearsed it a hundred times. When he finally says it, the relief is overwhelming \u2014 and Sarah's quiet 'I know' is the warmest thing he's ever heard.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "stuck \u2192 anxious \u2192 brave \u2192 relieved",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0010",
+    "working_title": "The Word He Swallowed",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": [
+        "Mark",
+        "Sarah"
+      ]
+    },
+    "story": {
+      "primary_mechanism": "fear of saying I love you",
+      "story_context": "Mark wants to tell Sarah he loves her but the word gets stuck every time. He's rehearsed it a hundred times. When he fin",
+      "viewer_recognition": "The emotional pattern is recognizable and relatable.",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark and Sarah move toward reconnection through honest vulnerability."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {
+      "required": true
+    },
+    "status": {
+      "contract_state": "approved"
+    }
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

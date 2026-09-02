@@ -1,0 +1,46 @@
+{
+  "episode_id": "EP-0004",
+  "working_title": "The Night He Stayed Silent",
+  "synopsis": "After a long day, Mark comes home exhausted and emotionally drained, but when Sarah tries to talk about her own difficult day, he stays silent and scrolls his phone. Sarah feels invisible. The turning point comes when Mark finally puts the phone down and admits he was so consumed by his own stress that he forgot to ask about hers, and they reconnect over a shared quiet moment.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "tired → distant → hurt → aware → present → connected",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; gets lost in his own stress), SARAH (36, perceptive, patient, affectionate, feels invisible when he withdraws)",
+    "style": "Cinematic psychological realism. Warm domestic lighting, dim evening tones. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0004",
+    "working_title": "The Night He Stayed Silent",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": ["Mark", "Sarah"]
+    },
+    "story": {
+      "primary_mechanism": "stress-driven emotional absence",
+      "story_context": "An exhausted evening where Mark's silence makes Sarah feel invisible.",
+      "viewer_recognition": "Silence under stress is often exhaustion, not indifference",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark becomes present and they reconnect."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {"required": true},
+    "status": {"contract_state": "approved"}
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

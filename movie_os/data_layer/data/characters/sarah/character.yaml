@@ -1,0 +1,64 @@
+id: 033863ec-e1f6-48f2-b105-c2f728c70a8f
+key: sarah
+name: Sarah
+role: supporting_lead
+tags:
+- psychological_drama
+- wife
+- compassionate
+physical:
+  age: 32
+  gender: female
+  ethnicity: Asian
+  height_cm: null
+  build: medium
+  hair: long dark hair
+  eyes: ''
+  distinguishing_features:
+  - warm intelligent gaze
+  visual_anchor: Asian woman early 30s, long dark hair, white blouse, warm intelligent
+    gaze
+psychological:
+  personality_traits:
+  - perceptive
+  - calm
+  - compassionate
+  - resilient
+  emotional_tendencies: []
+  psychological_wounds: []
+  defense_mechanisms: []
+  core_fear: being unable to reach Mark
+  core_desire: to stay emotionally present
+speech:
+  speaking_style: soft, direct, caring
+  vocabulary_level: conversational
+  verbal_tics: []
+  silence_tendencies: stays present, asks direct questions
+voice:
+  pitch: medium
+  pace: measured
+  tone: warm, steady
+  accent: ''
+  tts_voice: en-US-AriaNeural
+  tts_provider: edge
+wardrobe:
+  default_outfit: white blouse
+  signature_items: []
+  style_notes: soft neutral wardrobe
+expressions:
+  expressions:
+  - 'attentive: soft but firm expression'
+  - 'care: warm eye contact'
+  - 'steady: calm presence'
+relationships: []
+history:
+  backstory: Emotional counterweight to Mark.
+  significant_events: []
+  last_story_id: null
+arc:
+  starting_state: perceptive, present
+  ending_state: resilient, connected
+  key_moments: []
+reference_images: []
+created_at: '2026-09-01'
+notes: ''

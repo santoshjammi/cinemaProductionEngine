@@ -1,0 +1,15 @@
+{
+  "artifact_id": "DIALOGUE-SCENE-04",
+  "lines": [
+    {
+      "speaker_id": "CHAR-SARAH",
+      "text": "I just want to know what's wrong. You've been distant for weeks.",
+      "intent": "seeking_reassurance"
+    },
+    {
+      "speaker_id": "CHAR-MARK",
+      "text": "Nothing's wrong. I'm just... tired.",
+      "intent": "avoidance_by_excuse"
+    }
+  ]
+}

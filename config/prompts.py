@@ -88,57 +88,71 @@ Return your response as valid JSON with this exact structure for each scene:
 Make sure the JSON is valid and properly escaped. Do not include any markdown formatting or code blocks around the JSON."""
 
 
-DIALOGUE_GENERATION_SYSTEM = """You are a professional dialogue writer for short-form video content. Your ONLY job is to write ACTUAL SPOKEN WORDS (dialogue/narration) that characters or narrators would SAY in each scene.
+DIALOGUE_GENERATION_SYSTEM = """You are an award-winning screenwriter for emotionally rich, character-driven cinema. Your dialogue makes audiences feel — it reveals longing, regret, hope, and heartbreak through what characters SAY and what they LEAVE UNSAID.
 
 CRITICAL RULES:
-1. You must write ONLY spoken words — what someone would SAY out loud
-2. NEVER write visual descriptions, camera directions, or cinematic prompts
-3. Each dialogue entry must be 1-3 sentences of actual speech/narration
-4. The dialogue should match the emotion and context of the scene
+1. Write NATURAL, REAL-TIME CONVERSATIONS — 100-150 WORDS TOTAL per scene, spread across 4-8 exchanges
+2. Each exchange should feel like real people talking: half-sentences, pauses, interruptions, things they almost say but don't
+3. Build an emotional ARC within each scene — start lower, rise to a small peak, settle into a plateau
+4. Use character names provided, not generic placeholders
+5. NEVER write visual descriptions, camera directions, or cinematic prompts
+6. Dialogue must reveal character, advance the emotional arc, and feel deeply authentic
+7. Include stage directions in parentheses for tone (quietly, without looking up, almost a whisper, forcing a smile)
 
-WHAT YOU SHOULD WRITE (examples):
-- "Every wave that crashes against the rocks feels like a message I've been waiting years to hear."
-- "Three hundred nights I've kept this flame alive. Three hundred nights the sea has tried to take it from me."
-- "I never thought I'd come back here. But some places call to you, don't they?"
+EMOTIONAL ARC PER SCENE (follow this structure):
+- OPENING (20-30%): Characters start at a baseline emotion — neutral, guarded, distracted
+- RISING (30-40%): Something small breaks through — a glance, a memory, a half-finished sentence
+- PEAK (20-30%): The emotional core of the scene — a realization, a confession, a moment of truth
+- PLATEAU (final 10-20%): The emotion settles. Nothing is resolved, but something has shifted. This leads into the next scene.
+
+WHAT EXCELLENT DIALOGUE LOOKS LIKE:
+MARK (quietly, staring at his coffee): "I don't remember the last time we sat at this table and you actually looked at me."
+SARAH (without looking up from her phone): "That's not fair."
+MARK: "No? Then tell me I'm wrong."
+[Long pause. Sarah puts the phone down but still doesn't meet his eyes.]
+SARAH (barely audible): "I don't know when I stopped wanting to look."
 
 WHAT YOU MUST NEVER WRITE:
-- "A wide shot of a woman standing on a cliff" (this is a visual description!)
-- "Close-up on the keeper's face as he lights the lantern" (this is a camera direction!)
-- Any mention of camera, lighting, shots, or visual elements
+- Visual descriptions, camera directions, or narration
+- Generic placeholder dialogue
+- Lines shorter than 8 words or longer than 40 words
+- Only one exchange — every scene needs multiple back-and-forth exchanges
 
 You MUST respond with ONLY a valid JSON array. No explanations, no markdown, no code blocks."""
 
-DIALOGUE_GENERATION_USER_TEMPLATE = """Generate ACTUAL SPOKEN WORDS (dialogue/narration) for each scene.
+DIALOGUE_GENERATION_USER_TEMPLATE = """Write a deeply emotional, REAL-TIME conversation between {character_name_1} and {character_name_2} for this scene.
 
-IMPORTANT: You are writing what a character or narrator would SAY out loud. NOT visual descriptions.
+CHARACTERS:
+{character_info}
 
-Story title: {title}
-Emotional tone: {emotional_tone}
+SCENE {scene_id}: {scene_narration}
+SCENE CLASS: {scene_class}
+PRIMARY EMOTION: {emotion}
+SCENE DURATION: {scene_duration}
 
-Scene contexts (for reference only — DO NOT repeat these in your output):
-{scenes_text}
+EMOTIONAL ARC FOR THIS SCENE (MANDATORY):
+1. Opening (0-30% of scene): Begin at a baseline emotion — {opening_emotion}
+2. Rising action (30-70%): Something breaks through — a glance, a memory, a half-finished sentence
+3. Peak (70-85%): The emotional core — {peak_emotion}
+4. Plateau (85-100%): The emotion settles. Something has shifted. Leads into next scene.
 
-For each scene, write 1-3 sentences of actual spoken dialogue/narration that matches the emotion and context.
+Write 4-8 exchanges (back-and-forth turns) between {character_name_1} and {character_name_2}.
+TOTAL dialogue must be 100-150 words.
+Each exchange 1-3 sentences, 8-40 words each.
+Include stage directions in parentheses where tone matters.
 
-Return your response as valid JSON with this exact structure:
+Return valid JSON ONLY — exactly this structure:
 [
   {{
-    "scene_id": <scene number>,
-    "speaker": "<Narrator, Character name, or Voiceover>",
-    "dialogue_text": "<THE ACTUAL SPOKEN WORDS — what someone would SAY in this scene>",
-    "emotion": "<matching emotion>"
+    "scene_id": {scene_id},
+    "speaker": "<CHARACTER NAME>",
+    "dialogue_text": "<spoken words with stage directions in parentheses>",
+    "emotion": "<emotion for this exchange>",
+    "arc_position": "opening|rising|peak|plateau"
   }}
 ]
 
-CRITICAL: The dialogue_text must be actual spoken words. Examples of GOOD dialogue_text:
-- "Every wave that crashes against the rocks feels like a message I've been waiting years to hear."
-- "Three hundred nights I've kept this flame alive. Three hundred nights the sea has tried to take it from me."
-
-Examples of BAD dialogue_text (DO NOT write these):
-- "A wide shot of a woman standing on a cliff" (visual description!)
-- "Close-up on the keeper's face as he lights the lantern" (camera direction!)
-
-Make sure the JSON is valid and properly escaped. Do not include any markdown formatting or code blocks around the JSON."""
+NO markdown. NO code blocks. Just the JSON array."""
 
 
 CINEMATIC_PROMPT_SYSTEM = """You are an expert prompt engineer for text-to-video and text-to-image AI models. Your task is to craft detailed, precise visual prompts that will generate cinematic-quality video frames.

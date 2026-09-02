@@ -33,6 +33,7 @@ class OllamaClient(LLMClient):
         max_tokens: int = 4096,
         timeout: float = 120.0,
         use_python_api: bool = True,
+        use_http_api: bool = True,
     ):
         self.url = url.rstrip("/")
         self.model = model
@@ -40,6 +41,7 @@ class OllamaClient(LLMClient):
         self.max_tokens = max_tokens
         self.timeout = timeout
         self.use_python_api = use_python_api
+        self.use_http_api = use_http_api
         self._ollama_module = None
 
     def _get_ollama_module(self):
@@ -52,32 +54,75 @@ class OllamaClient(LLMClient):
             except ImportError:
                 self._ollama_module = False  # sentinel
                 logger.info("ollama package not available, using HTTP API")
-        return self._ollama_module
+        return self._ollama_module if self.use_python_api else False
 
     def generate(self, prompt: str, system: str = "") -> str:
         """Generate a response from Ollama.
 
-        Uses the ollama Python package as primary method (most reliable).
-        Falls back to subprocess if Python package unavailable.
+        Uses HTTP API first when use_python_api=False,
+        otherwise tries Python package then subprocess.
         """
-        # Try Python API first (most reliable)
-        mod = self._get_ollama_module()
-        if mod:
+        result = None
+        used_backend = "unknown"
+        error_msg = ""
+        
+        # Try HTTP API first if python_api is disabled
+        if not self.use_python_api:
             try:
-                result = self._generate_python_api(prompt, system)
-                if result and result.strip():
-                    return result
+                result = self._generate_http_api(prompt, system)
+                used_backend = "http"
             except Exception as e:
-                logger.warning(f"Ollama Python API failed: {e}, trying subprocess")
+                logger.warning(f"Ollama HTTP API failed: {e}, trying subprocess")
+                error_msg += f"http: {e}; "
+            
+            if not result:
+                try:
+                    result = self._generate_subprocess(prompt, system)
+                    used_backend = "subprocess"
+                except Exception as e:
+                    logger.warning(f"Ollama subprocess failed: {e}")
+                    error_msg += f"subprocess: {e}; "
+        else:
+            # Try Python API first (most reliable)
+            mod = self._get_ollama_module()
+            if mod:
+                try:
+                    result = self._generate_python_api(prompt, system)
+                    used_backend = "python"
+                except Exception as e:
+                    logger.warning(f"Ollama Python API failed: {e}, trying subprocess")
+                    error_msg += f"python: {e}; "
 
-        # Try subprocess
-        try:
-            result = self._generate_subprocess(prompt, system)
-            if result and result.strip():
-                return result
-        except Exception as e:
-            logger.warning(f"Ollama subprocess failed: {e}")
+            if not result:
+                # Try subprocess
+                try:
+                    result = self._generate_subprocess(prompt, system)
+                    used_backend = "subprocess"
+                except Exception as e:
+                    logger.warning(f"Ollama subprocess failed: {e}")
+                    error_msg += f"subprocess: {e}; "
 
+        from movie_os.llm.runtime_logger import log_runtime_llm_call
+        if result and result.strip():
+            log_runtime_llm_call(
+                prompt=prompt,
+                response=result,
+                system_prompt=system,
+                model=self.model,
+                provider=f"ollama_{used_backend}",
+                success=True,
+            )
+            return result
+
+        log_runtime_llm_call(
+            prompt=prompt,
+            response="",
+            system_prompt=system,
+            model=self.model,
+            provider="ollama_all",
+            success=False,
+            error=f"All backends failed: {error_msg}",
+        )
         raise RuntimeError("All Ollama backends failed to produce a response")
 
     def _generate_python_api(self, prompt: str, system: str = "") -> str:

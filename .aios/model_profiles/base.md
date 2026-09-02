@@ -1,21 +1,16 @@
 ---
-name: "local-model-profile"
+name: "base-model-profile"
 mode: "config"
-version: "2.0"
+version: "1.0"
 ---
 
-# Local-First Model Configuration (LM Studio Integration)
-
-## Context from `docs/notImp_defaultSettings.jsonc`
-The platform relies heavily on local inference via LM Studio running on `localhost:1234`.
+# Base Model Configuration
 
 ## Defaults
-- **Provider**: LM Studio (`http://localhost:1234`)
-- **Max Input Tokens**: 131072 (Context window)
-- **Max Output Tokens**: 16384
-- **Reasoning Effort**: Enabled for complex planning tasks.
-- **Tool Calling**: Enabled (specifically for Qwen, Llama 3.1+, or Mistral).
+- **Temperature**: 0.7 (Balanced creativity and precision)
+- **Max Tokens**: 4096 (Standard context window)
+- **System Prompt**: Loads `.aios/prompts/core_interaction.md`
+- **Knowledge Injection**: Injects `.aios/memories/schema.yaml` upon initialization
 
-## Usage in `videoGen`
-- Use local models for storyboarding and context generation (e.g., Flux for images).
-- Escalate to cloud APIs only for high-fidelity video encoding or specialized assets if local resources are exhausted.
+## Customization
+Specific profiles for video generation should override these defaults to optimize for token-heavy context windows and deterministic output.

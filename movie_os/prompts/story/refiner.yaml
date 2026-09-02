@@ -28,7 +28,7 @@ metadata:
     - second-pass
     - expert-feedback
   supported_models:
-    - supergemma4-26b-uncensored-mlx-v2
+    - supergemma4-26b-uncensored-v2
     - any-local-llm
   recommended_temperature: 0.6
   recommended_max_tokens: 2000

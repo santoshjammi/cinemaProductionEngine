@@ -11,7 +11,7 @@ llm:
 #   creative_writer: deepseek_distilled -> closest available: deepseek-coder-v2:latest
 models:
   orchestrator:
-    model: "qwen2.5:32b"
+    model: "qwen3.6:latest"
     responsibilities:
       - workflow_control
       - schema_generation
@@ -20,7 +20,7 @@ models:
     description: "Powers story_generation, scene_decomposition, cinematic_prompt_generation"
   
   creative_writer:
-    model: "deepseek-coder-v2:latest"
+    model: "qwen3.6:latest"
     responsibilities:
       - emotional_dialogue
       - narration

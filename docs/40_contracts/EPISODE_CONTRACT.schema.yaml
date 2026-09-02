@@ -1,0 +1,69 @@
+schema:
+  name: EpisodeContract
+  version: '1.0'
+required:
+- episode_id
+- title
+- niche
+- domain
+- problem_family_id
+- sub_series_id
+- primary_mechanism
+- story_universe_id
+- viewer_recognition
+- responsibility_pattern
+- story_context
+- intended_resolution
+- single_or_multi_part
+- target_runtime
+- format_profile
+- status
+fields:
+  episode_id: immutable ID
+  title: working title, not final commercial title
+  niche: psychology
+  domain: relationship_emotional_psychology
+  problem_family_id: RPCO problem family
+  sub_series_id: RPCO sub-series
+  mechanism_variant: specific manifestation
+  primary_mechanism: exactly one
+  secondary_mechanisms: optional list
+  story_universe_id: UNIVERSE-MARK-SARAH
+  continuity_position: reference to current continuity
+  viewer_problem: recognizable real-life tension
+  viewer_recognition: what the viewer should recognize
+  story_context: ordinary life situation
+  responsibility_pattern: mark | sarah | both | circumstance | neither_wrong
+  beneath_the_silence: brief core interpretation, not lecture
+  intended_resolution: complete repair | meaningful progress | constructive next step
+  single_or_multi_part: single | multi
+  multi_part_arc_id: required if multi
+  target_runtime: e.g. 12m
+  format_profile: YOUTUBE_LONGFORM_16X9@1.0
+  commercial_hook_truth: true tension that packaging may use
+  status: draft | approved | superseded
+example:
+  episode_id: EP-0001
+  title: The Email Mark Wouldn't Open
+  niche: psychology
+  domain: relationship_emotional_psychology
+  problem_family_id: RP-01
+  sub_series_id: EW-01
+  mechanism_variant: fear of disappointing spouse after job instability
+  primary_mechanism: fear-based withdrawal
+  secondary_mechanisms:
+  - work-family pressure
+  story_universe_id: UNIVERSE-MARK-SARAH
+  continuity_position: MSCR-001@current
+  viewer_problem: work fear becomes silence at home
+  viewer_recognition: withdrawal can sometimes be an attempt to hide fear rather than rejection
+  story_context: possible engineering-team cuts during a busy family week
+  responsibility_pattern: both
+  beneath_the_silence: Mark hides uncertainty; Sarah initially reads the distance as disengagement.
+  intended_resolution: meaningful progress through honest disclosure and practical rebalancing
+  single_or_multi_part: single
+  multi_part_arc_id: null
+  target_runtime: 12m
+  format_profile: YOUTUBE_LONGFORM_16X9@1.0
+  commercial_hook_truth: Mark is not angry; he is hiding a work fear he does not know how to say.
+  status: draft

@@ -123,6 +123,12 @@ class ImageGeneratorAgent(ProductionAgent):
             context.images_dir = images_dir
             context.generated_images = generated_images
 
+            # Unload models from ComfyUI
+            try:
+                await client.unload_models()
+            except Exception as e:
+                logger.warning(f"Failed to unload ComfyUI models: {e}")
+
             status = AgentStatus.SUCCESS if failed_count == 0 else AgentStatus.PARTIAL
             return AgentResult(
                 status=status,

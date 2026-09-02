@@ -5,8 +5,10 @@ persistent across stories. When a new story says "the bedroom", the
 ImageProvider pulls the environment's hero reference image for
 visual consistency.
 
-File layout:
+SQLite vector search (Phase 8) adds similarity-based lookups
+via `search_similar(query_text, k=5)` backed by sqlite-vec.
 
+File layout:
     movie_os/data/environments/
         bedroom_jane/
             environment.yaml   # EnvironmentDNA serialized
@@ -16,7 +18,6 @@ File layout:
         therapist_office/
             environment.yaml
             hero.png
-        ...
 
 The same pattern as CharacterRegistry. The EnvironmentDNA can have
 multiple variants (time_of_day, weather) — each variant can have
@@ -25,9 +26,10 @@ its own reference image.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 from movie_os.domain.environment import EnvironmentDNA
 from .storage import EntityStorage
@@ -36,24 +38,71 @@ from .storage import EntityStorage
 logger = logging.getLogger("movie_os.data_layer.environment_registry")
 
 
+# ---------------------------------------------------------------------------
+# Helpers: char-ngram vector feature extraction (no heavy deps) — env variant
+# ---------------------------------------------------------------------------
+
+def _text_to_f32_vector(text: str, dim: int = 768) -> list[float]:
+    """Deterministic TF-like feature vector for short text."""
+    vec: list[float] = [0.0] * dim
+    if len(text) < 4:
+        grams = [text.lower()]
+    else:
+        grams = [text[i:i + 4].lower() for i in range(len(text) - 3)]
+    for gram in grams:
+        h = int(hashlib.md5(gram.encode()).hexdigest(), 16) % dim
+        vec[h] += 1.0
+    norm = sum(v ** 2 for v in vec) ** 0.5 or 1.0
+    return [v / norm for v in vec]
+
+
+def _environment_to_vector(env: EnvironmentDNA, dim: int = 768) -> list[float]:
+    """Vectorise an environment's defining text fields and average."""
+    texts = [
+        env.name,
+        env.key,
+        env.architectural_style.value if hasattr(env.architectural_style, 'value') else str(env.architectural_style),
+        env.description,
+        " ".join(env.notable_features or []),
+        env.lighting.primary_source,
+        env.lighting.color_temperature,
+    ]
+    combined = " | ".join(t for t in texts if t)
+    return _text_to_f32_vector(combined, dim)
+
+
+# ---------------------------------------------------------------------------
+# Environment Registry
+# ---------------------------------------------------------------------------
+
 HERO_FILENAME = "hero.png"
 
 
 class EnvironmentRegistry:
-    """A persistent store for EnvironmentDNA objects."""
+    """A persistent store for EnvironmentDNA objects.
+
+    Phase 8 — SQLite vector search: every save() also writes an
+    embedding into movie_os/data/environments/vec_index/environments.vec
+    via sqlite-vec so that search_similar() works on disk.
+    """
 
     def __init__(self, root: str | Path = "movie_os/data/environments"):
         self.root = Path(root)
         self._storage = EntityStorage(self.root, manifest_filename="environment.yaml")
+        self._vec_path = self.root / "vec_index" / "environments.vec"
 
     # ------------------------------------------------------------------
     # CRUD
     # ------------------------------------------------------------------
 
     def save(self, environment: EnvironmentDNA) -> Path:
-        """Save an environment to disk."""
+        """Save an environment to disk. Returns the manifest path."""
         data = environment.model_dump(mode="json")
-        return self._storage.save(environment.key, data)
+        manifest = self._storage.save(environment.key, data)
+        vec = _environment_to_vector(environment)
+        self._ensure_vec_index()
+        self._vec_ingest(environment.key, data, env=environment, vec=vec)
+        return manifest
 
     def get(self, key: str) -> Optional[EnvironmentDNA]:
         """Load an environment by key."""
@@ -77,10 +126,13 @@ class EnvironmentRegistry:
         return self._storage.list_keys()
 
     def delete(self, key: str) -> bool:
-        return self._storage.delete(key)
+        ok = self._storage.delete(key)
+        if ok and hasattr(self, "_conn"):
+            self._vec_delete(key)
+        return ok
 
     # ------------------------------------------------------------------
-    # Search
+    # Search (traditional)
     # ------------------------------------------------------------------
 
     def find_by_name(self, name: str) -> Optional[EnvironmentDNA]:
@@ -90,6 +142,65 @@ class EnvironmentRegistry:
             if env.name.lower() == name_lower or name_lower in env.name.lower():
                 return env
         return None
+
+    # ------------------------------------------------------------------
+    # Search (Phase 8 — vector similarity via numpy + SQLite)
+    # ------------------------------------------------------------------
+
+    def _ensure_vec_index(self):
+        """Create the vector index database on disk."""
+        from movie_os.memory.vector_search import VectorIndex
+        self._vec_path.parent.mkdir(parents=True, exist_ok=True)
+        self._vindex = VectorIndex(self._vec_path)
+        self._vindex.setup(dim=768)
+
+    def _vec_ingest(self, key: str, meta: dict, env: Any, vec: list[float]):
+        if not hasattr(self, "_vindex"):
+            self._ensure_vec_index()
+        self._vindex.ingest(key, meta, vec)
+
+    def _vec_delete(self, key: str):
+        """Remove an entity from the vector index."""
+        if not hasattr(self, "_vindex"):
+            return
+        try:
+            self._vindex.db.execute("DELETE FROM entities WHERE key=?", (key,))
+            self._vindex.db.commit()
+        except Exception as exc:
+            logger.warning(f"Vector index delete failed for '{key}': {exc}")
+
+    def search_similar(self, query_text: str, k: int = 5) -> list[tuple[EnvironmentDNA, float]]:
+        """Find environments most similar to *query_text* via cosine distance.
+
+        Args:
+            query_text: Free-text description of desired environment.
+            k: Max neighbours to return.
+
+        Returns:
+            List of (EnvironmentDNA, score) sorted DESC by similarity.
+        """
+        if not hasattr(self, "_vindex"):
+            self._ensure_vec_index()
+
+        qvec = _text_to_f32_vector(query_text, 768)
+
+        # Seed any missing entities into the vector store
+        for env in self.list():
+            existing = self._vindex.db.execute(
+                "SELECT count(*) FROM entities WHERE key=?", (env.key,)
+            ).fetchone()[0]
+            if existing == 0:
+                evec = _environment_to_vector(env)
+                meta_data = self._storage.load(env.key) or {}
+                self._vec_ingest(env.key, meta_data, env=env, vec=evec)
+
+        results_raw = self._vindex.query(qvec, k=k)
+        results: list[tuple[EnvironmentDNA, float]] = []
+        for r in results_raw:
+            env = self.get(r["key"])
+            if env:
+                results.append((env, r["score"]))
+        return results
 
     # ------------------------------------------------------------------
     # Reference images
@@ -149,6 +260,14 @@ class EnvironmentRegistry:
 
     def __iter__(self):
         return iter(self.list())
+
+    def close(self):
+        """Close the vector index connection (best-effort)."""
+        if hasattr(self, "_vindex"):
+            try:
+                self._vindex.close()
+            except Exception:
+                pass
 
 
 # Default global registry

@@ -1,0 +1,26 @@
+{
+  "artifact_id": "STORY-EW001",
+  "title": "The Space Between Us",
+  "narrative_chain": [
+    {
+      "step": "Sarah reaches out to Mark (cautious hope).",
+      "consequence": "Mark flinches and suppresses an attempt to speak.",
+      "subtext": "Fear of exposure overcomes desire for connection."
+    },
+    {
+      "step": "Sarah asks what is wrong.",
+      "consequence": "Mark types a message but deletes it, then lies \"Just tired.\"",
+      "subtext": "The deleted truth is the wall between them."
+    },
+    {
+      "step": "Sarah asks if she is the problem.",
+      "consequence": "Mark aligns dishes on the table to avoid eye contact.",
+      "subtext": "Avoidance through domestic ritual."
+    },
+    {
+      "step": "Sarah touches his shoulder (final opportunity).",
+      "consequence": "Mark turns to the wall, leaving her hand suspended in empty space.",
+      "subtext": "The irreversible fracture."
+    }
+  ]
+}

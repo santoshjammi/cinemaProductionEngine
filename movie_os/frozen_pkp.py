@@ -17,6 +17,48 @@ from typing import Any, Iterable
 import yaml
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
+from movie_os.genesis2.freeze_gate import (
+    evaluate_genesis_freeze_eligibility,
+    FreezeIneligibleError,
+    FreezeEligibilityResult,
+)
+def _load_canonical_sources() -> dict[str, Any]:
+    from movie_os.runtime_policy import _load_mark_sarah_canon
+    raw = _load_mark_sarah_canon()
+    bindings = [
+        {
+            "character_id": "MARK",
+            "character_bible_ref": str(Path("docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml")),
+            "character_bible_path": str(Path("docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml")),
+            "character_bible_sha256": raw["provenance"]["character_bible"]["sha256"],
+            "visual_identity_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml")),
+            "visual_identity_path": str(Path("docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml")),
+            "visual_identity_sha256": raw["provenance"]["visual_identity_registry"]["sha256"],
+            "voice_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml")),
+            "voice_registry_path": str(Path("docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml")),
+            "voice_registry_sha256": raw["provenance"]["voice_registry"]["sha256"],
+            "continuity_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml")),
+            "continuity_registry_path": str(Path("docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml")),
+            "continuity_registry_sha256": raw["provenance"]["continuity_registry"]["sha256"],
+        },
+        {
+            "character_id": "SARAH",
+            "character_bible_ref": str(Path("docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml")),
+            "character_bible_path": str(Path("docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml")),
+            "character_bible_sha256": raw["provenance"]["character_bible"]["sha256"],
+            "visual_identity_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml")),
+            "visual_identity_path": str(Path("docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml")),
+            "visual_identity_sha256": raw["provenance"]["visual_identity_registry"]["sha256"],
+            "voice_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml")),
+            "voice_registry_path": str(Path("docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml")),
+            "voice_registry_sha256": raw["provenance"]["voice_registry"]["sha256"],
+            "continuity_registry_ref": str(Path("docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml")),
+            "continuity_registry_path": str(Path("docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml")),
+            "continuity_registry_sha256": raw["provenance"]["continuity_registry"]["sha256"],
+        },
+    ]
+    return {"mark_sarah": {"registries": raw, "bindings": bindings}}
+
 
 def _canon(data: Any) -> str:
     return json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
@@ -38,6 +80,7 @@ class FrozenPKP(BaseModel):
 
     canonical_bible_bindings: dict[str, Any] = Field(default_factory=dict)
     canonical_registry_bindings: dict[str, Any] = Field(default_factory=dict)
+    canonical_sources: dict[str, Any] = Field(default_factory=dict)
 
     episode_contract_id: str
     episode_contract_version: str = "1.0"
@@ -146,6 +189,7 @@ def build_frozen_pkp(
     validation_requirements: dict[str, Any],
     canonical_bible_bindings: dict[str, Any],
     canonical_registry_bindings: dict[str, Any],
+    canonical_sources: dict[str, Any] | None = None,
 ) -> FrozenPKP:
     base = {
         "pkp_id": f"PKP-{episode_id}-v1",
@@ -174,11 +218,24 @@ def build_frozen_pkp(
         "production": production,
         "canonical_bible_bindings": canonical_bible_bindings,
         "canonical_registry_bindings": canonical_registry_bindings,
+        "canonical_sources": canonical_sources or {},
     }
     base["content_hash"] = ""
     pkp = FrozenPKP.model_validate(base)
     content_hash = _hash({k: v for k, v in pkp.model_dump().items() if k != "content_hash"})
     return pkp.model_copy(update={"content_hash": content_hash})
+
+
+def _authoritative_line_ids(dialogues: list[dict]) -> list[str]:
+    """Collect the authoritative spoken-line ids from the brief dialogues
+    (the P0-04 denominator — orphans already excluded by the bridge)."""
+    ids: list[str] = []
+    for d in dialogues:
+        for ln in d.get("lines", []) or []:
+            lid = str(ln.get("line_id") or "").strip()
+            if lid:
+                ids.append(lid)
+    return ids
 
 
 def freeze_from_brief(
@@ -190,13 +247,64 @@ def freeze_from_brief(
     policy_snapshot_hash: str,
     production: dict[str, Any],
     brief: dict[str, Any],
+    genesis_pkg: Any = None,
 ) -> FrozenPKP:
+    """Freeze a PKP from a movie_os brief.
+
+    If ``genesis_pkg`` (the GENESIS ProductionKnowledgePackage) is provided,
+    it is first checked against the deterministic freeze-eligibility gate.  An
+    ineligible package raises FreezeIneligibleError and never reaches FROZEN.
+    """
+    if genesis_pkg is not None:
+        from movie_os.genesis2.freeze_gate import evaluate_genesis_freeze_eligibility
+        resolution_requirement = (brief.get("narrative_contract") or {}).get("resolution_requirement", "REQUIRED")
+        narrative_structure = (brief.get("narrative_contract") or {}).get("narrative_structure", "LINEAR")
+        result = evaluate_genesis_freeze_eligibility(
+            genesis_pkg,
+            brief,
+            resolution_requirement=resolution_requirement,
+            narrative_structure=narrative_structure,
+        )
+        if not result.freeze_allowed:
+            raise FreezeIneligibleError(result)
+        brief["freeze_eligibility"] = result.summary
+
     scenes = brief.get("scenes") or []
     dialogues = brief.get("dialogues") or []
     if not scenes:
         raise ValueError("Cannot freeze PKP; brief lacks required scenes")
     if not dialogues:
         raise ValueError("Cannot freeze PKP; brief lacks required dialogue scenes")
+
+    # ── P0-05: Generate the cinematic shot plan FIRST so the freeze gate can
+    # validate it (no mechanical one-line-per-shot; full coverage). ──
+    from movie_os.genesis2.shot_planner import plan_episode_shots
+    from movie_os.genesis2.shot_validation import authoritative_shot_plan_report
+    dialogue_plans = {int(d.get("scene_number")): d for d in dialogues}
+    _cinematic_shots = plan_episode_shots(scenes, dialogue_plans)
+    _shot_report = authoritative_shot_plan_report(
+        scenes, _cinematic_shots, _authoritative_line_ids(dialogues)
+    )
+    brief["authoritative_shot_plan"] = _shot_report
+    if not _shot_report["passed"]:
+        raise ValueError(
+            f"Cannot freeze PKP; cinematic shot plan invalid: "
+            f"mechanical={_shot_report['mechanical_coupling']} "
+            f"coverage={_shot_report['dialogue_visual_coverage']['uncovered_lines']} "
+            f"scene_integrity={_shot_report['scene_integrity']}"
+        )
+
+    # ── P0-06: Add shot-level execution metadata (who speaks, who is visible,
+    # whether lip-sync is required) so PROMETHEUS can execute each shot. ──
+    from movie_os.genesis2.shot_execution import enrich_shot_execution_metadata
+    _dialogue_line_map: dict[str, dict] = {}
+    for d in dialogues:
+        for ln in (d.get("lines") or []):
+            lid = ln.get("line_id") or ""
+            if lid:
+                _dialogue_line_map[lid] = ln
+    _cinematic_shots = enrich_shot_execution_metadata(_cinematic_shots, _dialogue_line_map)
+    brief["shots"] = _cinematic_shots
 
     def _canon_slug(name: str) -> str:
         return re.sub(r"[^a-z0-9]+", "_", str(name).strip().lower()).strip("_")
@@ -264,28 +372,21 @@ def freeze_from_brief(
             if not line.get("text"):
                 raise ValueError(f"Cannot freeze PKP; missing dialogue text in scene {scene_id}")
             emotion = line.get("emotion") or line.get("delivery_intent") or "neutral"
-            line_id = f"{scene_id}-{idx + 1}"
+            line_id = line.get("line_id") or f"{scene_id}-{idx + 1}"
             scene_lines.append({
                 "line_id": line_id,
                 "speaker": line.get("speaker"),
                 "text": line.get("text"),
-                "delivery_intent": emotion,
+                "delivery_intent": line.get("delivery_intent") or emotion,
+                # P0-04: canonical performance contract preserved into the PKP.
+                "emotional_state": line.get("emotional_state_primary") or emotion,
+                "subtext": line.get("subtext", ""),
+                "objective": line.get("objective", ""),
+                "character_voice_id": line.get("character_voice_id", ""),
+                "presentation_mode": line.get("presentation_mode", "EXTERNAL"),
             })
             line_emotions.append(emotion)
             lines.append(scene_lines[-1])
-            shots.append({
-                "shot_id": f"{scene_id}-{idx + 1}",
-                "scene_id": scene_id,
-                "function": "speaker coverage" if idx == 0 else "reaction",
-                "duration": line.get("duration", 4),
-                "framing": line.get("framing", "medium"),
-                "speaker": line.get("speaker"),
-                "lip_sync_required": True,
-                "continuity": scene.get("continuity", "maintain identity"),
-                "performance_intent": emotion,
-                "visual_intent": scene.get("visual_intent") or brief.get("visual_intent") or "cinematic dialogue",
-                "audio_intent": emotion,
-            })
         screenplay_scenes.append({
             "scene_id": scene_id,
             "narrative_function": scene.get("narrative_beat") or scene.get("title") or "scene",
@@ -350,19 +451,10 @@ def freeze_from_brief(
         visual_reference_ids.extend(c.get("visual_reference_ids", []))
         voice_reference_ids.extend(c.get("voice_reference_ids", []))
 
+    canonical_sources = _load_canonical_sources()
     canonical_bible_bindings = {
-        "Mark": {
-            "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_CHARACTER_BIBLE.md",
-            "visual_identity_registry_ref": "movie_os/data/characters/MARK/character.yaml",
-            "voice_registry_ref": "movie_os/data/voices/MARK/voice.yaml",
-            "continuity_registry_ref": "movie_os/data/continuity/mark_sarah_continuity.yaml",
-        },
-        "Sarah": {
-            "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_SARAH_CHARACTER_BIBLE.md",
-            "visual_identity_registry_ref": "movie_os/data/characters/SARAH/character.yaml",
-            "voice_registry_ref": "movie_os/data/voices/SARAH/voice.yaml",
-            "continuity_registry_ref": "movie_os/data/continuity/mark_sarah_continuity.yaml",
-        },
+        "Mark": canonical_sources["mark_sarah"]["bindings"][0],
+        "Sarah": canonical_sources["mark_sarah"]["bindings"][1],
     }
     canonical_registry_bindings = {
         "character_bible_refs": [canonical_bible_bindings["Mark"]["character_bible_ref"], canonical_bible_bindings["Sarah"]["character_bible_ref"]],
@@ -371,6 +463,9 @@ def freeze_from_brief(
         "continuity_registry_ref": canonical_bible_bindings["Mark"]["continuity_registry_ref"],
     }
 
+    # ── P0-05: Cinematic shot plan (replaces mechanical one-line-per-shot). ──
+    shots = _cinematic_shots
+
     return build_frozen_pkp(
         episode_id=episode_id,
         policy_snapshot_id=policy_snapshot_id,
@@ -378,8 +473,7 @@ def freeze_from_brief(
         episode_contract_hash=episode_contract_hash,
         policy_snapshot_hash=policy_snapshot_hash,
         production=production,
-        story={
-            "logline": brief.get("logline", ""),
+        story={            "logline": brief.get("logline", ""),
             "synopsis": brief.get("synopsis", ""),
             "beat_graph": brief.get("scenes", []),
             "ending": brief.get("ending", ""),
@@ -393,15 +487,47 @@ def freeze_from_brief(
         },
         characters={"character_ids": canonical_chars, "visual_reference_ids": visual_reference_ids, "voice_reference_ids": voice_reference_ids},
         screenplay={"scenes": screenplay_scenes, "exact_dialogue_text": [l["text"] for l in lines]},
-        dialogue={"line_ids": [l["line_id"] for l in lines], "intent": [l["delivery_intent"] for l in lines], "subtext": [], "delivery": [], "consequence": []},
+        dialogue={
+            "line_ids": [l["line_id"] for l in lines],
+            "intent": [l["delivery_intent"] for l in lines],
+            "subtext": [l.get("subtext", "") for l in lines],
+            "delivery": [l.get("delivery_intent", "") for l in lines],
+            "consequence": [],
+            "performance": [
+                {
+                    "line_id": l["line_id"],
+                    "speaker": l["speaker"],
+                    "emotional_state": l.get("emotional_state", ""),
+                    "subtext": l.get("subtext", ""),
+                    "objective": l.get("objective", ""),
+                    "character_voice_id": l.get("character_voice_id", ""),
+                    "presentation_mode": l.get("presentation_mode", "EXTERNAL"),
+                }
+                for l in lines
+            ],
+        },
         scene_states={"scenes": scene_states},
         visual_bible={"style": brief.get("style", "cinematic"), "locations": [], "wardrobe": [], "lighting": [], "identity_controls": canonical_chars},
         shots={"shots": shots},
-        voices={"voice_ids": voice_reference_ids, "line_directions": [], "pronunciation": []},
+        voices={
+            "voice_ids": voice_reference_ids,
+            "line_directions": [
+                {
+                    "line_id": l["line_id"],
+                    "speaker": l["speaker"],
+                    "character_voice_id": l.get("character_voice_id", ""),
+                    "presentation_mode": l.get("presentation_mode", "EXTERNAL"),
+                    "delivery_intent": l.get("delivery_intent", ""),
+                }
+                for l in lines
+            ],
+            "pronunciation": [],
+        },
         sound={"ambience": [], "music_intent": brief.get("music_intent", ""), "silence_strategy": []},
         assets={"required_references": visual_reference_ids + voice_reference_ids, "reusable_assets": []},
         execution_constraints={"allowed_fallbacks": [], "forbidden_substitutions": ["dialogue rewrite", "narration insertion"]},
         validation_requirements={"standards": brief.get("standards", []), "blocking_gates": ["frozen_pkp", "dialogue_immutable"]},
         canonical_bible_bindings=canonical_bible_bindings,
         canonical_registry_bindings=canonical_registry_bindings,
+        canonical_sources=canonical_sources,
     )

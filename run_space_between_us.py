@@ -38,17 +38,55 @@ CONSTRAINTS = {
 }
 
 
+def _is_empty(value) -> bool:
+    """True when a value carries no real creative content."""
+    if value is None:
+        return True
+    if isinstance(value, (dict, list, tuple, set)):
+        return len(value) == 0
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return False
+    return not str(value).strip()
+
+
 def ensure_scene_state_fields(brief: dict) -> dict:
-    """Fill frozen-PKP scene-state and dialogue fields from the bridged brief."""
+    """Normalize / derive deterministic state only.  NEVER author screenplay content.
+
+    This function may fill missing *technical* structure (empty lists, stable
+    IDs, count-derived metadata) but must not invent dialogue, scene titles,
+    acts, beats, emotional states, motivations, or shot content.  Where such
+    creative content is absent, a validation defect is recorded and the
+    corresponding PKP field is left empty so the freeze gate can reject the
+    package (see movie_os/genesis2/freeze_gate.py).
+    """
+    defects: list[dict] = []
     scenes = []
     for scene in brief.get("scenes", []) or []:
         scene = dict(scene)
-        title = str(scene.get("title") or f"Scene {scene.get('number', '?')}")
-        beat = str(scene.get("narrative_beat") or scene.get("act") or "scene")
-        scene.setdefault("entry_state", f"{title}: establishes the starting emotional state")
-        scene.setdefault("turning_point", f"{title}: the {beat} shifts the relationship")
-        scene.setdefault("exit_state", f"{title}: leaves the characters changed for the next scene")
-        scene.setdefault("emotional_progression", ["steady", "uneasy", "changed"])
+        title = scene.get("title")
+        act = scene.get("act")
+        narrative_beat = scene.get("narrative_beat")
+        purpose = scene.get("purpose") or scene.get("scene_description")
+        scene_num = scene.get("number") or scene.get("scene_number") or scene.get("id") or 0
+        try:
+            scene_num = int(scene_num)
+        except Exception:
+            scene_num = 0
+
+        # Technical normalization (allowed).
+        scene.setdefault("emotional_progression", [])
+        # DO NOT fabricate entry/turning/exit state text — leave missing so the
+        # freeze gate can detect semantic absence.
+        if not scene.get("entry_state"):
+            # deterministic derivation only when a real title exists
+            if _is_empty(title):
+                defects.append({"code": "SCENE_TITLE_MISSING", "scene": scene_num, "severity": "BLOCKER"})
+            else:
+                scene.setdefault("entry_state", "")
+        # Shot plan: deterministically derived from dialogue lines at freeze
+        # time (freeze_from_brief builds a shot per line). It is NOT authored
+        # creative content, so a missing inline shot dict is not a blocker.
+        # We leave shot empty and let freeze_from_brief derive it deterministically.
         scenes.append(scene)
 
     existing_dialogues = {}
@@ -60,44 +98,69 @@ def ensure_scene_state_fields(brief: dict) -> dict:
         existing_dialogues[scene_num] = dict(d)
 
     dialogues = []
-    for idx, scene in enumerate(scenes, start=1):
-        scene_num = int(scene.get("number") or idx)
-        if scene.get("title"):
-            lead = str(scene["title"])
-        else:
-            lead = f"Scene {scene_num}"
+    for scene in scenes:
+        scene_num = int(scene.get("number") or scene.get("scene_number") or scene.get("id") or 0)
         dialogue = dict(existing_dialogues.get(scene_num) or {})
-        if not dialogue:
-            speaker = "MARK" if scene_num % 2 == 1 else "SARAH"
-            listener = "SARAH" if speaker == "MARK" else "MARK"
-            progression = scene.get("emotional_progression", ["steady", "uneasy"])
-            dialogue = {
-                "scene_number": scene_num,
-                "conversation_intent": f"{lead}: keep the scene moving with an honest exchange",
-                "subtext": f"{speaker} speaks while {listener} reacts and listens",
-                "emotional_state": str(progression[0] if progression else "steady"),
-                "lines": [
-                    {"speaker": speaker, "text": f"{lead}: I need to tell you something important.", "emotion": str(progression[0] if progression else "steady")},
-                    {"speaker": listener, "text": "I am listening.", "emotion": str(progression[1] if len(progression) > 1 else (progression[0] if progression else "uneasy"))},
-                ],
-                "inner_voice": [],
-            }
         dialogue.setdefault("scene_number", scene_num)
-        dialogue.setdefault("conversation_intent", f"{lead}: keep the scene moving with an honest exchange")
-        dialogue.setdefault("subtext", "Speaker and listener stay in active conversational coverage")
-        dialogue.setdefault("emotional_state", str(scene.get("emotional_progression", ["steady"])[0]))
-        dialogue.setdefault("lines", [])
-        if not dialogue["lines"]:
-            dialogue["lines"] = [
-                {"speaker": "MARK", "text": f"{lead}: I need to tell you something important.", "emotion": str(scene.get("emotional_progression", ["steady"])[0])},
-                {"speaker": "SARAH", "text": "I am listening.", "emotion": str(scene.get("emotional_progression", ["steady", "uneasy"])[1 if len(scene.get("emotional_progression", [])) > 1 else 0])},
-            ]
+        # Dialogue policy: derive deterministically. If no real dialogue lines
+        # were authored, classify VISUAL_ONLY ONLY IF the scene declares it;
+        # otherwise leave CONVERSATION and let the freeze gate enforce density.
+        lines = dialogue.get("lines", []) or []
+        has_real_lines = any(
+            isinstance(ln, dict) and _is_truth(ln.get("text"))
+            for ln in lines
+        )
+        policy_type = "CONVERSATION"
+        declared = (dialogue.get("dialogue_policy") or scene.get("dialogue_policy") or {})
+        if isinstance(declared, dict) and declared.get("type"):
+            policy_type = str(declared["type"]).upper()
+        # A scene whose authored lines have only one distinct speaker is a
+        # monologue (e.g. an internal rehearsal), not a two-party conversation.
+        # Reclassify so the freeze gate does not demand a second speaker.
+        if policy_type == "CONVERSATION":
+            speakers = {
+                str(ln.get("speaker", "")).strip()
+                for ln in lines if isinstance(ln, dict) and _is_truth(ln.get("text"))
+            }
+            if len(speakers) == 1:
+                policy_type = "MONOLOGUE"
+        if not has_real_lines and policy_type not in ("VISUAL_ONLY", "MONOLOGUE"):
+            defects.append({
+                "code": "DIALOGUE_PLANNING_INCOMPLETE",
+                "scene": scene_num,
+                "severity": "BLOCKER",
+                "detail": f"no authored dialogue lines for scene {scene_num}",
+            })
+        dialogue.setdefault("dialogue_policy", {"type": policy_type})
+        dialogue.setdefault("conversation_intent", "")
+        dialogue.setdefault("subtext", "")
+        dialogue.setdefault("emotional_state", "")
         dialogue.setdefault("inner_voice", [])
+        # Only keep authored lines; never substitute placeholders.
+        dialogue["lines"] = [
+            ln for ln in lines
+            if isinstance(ln, dict) and _is_truth(ln.get("text")) and ln.get("speaker")
+        ]
         dialogues.append(dialogue)
+
     brief = dict(brief)
     brief["scenes"] = scenes
     brief["dialogues"] = dialogues
+    if defects:
+        brief["_genesis_defects"] = brief.get("_genesis_defects", []) + defects
     return brief
+
+
+def _is_truth(value) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, (dict, list, tuple, set)):
+        return len(value) > 0
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return value != 0
+    return bool(str(value).strip())
 
 
 async def main():
@@ -127,13 +190,24 @@ async def main():
     print("  Step 1: Running Genesis2 Creative Intelligence Engine")
     print("=" * 60)
 
-    preferred_models = ["deepseek-coder-v2:latest", "qwen3.6:latest", "ornith:lite"]
+    # Prefer the fast local model that is currently responding reliably.
+    # Deepseek-coder-v2 has been timing out / 400ing on later GENESIS phases.
+    preferred_models = ["qwen3:4b", "qwen3.6:latest", "ornith:lite", "deepseek-coder-v2:latest"]
+
+    def _model_num_ctx(model_name: str) -> int:
+        if model_name == "qwen3:4b":
+            return 131072
+        if model_name == "qwen3.6:latest":
+            return 131072
+        if model_name == "ornith:lite":
+            return 65536
+        return 4096
     last_exc = None
     pkg = None
     elapsed = 0.0
     for model_name in preferred_models:
         try:
-            config = LLMConfig(provider="ollama", model=model_name, timeout=600, max_tokens=8192, num_ctx=8192)
+            config = LLMConfig(provider="ollama", model=model_name, timeout=300, max_tokens=4096, num_ctx=_model_num_ctx(model_name))
             client = LLMClient(config=config)
             engine = Genesis2Engine(llm=client)
             print(f"  Using local model: {model_name}")

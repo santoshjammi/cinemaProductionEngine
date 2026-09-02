@@ -1,22 +1,21 @@
 ---
 name: "video-generation-specs"
 type: "domain_facts"
-version: "2.0"
+version: "1.0"
 ---
 
-# VideoGen Technical & Creative Specs
+# Video Generation Domain Knowledge
 
-## Technical Stack (from `specs/phase9_asset_store.md` & `PRD_v1.yaml`)
-- **Backend**: Python/FastAPI, ProjectService (`backend/app/services/project_service.py`).
-- **Frontend**: React with Playwright for E2E testing.
-- **AI Core**: LM Studio (Local-first), Flux (Enhancement), ComfyUI (Workflow Engine).
-- **Assembly**: OpenMontage (Timeline/Clip management).
+## Technical Standards
+- **Codecs**: H.264 (AVC) for broad compatibility, H.265 (HEVC) for high efficiency.
+- **Container Formats**: MP4, MOV, AVI.
+- **Resolution & Frame Rates**: 1080p@30fps (Standard), 4K@60fps (High-end).
 
-## Creative Production Rules
-- **Production Design Inputs**: Must strictly follow `cinemaProductiondesignInputs01.md` (and v2/v3) for visual consistency.
-- **Story DNA**: All prompts must be derived from the `generateStoryContextDna.md` logic to maintain narrative continuity.
+## Platform Constraints
+- Context windows must account for video metadata and storyboard JSONs.
+- Execution pipelines must handle large I/O streams efficiently.
 
 ## Domain Glossary
-- **AIGC**: AI-Generated Content (specifically Flux/ComfyUI pipelines).
-- **DNA**: Narrative "Source Code" for a specific story arc in `videoGen`.
-- **OpenMontage**: The timeline-based assembly engine.
+- **AIGC**: AI-Generated Content.
+- **DPDP**: Digital Personal Data Protection.
+- **AIOS**: AI Operating System.

@@ -90,7 +90,7 @@ def generate_context(
     output_path: str | Path | None = None,
     temperature: float = 0.3,
     max_tokens: int = 1500,
-    base_url: str = "http://localhost:1234",
+    base_url: str = "http://localhost:11434",
     api_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
 ) -> str:
     """Generate the story context from a synopsis.

@@ -1,0 +1,34 @@
+# The Space Between Us — FLUX cinematic prompts
+# Character anchors (verbatim in every scene for consistency):
+# MARK: Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, tired but kind eyes
+# SARAH: Medium height, early 30s, light tan skin, long dark wavy hair, gentle perceptive eyes
+
+- scene_id: 1
+  prompt: |
+    BEHAVIORAL_PROMPT: [Warm static wide shot, slow dolly-in] A couple shares a quiet morning ritual at a sunlit kitchen table. SARAH smiles softly at MARK as he sets down a steaming mug of coffee in front of her. MARK's expression is warm and sincere, his hand lingering near hers. Golden morning light streams through the window, dust motes drifting in the beam. The mood is tender, intimate, full of unspoken love.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, tired but kind eyes, wearing a soft grey sweater]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, gentle perceptive eyes, wearing a white robe].
+    CINEMATIC_STYLE: Shallow depth of field. Warm golden-hour natural light, soft amber tones, gentle fill shadows. Photorealistic film still, shot on Arri Alexa, 35mm.
+
+- scene_id: 2
+  prompt: |
+    BEHAVIORAL_PROMPT: [Medium two-shot, negative space growing] A couple sits at a dinner table in the evening. SARAH looks at MARK with gentle concern, reaching her hand toward his across the table. MARK stares down at his plate, jaw tight, avoiding her eyes, his hand pulled back and resting in his lap. The space between them feels vast. Warm room light fades as cool blue evening light creeps in from the window.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, exhausted and defensive posture, wearing a faded button-down shirt]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, expression shifting from concern to quiet hurt, wearing a soft knit top].
+    CINEMATIC_STYLE: Shallow depth of field. Warm room light contrasting with cool blue window light. Photorealistic film still, shot on Arri Alexa, 35mm.
+
+- scene_id: 3
+  prompt: |
+    BEHAVIORAL_PROMPT: [Wide shot, characters isolated on opposite edges of the frame] A bedroom at night in cold blue twilight. SARAH sits up in bed, tearful, looking toward the doorway where MARK stands in shadow, one hand on the doorframe, his silhouette framed by a sliver of warm hallway light. The distance between them fills the frame. She has been crying; he is frozen, unable to cross the threshold.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, dark circles under his eyes, wearing an old t-shirt, standing in shadow]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair disheveled, tear-streaked face, sitting up in rumpled white sheets].
+    CINEMATIC_STYLE: Cold blue twilight dominating, only a sliver of warm light from the hallway. Deep shadows, melancholic. Photorealistic film still, shot on Arri Alexa, 35mm.
+
+- scene_id: 4
+  prompt: |
+    BEHAVIORAL_PROMPT: [Close-up on SARAH's face, then slow push-in on MARK] An intimate moment in a dimly lit living room. SARAH looks at MARK with quiet, non-judgmental tenderness, her hand resting gently on his arm. MARK's face is a mask of barely contained emotion — eyes glistening, jaw trembling, fear and longing warring in his expression. A warm lamp light returns softly, hope flickering in the shadows.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, eyes wet, vulnerable, wearing a soft sweater]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, gentle perceptive eyes full of compassion, wearing a knit cardigan].
+    CINEMATIC_STYLE: Dim, intimate lighting with warm lamp light returning softly. Shallow depth of field on faces. Photorealistic film still, shot on Arri Alexa, 35mm.
+
+- scene_id: 5
+  prompt: |
+    BEHAVIORAL_PROMPT: [Slow dolly-in on their hands, then pull back to a warm two-shot] A couple sits close together on a couch in warm golden light. MARK's hand reaches across the small space between them and gently takes SARAH's hand. Their fingers interlace. Both faces show cautious hope — Mark's eyes soft with relief, Sarah's with quiet love. The warmth has returned to the room.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with a silver streak at the left temple, expression of cautious hope and relief, wearing a soft sweater]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, gentle smile, eyes bright with love, wearing a knit top].
+    CINEMATIC_STYLE: Warm golden light returning fully, soft and hopeful. Shallow depth of field. Photorealistic film still, shot on Arri Alexa, 35mm.

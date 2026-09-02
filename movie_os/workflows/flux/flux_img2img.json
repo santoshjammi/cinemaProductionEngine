@@ -1,11 +1,11 @@
 {
   "1": {
     "inputs": {
-      "unet_name": "flux1-dev-bf16.safetensors",
+      "unet_name": "flux1-dev-fp8.safetensors",
       "weight_dtype": "default"
     },
     "class_type": "UNETLoader",
-    "_meta": {"title": "Load FLUX Diffusion Model (bf16 for MPS)"}
+    "_meta": {"title": "Load FLUX Diffusion Model"}
   },
   "2": {
     "inputs": {
@@ -15,21 +15,21 @@
       "device": "default"
     },
     "class_type": "DualCLIPLoader",
-    "_meta": {"title": "Load Dual CLIP (CLIP-L + T5-XXL)"}
+    "_meta": {"title": "Load Dual CLIP"}
   },
   "3": {
     "inputs": {
-      "vae_name": "flux-vae.safetensors"
+      "vae_name": "ae.safetensors"
     },
     "class_type": "VAELoader",
-    "_meta": {"title": "Load FLUX VAE"}
+    "_meta": {"title": "Load VAE"}
   },
   "4": {
     "inputs": {
       "image": "PLACEHOLDER_REFERENCE_IMAGE"
     },
     "class_type": "LoadImage",
-    "_meta": {"title": "Load Reference Image"}
+    "_meta": {"title": "Load Character Reference (two-shot)"}
   },
   "5": {
     "inputs": {
@@ -41,19 +41,23 @@
   },
   "6": {
     "inputs": {
-      "text": "PLACEHOLDER_PROMPT",
-      "clip": ["2", 0]
+      "clip": ["2", 0],
+      "clip_l": "PLACEHOLDER_PROMPT",
+      "t5xxl": "PLACEHOLDER_PROMPT",
+      "guidance": 3.5
     },
-    "class_type": "CLIPTextEncode",
-    "_meta": {"title": "CLIP Text Encode (Positive Prompt)"}
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "CLIP Text Encode (Positive)"}
   },
   "7": {
     "inputs": {
-      "text": "PLACEHOLDER_NEGATIVE_PROMPT",
-      "clip": ["2", 0]
+      "clip": ["2", 0],
+      "clip_l": "PLACEHOLDER_NEGATIVE_PROMPT",
+      "t5xxl": "PLACEHOLDER_NEGATIVE_PROMPT",
+      "guidance": 1.0
     },
-    "class_type": "CLIPTextEncode",
-    "_meta": {"title": "CLIP Text Encode (Negative Prompt)"}
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "CLIP Text Encode (Negative)"}
   },
   "8": {
     "inputs": {
@@ -61,36 +65,47 @@
       "guidance": 3.5
     },
     "class_type": "FluxGuidance",
-    "_meta": {"title": "FLUX Guidance (positive)"}
+    "_meta": {"title": "FLUX Guidance"}
   },
   "9": {
     "inputs": {
+      "model": ["1", 0],
+      "max_shift": 0.95,
+      "base_shift": 0.5,
+      "width": 1024,
+      "height": 576
+    },
+    "class_type": "ModelSamplingFlux",
+    "_meta": {"title": "Model Sampling FLUX"}
+  },
+  "10": {
+    "inputs": {
+      "model": ["9", 0],
       "seed": 42,
       "steps": 20,
       "cfg": 1.0,
       "sampler_name": "euler",
       "scheduler": "simple",
-      "denoise": 0.75,
-      "model": ["1", 0],
       "positive": ["8", 0],
       "negative": ["7", 0],
-      "latent_image": ["5", 0]
+      "latent_image": ["5", 0],
+      "denoise": 0.4
     },
     "class_type": "KSampler",
-    "_meta": {"title": "KSampler (img2img, denoise=0.75)"}
+    "_meta": {"title": "KSampler (img2img, denoise=0.4)"}
   },
-  "10": {
+  "11": {
     "inputs": {
-      "samples": ["9", 0],
+      "samples": ["10", 0],
       "vae": ["3", 0]
     },
     "class_type": "VAEDecode",
     "_meta": {"title": "VAE Decode"}
   },
-  "11": {
+  "12": {
     "inputs": {
       "filename_prefix": "FluxDev_Img2Img",
-      "images": ["10", 0]
+      "images": ["11", 0]
     },
     "class_type": "SaveImage",
     "_meta": {"title": "Save Image (img2img)"}

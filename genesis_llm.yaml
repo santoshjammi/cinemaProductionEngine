@@ -1,27 +1,21 @@
 # Genesis LLM Configuration
-# Backend auto-detection: tries Ollama → LMStudio → HuggingFace
-# Override with CLI flags: --backend, --model, --llm-url
+# qwen3:4b is the primary local model for GENESIS.
+# The runtime should attempt a 131072 context window when launching qwen3:4b.
 
-backend: auto  # auto | ollama | lmstudio | hf
-default_model: qwen2.5:32b
+backend: ollama
+default_model: qwen3:4b
+num_ctx: 131072
 
 ollama:
   url: http://localhost:11434
-  python_api: true  # fallback to subprocess if package unavailable
+  python_api: false  # Use HTTP API directly for reliability
 
 lmstudio:
-  url: http://127.0.0.1:1234
+  url: http://127.0.0.1:11434
 
 hf:
-  enabled: true
-  models:
-    discovery: Qwen/Qwen2.5-1.5B-Instruct
-    pkp: Qwen/Qwen2.5-7B-Instruct
-    reviewer: Qwen/Qwen2.5-14B-Instruct
-    chief: Qwen/Qwen2.5-14B-Instruct
-  device: auto  # auto | cpu | cuda | mps
-  load_in_8bit: false
+  enabled: false
 
-timeout: 120.0
-temperature: 0.7
+timeout: 300.0
+temperature: 0.3  # Lower temperature for more deterministic JSON output
 max_tokens: 4096

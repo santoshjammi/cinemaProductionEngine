@@ -37,6 +37,19 @@ genesisApi.interceptors.response.use((res) => {
   return res;
 });
 
+// Separate instance for GENESIS3 (no timeout, large payloads)
+const genesis3Api = axios.create({
+  baseURL: '/api/v1',
+  timeout: 0,
+});
+
+genesis3Api.interceptors.response.use((res) => {
+  if (res.data && typeof res.data === 'object') {
+    res.data = toCamelCase(res.data);
+  }
+  return res;
+});
+
 export async function startPipeline(
   input: PipelineInput
 ): Promise<PipelineResult> {
@@ -174,6 +187,108 @@ export async function runGenesis2(synopsis: string): Promise<any> {
   return data;
 }
 
+// ============================================================================
+// GENESIS3 API – Synopsis analysis workflow
+// ============================================================================
+
+export interface Genesis3Constraints {
+  tone?: string;
+  length?: string;
+  targetAudience?: string;
+  genre?: string;
+  [key: string]: any;
+}
+
+export interface Genesis3AnalyzeResult {
+  synopsisAnalysis: {
+    theme: string;
+    genre: string;
+    coreElements: any[];
+    narrativeStructure: string;
+    emotionalArc: string;
+  };
+  characterDna: Record<string, any>;
+  worldBuilding: Record<string, any>;
+}
+
+export interface Genesis3ReviewResult {
+  reviewReport: {
+    constitutionChecks: Array<{
+      rule: string;
+      status: 'pass' | 'fail' | 'warning';
+      evidence: string;
+      requirement: string;
+      finding: string;
+    }>;
+    summary: Record<string, any>;
+  };
+  findings: Record<string, any>;
+}
+
+export interface Genesis3CertifyResult {
+  certificate: {
+    id?: string;
+    title: string;
+    synopsisSummary: string;
+    productionReadiness: 'ready' | 'not-ready';
+    issuedAt: string;
+    compilersPass: Record<string, any>;
+    qaResult: Genesis3ReviewResult;
+  };
+}
+
+export interface Genesis3CertificateResponse {
+  id: string;
+  title: string;
+  synopsisSummary: string;
+  productionReadiness: 'ready' | 'not-ready';
+  issuedAt: string;
+  compilersPass: Record<string, any>;
+  qaResult: Genesis3ReviewResult;
+}
+
+export async function analyzeSynopsis(
+  synopsis: string,
+  constraints?: Genesis3Constraints
+): Promise<Genesis3AnalyzeResult> {
+  const { data } = await genesis3Api.post<Genesis3AnalyzeResult>(
+    '/genesis3/analyze',
+    { synopsis, ...(constraints || {}) }
+  );
+  return data;
+}
+
+export async function reviewSynopsis(
+  synopsis: string,
+  constraints?: Genesis3Constraints
+): Promise<Genesis3ReviewResult> {
+  const { data } = await genesis3Api.post<Genesis3ReviewResult>(
+    '/genesis3/review',
+    { synopsis, ...(constraints || {}) }
+  );
+  return data;
+}
+
+export async function certifySynopsis(
+  synopsis: string,
+  constraints?: Genesis3Constraints
+): Promise<Genesis3CertifyResult> {
+  const { data } = await genesis3Api.post<Genesis3CertifyResult>(
+    '/genesis3/certify',
+    { synopsis, ...(constraints || {}) }
+  );
+  return data;
+}
+
+export async function getCertificate(
+  id: string
+): Promise<Genesis3CertificateResponse> {
+  const { data } = await genesis3Api.get<Genesis3CertificateResponse>(
+    `/genesis3/certificate/${id}`
+  );
+  return data;
+}
+
 // Production profiles API
 export async function listProductionProfiles(): Promise<{ profiles: ProductionProfile[]; sceneClasses: Record<string, SceneClassDef> }> {
   const { data } = await api.get('/profiles');
@@ -183,4 +298,56 @@ export async function listProductionProfiles(): Promise<{ profiles: ProductionPr
 export async function getProductionProfile(profileId: string): Promise<any> {
   const { data } = await api.get(`/profiles/${profileId}`);
   return data;
+}
+
+// ============================================================================
+// PRODUCTION API – canonical GENESIS2 → PROMETHEUS → final MP4 path
+// ============================================================================
+
+export interface ProductionJob {
+  jobId: string;
+  status: 'queued' | 'running' | 'completed' | 'failed';
+  stage: string;
+  error?: string | null;
+  runId?: string | null;
+  outputPath?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  phases: Array<{
+    phaseNumber: number;
+    phaseName: string;
+    status: string;
+    detail?: string;
+  }>;
+  prometheusStages: Array<{
+    name: string;
+    status: string;
+    artifacts: number;
+  }>;
+}
+
+export interface ProductionStartRequest {
+  synopsis: string;
+  constraints?: Record<string, any>;
+}
+
+export async function startProduction(
+  input: ProductionStartRequest
+): Promise<ProductionJob> {
+  const { data } = await genesisApi.post<ProductionJob>('/production/start', input);
+  return data;
+}
+
+export async function getProductionJob(jobId: string): Promise<ProductionJob> {
+  const { data } = await genesisApi.get<ProductionJob>(`/production/jobs/${jobId}`);
+  return data;
+}
+
+export async function listProductionJobs(): Promise<ProductionJob[]> {
+  const { data } = await genesisApi.get<ProductionJob[]>('/production/jobs');
+  return data;
+}
+
+export function getProductionVideoUrl(jobId: string): string {
+  return `/api/v1/production/jobs/${jobId}/video`;
 }

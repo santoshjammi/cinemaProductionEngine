@@ -1,0 +1,18 @@
+schema:
+  name: FormatProfile
+  version: '1.0'
+profiles:
+  YOUTUBE_LONGFORM_16X9:
+    version: '1.0'
+    role: primary Psychology master
+    target_runtime: 8-15 minutes
+    aspect_ratio: '16:9'
+    dialogue_mode: cinematic dialogue-dominant
+    derivative_source: true
+  SHORT_VERTICAL_DERIVATIVE:
+    version: '1.0'
+    role: derived Short/Reel
+    target_runtime: 30-90 seconds
+    aspect_ratio: '9:16'
+    must_derive_from_approved_master: true
+rule: Platform technical details may evolve here without constitutional amendment.

@@ -1,0 +1,33 @@
+schema:
+  name: OracleValidationReport
+  version: '1.0'
+required:
+- report_id
+- production_run_id
+- pkp_id
+- policy_snapshot_id
+- gates
+- defects
+- decision
+gates:
+- constitutional_compliance
+- story
+- dialogue
+- emotional_continuity
+- character_identity
+- visual_continuity
+- voice_audio
+- motion_lipsync
+- technical_integrity
+- anti_ai_slop
+- commercial_truthfulness_if_applicable
+defect_schema:
+  defect_id: null
+  gate: null
+  severity: blocking | major | minor
+  timestamp_or_scene: null
+  asset_id: null
+  evidence: null
+  owner: EPISODE | GENESIS | PROMETHEUS | DISTRIBUTION | CANON
+  required_action: null
+decision: REJECTED | REWORK_REQUIRED | APPROVED_WITH_LIMITATIONS | APPROVED_MASTER

@@ -1,0 +1,53 @@
+{
+  "episode_id": "EP-0006",
+  "working_title": "The Question He Couldn't Ask",
+  "synopsis": "Mark has been carrying a question about their future for weeks but keeps avoiding it. When Sarah notices his distance, he finally admits he's afraid of the answer. Sarah's honest response surprises him \u2014 the fear of asking was worse than any answer she could give.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "anxious \u2192 avoidant \u2192 brave \u2192 relieved",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0006",
+    "working_title": "The Question He Couldn't Ask",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": [
+        "Mark",
+        "Sarah"
+      ]
+    },
+    "story": {
+      "primary_mechanism": "fear of asking the question",
+      "story_context": "Mark has been carrying a question about their future for weeks but keeps avoiding it. When Sarah notices his distance, h",
+      "viewer_recognition": "The emotional pattern is recognizable and relatable.",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark and Sarah move toward reconnection through honest vulnerability."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {
+      "required": true
+    },
+    "status": {
+      "contract_state": "approved"
+    }
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

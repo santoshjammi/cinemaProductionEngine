@@ -1,0 +1,21 @@
+document:
+  id: MSCR-001
+  version: '1.0'
+  status: CANONICAL_MUTABLE_REGISTRY
+universe_id: UNIVERSE-MARK-SARAH
+current_series_state:
+  last_approved_episode_id: null
+  relationship_state: stable committed marriage
+  current_open_loops: []
+  known_shared_practices: []
+  recent_family_events: []
+  recent_work_events: []
+event_schema:
+  event_id: null
+  episode_id: null
+  event_type: promise | discovery | conflict | repair | family | work | routine | other
+  summary: null
+  characters_affected: []
+  persistent_effect: null
+  can_be_referenced_later: true
+rule: GENESIS must load relevant continuity before planning a new episode. It must not rely on model memory alone.

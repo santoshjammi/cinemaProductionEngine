@@ -13,3 +13,4 @@ version: "1.0"
 
 ## Constraints
 - Monitor context window usage to prevent overflow during video generation pipelines.
+- Fallback to local or cost-effective models for repetitive, low-complexity tasks.

@@ -150,7 +150,7 @@ class PhaseBase(ABC):
         """Critique the knowledge using a separate model (reviewer tier)."""
         prompt = self.build_critique_prompt(knowledge)
         try:
-            response = self.llm.generate(prompt, tier="reviewer")
+            response = self.llm.generate(prompt, tier="reviewer", phase_name=self.phase_name, task_key=f"{self.phase_name}:critique")  # type: ignore[arg-type]
             return self.parse_critique_json(response)
         except Exception as e:
             logger.warning(f"[{self.phase_name}] critique failed: {e}")
@@ -219,7 +219,7 @@ class PhaseBase(ABC):
             return knowledge
         prompt = self.build_improve_prompt(knowledge, critique)
         try:
-            response = self.llm.generate(prompt, tier="spec_generator")
+            response = self.llm.generate(prompt, tier="spec_generator", phase_name=self.phase_name, task_key=f"{self.phase_name}:improve")  # type: ignore[arg-type]
             improved = self.parse_draft(response)
             return improved
         except Exception as e:

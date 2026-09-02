@@ -109,13 +109,13 @@ class TestLLMClient:
 
     def test_custom_config(self):
         client = LLMClient(
-            url="http://localhost:1234",
+            url="http://localhost:11434",
             model="custom-model",
             temperature=0.2,
             max_tokens=2048,
             timeout=30.0,
         )
-        assert client.url == "http://localhost:1234"
+        assert client.url == "http://localhost:11434"
         assert client.model == "custom-model"
         assert client.temperature == 0.2
         assert client.max_tokens == 2048

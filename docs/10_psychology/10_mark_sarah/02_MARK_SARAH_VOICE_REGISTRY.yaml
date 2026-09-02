@@ -1,0 +1,58 @@
+document:
+  id: MSVR-001
+  version: '1.0'
+  status: REQUIRES_REFERENCE_BINDING
+rule: Voice identity is series canon. Performance may vary; identity may not.
+characters:
+  MARK:
+    voice_reference_id: null
+    provider: null
+    provider_voice_id: null
+    reference_audio_path: null
+    reference_audio_sha256: null
+    language: en-US
+    baseline:
+      apparent_age: around 40
+      style: natural, grounded, restrained
+      pace: conversational
+      prohibited:
+      - announcer
+      - trailer voice
+      - exaggerated sadness
+      - motivational speaker
+    approved_performance_range:
+    - warm
+    - neutral
+    - busy
+    - concerned
+    - guarded
+    - frustrated
+    - vulnerable
+    - relieved
+  SARAH:
+    voice_reference_id: null
+    provider: null
+    provider_voice_id: null
+    reference_audio_path: null
+    reference_audio_sha256: null
+    language: en-US
+    baseline:
+      apparent_age: mid-30s
+      style: natural, warm, competent, restrained
+      pace: conversational
+      prohibited:
+      - therapist cadence
+      - announcer
+      - exaggerated sentiment
+      - motivational speaker
+    approved_performance_range:
+    - warm
+    - neutral
+    - busy
+    - concerned
+    - frustrated
+    - uncertain
+    - vulnerable
+    - relieved
+binding_instruction: Attach the creator-approved favorite voice samples/provider IDs here before production approval. Do not
+  infer a permanent voice from an arbitrary generated run.

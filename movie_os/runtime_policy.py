@@ -113,8 +113,83 @@ def _sha256(data: Any) -> str:
     return hashlib.sha256(_canonical_json(data).encode("utf-8")).hexdigest()
 
 
+_MARK_SARAH_CANDID_DIR = DOCS / "10_psychology" / "10_mark_sarah"
+
+
 def _load_ontology() -> dict[str, Any]:
     return _read_yaml(DOCS / "10_psychology" / "01_RELATIONSHIP_PSYCHOLOGY_CONTENT_ONTOLOGY.yaml")
+
+
+def _load_mark_sarah_canon() -> dict[str, Any]:
+    """Load the authoritative Mark & Sarah canon directly from docs.
+
+    We keep docs authoritative and make runtime consume them deterministically.
+    The returned object contains all four registries plus a provenance block.
+    """
+    canon_files: dict[str, Path] = {
+        "character_bible": _MARK_SARAH_CANDID_DIR / "01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+        "voice_registry": _MARK_SARAH_CANDID_DIR / "02_MARK_SARAH_VOICE_REGISTRY.yaml",
+        "visual_identity_registry": _MARK_SARAH_CANDID_DIR / "03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+        "continuity_registry": _MARK_SARAH_CANDID_DIR / "04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+    }
+    loaded: dict[str, Any] = {}
+    provenance: dict[str, Any] = {}
+    for name, path in canon_files.items():
+        if not path.exists():
+            raise FileNotFoundError(f"Missing canonical registry {name}: {path}")
+        data = _read_yaml(path)
+        loaded[name] = data
+        provenance[name] = {
+            "path": str(path),
+            "sha256": _sha256(data),
+            "document_id": (data.get("document") or {}).get("id"),
+            "version": (data.get("document") or {}).get("version"),
+            "status": (data.get("document") or {}).get("status"),
+        }
+    loaded["provenance"] = provenance
+    return loaded
+
+
+def _get_canonical_character_binding(raw: dict[str, Any], character_id: str) -> dict[str, Any]:
+    """Build a single character's canonical binding dict from the loaded registries."""
+    bible = raw.get("character_bible", {})
+    voice = raw.get("voice_registry", {})
+    visual = raw.get("visual_identity_registry", {})
+    continuity = raw.get("continuity_registry", {})
+    cid = character_id.upper()
+
+    char_info = (bible.get("characters") or {}).get(cid, {})
+    voice_info = (voice.get("characters") or {}).get(cid, {})
+    visual_info = (visual.get("characters") or {}).get(cid, {})
+
+    return {
+        "character_id": cid,
+        "display_name": character_id.title(),
+        "character_bible_ref": (bible.get("document") or {}).get("id", "MSCB-002"),
+        "character_bible_path": str(_MARK_SARAH_CANDID_DIR / "01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml"),
+        "character_bible_sha256": raw.get("provenance", {}).get("character_bible", {}).get("sha256"),
+        "visual_identity_registry_ref": str(_MARK_SARAH_CANDID_DIR / "03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml"),
+        "visual_identity_path": str(_MARK_SARAH_CANDID_DIR / "03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml"),
+        "visual_identity_sha256": raw.get("provenance", {}).get("visual_identity_registry", {}).get("sha256"),
+        "voice_registry_ref": str(_MARK_SARAH_CANDID_DIR / "02_MARK_SARAH_VOICE_REGISTRY.yaml"),
+        "voice_registry_path": str(_MARK_SARAH_CANDID_DIR / "02_MARK_SARAH_VOICE_REGISTRY.yaml"),
+        "voice_registry_sha256": raw.get("provenance", {}).get("voice_registry", {}).get("sha256"),
+        "continuity_registry_ref": str(_MARK_SARAH_CANDID_DIR / "04_MARK_SARAH_CONTINUITY_REGISTRY.yaml"),
+        "continuity_registry_path": str(_MARK_SARAH_CANDID_DIR / "04_MARK_SARAH_CONTINUITY_REGISTRY.yaml"),
+        "continuity_registry_sha256": raw.get("provenance", {}).get("continuity_registry", {}).get("sha256"),
+        "canonical_character": char_info,
+        "baseline_voice": voice_info.get("baseline", {}),
+        "approved_performance_range": voice_info.get("approved_performance_range", []),
+        "approved_reference_assets": visual_info.get("reference_asset_ids", []),
+        "identity_lock": bool(visual_info.get("identity_lock", True)),
+        "hard_failures": visual.get("hard_failures", []),
+    }
+
+
+def resolve_canonical_bindings(raw: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """Return canonical character bindings for Mark and Sarah."""
+    raw = raw or _load_mark_sarah_canon()
+    return [_get_canonical_character_binding(raw, cid) for cid in ["MARK", "SARAH"]]
 
 
 def _find_problem_family(ontology: dict[str, Any], problem_family: str, sub_series: str) -> tuple[str, str]:
@@ -146,24 +221,7 @@ def resolve_policy(contract: EpisodeContract, ontology_selection: dict[str, str]
         ontology_selection["sub_series"],
     )
 
-    canonical_character_bindings = [
-        {
-            "character_id": "MARK",
-            "display_name": "Mark",
-            "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_CHARACTER_BIBLE.md",
-            "visual_identity_registry_ref": "movie_os/data/characters/MARK/character.yaml",
-            "voice_registry_ref": "movie_os/data/voices/MARK/voice.yaml",
-            "continuity_registry_ref": "movie_os/data/continuity/mark_sarah_continuity.yaml",
-        },
-        {
-            "character_id": "SARAH",
-            "display_name": "Sarah",
-            "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_SARAH_CHARACTER_BIBLE.md",
-            "visual_identity_registry_ref": "movie_os/data/characters/SARAH/character.yaml",
-            "voice_registry_ref": "movie_os/data/voices/SARAH/voice.yaml",
-            "continuity_registry_ref": "movie_os/data/continuity/mark_sarah_continuity.yaml",
-        },
-    ]
+    bindings = resolve_canonical_bindings()
     resolved_rules = {
         "niche": contract.niche,
         "domain": contract.domain,
@@ -185,11 +243,12 @@ def resolve_policy(contract: EpisodeContract, ontology_selection: dict[str, str]
         ],
         "multi_part_standard_applies": False,
         "selected_format_profile": contract.format_profile,
-        "canonical_character_bindings": canonical_character_bindings,
+        "canonical_character_bindings": bindings,
         "canonical_continuity_binding": {
-            "continuity_registry_ref": "movie_os/data/continuity/mark_sarah_continuity.yaml",
+            "continuity_registry_ref": "MSCR-001",
             "continuity_required": contract.continuity_required,
             "universe_id": contract.universe_id,
+            "continuity_path": str(_MARK_SARAH_CANDID_DIR / "04_MARK_SARAH_CONTINUITY_REGISTRY.yaml"),
         },
     }
 

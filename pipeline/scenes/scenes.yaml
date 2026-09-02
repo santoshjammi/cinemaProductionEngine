@@ -1,35 +1,77 @@
-- camera: wide shot
-  duration: 12 seconds
-  emotion: melancholic
-  id: 1
-  lighting: natural light
-  narration: 'Scene 1: Description of the a lonely astronaut experience'
-  visual_prompt: Visual description for scene 1
-- camera: close-up
-  duration: 12 seconds
-  emotion: melancholic
-  id: 2
-  lighting: dramatic backlight
-  narration: 'Scene 2: Description of the a lonely astronaut experience'
-  visual_prompt: Visual description for scene 2
-- camera: dolly-in
-  duration: 12 seconds
-  emotion: melancholic
-  id: 3
-  lighting: low-key lighting
-  narration: 'Scene 3: Description of the a lonely astronaut experience'
-  visual_prompt: Visual description for scene 3
-- camera: panning shot
-  duration: 12 seconds
-  emotion: melancholic
-  id: 4
-  lighting: soft fill light
-  narration: 'Scene 4: Description of the a lonely astronaut experience'
-  visual_prompt: Visual description for scene 4
-- camera: tracking shot
-  duration: 12 seconds
-  emotion: melancholic
-  id: 5
-  lighting: natural light
-  narration: 'Scene 5: Description of the a lonely astronaut experience'
-  visual_prompt: Visual description for scene 5
+- id: 1
+  camera: medium close-up — warm, stable framing
+  duration: 15 seconds
+  emotion: guarded
+  scene_class: stage_1_lost_touch
+  lighting: warm indoor evening light
+  mood_desc: "The Flinch. Connection exists but is immediately threatened."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (softly) You've been quiet all day. Is something wrong?
+    - speaker: MARK
+      text: (trailing off, looking down) I... I just need a second.
+
+- id: 2
+  camera: close-up — objects (phones/furniture) beginning to separate them
+  duration: 15 seconds
+  emotion: withdrawn
+  scene_class: stage_2_lost_communication
+  lighting: warm room vs cold blue phone glow
+  mood_desc: "The Deleted Truth. He tries to speak, but fear kills the conversation."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (voiceover) I thought it was just work. I didn't know you were scared of me.
+    - speaker: MARK
+      text: (muttering) Nothing's wrong. Just tired.
+
+- id: 3
+  camera: over-the-shoulder — longer lens, negative space increasing
+  duration: 18 seconds
+  emotion: frustrated
+  scene_class: stage_3_lost_honesty
+  lighting: harsh overhead light exposing shadows
+  mood_desc: "The Self-Doubt Trap. She asks if she's the problem; he lies to protect himself."
+  dialogue_lines:
+    - speaker: SARAH
+      text: Did I do something? Tell me why you're pulling away.
+    - speaker: MARK
+      text: (defensively) You're not. It's just... everything is a lot right now.
+
+- id: 4
+  camera: wide shot — physical barriers (tables/walls) dominate the frame
+  duration: 18 seconds
+  emotion: emotional_peak
+  scene_class: stage_4_lost_emotional_safety
+  lighting: deep shadows, cold tones creeping in from the window
+  mood_desc: "The Mutual Guard. She reaches out one last time; he flinches and hides behind furniture."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (voiceover) She put her hand on my shoulder... and I physically jumped.
+    - speaker: MARK
+      text: (voiceover) If I stayed still, I'd finally break down.
+
+- id: 5
+  camera: extreme wide shot — characters isolated on opposite edges of the frame
+  duration: 15 seconds
+  emotion: resolved
+  scene_class: stage_5_quiet_regret_irreversible_separation
+  lighting: cold blue twilight completely swallowing the warm room lights
+  mood_desc: "The False Hope and Delayed Realization. He almost steps forward, then stops."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (voiceover) She paused at the door... waiting for a sign I didn't know how to give.
+    - speaker: MARK
+      text: (voiceover) My lips parted... but all that came out was silence.
+
+- id: 6
+  camera: medium shot focusing on hands -> slow pullback to extreme wide
+  duration: 10 seconds
+  emotion: resolved
+  scene_class: stage_6_post_goodbye_empty_hands
+  lighting: cold twilight, only a sliver of warm light remaining from the open door
+  mood_desc: "The Architecture of Absence. The room slowly consumes him."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (voiceover) She stepped out. I stood up. One step forward... then nothing.
+    - speaker: MARK
+      text: (voiceover) My hands finally opened... but there was only empty space.

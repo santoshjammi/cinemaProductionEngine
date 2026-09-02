@@ -463,8 +463,8 @@ async function runGeminiPipeline(pipelineId: string, topic: string) {
   const pipeline = globalStore._pipelines[pipelineId];
   if (!pipeline) return;
 
-  // Lazily retrieve Gemini API key
-  const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  // Retrieve Gemini API key (server-side only)
+  const apiKey = process.env.GEMINI_API_KEY;
   let ai: any = null;
   if (apiKey) {
     try {
@@ -480,6 +480,8 @@ async function runGeminiPipeline(pipelineId: string, topic: string) {
     } catch (e) {
       console.error('Failed to initialize GoogleGenAI client:', e);
     }
+  } else {
+    console.warn('GEMINI_API_KEY not set — Gemini pipeline will use fallback data');
   }
 
   const updateStage = (stageName: PipelineStageName, status: PipelineStageStatus, progress: number, error?: string) => {
@@ -1671,7 +1673,7 @@ export async function POST(req: NextRequest, { params }: { params: { path?: stri
     } catch {
       try {
         // Check LMStudio
-        execSync('curl -s http://127.0.0.1:1234/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
+        execSync('curl -s http://127.0.0.1:11434/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
         localLlmAvailable = true;
         backendFlag = '--backend lmstudio';
       } catch {
@@ -1766,7 +1768,7 @@ export async function POST(req: NextRequest, { params }: { params: { path?: stri
       localLlmAvailable = true;
     } catch {
       try {
-        execSync('curl -s http://127.0.0.1:1234/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
+        execSync('curl -s http://127.0.0.1:11434/v1/models --max-time 2', { timeout: 5000, stdio: 'pipe' });
         localLlmAvailable = true;
       } catch {
         localLlmAvailable = false;

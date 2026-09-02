@@ -1,0 +1,73 @@
+document:
+  id: MSCB-002
+  version: '2.0'
+  status: CANONICAL
+  purpose: Stable Mark & Sarah identity. Episode-specific emotional problems do not belong here.
+universe_id: UNIVERSE-MARK-SARAH
+household:
+  region: Seattle–Bellevue–Redmond, Washington State, USA
+  relationship_years: 14
+  children:
+  - child_id: CHILD-01
+    approx_age: 12
+    canon_detail_level: minimal_until_story_requires
+  - child_id: CHILD-02
+    approx_age: 9
+    canon_detail_level: minimal_until_story_requires
+  - child_id: CHILD-03
+    approx_age: 6
+    canon_detail_level: minimal_until_story_requires
+  lifestyle: Typical comfortable US software-industry family; ordinary work, school, household, and community pressures.
+characters:
+  MARK:
+    approx_age: 40
+    identity: white American
+    profession: software engineer
+    series_role: co-lead
+    stable_values:
+    - family
+    - responsibility
+    - competence
+    - fairness
+    - providing and participating
+    ordinary_tendencies:
+    - practical problem-solving orientation
+    - can become absorbed in work
+    - cares deeply about family even when communication is imperfect
+    not_permanent_traits:
+    - fear-based withdrawal
+    - shame
+    - job insecurity
+    - emotional unavailability
+    - being the spouse at fault
+  SARAH:
+    approx_age: 36
+    identity: white American
+    profession: business operations professional working from home
+    series_role: co-lead
+    stable_values:
+    - family
+    - partnership
+    - competence
+    - fairness
+    - connection
+    ordinary_tendencies:
+    - manages substantial work and household coordination
+    - can be direct when overloaded
+    - cares deeply about family even when communication is imperfect
+    not_permanent_traits:
+    - therapist-like wisdom
+    - always reading Mark correctly
+    - always being emotionally available
+    - being the spouse who fixes the problem
+relationship_invariants:
+- Permanent separation is prohibited in this series.
+- Both spouses may make believable mistakes.
+- Responsibility must vary across episodes.
+- Past episode consequences may persist.
+- Warmth and ordinary affection should exist often enough to establish why the relationship matters.
+episode_state_boundary:
+  rule: Current pressure, fear, withdrawal, frustration, misunderstanding, and emotional distance belong in the Episode Contract
+    / continuity state, not permanent character canon.
+disclaimer: Mark and Sarah are fictional characters created for storytelling purposes. Any resemblance to real persons, living
+  or dead, is coincidental and unintended.

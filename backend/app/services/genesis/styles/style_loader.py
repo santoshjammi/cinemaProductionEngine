@@ -22,14 +22,14 @@ class VisualStyleGuideLoader:
         # In a real implementation, this would look for files like:
         # /Users/santosh/Desktop/projects/videoGen/.aios/knowledge/cinemaProductiondesignInputs01.md
         logger.info(f"Loading visual style: {style_name}")
-        
-        # Return a dynamic dictionary based on the style name
-        self.active_styles[sceneNumber = i
-            manifest["product_mapping"][f"scene_{i+1}"] = {
-                "video_timestamp": f"{i * 5}s", # Assumed duration for demo
-                "ebook_chapter": f"Chapter {i+1}",
-                "course_module": f"Module {i+1}: {scene.get('title')}"
-            }
 
-        logger.info("[Genesis] Manifest generation complete.")
-        return manifest
+        # Return a dynamic dictionary based on the style name
+        self.active_styles[style_name] = {
+            "style": style_name,
+            "description": f"{style_name.title()} visual style guide",
+            "color_palette": ["#000000", "#FFFFFF"],
+            "lighting": "natural",
+            "composition": "rule of thirds",
+        }
+
+        return self.active_styles[style_name]

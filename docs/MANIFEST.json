@@ -1,0 +1,219 @@
+{
+  "package": "videoGen_authoritative_docs_v1.0",
+  "version": "1.0",
+  "effective_date": "2026-08-10",
+  "legacy_path": "/Users/santosh/Desktop/projects/videoGen/unimportant_docs",
+  "authoritative_root": "/Users/santosh/Desktop/projects/videoGen/docs",
+  "files": [
+    {
+      "path": "00_governance/00_AUTHORITY_AND_PRECEDENCE.md",
+      "sha256": "854a9a9924dfc37a08e6c32d346d6033a78f6b69f1ede4fab69c6db47424ab07",
+      "bytes": 3497
+    },
+    {
+      "path": "00_governance/01_CINEMA_MASTER_CONSTITUTION.md",
+      "sha256": "9580a321ac9e2e556a0bb71192615eca57b29dce084bd2701e9298869ec20d59",
+      "bytes": 6951
+    },
+    {
+      "path": "00_governance/02_COMMERCIAL_DISTRIBUTION_CONSTITUTION.md",
+      "sha256": "f206d9c796733998c778fd599c33939fb4e97cdf77ed346406578b5a0dba8c7e",
+      "bytes": 4741
+    },
+    {
+      "path": "00_governance/03_DOCUMENT_CLASSIFICATION_STANDARD.md",
+      "sha256": "33de7fdb3b51258b8c24e04867a05fb8f757fefe467a5bb04d9cb6bd4364da8c",
+      "bytes": 1315
+    },
+    {
+      "path": "10_psychology/00_PSYCHOLOGY_SUB_CONSTITUTION.md",
+      "sha256": "1bcbe48f2b6602180412f5f26935b8866a0cda8e49e19f4c2a0f868fde457e92",
+      "bytes": 8291
+    },
+    {
+      "path": "10_psychology/01_RELATIONSHIP_PSYCHOLOGY_CONTENT_ONTOLOGY.yaml",
+      "sha256": "465bb909c12b3000b55b4074fe0342c7c2a796d13cb55651991213adc028d796",
+      "bytes": 20296
+    },
+    {
+      "path": "10_psychology/02_RELATIONSHIP_PSYCHOLOGY_CONTENT_ONTOLOGY.md",
+      "sha256": "3d07d3116bac2ce45f266fa715c23aba85e363b10034eb0438ea51d1f313c7a5",
+      "bytes": 13094
+    },
+    {
+      "path": "10_psychology/10_mark_sarah/00_MARK_SARAH_SERIES_CONSTITUTION.md",
+      "sha256": "2a440f25655e7703afd096a7d514c488b48217f15c096ad7a8b4f006e150a338",
+      "bytes": 6028
+    },
+    {
+      "path": "10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "sha256": "b5b8f85b7744aa837e92970c64fb2a381e8acbf17bf5ee6e1c74d53ab06b8785",
+      "bytes": 2573
+    },
+    {
+      "path": "10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "sha256": "0b1f729052e3e478a7e4e11d6d688ea435164e2c92ac291a622fdf1db99205ba",
+      "bytes": 1455
+    },
+    {
+      "path": "10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "sha256": "16886024d6da66b2c43817db22be0e3dc76ca84d5712107984376b4efa898174",
+      "bytes": 932
+    },
+    {
+      "path": "10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+      "sha256": "7664c7a989c660133e301082bfed21239c94eaa5a9ba3809e1156874da8a4801",
+      "bytes": 674
+    },
+    {
+      "path": "10_psychology/20_coverage/PSYCHOLOGY_CONTENT_COVERAGE_REGISTRY.yaml",
+      "sha256": "f31604354335080bc14852814c9134745fb25dd1b7d2224d5fb9d6e0e6ae2d76",
+      "bytes": 793
+    },
+    {
+      "path": "20_standards/ANTI_AI_SLOP_QUALITY_STANDARD.md",
+      "sha256": "772d0ee2c76527fca9dde806bdc4ae76d241bc8f2152f9c6204197ec3ffbfff6",
+      "bytes": 3679
+    },
+    {
+      "path": "20_standards/CINEMATIC_SHOT_LANGUAGE_STANDARD.md",
+      "sha256": "4de30742d56995a7e6dd21076e2d78c4ef12db70e2a5ce029df199b9c0912186",
+      "bytes": 1639
+    },
+    {
+      "path": "20_standards/DIALOGUE_AND_PERFORMANCE_STANDARD.md",
+      "sha256": "53bed7d3f591cea9dd40ef13c91de567572017c741e5d7b09c5e1ba5bdf650ad",
+      "bytes": 3106
+    },
+    {
+      "path": "20_standards/EMOTIONAL_CONTINUITY_STANDARD.md",
+      "sha256": "d1f29b30e0a15aca37e590b7145bdae62710a154288175145d71e50452b5a870",
+      "bytes": 1679
+    },
+    {
+      "path": "20_standards/MOTION_AND_LIPSYNC_STANDARD.md",
+      "sha256": "2b31e4ee85f6304e20b904c62d4522bae25434a60f98931e1611f625c67526eb",
+      "bytes": 1569
+    },
+    {
+      "path": "20_standards/MULTIPART_STORY_STANDARD.md",
+      "sha256": "b7480792d78945349d40e5c52d33933510f2c318b9eb72e850c9c6a0510b28f3",
+      "bytes": 1199
+    },
+    {
+      "path": "20_standards/VISUAL_CHARACTER_CONTINUITY_STANDARD.md",
+      "sha256": "9155d33beafc76dcc17c53b2645710bfbe7f15599cf43221e91b5a433a29b0f7",
+      "bytes": 1477
+    },
+    {
+      "path": "20_standards/VOICE_AUDIO_STANDARD.md",
+      "sha256": "70f36d6e48d05189927aa207eed2d799f9eb37e73bc0236d3ab2829039346455",
+      "bytes": 1777
+    },
+    {
+      "path": "30_app/AI_AGENT_BOUNDARIES.md",
+      "sha256": "3633ab9f75f66b53d7661821dfc4a615a33e9c871902cf44e303baecc318e451",
+      "bytes": 2131
+    },
+    {
+      "path": "30_app/APP_PRODUCT_ARCHITECTURE.md",
+      "sha256": "c40ed442019955b37a2020aac825b64f64200f0c9c7c0602439f4e94fd188efd",
+      "bytes": 3273
+    },
+    {
+      "path": "30_app/DATA_AND_STORAGE_MODEL.md",
+      "sha256": "47df1269b95f8041daab869af2ecb07bdc193e68fab492053dca766d27bc3828",
+      "bytes": 1244
+    },
+    {
+      "path": "30_app/DOMAIN_MODEL.md",
+      "sha256": "83a074f0ec94ae971097c32a6fbfd2e2d845a1888047518757bbcc5008460448",
+      "bytes": 2083
+    },
+    {
+      "path": "30_app/POLICY_RESOLUTION_AND_VERSIONING.md",
+      "sha256": "f03314cfdc9af3641d5d44d24d2c13e3f549783aa1bdb61d804c10c69cf9dbcf",
+      "bytes": 1647
+    },
+    {
+      "path": "30_app/UI_INFORMATION_ARCHITECTURE.md",
+      "sha256": "bf15342e694a41b5086c9bc424161ba661b4c3ef59d36536c700b0a14f632fe2",
+      "bytes": 1914
+    },
+    {
+      "path": "30_app/WORKFLOW_STATE_MACHINE.md",
+      "sha256": "5d6f3e1b6bbbc38bd0973d0ea28d5c6bfee20d3fee42cb3698ab66974253aca7",
+      "bytes": 1423
+    },
+    {
+      "path": "40_contracts/EFFECTIVE_POLICY_SNAPSHOT.schema.yaml",
+      "sha256": "bc9f800e200babee6a9017d05a149417fb8a6dcf8a9e02891726b99ef675eb63",
+      "bytes": 1013
+    },
+    {
+      "path": "40_contracts/EPISODE_CONTRACT.schema.yaml",
+      "sha256": "c46b2faa1855bff84b0c399da5e7afcd4d586484f7b0bd8906b4345035cb0505",
+      "bytes": 2491
+    },
+    {
+      "path": "40_contracts/FORMAT_PROFILE.schema.yaml",
+      "sha256": "dda092f8e3a0f769ee1cdeb538f1b9947b99c54bba63b90426b05a343b6002c4",
+      "bytes": 532
+    },
+    {
+      "path": "40_contracts/IMMUTABLE_RUN_MANIFEST.schema.yaml",
+      "sha256": "798b3fb8d1ff67137734e9b13dc15dd298bb3a08da33bf25285a2627e4f30cbf",
+      "bytes": 595
+    },
+    {
+      "path": "40_contracts/ORACLE_VALIDATION_REPORT.schema.yaml",
+      "sha256": "18449ff8868469b62eaacda581419043d028d27106d56c0639640393a3628745",
+      "bytes": 697
+    },
+    {
+      "path": "40_contracts/PKP.schema.yaml",
+      "sha256": "b008db430db5f244adc0cac9166b603a424f944bda2e39efd6db32693dbd1760",
+      "bytes": 1642
+    },
+    {
+      "path": "50_execution/GENESIS_EXECUTION_CONTRACT.md",
+      "sha256": "354454dac84121c55d2fb28790cf6eddec1f8ada74af5fc58e4ce2218b19cd7f",
+      "bytes": 1020
+    },
+    {
+      "path": "50_execution/HERMES_OPERATING_DIRECTIVE.md",
+      "sha256": "c75c1c41d0e4ce43c3d47ae508c8d967bda4061cf116f3f3bc8da2aa14093c64",
+      "bytes": 1593
+    },
+    {
+      "path": "50_execution/ORACLE_EXECUTION_CONTRACT.md",
+      "sha256": "640c1ad887c3664df40f0899219eeda85c270fff2d71407032e9f6eeddfaf271",
+      "bytes": 931
+    },
+    {
+      "path": "50_execution/PROMETHEUS_EXECUTION_CONTRACT.md",
+      "sha256": "638ea5ad94b618a6a2b8217a7c86cc25db4b26552bc59314bf2f694e9da0589b",
+      "bytes": 1137
+    },
+    {
+      "path": "90_migration/LEGACY_RE_ADOPTION_PROTOCOL.md",
+      "sha256": "a57c99d43417a2d4f7f0f592ad3feff008664e2ce6333ac0ef394142a21c5aad",
+      "bytes": 1286
+    },
+    {
+      "path": "90_migration/README.md",
+      "sha256": "98be8ac0af690f131a89b90c08deaf89da00712033e9ad97dfc0a5f33198756c",
+      "bytes": 522
+    },
+    {
+      "path": "90_migration/VIDEOGEN_CONSISTENCY_AUDIT_AND_STANDARDIZATION_DIRECTION_v1.0.md",
+      "sha256": "b39fc0fd3d84fd8a4107426da612326d97f7762688e56b36f06504e54afce908",
+      "bytes": 36523
+    },
+    {
+      "path": "README.md",
+      "sha256": "c9ed95e03dfc4a658ac2da5c0991d0a42f275900dffc58a44bb5c4e81b5498c6",
+      "bytes": 5951
+    }
+  ]
+}

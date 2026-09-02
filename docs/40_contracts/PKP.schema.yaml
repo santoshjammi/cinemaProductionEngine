@@ -1,0 +1,95 @@
+schema:
+  name: ProductionKnowledgePackage
+  version: '1.0'
+principle: Frozen executable production knowledge. PROMETHEUS may not invent missing creative decisions.
+required_sections:
+- identity
+- policy
+- episode
+- continuity
+- characters
+- story
+- screenplay
+- dialogue
+- scene_states
+- visual_bible
+- shots
+- voices
+- sound
+- assets
+- execution_constraints
+- validation_requirements
+section_contract:
+  identity:
+  - pkp_id
+  - version
+  - episode_id
+  - status
+  - created_from
+  policy:
+  - effective_policy_snapshot_id
+  episode:
+  - episode_contract_id
+  - problem_family_id
+  - sub_series_id
+  - primary_mechanism
+  continuity:
+  - universe_id
+  - continuity_version
+  - relevant_prior_events
+  characters:
+  - character_ids
+  - visual_reference_ids
+  - voice_reference_ids
+  story:
+  - logline
+  - synopsis
+  - beat_graph
+  - ending
+  screenplay:
+  - scenes
+  - exact_dialogue_text
+  dialogue:
+  - line_ids
+  - intent
+  - subtext
+  - delivery
+  - consequence
+  scene_states:
+  - entry
+  - turning_point
+  - exit
+  - next_scene_cause
+  visual_bible:
+  - style
+  - locations
+  - wardrobe
+  - lighting
+  - identity_controls
+  shots:
+  - shot_id
+  - scene_id
+  - function
+  - duration
+  - framing
+  - speaker
+  - lip_sync_required
+  - continuity
+  voices:
+  - voice_ids
+  - line_directions
+  - pronunciation
+  sound:
+  - ambience
+  - music_intent
+  - silence_strategy
+  assets:
+  - required_references
+  - reusable_assets
+  execution_constraints:
+  - allowed_fallbacks
+  - forbidden_substitutions
+  validation_requirements:
+  - standards
+  - blocking_gates
+freeze_rule: Any creative modification after freeze requires a new PKP version.

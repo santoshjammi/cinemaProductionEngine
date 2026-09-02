@@ -21,7 +21,7 @@ class LLMClient:
 
     def __init__(
         self,
-        url: str = "http://127.0.0.1:1234",
+        url: str = "http://127.0.0.1:11434",
         api_key: str | None = None,
         model: str = "qwen3-coder",
         temperature: float = 0.7,
@@ -70,12 +70,42 @@ class LLMClient:
             with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                 raw = resp.read()
                 result = json.loads(raw)
-                return result["choices"][0]["message"]["content"]
+                content = result["choices"][0]["message"]["content"]
+                from movie_os.llm.runtime_logger import log_runtime_llm_call
+                log_runtime_llm_call(
+                    prompt=prompt,
+                    response=content,
+                    system_prompt=system,
+                    model=self.model,
+                    provider="lmstudio/openai",
+                    success=True,
+                )
+                return content
         except urllib.error.URLError as e:
             logger.error(f"LLM call failed: {e}")
+            from movie_os.llm.runtime_logger import log_runtime_llm_call
+            log_runtime_llm_call(
+                prompt=prompt,
+                response="",
+                system_prompt=system,
+                model=self.model,
+                provider="lmstudio/openai",
+                success=False,
+                error=str(e),
+            )
             raise RuntimeError(f"LLM unavailable at {self.url}: {e}") from e
         except (KeyError, json.JSONDecodeError) as e:
             logger.error(f"LLM response parse error: {e}")
+            from movie_os.llm.runtime_logger import log_runtime_llm_call
+            log_runtime_llm_call(
+                prompt=prompt,
+                response="",
+                system_prompt=system,
+                model=self.model,
+                provider="lmstudio/openai",
+                success=False,
+                error=str(e),
+            )
             raise RuntimeError(f"LLM response parse error: {e}") from e
 
     def generate_json(self, prompt: str, system: str = "") -> dict[str, Any]:

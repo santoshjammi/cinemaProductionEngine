@@ -14,3 +14,4 @@ version: "1.0"
 ## Operational Guardrails
 - Do not persist sensitive PII in `.aios/memories/`.
 - Always validate model outputs against content safety standards before delivery.
+- Maintain strict boundaries between production code and AI orchestration layers.

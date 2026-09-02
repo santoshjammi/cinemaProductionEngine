@@ -33,5 +33,10 @@ class Settings(BaseSettings):
     max_scenes: int = 12
     default_story_length: str = "conversational"
 
+    # Analytics
+    ga_measurement_id: str = ""
+    uptime_endpoint: str = "/api/health"
+    error_tracking_enabled: bool = True
+
 
 settings = Settings()

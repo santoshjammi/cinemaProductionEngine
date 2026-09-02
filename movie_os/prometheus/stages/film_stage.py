@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from movie_os.runtime_paths import build_run_path
+from movie_os.providers.video.svd_local import render_with_svd
 
 logger = logging.getLogger("movie_os.prometheus.stages.film")
 
@@ -115,14 +116,20 @@ def mix_scene_audio(music_path: Path | None, voice_paths: list[Path],
         return None
 
     # Build the mix graph
+    # FIX (scene-1 dialogue loss): amix `duration=first` truncated the dialogue
+    # mix to the length of the FIRST line, silently dropping every later line.
+    # Use `duration=longest` so all back-to-back dialogue lines survive.
+    # FIX (music continuation): the music amix must ALSO use `duration=longest`
+    # so the music bed plays through the whole scene instead of being cut off
+    # at the dialogue length (which left the scene tail silent).
     if music_path and music_path.exists():
         # music [m] + dialogue voices [v1..vN] -> amix
         mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
-        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=first:dropout_transition=3[vout]")
-        filters.append("[m][vout]amix=inputs=2:duration=first:dropout_transition=3[out]")
+        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[vout]")
+        filters.append("[vout][m]amix=inputs=2:duration=longest:dropout_transition=3[out]")
     else:
         mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
-        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=first:dropout_transition=3[out]")
+        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[out]")
 
     cmd = (["ffmpeg", "-y"] + inputs +
            ["-filter_complex", ";".join(filters), "-map", "[out]",
@@ -142,19 +149,85 @@ def mix_scene_audio(music_path: Path | None, voice_paths: list[Path],
     return out_path if out_path.exists() else None
 
 
-def render_scene_video(image_path: Path, audio_path: Path, duration_s: float,
-                       out_path: Path) -> Path | None:
-    """Ken Burns over a single image + audio. Returns path or None."""
+def render_lipsync_scene_video(image_path: Path, audio_path: Path, duration_s: float,
+                               out_path: Path, motion_prompt: str = "") -> Path | None:
+    """Render a readable-speaking scene with SVD motion, then mux audio."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
     if out_path.exists() and out_path.stat().st_size > 10000:
         return out_path
-    # Ken Burns: slow zoom + pan across the whole scene via zoompan
-    vf = ("scale=1920:1080:force_original_aspect_ratio=decrease,"
-          "pad=1920:1080:(ow-iw)/2:(oh-ih)/2,"
-          "zoompan=z='1+0.06*on/({dur}*24)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=24".format(dur=duration_s))
+    try:
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as ex:
+            motion_path = ex.submit(
+                lambda: asyncio.run(
+                    render_with_svd(
+                        image_path=image_path,
+                        output_dir=out_path.parent,
+                        width=576,
+                        height=1024,
+                        fps=24,
+                    )
+                )
+            ).result(timeout=1800)
+        if not motion_path or not Path(motion_path).exists():
+            return None
+        subprocess.run([
+            "ffmpeg", "-y", "-i", str(motion_path), "-i", str(audio_path),
+            "-c:v", "copy", "-c:a", "aac", "-shortest", str(out_path)
+        ], check=True, capture_output=True, timeout=300)
+        return out_path if out_path.exists() and out_path.stat().st_size > 10000 else None
+    except Exception as e:
+        logger.warning("  [video] lip-sync render fallback engaged: %s", e)
+        return None
+
+
+def render_scene_video(image_path: Path, audio_path: Path, duration_s: float,
+                       out_path: Path, motion: str = "zoom_in") -> Path | None:
+    """Ken Burns over a single image + audio. Returns path or None.
+
+    `motion` selects a distinct camera move so consecutive scenes do not all
+    feel like the same static close-up (P0 video-review fix: the 30-shot plan
+    collapses to a few scene images, so varying the Ken Burns motion per scene
+    keeps the finished video from feeling monotonous).
+    """
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    if out_path.exists() and out_path.stat().st_size > 10000:
+        return out_path
+    # Ken Burns: slow zoom + pan across the whole scene via zoompan.
+    # Different motion profiles per scene reduce visual monotony.
+    dur = max(duration_s, 1.0)
+    fps = 24
+    frames = int(dur * fps)
+    if motion == "zoom_in":
+        z = f"1+0.08*on/{frames}"
+        x = "iw/2-(iw/zoom/2)"
+        y = "ih/2-(ih/zoom/2)"
+    elif motion == "zoom_out":
+        z = f"1.08-0.08*on/{frames}"
+        x = "iw/2-(iw/zoom/2)"
+        y = "ih/2-(ih/zoom/2)"
+    elif motion == "pan_left":
+        z = "1.15"
+        x = f"(iw-iw/zoom)*(1-on/{frames})"
+        y = "ih/2-(ih/zoom/2)"
+    elif motion == "pan_right":
+        z = "1.15"
+        x = f"(iw-iw/zoom)*(on/{frames})"
+        y = "ih/2-(ih/zoom/2)"
+    elif motion == "pan_up":
+        z = "1.15"
+        x = "iw/2-(iw/zoom/2)"
+        y = f"(ih-ih/zoom)*(1-on/{frames})"
+    else:  # pan_down
+        z = "1.15"
+        x = "iw/2-(iw/zoom/2)"
+        y = f"(ih-ih/zoom)*(on/{frames})"
+    vf = (f"scale=1920:1080:force_original_aspect_ratio=decrease,"
+          f"pad=1920:1080:(ow-iw)/2:(oh-ih)/2,"
+          f"zoompan=z='{z}':x='{x}':y='{y}':d=1:s=1920x1080:fps={fps}")
     cmd = (f'ffmpeg -y -loop 1 -i "{image_path}" -i "{audio_path}" '
            f'-vf "{vf}" '
-           f'-c:v libx264 -pix_fmt yuv420p -preset medium -crf 20 -r 24 '
+           f'-c:v libx264 -pix_fmt yuv420p -preset medium -crf 20 -r {fps} '
            f'-c:a aac -b:a 192k -ar 48000 '
            f'-map 0:v -map 1:a -t {duration_s} "{out_path}"')
     r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=300)
@@ -217,6 +290,9 @@ class FilmStage:
 
         # ── Assemble each scene: mix audio, then Ken Burns video ──
         scene_videos: list[Path] = []
+        # Distinct Ken Burns motion per scene so the finished video does not
+        # feel like one static close-up held for the whole runtime (P0 review).
+        _motions = ["zoom_in", "pan_right", "zoom_out", "pan_left", "pan_up", "pan_down"]
         for sid, voice_paths in voice_by_scene.items():
             scene_dur = compute_scene_duration(voice_paths)
             music = music_by_scene.get(sid)
@@ -230,15 +306,33 @@ class FilmStage:
                     "url": None,
                     "metadata": {"scene_id": sid, "duration_seconds": scene_dur},
                 })
-            # Render the scene video (Ken Burns over the scene image)
+            # Render the scene video: lipsync for readable speakers, Ken Burns otherwise.
             image = image_by_scene.get(sid)
             if image and mixed:
-                sv = render_scene_video(
-                    image, mixed, scene_dur,
-                    build_run_path(self.brief, "render", f"scene_{sid:03d}.mp4"))
+                scene_obj = next((s for s in self.brief.get("scenes", []) or [] if (s.get("number") or s.get("scene_number") or s.get("id")) == sid), {})
+                shot = scene_obj.get("shot", {}) if isinstance(scene_obj.get("shot"), dict) else {}
+                out_mp4 = build_run_path(self.brief, "render", f"scene_{sid:03d}.mp4")
+                motion = _motions[(sid - 1) % len(_motions)]
+                if shot.get("lip_sync_required") and shot.get("speaker"):
+                    # SVD lip-sync render is heavy (5-6GB model, slow inference)
+                    # and can fail/timing-out locally. NEVER drop a scene because
+                    # the motion backend is unavailable — fall back to the
+                    # reliable Ken Burns render so a playable film still assembles.
+                    sv = render_lipsync_scene_video(
+                        image, mixed, scene_dur, out_mp4,
+                        motion_prompt=str(shot.get("visual_intent") or shot.get("performance_intent") or "acting camera and facial performance synchronized to dialogue"),
+                    )
+                    if sv is None:
+                        logger.warning(
+                            f"  [film] SVD lip-sync unavailable for scene {sid} "
+                            f"— falling back to Ken Burns so the film still assembles."
+                        )
+                        sv = render_scene_video(image, mixed, scene_dur, out_mp4, motion=motion)
+                else:
+                    sv = render_scene_video(image, mixed, scene_dur, out_mp4, motion=motion)
                 if sv:
                     scene_videos.append(sv)
-                    logger.info(f"  [film] scene {sid} rendered ({scene_dur:.0f}s)")
+                    logger.info(f"  [film] scene {sid} rendered ({scene_dur:.0f}s, {motion})")
 
         if not voice_by_scene:
             logger.error("[film] No dialogue/voice clips — cannot assemble a film. "

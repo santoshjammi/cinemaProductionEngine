@@ -109,6 +109,15 @@ class VisualAgent(AgentBase):
 
             scene_assets[sn] = assets_for_scene
 
+        # Unload models from ComfyUI after finishing rendering all scenes
+        try:
+            if cap and hasattr(cap, "client"):
+                client = cap.client
+                if hasattr(client, "unload_models"):
+                    client.unload_models()
+        except Exception as e:
+            logger.warning(f"VisualAgent: failed to unload ComfyUI models: {e}")
+
         return {
             "scene_assets": scene_assets,
             "render_attempts": attempts,

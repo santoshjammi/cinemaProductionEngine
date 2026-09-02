@@ -77,6 +77,10 @@ class StoryboardStage:
         for shot in self.brief.get("shots", []) or []:
             if shot.get("scene_id") == scene_id:
                 return shot
+        for scene in self.brief.get("scenes", []) or []:
+            sid = scene.get("number") or scene.get("scene_number") or scene.get("id")
+            if sid == scene_id and isinstance(scene.get("shot"), dict):
+                return scene["shot"]
         return {}
 
     def _scene_dialogue(self, scene_id: int) -> dict[str, Any]:

@@ -8,6 +8,18 @@ __pycache__/
 htmlcov/
 .movie_os_cache/
 
+# Secrets — NEVER commit local env files (keep .env.example)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs and archives
+*.log
+*.zip
+*.tar.gz
+
 # Node / JS
 node_modules/
 .next/
@@ -33,6 +45,18 @@ exports/
 
 # Heavy weights and external tool installs
 models/
+
+# Runtime state / local artifacts (not source)
+runtime/
+artifacts/
+workspace/
+chats/
+legacy_outputs/
+.hermes/
+.intelligence/
+*.tsbuildinfo
+# Binary vector index (regenerated at runtime)
+movie_os/data_layer/data/characters/vec_index/
 
 # Aider Studio (auto-added)
 REPO_MAP.md

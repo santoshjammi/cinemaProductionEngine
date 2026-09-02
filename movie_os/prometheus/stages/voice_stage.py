@@ -24,15 +24,16 @@ from movie_os.runtime_paths import build_run_path
 
 logger = logging.getLogger("movie_os.prometheus.stages.voice")
 
-# Character -> edge-tts voice. Inner voice uses a distinct voice so the
-# viewer can tell spoken dialogue from the character's inner whisper.
+# Character -> edge-tts voice. Inner voice uses the SAME voice as the
+# character (so the inner whisper is the same actor, not a different person),
+# but is rendered slower + quieter so the viewer can tell it's unspoken thought.
 VOICES = {
     "MARK": "en-US-BrianNeural",
     "SARAH": "en-US-AriaNeural",
-    "MARK_INNER": "en-US-AndrewNeural",
+    "MARK_INNER": "en-US-BrianNeural",
     "DANIEL": "en-US-BrianNeural",
     "ELENA": "en-US-AriaNeural",
-    "DANIEL_INNER": "en-US-AndrewNeural",
+    "DANIEL_INNER": "en-US-BrianNeural",
     "NARRATOR": "en-US-GuyNeural",
 }
 
@@ -146,14 +147,21 @@ class VoiceStage:
         key = speaker.upper().strip()
         if key in VOICES:
             return VOICES[key]
-        # Inner voice convention: '<NAME>_INNER' -> AndrewNeural
+        # Inner voice convention: '<NAME>_INNER' -> same voice as '<NAME>'
+        # (the character's own whisper), so it's the same actor.
         if key.endswith("_INNER"):
-            return "en-US-AndrewNeural"
+            base = key[:-len("_INNER")]
+            return VOICES.get(base, VOICES["NARRATOR"])
         return VOICES.get(key, VOICES["NARRATOR"])
 
     def _scene_shot(self, scene_id: int, speaker: str) -> dict[str, Any]:
         for shot in self.brief.get("shots", []) or []:
             if shot.get("scene_id") == scene_id and (not shot.get("speaker") or shot.get("speaker") == speaker):
+                return shot
+        for scene in self.brief.get("scenes", []) or []:
+            sid = scene.get("number") or scene.get("scene_number") or scene.get("id")
+            shot = scene.get("shot") if isinstance(scene.get("shot"), dict) else None
+            if sid == scene_id and shot and (not shot.get("speaker") or shot.get("speaker") == speaker):
                 return shot
         for shot in self.brief.get("shots", []) or []:
             if shot.get("scene_id") == scene_id:

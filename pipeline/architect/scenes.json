@@ -1,0 +1,36 @@
+{
+  "artifact_id": "SCENES-EW001",
+  "contract_reference": "CONTRACT-EW001",
+  "scenes": [
+    {
+      "id": 1,
+      "stage": "lost_touch",
+      "text": "Sarah reaches for his hand; Mark flinches and locks his phone."
+    },
+    {
+      "id": 2,
+      "stage": "lost_communication",
+      "text": "Mark types a message then deletes it while Sarah sits nearby."
+    },
+    {
+      "id": 3,
+      "stage": "lost_honesty",
+      "text": "Mark aligns plates on the table to avoid answering Sarah's question."
+    },
+    {
+      "id": 4,
+      "stage": "lost_emotional_safety",
+      "text": "Mark turns toward the wall and pulls a blanket over himself when Sarah touches him."
+    },
+    {
+      "id": 5,
+      "stage": "irreversible_separation",
+      "text": "Sarah leaves; Mark remains silent and doesn't stop her."
+    },
+    {
+      "id": 6,
+      "stage": "post_goodbye_absence",
+      "text": "Mark finally extends his hand toward the empty space where she stood."
+    }
+  ]
+}

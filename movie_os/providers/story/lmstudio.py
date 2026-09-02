@@ -40,12 +40,12 @@ class LMStudioStoryProvider(StoryProvider):
 
     def __init__(
         self,
-        base_url: str = "http://localhost:1234",
+        base_url: str = "http://localhost:11434",
         api_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
-        narrative_model: str = "qwen3-coder-30b-a3b-instruct-mlx",
+        narrative_model: str = "qwen3-coder-30b-a3b-instruct",
         narrative_temperature: float = 0.7,
         narrative_max_tokens: int = 4000,
-        refiner_model: str = "supergemma4-26b-uncensored-mlx-v2",
+        refiner_model: str = "supergemma4-26b-uncensored-v2",
         refiner_temperature: float = 0.6,
         refiner_max_tokens: int = 2000,
     ):
@@ -132,12 +132,12 @@ class LMStudioStoryProvider(StoryProvider):
 def make(settings: dict, cost_per_call_usd: float = 0.0) -> LMStudioStoryProvider:
     """Build an LMStudioStoryProvider from config settings."""
     return LMStudioStoryProvider(
-        base_url=settings.get("base_url", "http://localhost:1234"),
+        base_url=settings.get("base_url", "http://localhost:11434"),
         api_key=settings.get("api_key", "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W"),
-        narrative_model=settings.get("narrative_model", "qwen3-coder-30b-a3b-instruct-mlx"),
+        narrative_model=settings.get("narrative_model", "qwen3-coder-30b-a3b-instruct"),
         narrative_temperature=settings.get("narrative_temperature", 0.7),
         narrative_max_tokens=settings.get("narrative_max_tokens", 4000),
-        refiner_model=settings.get("refiner_model", "supergemma4-26b-uncensored-mlx-v2"),
+        refiner_model=settings.get("refiner_model", "supergemma4-26b-uncensored-v2"),
         refiner_temperature=settings.get("refiner_temperature", 0.6),
         refiner_max_tokens=settings.get("refiner_max_tokens", 2000),
     )

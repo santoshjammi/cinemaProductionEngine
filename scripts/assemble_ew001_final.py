@@ -52,7 +52,7 @@ for scene_num in range(1, 14):
         'ffmpeg', '-y',
         '-loop', '1',
         '-i', str(image_path),
-        '-vf', f'scale=1920:1080:force_original_aspect_ratio=decrease,crop=1920:1080,zoompan=z=\'min(zoom+0.0015):x=\'iw/2-(iw/zoom/2)+50*on\'':y=\'ih/2-(ih/zoom/2)+30*on\'':d={duration*25}:s=1920x1080:f=24',
+        '-vf', f"scale=1920:1080:force_original_aspect_ratio=decrease,crop=1920:1080,zoompan=z='min(zoom+0.0015,1.5)':x='iw/2-(iw/zoom/2)+50*on':y='ih/2-(ih/zoom/2)+30*on':d={duration*25}:s=1920x1080:f=24",
         '-t', str(duration),
         '-c:v', 'libx264',
         '-preset', 'medium',

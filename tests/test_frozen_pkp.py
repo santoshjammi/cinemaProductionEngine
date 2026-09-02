@@ -65,8 +65,9 @@ def test_valid_pkp_creation_and_validation():
     assert validated.assets["required_references"] == ["MSVI-MARK", "MSVI-SARAH", "MSVR-MARK", "MSVR-SARAH"]
     assert validated.screenplay["scenes"][0]["dialogue_causality"]["effect"] == "Sarah understands"
     assert validated.scene_states["scenes"][0]["emotional_progression"] == ["fearful", "supported", "resolved"]
-    assert validated.canonical_bible_bindings["Mark"]["character_bible_ref"].endswith("01_MARK_CHARACTER_BIBLE.md")
-    assert validated.canonical_registry_bindings["voice_registry_refs"] == ["movie_os/data/voices/MARK/voice.yaml", "movie_os/data/voices/SARAH/voice.yaml"]
+    assert validated.canonical_bible_bindings["Mark"]["character_bible_ref"].endswith("01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml")
+    assert validated.canonical_registry_bindings["voice_registry_refs"] == ["docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml", "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml"]
+    assert "mark_sarah" in validated.canonical_sources
 
 def test_missing_critical_creative_field_rejected():
     brief = _brief()

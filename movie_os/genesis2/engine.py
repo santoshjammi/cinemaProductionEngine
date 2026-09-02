@@ -21,6 +21,7 @@ from .models import (
     PhaseStatus,
     ProductionKnowledgePackage,
 )
+from .phase_context import RunContext
 from .phases import PHASE_CLASSES
 
 logger = logging.getLogger("movie_os.genesis2.engine")
@@ -72,17 +73,37 @@ class Genesis2Engine:
     ) -> ProductionKnowledgePackage:
         """Run the full 12-phase pipeline asynchronously."""
         constraints = constraints or {}
+        episode_id = constraints.get("episode_id", "")
+        run_id = constraints.get("run_id", "")
+        policy_id = constraints.get("policy_snapshot_id", constraints.get("policy_id", ""))
+        policy_hash = constraints.get("policy_hash", "")
+        requirement_manifest_hash = constraints.get("requirement_manifest_hash", "")
         pkg = ProductionKnowledgePackage(
-            episode_id=constraints.get("episode_id", ""),
-            run_id=constraints.get("run_id", ""),
-            policy_snapshot_id=constraints.get("policy_snapshot_id", ""),
+            episode_id=episode_id,
+            run_id=run_id,
+            policy_snapshot_id=policy_id,
             synopsis=synopsis,
             constraints=constraints,
+        )
+
+        run_context = RunContext(
+            production_id=episode_id,
+            run_id=run_id,
+            policy_id=policy_id,
+            policy_hash=policy_hash,
+            requirement_manifest_hash=requirement_manifest_hash,
+            mode=str(constraints.get("mode", "RUNTIME")),
+            source_run_id=str(constraints.get("source_run_id", run_id)),
+            source_episode_id=str(constraints.get("source_episode_id", episode_id)),
         )
 
         context: dict[str, Any] = {
             "synopsis": synopsis,
             "constraints": constraints,
+            "run_context": run_context.model_dump(),
+            "run_id": run_id,
+            "episode_id": episode_id,
+            "policy_snapshot_id": policy_id,
         }
 
         prev_hash: str | None = None
@@ -135,6 +156,7 @@ class Genesis2Engine:
                     f"[Genesis2] Phase {phase_num} failed after "
                     f"{result.draft_count} drafts and {self.max_revision_attempts} revisions."
                 )
+                break
 
         return pkg
 

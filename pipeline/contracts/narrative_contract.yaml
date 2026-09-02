@@ -1,0 +1,33 @@
+production_id: EW001
+title: The Space Between Us
+contract_id: CONTRACT-EW001
+contract_version: 1.0.0
+story_id: STORY-EW001
+
+characters:
+  - id: CHAR-SARAH
+    name: Sarah
+    role: pursuing_partner
+  - id: CHAR-MARK
+    name: Mark
+    role: withdrawing_partner
+    core_conflict:
+      mechanism: fear_based_withdrawal
+
+trajectory:
+  - lost_touch
+  - lost_communication
+  - lost_honesty
+  - lost_emotional_safety
+  - irreversible_separation
+  - post_goodbye_absence
+
+ending: irreversible_separation
+reconciliation_allowed: false
+runtime:
+  minimum_seconds: 60
+  maximum_seconds: 90
+tone:
+  - melancholic
+  - restrained
+  - domestic_silence

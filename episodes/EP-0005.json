@@ -1,0 +1,46 @@
+{
+  "episode_id": "EP-0005",
+  "working_title": "The Apology He Practiced",
+  "synopsis": "Mark rehearses an apology to Sarah in his head all day, but when the moment comes, he freezes and says nothing. Sarah notices his struggle and gently gives him space. The turning point comes when Mark finally speaks the words he practiced, admitting he was afraid of how she'd react, and Sarah meets his vulnerability with warmth instead of judgment.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "anxious → frozen → observed → brave → vulnerable → relieved",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0005",
+    "working_title": "The Apology He Practiced",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": ["Mark", "Sarah"]
+    },
+    "story": {
+      "primary_mechanism": "fear of the apology moment",
+      "story_context": "Mark rehearses an apology but freezes when the moment arrives.",
+      "viewer_recognition": "Freezing before an apology is fear of rejection, not lack of remorse",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark speaks his practiced apology and Sarah receives it warmly."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {"required": true},
+    "status": {"contract_state": "approved"}
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

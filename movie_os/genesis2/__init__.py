@@ -27,6 +27,13 @@ from .models import (
 )
 from .llm_client import LLMClient, MockLLMClient
 from .phase_base import PhaseBase
+from .phase_context import (
+    ArtifactReference,
+    DependencyManifest,
+    EstablishedFactRegister,
+    PhaseContextCompiler,
+    PhaseContextPacket,
+)
 
 __all__ = [
     "Genesis2Engine",
@@ -50,4 +57,9 @@ __all__ = [
     "LLMClient",
     "MockLLMClient",
     "PhaseBase",
+    "ArtifactReference",
+    "DependencyManifest",
+    "EstablishedFactRegister",
+    "PhaseContextCompiler",
+    "PhaseContextPacket",
 ]

@@ -120,7 +120,7 @@ def generate_story(
     output_path: str | Path | None = None,
     temperature: float = 0.5,
     max_tokens: int = 3000,
-    base_url: str = "http://localhost:1234",
+    base_url: str = "http://localhost:11434",
     api_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
 ) -> str:
     """Generate the story narrative from synopsis + DNA + context.

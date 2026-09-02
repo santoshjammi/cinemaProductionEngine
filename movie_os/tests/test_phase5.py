@@ -89,7 +89,8 @@ class TestComfyUIClient:
         from movie_os.workflows import ComfyUIClient
         client = ComfyUIClient(base_url="http://localhost:8188")
         # Simulate: first call -> not complete, second call -> complete
-        with patch.object(client, "get_history") as mock_history:
+        with patch.object(client, "get_history") as mock_history, \
+             patch.object(client, "get_queue_position", return_value={"queue_running": [], "queue_pending": []}):
             mock_history.side_effect = [
                 None,  # not in history yet
                 {"status": {"completed": True}, "outputs": {"9": {"images": []}}},
@@ -274,9 +275,9 @@ class TestFluxComfyUIProvider:
         )
         workflow = provider._build_workflow(intent, "flux_txt2img")
         # The prompt should be in node 5 (CLIPTextEncode positive)
-        assert "a man sitting alone" in workflow["5"]["inputs"]["text"]
-        # The seed should be in node 8 (KSampler)
-        assert workflow["8"]["inputs"]["seed"] == 42
+        assert "a man sitting alone" in workflow["5"]["inputs"]["clip_l"]
+        # The seed should be in node 10 (KSampler)
+        assert workflow["10"]["inputs"]["seed"] == 42
         # The width should be in node 4 (EmptyLatentImage)
         assert workflow["4"]["inputs"]["width"] == 1024
         # The unet should match the model name

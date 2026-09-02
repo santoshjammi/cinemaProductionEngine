@@ -123,6 +123,7 @@ class VideoGenerationService:
                 ],
                 check=True,
                 capture_output=True,
+                timeout=300,  # safety net — never hang forever
             )
 
             logger.info("Ken Burns clip %d generated at %s", scene_number, output_path)
@@ -196,6 +197,7 @@ class VideoGenerationService:
                     str(first_half),
                 ],
                 check=True, capture_output=True,
+                timeout=300,  # safety net: never hang forever
             )
 
             # Generate second half (image_b, effect_b)
@@ -209,7 +211,9 @@ class VideoGenerationService:
                     "-preset", "medium", "-crf", "18",
                     str(second_half),
                 ],
-                check=True, capture_output=True,
+                check=True,
+                capture_output=True,
+                timeout=300,  # safety net: never hang forever
             )
 
             # Concatenate the two halves with a hard cut (no transition)
@@ -224,7 +228,9 @@ class VideoGenerationService:
                     "-c", "copy",
                     str(output_path),
                 ],
-                check=True, capture_output=True,
+                check=True,
+                capture_output=True,
+                timeout=300,  # safety net: never hang forever
             )
 
             # Clean up intermediate files
@@ -512,6 +518,7 @@ class VideoGenerationService:
             ],
             check=True,
             capture_output=True,
+            timeout=300,  # safety net: never hang forever
         )
         logger.info("Assembled clip %s", output_path)
 
@@ -564,6 +571,7 @@ class VideoGenerationService:
                 ],
                 check=True,
                 capture_output=True,
+                timeout=300,  # safety net: never hang forever
             )
 
             file_size = output_path.stat().st_size if output_path.exists() else 0
@@ -577,6 +585,7 @@ class VideoGenerationService:
                 ],
                 capture_output=True,
                 text=True,
+                timeout=30,  # ffprobe is fast; cap at 30s for safety
             )
             duration = None
             if dur_result.returncode == 0 and dur_result.stdout.strip():

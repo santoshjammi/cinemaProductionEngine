@@ -13,6 +13,20 @@
 - **Multi-agent**: LangGraph StateGraph with Annotated reducers for concurrent updates
 - **Asset store**: SQLite + filesystem + sqlite-vec + sentence-transformers
 
+
+## Cinema Production Engine Stability Mission
+- Objective: make `videoGen` produce a playable final MP4 from approved synopsis input using GENESIS → PROMETHEUS → ORACLE.
+- GENESIS is text/metadata only; PROMETHEUS consumes only a sealed PKP; ORACLE validates integrity and final compliance.
+- Stability rules: fail closed, no placeholders, resumable checkpoints, and real assets only.
+- Phase order:
+  - Phase 0 Freeze Scope: TASK-001, TASK-002
+  - Phase 1 Stabilize GENESIS: TASK-003 through TASK-012
+  - Phase 2 Stabilize PROMETHEUS: TASK-013 through TASK-024
+  - Phase 3 Scene 4 vertical slice: TASK-025, TASK-026
+  - Phase 4 full production: TASK-027 through TASK-029
+  - Phase 5 reliability and repeatability: TASK-030 through TASK-034
+- Paperclip mirror: a dedicated `videoGen` project now tracks the mission and child tasks.
+
 ## Tech Stack
 - Python 3.11+, macOS (M1 Max 64GB)
 - **GPU**: MPS (Apple Silicon) — ComfyUI with `--bf16-unet --bf16-vae`
@@ -62,3 +76,6 @@
   - Completion gate checks 8 criteria before Studio Engine handoff
   - CLI: `python -m movie_os.genesis run --synopsis <path> [--mock] [--output <dir>]`
   - 292 tests pass
+
+## Video-Generation Feedback Directive (Permanent)
+- ALL video-generation feedback must be applied to the actual GENESIS (scene/dialogue expansion) and PROMETHEUS (audio volume/mixing) phase code — never just ad-hoc render scripts. Fix the phases themselves.

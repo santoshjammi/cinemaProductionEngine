@@ -1,0 +1,122 @@
+{
+  "1": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "models/text_encoders/clip_l.safetensors"
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "2": {
+    "inputs": {
+      "text": "blurry, low quality, text, watermark, deformed",
+      "clip": [
+        "models/text_encoders/clip_l.safetensors"
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "3": {
+    "inputs": {
+      "t5xxl": [
+        "models/text_encoders/t5xxl_fp8_e4m3fn.safetensors"
+      ]
+    },
+    "class_type": "T5Loader"
+  },
+  "4": {
+    "inputs": {
+      "text": "",
+      "t5xxl": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncodeT5XXL"
+  },
+  "5": {
+    "inputs": {
+      "text": "blurry, low quality, text, watermark, deformed",
+      "t5xxl": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncodeT5XXL"
+  },
+  "6": {
+    "inputs": {
+      "unet_name": [
+        "models/diffusion_models/flux1-dev-fp8.safetensors"
+      ]
+    },
+    "class_type": "UNETLoader"
+  },
+  "7": {
+    "inputs": {
+      "width": 1024,
+      "height": 576,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "8": {
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "5",
+        0
+      ],
+      "latent_image": [
+        "7",
+        0
+      ],
+      "seed": 3558706393,
+      "steps": 28,
+      "cfg": 3.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0
+    },
+    "class_type": "KSampler"
+  },
+  "9": {
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "models/vae/flux-vae.safetensors"
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "10": {
+    "inputs": {
+      "filename_prefix": "/Users/santosh/Desktop/projects/videoGen/models/ComfyUI/output",
+      "images": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "11": {
+    "inputs": {
+      "images": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  }
+}

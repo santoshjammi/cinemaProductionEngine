@@ -1,0 +1,79 @@
+version: 1
+mission_id: VIDEOGEN-RUNTIME-TRUTH-001
+status: discovery-only
+
+backlog:
+  - id: P0-01
+    priority: P0
+    title: Canonical Production Runtime
+    rationale: Establish one production path based on run_space_between_us.py → movie_os/genesis2 → movie_os/prometheus and the production-scoped output tree.
+
+  - id: P0-02
+    priority: P0
+    title: Episode Contract + Effective Policy Resolution
+    rationale: Resolve RPCO selection, contracts, constitutions, series rules, standards, and format profile into a single Effective Policy Snapshot before GENESIS executes.
+
+  - id: P0-03
+    priority: P0
+    title: Canonical GENESIS + Frozen PKP
+    rationale: movie_os/genesis2 must be the only creative compiler in the canonical runtime and must freeze its output as an immutable PKP before PROMETHEUS.
+
+  - id: P0-04
+    priority: P0
+    title: Mark & Sarah Canon + Continuity Binding
+    rationale: Bind runtime execution to the Character Bible, Visual Identity Registry, Voice Registry, and Continuity Registry so identity and continuity remain stable.
+
+  - id: P0-05
+    priority: P0
+    title: Dialogue + Emotional Continuity Enforcement
+    rationale: Carry enough structured scene-state information to enforce causal dialogue, emotional progression, and immutable approved dialogue downstream.
+
+  - id: P0-06
+    priority: P0
+    title: Cinematic Shot + Motion + Lip-Sync Execution
+    rationale: Add shot-level realization for speaker coverage, listener reactions, over-the-shoulder shots, two-shots, inserts/cutaways, silence, and visible-speaker lip sync.
+
+  - id: P0-07
+    priority: P0
+    title: ORACLE Blocking Quality Gate
+    rationale: Create the independent validation boundary that receives the effective policy snapshot, frozen PKP, immutable run info, candidate media, and canonical references.
+
+  - id: P0-08
+    priority: P0
+    title: Three-Minute Mark & Sarah Vertical Slice
+    rationale: Prove the full contract → policy → GENESIS → PKP → PROMETHEUS → ORACLE chain on a small cinematic slice before expanding runtime scope.
+
+  - id: P1-01
+    priority: P1
+    title: Rationalize Application/UI
+    rationale: Reuse and adapt the existing frontend/backend around the contract-first production workflow.
+
+  - id: P1-02
+    priority: P1
+    title: Remove Obsolete Runtime Implementations
+    rationale: Defer cleanup until the canonical runtime is proven and then retire duplicate runners and legacy engines.
+
+  - id: P1-03
+    priority: P1
+    title: Simplify Configuration/Providers
+    rationale: Consolidate fragmented runtime configuration after the canonical path is stable.
+
+  - id: P1-04
+    priority: P1
+    title: Consolidate Tests
+    rationale: Align test families to the canonical runtime after proof of the new slice.
+
+  - id: P1-05
+    priority: P1
+    title: Clean Legacy Entrypoints
+    rationale: Convert older runners into compatibility shims or retire them only after the canonical path is trusted.
+
+  - id: P2-01
+    priority: P2
+    title: Optimization and Expansion
+    rationale: Expand only after the canonical Mark & Sarah vertical slice is stable.
+
+notes:
+  - Cleanup follows proof.
+  - Do not delete or move old code during P0 unless it directly blocks the canonical runtime.
+  - This backlog is planning evidence only, not implementation authority.

@@ -8,12 +8,20 @@ import sys
 import json
 import logging
 import yaml
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+
+# Shared LLM config loader (single source of truth for model selection).
+sys.path.insert(0, "/Users/santosh/.hermes/scripts")
+from llm_config import get_model
 
 # Support both package and direct execution
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.models import InputConfig, PipelineOutput, Scene, validate_input, InputValidationError
 from config.ollama_client import OllamaClient, OllamaError
+from config.prompts import (STORY_GENERATION_SYSTEM, STORY_GENERATION_USER_TEMPLATE,
+                            SCENE_DECOMPOSITION_SYSTEM, SCENE_DECOMPOSITION_USER_TEMPLATE,
+                            DIALOGUE_GENERATION_SYSTEM, DIALOGUE_GENERATION_USER_TEMPLATE,
+                            CINEMATIC_PROMPT_SYSTEM, CINEMATIC_PROMPT_USER_TEMPLATE)
 from pipeline.research import ResearchStage, ResearchContext
 from backend.app.services.genesis import StorytellerAgent, PromptEngineerAgent, AudioDirectorAgent
 
@@ -238,49 +246,91 @@ class DialogueGenerator:
         self.llm = llm_client or OllamaClient()
         self.config = config or {}
 
-    def generate(self, scenes_data: List[Dict[str, str]]) -> List[Dict[str, Any]]:
-        logger.info("[DialogueGeneration] Generating dialogue for scenes")
+    def generate(self, scenes_data: List[Dict[str, str]],
+                  character_info: str = "",
+                  character_name_1: str = "MARK",
+                  character_name_2: str = "SARAH") -> List[Dict[str, Any]]:
+        """Generate emotionally rich dialogue per scene with arc structure."""
+        logger.info("[DialogueGeneration] Generating rich dialogue per scene")
 
-        scenes_text = "\n".join(
-            f"Scene {s['id']}: {s['narration']} (emotion: {s['emotion']})"
-            for s in scenes_data
-        )
+        if not character_info:
+            character_info = f"{character_name_1} (husband, 30s, quiet, introspective), {character_name_2} (wife, 30s, distracted, work-focused)"
 
-        user_prompt = DIALOGUE_GENERATION_USER_TEMPLATE.format(
-            title="Story",
-            emotional_tone="mixed",
-            scenes_text=scenes_text,
-        )
+        all_dialogues = []
+        scene_arc_emotions = {
+            "opening": ["guarded", "distracted", "neutral", "detached"],
+            "peak": ["vulnerable", "frustrated", "longing", "resigned"],
+        }
 
-        messages = [
-            {"role": "system", "content": DIALOGUE_GENERATION_SYSTEM},
-            {"role": "user", "content": user_prompt},
-        ]
+        for scene in scenes_data:
+            sid = scene.get("id", 1)
+            narration = scene.get("narration", "")
+            emotion = scene.get("emotion", "neutral")
+            scene_class = scene.get("scene_class", "dialogue")
+            duration = scene.get("duration", "60s")
 
-        stage_cfg = self.config.get("stage_settings", {}).get("dialogue_generation", {})
-        response = self.llm.chat(
-            messages,
-            temperature=stage_cfg.get("temperature", 0.9),
-            max_tokens=stage_cfg.get("max_tokens", 1500),
-            top_p=stage_cfg.get("top_p", 0.95),
-        )
+            # Choose arc emotions based on scene class
+            if scene_class in ("hook", "transition"):
+                opening_e = "detached"
+                peak_e = "longing"
+            elif scene_class == "dialogue":
+                opening_e = "guarded"
+                peak_e = "vulnerable"
+            elif scene_class in ("emotional_peak", "climax"):
+                opening_e = "resigned"
+                peak_e = "confessional"
+            elif scene_class == "reflection":
+                opening_e = "contemplative"
+                peak_e = "sadness"
+            elif scene_class == "montage":
+                opening_e = "numb"
+                peak_e = "recognition"
+            elif scene_class == "establishment":
+                opening_e = "distracted"
+                peak_e = "yearning"
+            else:
+                opening_e = "neutral"
+                peak_e = "vulnerable"
 
-        dialogues = self._parse_json_response(response)
-        if isinstance(dialogues, str):
-            dialogues = json.loads(dialogues)
-        
-        # Validate that dialogue contains actual spoken words, not visual descriptions
-        for d in dialogues:
-            dialogue_text = d.get("dialogue_text", "")
-            # Check for common visual description patterns
-            visual_patterns = ["a shot of", "close-up on", "wide shot", "camera", "lighting", "scene shows"]
-            is_visual = any(pattern.lower() in dialogue_text.lower() for pattern in visual_patterns)
-            if is_visual and len(dialogue_text) > 20:
-                logger.warning(f"Dialogue appears to be visual description, not spoken words. Replacing with fallback.")
-                d["dialogue_text"] = f"A voice speaks about {d.get('scene_id', '?')}..."
-        
-        logger.info(f"[DialogueGeneration] Generated {len(dialogues)} dialogue entries")
-        return dialogues
+            user_prompt = DIALOGUE_GENERATION_USER_TEMPLATE.format(
+                character_name_1=character_name_1,
+                character_name_2=character_name_2,
+                character_info=character_info,
+                scene_id=sid,
+                scene_narration=narration,
+                scene_class=scene_class,
+                emotion=emotion,
+                scene_duration=duration,
+                opening_emotion=opening_e,
+                peak_emotion=peak_e,
+            )
+
+            messages = [
+                {"role": "system", "content": DIALOGUE_GENERATION_SYSTEM},
+                {"role": "user", "content": user_prompt},
+            ]
+
+            stage_cfg = self.config.get("stage_settings", {}).get("dialogue_generation", {})
+            response = self.llm.chat(
+                messages,
+                temperature=stage_cfg.get("temperature", 0.9),
+                max_tokens=stage_cfg.get("max_tokens", 2000),
+                top_p=stage_cfg.get("top_p", 0.95),
+            )
+
+            scene_dialogues = self._parse_json_response(response)
+            if isinstance(scene_dialogues, dict):
+                # Wrap single dict as list
+                scene_dialogues = [scene_dialogues]
+            if not isinstance(scene_dialogues, list):
+                scene_dialogues = []
+
+            logger.info(f"[Scene {sid}] Generated {len(scene_dialogues)} dialogue exchanges "
+                       f"(arc: {opening_e} → {peak_e} → settling)")
+            all_dialogues.extend(scene_dialogues)
+
+        return all_dialogues
+
 
     def _parse_json_response(self, text: str) -> Any:
         """Extract JSON from LLM response. Handles markdown code blocks, escaped strings, and raw JSON."""
@@ -561,8 +611,8 @@ class Pipeline:
 
         # Resolve models by role from config
         models_cfg = self.config.get("models", {})
-        orchestrator_model = models_cfg.get("orchestrator", {}).get("model", "qwen2.5:32b")
-        creative_writer_model = models_cfg.get("creative_writer", {}).get("model", "deepseek-coder-v2:latest")
+        orchestrator_model = models_cfg.get("orchestrator", {}).get("model", get_model())
+        creative_writer_model = models_cfg.get("creative_writer", {}).get("model", get_model())
 
         # If a single llm_client is provided, use it for all stages (backward compat)
         # Otherwise create role-specific clients
@@ -581,7 +631,7 @@ class Pipeline:
         self.metrics = MetricsCollector(self.config)
         self.research_stage = ResearchStage(self.config)
 
-    def run(self, raw_input: Dict[str, Any]) -> PipelineOutput:
+    def run(self, raw_input: Dict[str, Any], target_scene_count: int = 5) -> PipelineOutput:
         """Runs the full pipeline with LLM-powered stages."""
         logger.info("\n=== Starting Text Cinema Engine Pipeline ===")
 
@@ -603,13 +653,28 @@ class Pipeline:
                 research_context = ResearchContext(topic=input_config.topic)
 
         # 2. Story Generation (LLM - orchestrator, with research context)
-        story_outline = self.story_gen.generate(input_config, research_context=research_context)
+        story_outline = self.story_gen.generate(
+            input_config,
+            research_context=research_context,
+            target_scene_count=target_scene_count,
+        )
 
         # 3. Scene Decomposition (LLM - orchestrator)
-        scenes_data = self.scene_decomposer.decompose(story_outline)
+        scenes_data = self.scene_decomposer.decompose(
+            story_outline,
+            target_scene_count=target_scene_count,
+        )
 
         # 4. Dialogue Generation (LLM - creative_writer)
-        dialogues = self.dialogue_gen.generate(scenes_data)
+        character_name_1 = "MARK"
+        character_name_2 = "SARAH"
+        character_info = input_config.character_constraints or f"{character_name_1} (husband, 30s, quiet), {character_name_2} (wife, 30s, distracted)"
+        dialogues = self.dialogue_gen.generate(
+            scenes_data,
+            character_info=character_info,
+            character_name_1=character_name_1,
+            character_name_2=character_name_2,
+        )
 
         # 5. Cinematic Prompt Generation (LLM - orchestrator)
         prompts = self.prompt_gen.generate(scenes_data)

@@ -1,0 +1,64 @@
+id: 77e54e34-1827-4be0-b1f1-a3386340f380
+key: mark
+name: Mark
+role: protagonist
+tags:
+- psychological_drama
+- husband
+- guarded
+physical:
+  age: 35
+  gender: male
+  ethnicity: Asian
+  height_cm: null
+  build: lean
+  hair: dark hair, short
+  eyes: ''
+  distinguishing_features:
+  - full beard
+  - calm heavy gaze
+  visual_anchor: Asian man mid-30s, dark hair, full beard, grey button-down shirt,
+    calm heavy gaze
+psychological:
+  personality_traits:
+  - guarded
+  - proud
+  - inwardly anxious
+  emotional_tendencies: []
+  psychological_wounds: []
+  defense_mechanisms: []
+  core_fear: vulnerability / being seen as weak
+  core_desire: to feel safe speaking honestly
+speech:
+  speaking_style: restrained, short sentences, pauses
+  vocabulary_level: conversational
+  verbal_tics: []
+  silence_tendencies: holds back emotion
+voice:
+  pitch: low-medium
+  pace: slow, measured
+  tone: warm but guarded
+  accent: ''
+  tts_voice: en-US-BrianNeural
+  tts_provider: edge
+wardrobe:
+  default_outfit: grey button-down shirt
+  signature_items: []
+  style_notes: simple neutral clothing
+expressions:
+  expressions:
+  - 'restraint: holding back emotion'
+  - 'tension: jaw and shoulders tight'
+  - 'lowered eyes: avoiding eye contact'
+relationships: []
+history:
+  backstory: Guarded protagonist in a psychological drama.
+  significant_events: []
+  last_story_id: null
+arc:
+  starting_state: avoidant, guarded
+  ending_state: vulnerable, honest
+  key_moments: []
+reference_images: []
+created_at: '2026-09-01'
+notes: ''

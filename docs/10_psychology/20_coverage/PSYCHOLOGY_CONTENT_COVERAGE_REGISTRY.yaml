@@ -1,0 +1,22 @@
+document:
+  id: PCR-001
+  version: '1.0'
+  status: MUTABLE_OPERATIONAL_REGISTRY
+purpose: Track what has been planned, produced, published, and learned without modifying the RPCO ontology.
+entries: []
+entry_schema:
+  problem_family_id: null
+  sub_series_id: null
+  mechanism_variant: null
+  universe_id: UNIVERSE-MARK-SARAH
+  episode_id: null
+  status: idea | contracted | genesis | pkp_frozen | production | oracle_review | approved | published | retired
+  responsibility_pattern: null
+  story_context: null
+  resolution_pattern: null
+  publish_date: null
+  oracle_summary: null
+  performance_summary: null
+  lessons: []
+planning_rule: Hermes should prefer meaningful under-covered areas while considering ORACLE and commercial evidence; it should
+  not mechanically fill every taxonomy node.

@@ -136,13 +136,13 @@ class TestManifestTerritoryAndArchetype:
         overridden via CLI or manifest."""
         from pathlib import Path
         content = Path("scripts/psychological_pipeline.py").read_text()
-        # The string "qwen3-coder-30b-a3b-instruct-mlx" should appear only
+        # The string "qwen3-coder-30b-a3b-instruct" should appear only
         # as a default value in a function signature or argument, not in
         # inline code that runs.
         # Quick check: it should appear in the file but as a default value
         lines = content.split("\n")
         for i, line in enumerate(lines):
-            if "qwen3-coder-30b-a3b-instruct-mlx" in line:
+            if "qwen3-coder-30b-a3b-instruct" in line:
                 # Should be a default value (has =) not an assignment (no =)
                 # OR it should be in a docstring/comment
                 # We just count occurrences — should be at most a few defaults

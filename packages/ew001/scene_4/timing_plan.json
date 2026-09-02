@@ -1,0 +1,43 @@
+{
+  "artifact_id": "TIMING-SCENE-04",
+  "scene_duration_seconds": 10.0,
+  "beats": [
+    {
+      "beat_number": 1,
+      "type": "silence",
+      "start_second": 0.0,
+      "duration_seconds": 1.5,
+      "note": "Opening silence — tension before first line"
+    },
+    {
+      "beat_number": 2,
+      "type": "dialogue",
+      "speaker": "sarah",
+      "start_second": 1.5,
+      "duration_seconds": 3.5,
+      "text": "I just want to know what's wrong. You've been distant for weeks."
+    },
+    {
+      "beat_number": 3,
+      "type": "silence",
+      "start_second": 5.0,
+      "duration_seconds": 1.0,
+      "note": "Pause after Sarah's question — the weight of the silence"
+    },
+    {
+      "beat_number": 4,
+      "type": "dialogue",
+      "speaker": "mark",
+      "start_second": 6.0,
+      "duration_seconds": 2.5,
+      "text": "Nothing's wrong. I'm just... tired."
+    },
+    {
+      "beat_number": 5,
+      "type": "silence",
+      "start_second": 8.5,
+      "duration_seconds": 1.5,
+      "note": "Post-dialogue silence — the unreachability of Sarah's hand"
+    }
+  ]
+}

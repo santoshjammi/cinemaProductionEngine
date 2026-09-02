@@ -254,6 +254,10 @@ class MovieOSConfig(BaseModel):
     rendering: RenderingConfig = Field(default_factory=RenderingConfig)
     pipeline: PipelineConfig = Field(default_factory=PipelineConfig)
 
+    # Visual/production grammar — the cinematic style to follow
+    # (e.g. "psychological_cinema", "narrative_film", "documentary", etc.)
+    grammar: str = "psychological_cinema"
+
     # Extra (unknown) keys are allowed but ignored — forward compatibility
     model_config = ConfigDict(extra="ignore")
 

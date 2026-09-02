@@ -28,17 +28,46 @@ class ImageGenerationStage:
         self.certificate = certificate
         self.brief = brief or {}
         self._image_provider: Any | None = None
+        # Character-consistency reference (two-shot Mark+Sarah), resolved
+        # lazily from the CharacterRegistry so it's config-driven, not hardcoded.
+        self._character_reference: str | None = None
+
+    def _resolve_character_reference(self) -> str | None:
+        """Resolve the character-composite reference filename (relative to
+        ComfyUI's input dir) for this brief.
+
+        Priority:
+          1. `brief['character_consistency']` (injected by the GENESIS
+             character-preparation step) — the explicit, resolved set.
+          2. Auto-detection from the brief (characters_present / speakers),
+             with the psychology default (Mark & Sarah) as fallback.
+        Returns None if no characters/hero images are available.
+        """
+        if self._character_reference is not None:
+            return self._character_reference
+        try:
+            from movie_os.character_consistency import ensure_character_consistency
+            result = ensure_character_consistency(self.brief)
+            self._character_reference = result.get("reference_filename") or ""
+        except Exception as e:
+            logger.warning(f"[ImageGenerationStage] Character consistency unavailable: {e}")
+            self._character_reference = ""
+        return self._character_reference or None
 
     @property
     def image_provider(self) -> Any:
         """Return the configured image provider (FluxComfyUIProvider or similar)."""
         if self._image_provider is not None:
             return self._image_provider
-        # Default to the real FLUX provider (ComfyUI must be running on 8188).
+        # Default to the real FLUX provider (ComfyUI must be running on 8189).
+        # Port 8189 is the FLUX-capable ComfyUI (v0.33.1, ComfyUI-Installs)
+        # which exposes UNETLoader/VAELoader/DualCLIPLoader and sees the FLUX
+        # models. Port 8188 (Comfy Desktop v0.24.0) lacks those loader nodes
+        # and returns prompt_outputs_failed_validation on every FLUX render.
         try:
             from movie_os.providers.image.flux_comfyui import FluxComfyUIProvider
             self._image_provider = FluxComfyUIProvider(
-                comfyui_url="http://127.0.0.1:8188",
+                comfyui_url="http://127.0.0.1:8190",
                 model="flux1-dev-fp8.safetensors",
             )
             return self._image_provider
@@ -86,6 +115,8 @@ class ImageGenerationStage:
                         artifact_path = str(existing)
                         logger.info(f"[ImageGenerationStage] Reusing existing image for scene {scene_id}: {artifact_path}")
                     else:
+                        char_ref = self._resolve_character_reference()
+                        cc = self.brief.get("character_consistency") or {}
                         intent = ImageIntent(
                             prompt=prompt,
                             negative_prompt=self._build_negative_prompt(),
@@ -97,10 +128,25 @@ class ImageGenerationStage:
                             # Per-scene seed so each scene gets a DISTINCT image
                             # (provider defaults to seed=42 otherwise → all identical).
                             seed=1000 + scene_id,
+                            # CHARACTER CONSISTENCY (img2img): anchor every scene to
+                            # the character composite (resolved from the brief's
+                            # character_consistency block, or auto-detected) so all
+                            # characters keep the same identity across scenes. The
+                            # reference filename is relative to ComfyUI's input dir.
+                            reference_image_paths=(
+                                [char_ref] if char_ref else None
+                            ),
+                            ipadapter_strength=0.6,
                             metadata={
                                 "scene_number": scene_id,
                                 "output_dir": str(existing.parent),
                                 "pipeline_id": self.brief.get("production", {}).get("run_id", "prometheus"),
+                                # Use img2img (not IPAdapter — the IPAdapter custom
+                                # node + CLIP vision model are not installed).
+                                "use_img2img": True,
+                                "use_ipadapter": False,
+                                # Config-driven denoise from the character_consistency block.
+                                "denoise": cc.get("denoise", 0.4),
                             },
                         )
                         # FluxComfyUIProvider.render is async — await directly since we're in async context

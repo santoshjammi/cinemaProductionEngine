@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from ..models import ConfidenceLevel, KnowledgeObject, ValidationIssue
+from ..models import ConfidenceLevel, KnowledgeObject, StoryFoundation, ValidationIssue
 from ..phase_base import PhaseBase
 
 
@@ -13,14 +13,28 @@ class StoryFoundationPhase(PhaseBase):
     phase_number = 2
     phase_name = "Story Foundation"
     _REQUIRED: list[str] = ["premise", "acts", "story_beats"]
+    _OUTPUT_BUDGET = 1024
 
     def build_draft_prompt(self, pkg: dict[str, Any]) -> str:
         prev = pkg.get("phase_01", {})
         synopsis = pkg.get("synopsis", "")
+        constraints = pkg.get("constraints", {}) or {}
+        canon = constraints.get("canonical_requirements") or []
+        canon_block = ""
+        if canon:
+            lines = "\n".join(
+                f"- {c['id']} ({c['category']}): {c['statement']}" for c in canon
+            )
+            canon_block = (
+                f"\n## Canonical Episode Requirements (MUST NOT lose any)\n"
+                f"These are the approved concept's frozen obligations. Your story_beats "
+                f"must collectively realize ALL of them. One beat may realize several, "
+                f"but none may be dropped.\n{lines}\n"
+            )
         return (
             f"# Phase 02: Story Foundation\n\n"
             f"Expand the synopsis into a structured story foundation.\n\n"
-            f"## Synopsis\n{synopsis}\n\n"
+            f"## Synopsis\n{synopsis}\n{canon_block}\n"
             f"## Creative Understanding\n{json.dumps(prev, indent=2, default=str)}\n\n"
             f"## Generate\n"
             f"- characters: must explicitly include MARK and SARAH whenever the synopsis involves them\n"
@@ -43,7 +57,7 @@ class StoryFoundationPhase(PhaseBase):
 
     def parse_draft(self, response: str) -> KnowledgeObject:
         from ..llm_client import _extract_json
-        data = _extract_json(response)
+        data = response if isinstance(response, dict) else _extract_json(response)
         return self._parse(data)
 
     @staticmethod
@@ -53,7 +67,24 @@ class StoryFoundationPhase(PhaseBase):
 
     def draft(self, pkg: dict[str, Any]) -> KnowledgeObject:
         prompt = self.build_draft_prompt(pkg)
-        response = self.llm.generate(prompt)
+        response_format = StoryFoundation.model_json_schema()
+        generator = getattr(self.llm, "generate_json")
+        config = getattr(self.llm, "_config", None)
+        if config is not None:
+            original_max_tokens = config.max_tokens
+            config.max_tokens = self._OUTPUT_BUDGET
+            try:
+                try:
+                    response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+                except TypeError:
+                    response = generator(prompt, config, "planner")
+            finally:
+                config.max_tokens = original_max_tokens
+        else:
+            try:
+                response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+            except TypeError:
+                response = generator(prompt)
         return self.parse_draft(response)
 
     def _review_specific(self, knowledge: KnowledgeObject) -> list[str]:

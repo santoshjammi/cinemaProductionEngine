@@ -29,7 +29,7 @@ def chat(
     system: str,
     user: str,
     *,
-    base_url: str = "http://localhost:1234",
+    base_url: str = "http://localhost:11434",
     api_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
     model: str | None = None,
     temperature: float = 0.3,

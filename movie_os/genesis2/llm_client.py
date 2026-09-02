@@ -19,13 +19,7 @@ logger = logging.getLogger("movie_os.genesis2.llm")
 class LLMClient:
     """Unified LLM client for Genesis2 phases.
 
-    Uses LLMFactory for provider creation with auto-detection:
-    - Tries Ollama server first
-    - Falls back to Ollama at http://localhost:11434
-    - Falls back to MockLLMProvider if neither is available
-
-    Supports model tier routing: different models for planner, reviewer,
-    spec_generator, validator, and integrator roles.
+    Supports configurable model routing with bounded fallback escalation.
     """
 
     def __init__(
@@ -37,22 +31,13 @@ class LLMClient:
         temperature: float | None = None,
         max_tokens: int | None = None,
         timeout: int | None = None,
+        phase_models: dict[str, str] | None = None,
+        task_models: dict[str, str] | None = None,
+        fallback_models: list[str] | None = None,
+        max_fallback_attempts: int | None = None,
     ):
-        """Initialize the LLM client.
-
-        Args:
-            config: LLMConfig for provider selection and settings.
-            model: Override model name (planner tier).
-            reviewer_model: Override model for reviewer tier.
-            validator_model: Override model for validator tier.
-            temperature: Override temperature.
-            max_tokens: Override max tokens.
-            timeout: Override timeout in seconds.
-        """
         if config is None:
             config = LLMConfig()
-
-        # Apply overrides
         if model is not None:
             config.model = model
         if temperature is not None:
@@ -61,59 +46,132 @@ class LLMClient:
             config.max_tokens = max_tokens
         if timeout is not None:
             config.timeout = timeout
+        if phase_models is not None:
+            config.phase_models = phase_models
+        if task_models is not None:
+            config.task_models = task_models
+        if fallback_models is not None:
+            config.fallback_models = fallback_models
+        if max_fallback_attempts is not None:
+            config.max_fallback_attempts = max_fallback_attempts
 
         self._config = config
         self._provider: LLMProvider | None = None
         self._reviewer_model = reviewer_model
         self._validator_model = validator_model
+        self.call_history: list[dict[str, Any]] = []
+        logger.info(
+            "MODEL ROUTING default=%s reviewer=%s validator=%s phases=%s tasks=%s fallbacks=%s",
+            self._config.model,
+            self._reviewer_model or self._config.model,
+            self._validator_model or self._config.model,
+            self._config.phase_models,
+            self._config.task_models,
+            self._config.fallback_models,
+        )
 
     def _get_provider(self) -> LLMProvider:
-        """Get or create the LLM provider (lazy initialization)."""
         if self._provider is None:
             self._provider = create_llm(self._config)
         return self._provider
 
-    def generate(self, prompt: str, tier: str = "planner") -> str:
-        """Generate a response, optionally using a different model per tier.
-
-        Tier routing:
-        - planner: uses self._config.model
-        - reviewer: uses reviewer_model if set, else model
-        - spec_generator: uses self._config.model
-        - validator: uses validator_model if set, else model
-        - integrator: uses self._config.model
-        """
-        provider = self._get_provider()
-
-        # Build config with appropriate model for tier
-        tier_config = LLMConfig(
-            provider=self._config.provider,
-            model=self._config.model,
-            temperature=self._config.temperature,
-            max_tokens=self._config.max_tokens,
-            timeout=self._config.timeout,
-            url=self._config.url,
-            ollama_url=self._config.ollama_url,
-            num_ctx=self._config.num_ctx,
-        )
-
+    def _resolve_model(self, tier: str = "planner", phase_name: str | None = None, task_key: str | None = None) -> str:
+        if task_key and task_key in self._config.task_models:
+            return self._config.task_models[task_key]
+        if phase_name and phase_name in self._config.phase_models:
+            return self._config.phase_models[phase_name]
         if tier == "reviewer" and self._reviewer_model:
-            tier_config.model = self._reviewer_model
-        elif tier == "validator" and self._validator_model:
-            tier_config.model = self._validator_model
+            return self._reviewer_model
+        if tier == "validator" and self._validator_model:
+            return self._validator_model
+        return self._config.model
 
-        return provider.generate(prompt, tier_config)
+    def _attempt_models(self, tier: str, phase_name: str | None = None, task_key: str | None = None) -> list[str]:
+        primary = self._resolve_model(tier=tier, phase_name=phase_name, task_key=task_key)
+        attempts = [primary]
+        for model in self._config.fallback_models[: max(0, int(self._config.max_fallback_attempts))]:
+            if model and model not in attempts:
+                attempts.append(model)
+        return attempts
 
-    def generate_json(self, prompt: str, tier: str = "planner") -> dict[str, Any]:
-        """Generate and parse JSON response."""
-        response = self.generate(prompt, tier)
+    def generate(
+        self,
+        prompt: str,
+        tier: str = "planner",
+        phase_name: str | None = None,
+        task_key: str | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> str:
+        provider = self._get_provider()
+        last_exc: Exception | None = None
+        models = self._attempt_models(tier=tier, phase_name=phase_name, task_key=task_key)
+        for attempt, model in enumerate(models, start=1):
+            tier_config = LLMConfig(
+                provider=self._config.provider,
+                model=model,
+                temperature=self._config.temperature,
+                max_tokens=self._config.max_tokens,
+                timeout=self._config.timeout,
+                url=self._config.url,
+                ollama_url=self._config.ollama_url,
+                num_ctx=self._config.num_ctx,
+                think=self._config.think,
+            )
+            tier_config.phase_models = dict(self._config.phase_models)
+            tier_config.task_models = dict(self._config.task_models)
+            tier_config.fallback_models = list(self._config.fallback_models)
+            tier_config.max_fallback_attempts = self._config.max_fallback_attempts
+            try:
+                started = __import__("time").time()
+                response = provider.generate(prompt, tier_config, response_format=response_format)
+                duration_ms = int((__import__("time").time() - started) * 1000)
+                self.call_history.append({
+                    "model": model,
+                    "phase": phase_name or tier,
+                    "target_unit": task_key or phase_name or tier,
+                    "context_sources": [],
+                    "estimated_input_tokens": max(1, len(prompt) // 4),
+                    "output_tokens": max(1, len(response) // 4),
+                    "duration_ms": duration_ms,
+                    "retries": attempt - 1,
+                    "outcome": "pass" if attempt == 1 else "fallback_pass",
+                })
+                return response
+            except Exception as exc:
+                last_exc = exc
+                self.call_history.append({
+                    "model": model,
+                    "phase": phase_name or tier,
+                    "target_unit": task_key or phase_name or tier,
+                    "context_sources": [],
+                    "estimated_input_tokens": max(1, len(prompt) // 4),
+                    "output_tokens": 0,
+                    "duration_ms": 0,
+                    "retries": attempt - 1,
+                    "outcome": "retry" if attempt < len(models) else "fail",
+                    "error": str(exc),
+                })
+                if attempt >= len(models):
+                    raise
+        assert last_exc is not None
+        raise last_exc
+
+    def generate_json(
+        self,
+        prompt: str,
+        tier: str = "planner",
+        phase_name: str | None = None,
+        task_key: str | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> dict[str, Any]:
+        response = self.generate(prompt, tier=tier, phase_name=phase_name, task_key=task_key, response_format=response_format)
         from .llm_providers import _extract_json
         return _extract_json(response)
 
     def is_available(self) -> bool:
-        """Check if any LLM backend is available."""
-        provider = self._get_provider()
-        return provider.is_available()
+        return self._get_provider().is_available()
 
 
 class MockLLMClient(MockLLMProvider):
@@ -144,7 +202,7 @@ class MockLLMClient(MockLLMProvider):
             "package": {"integrated": True, "summary": "All phases complete"},
         })
 
-    def generate(self, prompt: str, config: LLMConfig | None = None, tier: str = "planner") -> str:
+    def generate(self, prompt: str, config: LLMConfig | None = None, tier: str = "planner", phase_name: str | None = None, task_key: str | None = None, *args, **kwargs) -> str:
         """Return a canned response (ignores tier, same as old behavior)."""
         self._call_log.append(prompt[:100])
         for key, response in self._responses.items():
@@ -202,8 +260,8 @@ class MockLLMClient(MockLLMProvider):
             })
         return self._default
 
-    def generate_json(self, prompt: str, config: LLMConfig | None = None, tier: str = "planner") -> dict[str, Any]:
-        """Return a canned JSON response (ignores tier, same as old behavior)."""
+    def generate_json(self, prompt: str, config: LLMConfig | None = None, tier: str = "planner", *args, **kwargs) -> dict[str, Any]:
+        """Return a canned JSON response (ignores tier and extra kwargs)."""
         return super().generate_json(prompt, config)
 
 

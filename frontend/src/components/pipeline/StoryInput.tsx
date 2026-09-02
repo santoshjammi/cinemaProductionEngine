@@ -210,7 +210,7 @@ export default function StoryInput({ onStart, isLoading, onSynopsisChange }: Sto
 
           {/* Director's Brief Section */}
           <div className="p-4 bg-muted/50 rounded-lg space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Director's Brief</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Director&apos;s Brief</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-xs">Target Audience</label>

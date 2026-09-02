@@ -111,7 +111,7 @@ class LLMClient:
                     # Handle older Ollama versions that don't support /api/chat
                     if response.status_code == 404:
                         logger.info("Chat endpoint not found, falling back to /api/generate")
-                        return self._generate_legacy_chat_to_generate(payload, temp, max_tok)
+                        return self._generate_legacy(payload, temp, max_tok)
 
                     response.raise_for_status()
                     data = response.json()
@@ -123,6 +123,15 @@ class LLMClient:
                         continue
 
                     logger.info(f"LLM response received ({len(content)} chars) using {model}")
+                    from movie_os.llm.runtime_logger import log_runtime_llm_call
+                    log_runtime_llm_call(
+                        prompt=user_prompt,
+                        response=content,
+                        system_prompt=system_prompt,
+                        model=model,
+                        provider="ollama",
+                        success=True,
+                    )
                     return LLMResponse(
                         content=content,
                         model_used=model,
@@ -147,6 +156,16 @@ class LLMClient:
                     import time
                     time.sleep(self.config.backoff_factor ** attempt)
 
+        from movie_os.llm.runtime_logger import log_runtime_llm_call
+        log_runtime_llm_call(
+            prompt=user_prompt,
+            response="",
+            system_prompt=system_prompt,
+            model=self.config.model,
+            provider="ollama",
+            success=False,
+            error=f"All retry attempts failed: {last_error}",
+        )
         return LLMResponse(
             content="",
             model_used=self.config.model,
@@ -188,6 +207,15 @@ class LLMClient:
                     data = response.json()
                     content = data.get("response", "")
                 
+                from movie_os.llm.runtime_logger import log_runtime_llm_call
+                log_runtime_llm_call(
+                    prompt=user,
+                    response=content,
+                    system_prompt=system,
+                    model=payload["model"],
+                    provider="ollama_legacy",
+                    success=bool(content),
+                )
                 return LLMResponse(
                     content=content,
                     model_used=payload["model"],
@@ -197,6 +225,16 @@ class LLMClient:
                 logger.debug(f"Endpoint {endpoint} failed: {e}")
                 continue
         
+        from movie_os.llm.runtime_logger import log_runtime_llm_call
+        log_runtime_llm_call(
+            prompt=user,
+            response="",
+            system_prompt=system,
+            model=payload["model"],
+            provider="ollama_legacy",
+            success=False,
+            error="All Ollama endpoints failed",
+        )
         return LLMResponse(
             content="",
             model_used=payload["model"],

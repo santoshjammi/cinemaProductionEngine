@@ -1,9 +1,51 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
+
+const SITE_URL = 'https://textcinemaengine.com';
 
 export const metadata: Metadata = {
-  title: 'Text Cinema Engine',
-  description: 'Generate cinematic videos from story prompts',
+  title: {
+    default: 'Text Cinema Engine — AI Video Generation Platform',
+    template: '%s | Text Cinema Engine',
+  },
+  description: 'Transform story ideas into cinematic video narratives. Generate, review, and certify cinematic content with our AI-powered pipeline.',
+  keywords: ['AI video generation', 'text to video', 'cinematic videos', 'story to film', 'GENESIS3', 'creative integrity', 'video production', 'content certification'],
+  authors: [{ name: 'Sai Ameya Technologies' }],
+  creator: 'Sai Ameya Technologies',
+  publisher: 'Sai Ameya Technologies',
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: 'Text Cinema Engine',
+    title: 'Text Cinema Engine — AI Video Generation Platform',
+    description: 'Transform story ideas into cinematic video narratives with our AI-powered pipeline.',
+    images: [
+      {
+        url: `${SITE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Text Cinema Engine',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@textcinema',
+    creator: '@textcinema',
+    title: 'Text Cinema Engine — AI Video Generation Platform',
+    description: 'Transform story ideas into cinematic video narratives.',
+    images: [`${SITE_URL}/og-image.png`],
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({
@@ -12,8 +54,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="antialiased min-h-screen">
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Text Cinema Engine',
+              alternateName: ['TCE', 'TextCinema'],
+              url: SITE_URL,
+              description: 'AI-powered video generation and content certification platform.',
+              publisher: {
+                '@type': 'Organization',
+                name: 'Sai Ameya Technologies',
+                url: SITE_URL,
+              },
+            }),
+          }}
+        />
         {/* Apple-style global nav */}
         <nav className="global-nav fixed top-0 left-0 right-0 z-50">
           <div className="container flex items-center justify-between h-full max-w-[1440px] mx-auto px-lg">
@@ -23,6 +86,12 @@ export default function RootLayout({
               </a>
               <a href="/projects" className="text-body-muted text-nav-link hover:text-body-on-dark transition-colors font-body">
                 Projects
+              </a>
+              <a href="/genesis3" className="text-body-muted text-nav-link hover:text-body-on-dark transition-colors font-body">
+                GENESIS3
+              </a>
+              <a href="/production" className="text-body-muted text-nav-link hover:text-body-on-dark transition-colors font-body">
+                Production
               </a>
             </div>
             <div className="flex items-center gap-3">
@@ -45,6 +114,7 @@ export default function RootLayout({
                 <ul className="space-y-1">
                   <li><a href="/" className="text-body text-ink-muted-80 hover:text-ink transition-colors" style={{ lineHeight: '2.41' }}>Home</a></li>
                   <li><a href="/projects" className="text-body text-ink-muted-80 hover:text-ink transition-colors" style={{ lineHeight: '2.41' }}>Projects</a></li>
+                  <li><a href="/genesis3" className="text-body text-ink-muted-80 hover:text-ink transition-colors" style={{ lineHeight: '2.41' }}>GENESIS3</a></li>
                 </ul>
               </div>
               <div>

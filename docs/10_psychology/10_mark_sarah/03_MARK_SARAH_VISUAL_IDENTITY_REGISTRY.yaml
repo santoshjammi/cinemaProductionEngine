@@ -1,0 +1,32 @@
+document:
+  id: MSVI-001
+  version: '1.0'
+  status: REQUIRES_REFERENCE_BINDING
+rule: Approved image references outrank generated prose descriptions.
+characters:
+  MARK:
+    reference_asset_ids: []
+    primary_reference_path: null
+    primary_reference_sha256: null
+    identity_lock: true
+    notes: Bind the already-approved Mark reference image here.
+  SARAH:
+    reference_asset_ids: []
+    primary_reference_path: null
+    primary_reference_sha256: null
+    identity_lock: true
+    notes: Bind the already-approved Sarah reference image here.
+hard_failures:
+- face identity drift
+- apparent ethnicity drift
+- large unexplained age drift
+- hair identity drift outside approved variation
+- generated asset no longer recognizably matches the approved person
+episode_variation_allowed:
+- expression
+- camera angle
+- lighting
+- location
+- context-appropriate wardrobe
+- emotion
+- minor grooming variation when continuity supports it

@@ -14,7 +14,7 @@ import re
 from abc import ABC, abstractmethod
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger("movie_os.genesis2.llm_providers")
 
@@ -27,17 +27,21 @@ class LLMConfig(BaseModel):
     """Configuration for LLM providers."""
 
     provider: str = "ollama"  # "ollama" | "mock"
-    model: str = "deepseek-coder-v2:latest"
+    model: str = "qwen3.6:latest"  # canonical local textual model (LOCAL-AI-PLATFORM-QUALIFICATION-001)
     temperature: float = 0.3
     max_tokens: int = 8192
     timeout: int = 600
     url: str = "http://localhost:11434"
     ollama_url: str = "http://localhost:11434"
     # Context window for Ollama. Defaults to None (Ollama's model default,
-    # which for deepseek-coder-v2 is 163840 — 54GB, very slow on M1 Max).
+    # which for qwen3:4b is typically manageable locally).
     # Set a smaller value (e.g. 8192) for reliable local inference.
     num_ctx: int | None = None
     think: bool = False
+    phase_models: dict[str, str] = Field(default_factory=dict)
+    task_models: dict[str, str] = Field(default_factory=dict)
+    fallback_models: list[str] = Field(default_factory=list)
+    max_fallback_attempts: int = 1
 
 
 # ---------------------------------------------------------------------------
@@ -48,13 +52,25 @@ class LLMProvider(ABC):
     """Abstract base for all LLM providers."""
 
     @abstractmethod
-    def generate(self, prompt: str, config: LLMConfig | None = None) -> str:
+    def generate(
+        self,
+        prompt: str,
+        config: LLMConfig | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> str:
         """Generate text from a prompt."""
         ...
 
-    def generate_json(self, prompt: str, config: LLMConfig | None = None) -> dict[str, Any]:
+    def generate_json(
+        self,
+        prompt: str,
+        config: LLMConfig | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> dict[str, Any]:
         """Generate text and extract JSON from the response."""
-        text = self.generate(prompt, config)
+        text = self.generate(prompt, config, response_format=response_format)
         return _extract_json(text)
 
     def is_available(self) -> bool:
@@ -229,7 +245,7 @@ class OllamaProvider(LLMProvider):
 
     def __init__(
         self,
-        model: str = "deepseek-coder-v2:latest",
+        model: str = "qwen3.6:latest",  # canonical local textual model
         url: str = "http://localhost:11434",
         timeout: int = 600,
     ):
@@ -237,7 +253,13 @@ class OllamaProvider(LLMProvider):
         self.url = url.rstrip("/")
         self.timeout = timeout
 
-    def generate(self, prompt: str, config: LLMConfig | None = None) -> str:
+    def generate(
+        self,
+        prompt: str,
+        config: LLMConfig | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> str:
         """Generate a response from Ollama."""
         import urllib.request
 
@@ -253,6 +275,8 @@ class OllamaProvider(LLMProvider):
             },
             "stream": False,
         }
+        if response_format is not None:
+            payload["format"] = response_format
         if cfg.num_ctx:
             payload["options"]["num_ctx"] = cfg.num_ctx
         payload["think"] = cfg.think
@@ -340,7 +364,13 @@ class MockLLMProvider(LLMProvider):
         """Set the default fallback response."""
         self._default = response
 
-    def generate(self, prompt: str, config: LLMConfig | None = None) -> str:
+    def generate(
+        self,
+        prompt: str,
+        config: LLMConfig | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> str:
         """Return a canned response based on the prompt content."""
         self._call_log.append(prompt[:100])
         for key, response in self._responses.items():
@@ -348,9 +378,15 @@ class MockLLMProvider(LLMProvider):
                 return response
         return self._default
 
-    def generate_json(self, prompt: str, config: LLMConfig | None = None) -> dict[str, Any]:
+    def generate_json(
+        self,
+        prompt: str,
+        config: LLMConfig | None = None,
+        *,
+        response_format: Any | None = None,
+    ) -> dict[str, Any]:
         """Return a canned JSON response."""
-        response = self.generate(prompt, config)
+        response = self.generate(prompt, config, response_format=response_format)
         return _extract_json(response)
 
     @property

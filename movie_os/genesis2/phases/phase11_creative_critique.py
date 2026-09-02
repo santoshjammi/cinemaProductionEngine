@@ -29,9 +29,9 @@ class CreativeCritiquePhase(PhaseBase):
             f"Include purpose, creative_intent, reasoning, confidence."
         )
 
-    def parse_draft(self, response: str) -> KnowledgeObject:
+    def parse_draft(self, response: str | dict) -> KnowledgeObject:
         from ..llm_client import _extract_json
-        data = _extract_json(response)
+        data = response if isinstance(response, dict) else _extract_json(response)
         findings_data = data.get("findings", [])
         findings = []
         for f in findings_data:
@@ -42,6 +42,11 @@ class CreativeCritiquePhase(PhaseBase):
                 q = f.get("question", "")
                 a = f.get("answer", "")
                 rec = f.get("recommendation", "")
+                # Drop findings with no substantive content. The local model
+                # sometimes emits a severity label with empty question/answer/
+                # recommendation; an empty finding must not block freeze.
+                if not (str(q).strip() or str(a).strip() or str(rec).strip()):
+                    continue
                 from ..models import CritiqueFinding
                 findings.append(CritiqueFinding(question=q, answer=a, severity=sev, recommendation=rec))
             elif hasattr(f, 'question'):  # already a finding
@@ -57,7 +62,35 @@ class CreativeCritiquePhase(PhaseBase):
 
     def draft(self, pkg: dict[str, Any]) -> KnowledgeObject:
         prompt = self.build_draft_prompt(pkg)
-        response = self.llm.generate(prompt)
+        cfg = getattr(self.llm, "_config", None)
+        from ..models import CreativeCritique
+        response_format = CreativeCritique.model_json_schema()
+        # The base schema marks findings/overall_assessment optional, so the
+        # model can legally omit them. Require them so the structured-output
+        # path forces the critique structure to be present.
+        response_format["required"] = [
+            "purpose", "creative_intent", "reasoning", "confidence",
+            "findings", "overall_assessment", "recommended_actions",
+        ]
+        bounded_tokens = 1024
+        if cfg is not None and hasattr(self.llm, "_get_provider"):
+            try:
+                from ..llm_providers import LLMConfig
+                phase_cfg = LLMConfig(**cfg.model_dump()) if hasattr(cfg, "model_dump") else cfg
+                bounded_tokens = min(int(getattr(phase_cfg, "max_tokens", 0) or 0), 1024) or 1024
+                original_tokens = getattr(cfg, "max_tokens", bounded_tokens)
+                cfg.max_tokens = bounded_tokens
+                try:
+                    response_obj = getattr(self.llm, "generate_json")(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+                except TypeError:
+                    response_obj = getattr(self.llm, "generate_json")(prompt, cfg, "planner")
+                finally:
+                    cfg.max_tokens = original_tokens
+                response = response_obj
+            except Exception:
+                response = self.llm.generate(prompt, phase_name=self.phase_name, task_key=self.phase_name)
+        else:
+            response = self.llm.generate(prompt, phase_name=self.phase_name, task_key=self.phase_name)
         return self.parse_draft(response)
 
     def _review_specific(self, knowledge: KnowledgeObject) -> list[str]:

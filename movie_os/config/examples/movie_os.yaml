@@ -6,6 +6,10 @@
 
 version: "1.0"
 
+# Visual/production grammar — controls the cinematic style
+# Options: psychological_cinema | narrative_film | documentary | kids_story | devotional | shorts | explainer
+grammar: psychological_cinema
+
 # ============================================================
 # Project — top-level settings
 # ============================================================
@@ -113,12 +117,12 @@ providers:
         enabled: true
         cost_per_call_usd: 0.0
         settings:
-          base_url: http://localhost:1234
+          base_url: http://localhost:11434
           api_key: sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W
-          narrative_model: qwen3-coder-30b-a3b-instruct-mlx
+          narrative_model: qwen3-coder-30b-a3b-instruct
           narrative_temperature: 0.7
           narrative_max_tokens: 4000
-          refiner_model: supergemma4-26b-uncensored-mlx-v2
+          refiner_model: supergemma4-26b-uncensored-v2
           refiner_temperature: 0.6
           refiner_max_tokens: 2000
 

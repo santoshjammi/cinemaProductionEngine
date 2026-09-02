@@ -1,0 +1,117 @@
+# The Space Between Us — 5-act psychological realism
+# HOOK → PLOT (rising) → PLOT (distant) → CLIMAX → RESOLUTION
+# Tone arc: secure → uneasy → painfully distant → vulnerable → cautiously hopeful
+#
+# VOICES:
+#   SARAH       — spoken dialogue (AriaNeural)
+#   MARK        — spoken dialogue (BrianNeural)
+#   MARK_INNER  — Mark's whispering inner voice (his suffering, audible)
+#                 Uses a distinct soft-whisper prosody so the viewer hears
+#                 what Mark cannot say aloud.
+#
+# Each scene has 3-4 spoken exchanges PLUS Mark's inner whisper lines.
+
+- id: 1
+  scene_class: hook
+  duration: 55 seconds
+  emotion: guarded
+  camera: warm static wide shot, slow dolly-in toward the couple at the kitchen table
+  lighting: golden hour natural light, warm amber tones, soft fill shadows
+  mood_desc: "THE HOOK — The Warmth. Connection is alive. Mark makes coffee, they share a quiet morning ritual. The last easy moment. But Mark's inner voice already betrays the fear he hides."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (softly, smiling) You're up early. Couldn't sleep?
+    - speaker: MARK
+      text: (warm) Just wanted to make your coffee before you had to ask for it.
+    - speaker: MARK_INNER
+      text: (whisper, barely audible) She's happy. Don't ruin it. Don't let her see the mess inside you.
+    - speaker: SARAH
+      text: (touched) That's sweet. You know I love you, right?
+    - speaker: MARK
+      text: (quiet, sincere) I know. I love you too.
+    - speaker: MARK_INNER
+      text: (whisper, trembling) If she knew what I really am... she wouldn't say that.
+
+- id: 2
+  scene_class: establishment
+  duration: 55 seconds
+  emotion: withdrawn
+  camera: medium two-shot, negative space growing between them at the dinner table
+  lighting: warm room light fading, cool blue creeping in from the window
+  mood_desc: "PLOT (rising) — The First Withdrawal. Mark's answers get shorter. He avoids her eyes. Sarah feels the distance but can't name it. His inner voice confesses the fear he won't speak."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (gently) How was your day? You've been quiet.
+    - speaker: MARK
+      text: (flat, not looking up) Fine. Just tired.
+    - speaker: MARK_INNER
+      text: (whisper, ashamed) Tired isn't the word. I'm terrified she's finally seeing me for what I am.
+    - speaker: SARAH
+      text: (reaching for his hand) Mark... talk to me. Is something wrong?
+    - speaker: MARK
+      text: (pulling hand back, standing) I said I'm fine. I just need some space.
+    - speaker: MARK_INNER
+      text: (whisper, desperate) Don't touch me. If you touch me I'll break. I'll tell you everything and lose you.
+
+- id: 3
+  scene_class: emotional_peak
+  duration: 60 seconds
+  emotion: frustrated
+  camera: wide shot, characters isolated on opposite edges of the frame — Mark in the doorway, Sarah in bed
+  lighting: cold blue twilight, only a sliver of warm light from the hallway
+  mood_desc: "PLOT (distant) — The Distance. Mark sleeps in the other room. Sarah reaches out one last time and is met with silence. She begins to believe he doesn't love her. His inner voice screams what he can't say."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (voice breaking) You've been sleeping in there for a week. Do you even want to be with me anymore?
+    - speaker: MARK
+      text: (from the doorway, barely audible) It's not you. It's me.
+    - speaker: MARK_INNER
+      text: (whisper, agonized) It IS me. It's always been me. I lost my job and I can't stand the thought of you looking at me like I'm nothing.
+    - speaker: SARAH
+      text: (crying) That's what people say when they're leaving. Just tell me the truth.
+    - speaker: MARK
+      text: (silence, then) I can't. I'm sorry. I can't.
+    - speaker: MARK_INNER
+      text: (whisper, broken) The truth is I'm a failure. And I'd rather you hate me for leaving than watch you stop loving me.
+
+- id: 4
+  scene_class: climax
+  duration: 60 seconds
+  emotion: emotional_peak
+  camera: close-up on Sarah's face, then slow push-in on Mark as she speaks the turning point
+  lighting: dim, intimate — warm lamp light returns softly, hope flickering
+  mood_desc: "CLIMAX — The Turning Point. Sarah stops reaching and simply sees him. Her quiet words break through his fear. His inner voice finally dares to hope."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (quietly, not accusing) You don't have to disappear just because you're hurting.
+    - speaker: MARK
+      text: (voice catching) I... I thought if you saw me like this, you'd see a failure.
+    - speaker: MARK_INNER
+      text: (whisper, stunned) She sees me. She's not running. She's not disgusted. How is that possible?
+    - speaker: SARAH
+      text: (soft) I don't see a failure. I see my husband. I see the man I chose.
+    - speaker: MARK
+      text: (almost a whisper, fear winning) I don't know how to come back from this.
+    - speaker: MARK_INNER
+      text: (whisper, trembling with hope) Maybe I don't have to come back alone. Maybe she'll walk with me.
+
+- id: 5
+  scene_class: epilogue
+  duration: 55 seconds
+  emotion: resolved
+  camera: slow dolly-in on their hands, then pull back to a warm two-shot
+  lighting: warm golden light returns fully, soft and hopeful
+  mood_desc: "RESOLUTION — The Reach. Fear loses, just for a moment. Mark finally reaches for her hand. Cautious hope. His inner voice finds peace."
+  dialogue_lines:
+    - speaker: SARAH
+      text: (gently) You don't have to have it all figured out. Just... don't leave me alone in it.
+    - speaker: MARK
+      text: (voice thick with emotion) I'm sorry. I'm so sorry, Sarah.
+    - speaker: MARK_INNER
+      text: (whisper, soft) I'm not a failure. I'm a man who was afraid. And she stayed anyway.
+    - speaker: SARAH
+      text: (soft) I know. I'm here.
+    - speaker: MARK
+      text: (reaching for her hand) I'm here too. I'm trying.
+    - speaker: MARK_INNER
+      text: (whisper, peaceful) For the first time in months... I think I can breathe.

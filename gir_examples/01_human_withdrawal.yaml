@@ -1,0 +1,94 @@
+# GIR Example 01: The Space Between Us (Scene 1)
+# Purpose: Tests Intent Paradox, Psychological Constraints, and Relational State Machines.
+
+story_id: 01_human_withdrawal
+narrative_intent: "The paradox of fear—demonstrating that the desire to connect can coexist with the terror of being seen."
+
+# --- STATE MAPS (The Memory of the World) ---
+world_state:
+  start: 
+    location: kitchen
+    distance_mark_sarah: "0.2m" # Physically close, intimate space.
+  end:   
+    location: kitchen
+    distance_mark_sarah: "1.8m" # Physical barrier now established.
+
+character_state:
+  mark:
+    primary_goal: connect_with_sarah
+    constraint: fear_of_vulnerability # Key limitation driving the paradox.
+    belief: "If I stop moving, I can't break down."
+  sarah:
+    primary_goal: provide_comfort
+    belief: Mark is just exhausted from work.
+
+relationship_state:
+  start: { trust: 0.95, reciprocity: 0.9 } # Secure attachment.
+  end:   { trust: 0.6, reciprocity: 0.4 } # Strained; Sarah now unsure of herself.
+
+# --- THE CAUSAL GRAPH (Nodes & Edges) ---
+nodes:
+  # Orthogonal Intents (The Drivers outside time)
+  - id: i_mark_connect
+    type: Intent
+    owner: mark
+    content: Seek Connection
+    weight: 0.48
+  
+  - id: i_mark_protect
+    type: Intent
+    owner: mark
+    content: Avoid Vulnerability
+    weight: 0.52
+
+  # The Paradox Mechanism (The Collision)
+  - id: conflict_scene1
+    type: IntentConflict
+    driver_a: i_mark_connect
+    driver_b: i_mark_protect
+    result_action: a_withdraw_hand
+  
+  # Observable Events and Actions
+  - id: a_reach
+    type: Action
+    owner: mark
+    target: sarah
+    description: "Mark instinctively reaches toward Sarah (The Desire)."
+
+  - id: a_withdraw_hand
+    type: Action
+    owner: mark
+    target: sarah
+    description: "Mark pulls his hand back as if burned (The Fear)."
+
+  - id: e_distance_created
+    type: Event
+    caused_by: a_withdraw_hand
+    result: "A physical gap is created; the 'touch' never lands."
+
+  - id: s_sarah_misinterpretation
+    type: Event
+    caused_by: e_distance_created
+    result: "Sarah shifts from comforting to self-doubting."
+
+edges:
+  # Causal chains establishing the paradox
+  - source: i_mark_protect
+    target: a_withdraw_hand
+    type: overrides # Fear is currently stronger than desire.
+
+  - source: conflict_scene1
+    target: e_distance_created
+    type: causes # The internal fight creates the physical action.
+
+  - source: e_distance_created
+    target: s_sarah_misinterpretation
+    type: causes # The physical gap forces Sarah to change state.
+
+  - source: s_sarah_misinterpretation
+    target: relationship_state.end
+    type: updates # The final shift in the relationship map.
+
+constraints:
+  - "Mark must perform exactly one dominant Action per Beat."
+  - "The Event (e_distance_created) is the irreversible proof of the paradox."

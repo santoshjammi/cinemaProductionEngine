@@ -1,0 +1,53 @@
+{
+  "episode_id": "EP-0012",
+  "working_title": "The Promise He Kept",
+  "synopsis": "Mark made a small promise weeks ago that he forgot. When Sarah mentions it, he's ashamed. Instead of making excuses, he keeps it the next day. Sarah sees that keeping a small promise matters more than grand gestures.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "forgetful \u2192 ashamed \u2192 accountable \u2192 trusted",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; freezes when facing vulnerability), SARAH (36, perceptive, patient, affectionate, gives him space to find his words)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0012",
+    "working_title": "The Promise He Kept",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": [
+        "Mark",
+        "Sarah"
+      ]
+    },
+    "story": {
+      "primary_mechanism": "keeping small promises",
+      "story_context": "Mark made a small promise weeks ago that he forgot. When Sarah mentions it, he's ashamed. Instead of making excuses, he ",
+      "viewer_recognition": "The emotional pattern is recognizable and relatable.",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark and Sarah move toward reconnection through honest vulnerability."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {
+      "required": true
+    },
+    "status": {
+      "contract_state": "approved"
+    }
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

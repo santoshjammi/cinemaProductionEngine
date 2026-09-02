@@ -56,9 +56,12 @@ class CreativeUnderstandingPhase(PhaseBase):
         )
 
 
-    def parse_draft(self, response: str) -> KnowledgeObject:
+    def parse_draft(self, response: str | dict) -> KnowledgeObject:
         from ..llm_client import _extract_json
-        data = _extract_json(response)
+        if isinstance(response, dict):
+            data = response
+        else:
+            data = _extract_json(response)
         return self._parse(data)
 
     @staticmethod
@@ -90,7 +93,35 @@ class CreativeUnderstandingPhase(PhaseBase):
 
     def draft(self, pkg: dict[str, Any]) -> KnowledgeObject:
         prompt = self.build_draft_prompt(pkg)
-        response = self.llm.generate(prompt)
+        cfg = getattr(self.llm, "_config", None)
+        from ..models import CreativeUnderstanding
+        response_format = CreativeUnderstanding.model_json_schema()
+        # The base schema marks the content fields optional (default_factory),
+        # so the model legally omits them and emits only metadata. Require the
+        # structure fields so the structured-output path forces them to be present.
+        response_format["required"] = [
+            "purpose", "creative_intent", "reasoning", "confidence",
+            "theme", "genre", "mood", "core_question", "audience",
+        ]
+        bounded_tokens = 1024
+        if cfg is not None and hasattr(self.llm, "_get_provider"):
+            try:
+                from ..llm_providers import LLMConfig
+                phase_cfg = LLMConfig(**cfg.model_dump()) if hasattr(cfg, "model_dump") else cfg
+                bounded_tokens = min(int(getattr(phase_cfg, "max_tokens", 0) or 0), 1024) or 1024
+                original_tokens = getattr(cfg, "max_tokens", bounded_tokens)
+                cfg.max_tokens = bounded_tokens
+                try:
+                    response_obj = getattr(self.llm, "generate_json")(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+                except TypeError:
+                    response_obj = getattr(self.llm, "generate_json")(prompt, cfg, "planner")
+                finally:
+                    cfg.max_tokens = original_tokens
+                response = response_obj
+            except Exception:
+                response = self.llm.generate(prompt, phase_name=self.phase_name, task_key=self.phase_name)
+        else:
+            response = self.llm.generate(prompt, phase_name=self.phase_name, task_key=self.phase_name)
         return self.parse_draft(response)
 
     # ── Phase-specific review ───────────────────────────────

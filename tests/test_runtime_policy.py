@@ -36,8 +36,9 @@ def test_valid_rpco_resolution_by_ids():
     assert snapshot.resolved_rules["sub_series_id"] == "RP-01-S01"
     bindings = snapshot.resolved_rules["canonical_character_bindings"]
     assert [b["character_id"] for b in bindings] == ["MARK", "SARAH"]
-    assert bindings[0]["visual_identity_registry_ref"].endswith("MARK/character.yaml")
-    assert snapshot.resolved_rules["canonical_continuity_binding"]["continuity_registry_ref"].endswith("mark_sarah_continuity.yaml")
+    assert bindings[0]["visual_identity_registry_ref"].endswith("03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml")
+    assert snapshot.resolved_rules["canonical_continuity_binding"]["continuity_registry_ref"] == "MSCR-001"
+    assert snapshot.resolved_rules["canonical_continuity_binding"]["continuity_path"].endswith("04_MARK_SARAH_CONTINUITY_REGISTRY.yaml")
 
 
 def test_valid_rpco_resolution_by_names():

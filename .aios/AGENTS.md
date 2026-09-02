@@ -1,8 +1,3 @@
----
-name: "aios-manifest"
-version: "1.0"
----
-
 # AIOS Manifest (`.aios/`)
 
 This directory serves as the cognitive backbone for `videoGen`. It houses the specifications, memories, and orchestrations that guide how AI agents reason about, plan, and execute within the production system.
@@ -26,3 +21,6 @@ This directory serves as the cognitive backbone for `videoGen`. It houses the sp
 - `execution/`: Action runners, tool definitions, and script mappings.
 - `validation/`: Quality gates, verification logic, and acceptance criteria.
 - `knowledge/`: Domain-specific facts, technical documentation, and reference data.
+
+## Usage
+Agents should load these files based on their active role and current task context. The orchestrator determines which cognitive modules are required for a given request.

@@ -28,7 +28,7 @@ metadata:
     - 3-act
     - 9-beat
   supported_models:
-    - qwen3-coder-30b-a3b-instruct-mlx
+    - qwen3-coder-30b-a3b-instruct
     - qwen2.5:32b
     - llama3
     - any-local-llm

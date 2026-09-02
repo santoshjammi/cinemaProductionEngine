@@ -8,9 +8,10 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+import re
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, SerializeAsAny, model_validator
 
 
 # ---------------------------------------------------------------------------
@@ -59,8 +60,23 @@ class PhaseStatus(str, Enum):
     FAILED = "failed"
 
 
+def _coerce_clean_string(value: Any) -> str:
+    """Coerce a non-string value to a readable string, stripping Python-internal
+    artifacts (raw Enum reprs, ``__objclass__``, memory addresses) that an LLM
+    may have embedded.  For dicts, prefer the most meaningful string content."""
+    s = str(value)
+    # Strip Python-internal / Enum-internal fragments and memory addresses.
+    s = re.sub(r"__objclass__[^,}]*", "", s)
+    s = re.sub(r"__[a-zA-Z_]+__\s*[:=]?\s*[^,}\]]*", "", s)
+    s = re.sub(r"0x[0-9a-fA-F]+", "", s)
+    s = re.sub(r"\s{2,}", " ", s)
+    s = s.strip(" \t{}'\"")
+    return s
+
+
 class KnowledgeObject(BaseModel):
     """Base for all knowledge objects produced by phases."""
+    knowledge_type: str = ""
     purpose: str = ""
     creative_intent: str = ""
     reasoning: str = ""
@@ -68,6 +84,18 @@ class KnowledgeObject(BaseModel):
     dependencies: list[str] = Field(default_factory=list)
     validation: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _set_knowledge_type(self) -> "KnowledgeObject":
+        """Auto-populate the stable, machine-readable subtype discriminator.
+
+        ``knowledge_type`` is set from the concrete class name so persisted
+        knowledge can be reconstructed to the correct subtype on reload without
+        brittle field-presence heuristics (P0-03R-SER-01 §8).
+        """
+        if not self.knowledge_type:
+            self.knowledge_type = type(self).__name__
+        return self
 
     @model_validator(mode="before")
     @classmethod
@@ -117,7 +145,11 @@ class KnowledgeObject(BaseModel):
                 result[key] = value
             elif key in _STRING_FIELDS:
                 if isinstance(value, (dict, int, float)):
-                    result[key] = str(value)
+                    # A dict/int for a string field — coerce to a readable
+                    # string, stripping Python-internal artifacts (raw Enum
+                    # reprs, __objclass__, memory addresses) that the LLM may
+                    # have embedded.
+                    result[key] = _coerce_clean_string(value)
                 elif isinstance(value, list):
                     # LLM returned a list for a string field — join the string parts
                     parts = []
@@ -141,6 +173,12 @@ class KnowledgeObject(BaseModel):
                 elif isinstance(value, dict):
                     result[key] = [str(value)]
                 elif isinstance(value, list) and value and all(isinstance(v, dict) for v in value):
+                    # Skip items that are already structured knowledge objects
+                    # (carry a knowledge_type discriminator).  Mangling these to
+                    # strings destroys nested-model semantics on reload.
+                    if any("knowledge_type" in v for v in value):
+                        result[key] = value
+                        continue
                     # General dict-to-string normalization: extract first string value
                     result[key] = []
                     for v in value:
@@ -338,6 +376,7 @@ class NarrativeExpansion(KnowledgeObject):
 
 class ScenePlan(KnowledgeObject):
     scene_number: int = 0
+    title: str = ""
     purpose: str = ""
     conflict: str = ""
     emotion: str = ""
@@ -367,12 +406,54 @@ class DialogueLine(BaseModel):
     delivery_intent: performance direction for how the line should be spoken.
     emotion: emotional tag used for TTS prosody (e.g. 'whisper', 'quiet').
     line_id: deterministic identity assigned after generation.
+
+    P0-04: the canonical line performance contract.  Only the mandatory fields
+    are modeled as required; the rest are optional and populated when authored
+    or semantically enriched.  Existing authored performance must be preserved,
+    never regenerated.  ``voice_identity`` separates the stable character voice
+    id from the per-line acting state.
     """
     line_id: str = ""
     speaker: str = ""
     text: str = ""
     delivery_intent: str = ""
     emotion: str = "neutral"
+
+    # --- Canonical performance contract (P0-04) ---
+    # Objective / narrative function
+    objective: str = ""
+    narrative_function: str = ""
+    # Emotional state (normalized primary + optional secondary)
+    emotional_state_primary: str = ""
+    emotional_state_secondary: str = ""
+    # Subtext (actor-actionable, short)
+    subtext: str = ""
+    # Delivery dimensions (normalized values, empty = not specified)
+    pace: str = ""
+    volume: str = ""
+    energy: str = ""
+    tension: str = ""
+    warmth: str = ""
+    hesitation: str = ""
+    certainty: str = ""
+    # Emphasis / pauses / interruption / overlap
+    emphasis_phrases: list[str] = Field(default_factory=list)
+    pause_before_ms: Optional[int] = None
+    pause_after_ms: Optional[int] = None
+    interruption_type: str = ""
+    interruption_target_line_id: str = ""
+    overlap_allowed: bool = False
+    # Physical performance
+    physical_gaze: str = ""
+    physical_posture: str = ""
+    physical_action: str = ""
+    # Listener response expectation
+    listener_character_id: str = ""
+    listener_reaction_intent: str = ""
+    # Voice identity binding
+    character_voice_id: str = ""
+    presentation_mode: str = "EXTERNAL"  # EXTERNAL | INTERNAL
+
 
 
 class DialoguePlan(KnowledgeObject):
@@ -495,13 +576,65 @@ class PhaseResult(BaseModel):
     phase_number: int
     phase_name: str
     status: PhaseStatus = PhaseStatus.PENDING
-    knowledge: KnowledgeObject | None = None
+    # SerializeAsAny preserves concrete subclass fields when the containing
+    # PhaseResult is serialized. Without it, Pydantic dumps using the declared
+    # base type (KnowledgeObject) and silently drops subclass-specific semantic
+    # fields (color, lighting, ...). This is P0-03R-SER-01: polymorphic
+    # serialization must preserve runtime semantics. The knowledge_type
+    # discriminator (on KnowledgeObject) enables subtype-faithful reload.
+    knowledge: SerializeAsAny[Optional[KnowledgeObject]] = None
     draft_count: int = 0
     errors: list[str] = Field(default_factory=list)
     validation_issues: list[ValidationIssue] = Field(default_factory=list)
     critique_findings: list[CritiqueFinding] = Field(default_factory=list)
     started_at: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
     completed_at: str = ""
+
+    @model_validator(mode="before")
+    @classmethod
+    def _rehydrate_knowledge_subtype(cls, data: Any) -> Any:
+        """Reconstruct the concrete KnowledgeObject subtype on reload.
+
+        Pydantic deserializes ``knowledge`` to the declared base type unless we
+        rehydrate using the persisted ``knowledge_type`` discriminator.  This
+        dispatcher rebuilds the concrete subclass (e.g. VisualLanguage) so
+        subclass-only semantic fields survive JSON -> model (P0-03R-SER-01 §7).
+        """
+        if not isinstance(data, dict):
+            return data
+        k = data.get("knowledge")
+        if not isinstance(k, dict):
+            return data
+        ktype = k.get("knowledge_type") or ""
+        data = dict(data)
+        if ktype:
+            cls_map = {
+                "CreativeUnderstanding": CreativeUnderstanding,
+                "StoryFoundation": StoryFoundation,
+                "StoryBeat": StoryBeat,
+                "CharacterPsychology": CharacterPsychology,
+                "Character": Character,
+                "WorldDevelopment": WorldDevelopment,
+                "Scene": Scene,
+                "NarrativeExpansion": NarrativeExpansion,
+                "ScenePlan": ScenePlan,
+                "ScenePlanning": ScenePlanning,
+                "DialoguePlan": DialoguePlan,
+                "DialoguePlanning": DialoguePlanning,
+                "VisualLanguage": VisualLanguage,
+                "ProductionSpecifications": ProductionSpecifications,
+                "ValidationIssue": ValidationIssue,
+                "Validation": Validation,
+                "CritiqueFinding": CritiqueFinding,
+                "CreativeCritique": CreativeCritique,
+                "KnowledgeGraphNode": KnowledgeGraphNode,
+                "KnowledgeGraphEdge": KnowledgeGraphEdge,
+                "KnowledgeIntegration": KnowledgeIntegration,
+            }
+            target = cls_map.get(ktype)
+            if target is not None:
+                data["knowledge"] = target(**k)
+        return data
 
 
 # ---------------------------------------------------------------------------

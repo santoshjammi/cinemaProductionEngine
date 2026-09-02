@@ -1,0 +1,30 @@
+{
+  "artifact_id": "SHOT-SCENE-04",
+  "shots": [
+    {
+      "shot_number": 1,
+      "description": "Medium close-up — Sarah reaches out toward Mark's shoulder. Warm indoor light.",
+      "frame_type": "establishing_tension",
+      "duration_seconds": 3.0,
+      "camera_angle": "eye_level",
+      "focus": "sarah_hand_and_mark_shoulder"
+    },
+    {
+      "shot_number": 2,
+      "description": "Mark's body rigid, pulling into shadows on the right side of frame.",
+      "frame_type": "key_frame_of_tension",
+      "duration_seconds": 3.0,
+      "camera_angle": "eye_level",
+      "focus": "mark_shadow_retreat"
+    },
+    {
+      "shot_number": 3,
+      "description": "Sarah's hand left stranded — her fingers hover inches from Mark's back.",
+      "frame_type": "emotional_emptiness",
+      "duration_seconds": 4.0,
+      "camera_angle": "eye_level",
+      "focus": "sarah_hand_stranded"
+    }
+  ],
+  "total_duration_seconds": 10.0
+}

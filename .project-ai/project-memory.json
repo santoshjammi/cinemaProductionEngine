@@ -1,0 +1,332 @@
+{
+  "version": "1.0",
+  "format": "project-memory",
+  "last_updated": "2026-08-05T14:18:25Z",
+  "source_file": ".project-ai/PROJECT_MEMORY.yaml",
+  "architecture": {
+    "package": "movie_os",
+    "package_description": "capability-centric, plug-in local AI movie pipeline",
+    "paths": [
+      {
+        "name": "Legacy",
+        "compatibility": "backward compatible",
+        "flow": "MovieAgent → Story → Visual → Voice → Music → QA → Publishing",
+        "agent_count": 8
+      },
+      {
+        "name": "New (Cinema Production Engine)",
+        "flow": "ProductionOrchestratorAgent → 26 agents → Evaluation → Revision"
+      }
+    ],
+    "auto_detection": "if production_dir/screenplay.md exists, uses new architecture",
+    "domain_model": {
+      "type": "Pydantic",
+      "hierarchy": [
+        "Story",
+        "Act",
+        "Sequence",
+        "Scene",
+        "Shot",
+        "Frame"
+      ]
+    },
+    "capability_registry": "in-code for discovery, config for selection",
+    "provider_types": [
+      "Image",
+      "Video",
+      "Voice",
+      "Music",
+      "SFX",
+      "Story",
+      "Translation",
+      "Research"
+    ],
+    "prompt_system": {
+      "format": "YAML-based repository",
+      "components": [
+        "loader",
+        "builder",
+        "validator",
+        "optimizer",
+        "renderer"
+      ]
+    },
+    "multi_agent": {
+      "framework": "LangGraph StateGraph",
+      "sync_mechanism": "Annotated reducers for concurrent updates"
+    },
+    "asset_store": {
+      "backend": [
+        "SQLite (metadata)",
+        "filesystem (files)",
+        "sqlite-vec (embeddings)",
+        "sentence-transformers"
+      ]
+    }
+  },
+  "tech_stack": {
+    "language": "Python 3.11+",
+    "os": "macOS (M1 Max 64GB)",
+    "gpu": {
+      "type": "MPS (Apple Silicon)",
+      "comfyui_flags": [
+        "--bf16-unet",
+        "--bf16-vae"
+      ]
+    },
+    "image": {
+      "model": "FLUX.1 Dev bf16",
+      "size_gb": 22.2,
+      "delivery": "ComfyUI",
+      "resolution": "1024x576",
+      "steps_production": 20
+    },
+    "voice": {
+      "service": "EdgeTTS",
+      "speaker": "en-US-GuyNeural"
+    },
+    "music": {
+      "type": "Procedural",
+      "library": "numpy synthesis",
+      "generator": "DramaticStingGenerator"
+    },
+    "video": [
+      "ffmpeg concat",
+      "Ken Burns",
+      "unsharp filter"
+    ],
+    "orchestration": "LangGraph 1.2.8",
+    "embeddings": {
+      "sqlite_vec": "0.1.9",
+      "sentence_transformers": "5.6.0"
+    },
+    "config_frameworks": [
+      "Pydantic v2",
+      "YAML"
+    ]
+  },
+  "conventions": [
+    "One file per agent, no bigger than 300 lines",
+    "Agents never call other agents directly — they update state, graph decides next",
+    "Errors appended to state.errors; graph routes to QA on errors",
+    "Agents return partial state updates (only keys they change), not full state",
+    "Asset store: every generated artifact auto-registered with tags (scene_N, energy_N, phase_X, shot_size, irreversible_moment)",
+    "Visual agent renders only first shot per scene (publishing agent only uses first shot)",
+    "Prompt enrichment: adds cinematic qualifiers to prompts without them",
+    "Music volume: default 0.6 for audibility under voiceover",
+    "ffmpeg unsharp: 5:5:1.0:5:5:0.0 applied to all scene clips"
+  ],
+  "constraints": [
+    {
+      "description": "MPS doesn't support fp8 or fp16 for FLUX (NaN output). Use bf16.",
+      "severity": "critical"
+    },
+    {
+      "model": "flux1-dev-bf16.safetensors",
+      "size_gb": 22.2,
+      "conversion_path": "fp8 via fp16"
+    },
+    {
+      "render_time": {
+        "resolution": "1024x576",
+        "platform": "MPS"
+      },
+      "times_20_steps_s": 252,
+      "times_4_steps_s": 65
+    },
+    {
+      "render_estimate": {
+        "9_scenes_one_shot": "~38 min total render at production quality",
+        "15_scenes_one_shot": "~63 min total render at production quality"
+      }
+    },
+    {
+      "backward_compat_paths": [
+        "story_factory/",
+        "openmontage_adapter/",
+        "scripts/psychological_pipeline.py"
+      ]
+    }
+  ],
+  "permanent_decisions": [
+    {
+      "id": "PD-01",
+      "summary": "Local-first, no cloud APIs required"
+    },
+    {
+      "id": "PD-02",
+      "summary": "Every AI capability is a plug-in (no hardcoded model/prompt/provider/workflow)"
+    },
+    {
+      "id": "PD-03",
+      "summary": "Master Timeline = platform-agnostic source of truth; exporters come later"
+    },
+    {
+      "id": "PD-04",
+      "flx_quality_modes": [
+        {
+          "mode": "draft",
+          "steps": 4
+        },
+        {
+          "mode": "production",
+          "steps": 20
+        },
+        {
+          "mode": "high_quality",
+          "steps": 28,
+          "note": "LoRA"
+        }
+      ]
+    },
+    {
+      "id": "PD-05",
+      "summary": "Workflow selection: reference_image_paths + use_ipadapter → flux_with_ipadapter; use_img2img → flux_img2img; otherwise quality-based"
+    },
+    {
+      "id": "PD-06",
+      "summary": "Asset store: SQLite for metadata, filesystem for files, sqlite-vec for embeddings"
+    },
+    {
+      "id": "PD-07",
+      "summary": "Version chain: immutable v1/v2/... directories, rollback updates current_path pointer"
+    },
+    {
+      "id": "PD-08",
+      "genesis_engine": {
+        "name": "Genesis Engine",
+        "type": "Pre-production intelligence system",
+        "agent_count": 31,
+        "agent_breakdown": {
+          "discovery": 7,
+          "pkp_specs": 19,
+          "reviewers": 4,
+          "chief_architect": 1
+        },
+        "output": "All agents produce only text output (no image/audio/video); individual files (JSON/YAML/Markdown) in output directory",
+        "pkg": {
+          "name": "ProductionKnowledgeGraph",
+          "description": "single source of truth, SQLite-backed, swappable to Neo4j",
+          "checkpointing": "One LLM call per agent for checkpointing/error recovery"
+        },
+        "confidence_levels": [
+          "EXPLICIT",
+          "INFERRED",
+          "CONFIRMED",
+          "ASSUMED",
+          "UNKNOWN"
+        ],
+        "pkp_specs": {
+          "range": "PKP-00 through PKP-18",
+          "total": 19,
+          "phases": "A through G (dependency-ordered)"
+        },
+        "completion_gate": "checks 8 criteria before Studio Engine handoff",
+        "cli": "python -m movie_os.genesis run --synopsis <path> [--mock] [--output <dir>]",
+        "test_count": 292
+      }
+    }
+  ],
+  "stability_mission": {
+    "objective": "Make videoGen run reliably from approved synopsis input to a playable final MP4.",
+    "architecture_boundary": {
+      "GENESIS": "textual and metadata artifacts only",
+      "PROMETHEUS": "consumes only a sealed PKP and renders media",
+      "ORACLE": "validates integrity, runtime, media completeness, and final compliance"
+    },
+    "stability_rules": [
+      "fail closed",
+      "no placeholders",
+      "no silent success",
+      "resumable checkpoints",
+      "real assets only"
+    ],
+    "execution_chain": [
+      "GENESIS spine",
+      "sealed PKP",
+      "ComfyUI/FLUX",
+      "local TTS",
+      "Scene 4",
+      "all six scenes",
+      "final video",
+      "repeatability"
+    ],
+    "phase_order": [
+      {
+        "phase": "Phase 0",
+        "name": "Freeze Scope",
+        "tasks": [
+          "TASK-001",
+          "TASK-002"
+        ]
+      },
+      {
+        "phase": "Phase 1",
+        "name": "Stabilize GENESIS",
+        "tasks": [
+          "TASK-003",
+          "TASK-004",
+          "TASK-005",
+          "TASK-006",
+          "TASK-007",
+          "TASK-008",
+          "TASK-009",
+          "TASK-010",
+          "TASK-011",
+          "TASK-012"
+        ]
+      },
+      {
+        "phase": "Phase 2",
+        "name": "Stabilize PROMETHEUS",
+        "tasks": [
+          "TASK-013",
+          "TASK-014",
+          "TASK-015",
+          "TASK-016",
+          "TASK-017",
+          "TASK-018",
+          "TASK-019",
+          "TASK-020",
+          "TASK-021",
+          "TASK-022",
+          "TASK-023",
+          "TASK-024"
+        ]
+      },
+      {
+        "phase": "Phase 3",
+        "name": "Real vertical slice",
+        "tasks": [
+          "TASK-025",
+          "TASK-026"
+        ]
+      },
+      {
+        "phase": "Phase 4",
+        "name": "Full production",
+        "tasks": [
+          "TASK-027",
+          "TASK-028",
+          "TASK-029"
+        ]
+      },
+      {
+        "phase": "Phase 5",
+        "name": "Reliability and repeatability",
+        "tasks": [
+          "TASK-030",
+          "TASK-031",
+          "TASK-032",
+          "TASK-033",
+          "TASK-034"
+        ]
+      }
+    ],
+    "paperclip": {
+      "project_name": "videoGen",
+      "mission_epic": "videoGen Stability Mission",
+      "task_count": 34
+    }
+  }
+}

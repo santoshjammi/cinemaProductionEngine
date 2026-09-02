@@ -1,0 +1,92 @@
+# GIR Example 02: The Airlock Paradox
+# Purpose: Tests Resource State, Physical Constraints, and Information Asymmetry.
+
+story_id: 02_sci_fi_survival
+narrative_intent: "The cost of survival—when necessary action becomes indistinguishable from betrayal."
+
+# --- STATE MAPS ---
+world_state:
+  start: 
+    pod_integrity: "85%"
+    oxygen_level_Pilot: "100%"
+    oxygen_level_Engineer: "100%"
+    airlock_status: "sealed"
+  end:   
+    pod_integrity: "120% (over-pressurized)" # Damaged by the act.
+    oxygen_level_Pilot: "15%" # Critical.
+    oxygen_level_Engineer: "70%"
+    airlock_status: "opened"
+
+character_state:
+  pilot:
+    primary_goal: return_to_habitat
+    constraint: must_always_keep_pod_floating
+    knowledge: "The pod is too heavy to survive the re-entry with both people."
+    lie: None (Pilot knows the truth).
+  engineer:
+    primary_goal: protect_cargo (The prototype data)
+    constraint: cannot_understand_engineering_limits
+    belief: "We are just low on oxygen, not dying. The air recycler will fix it."
+
+relationship_state:
+  start: { trust: 0.9, command_respect: 0.9 }
+  end:   { trust: 0.1, command_respect: 0.0 } # Absolute betrayal of faith.
+
+# --- THE CAUSAL GRAPH ---
+nodes:
+  # Intents and Information State
+  - id: intent_pilot_save_pod
+    type: Intent
+    owner: pilot
+    content: Reduce mass to survive re-entry
+  
+  - id: knowledge_pilot_truth
+    type: KnowledgeState
+    owner: pilot
+    content: "Engineer's weight + cargo = guaranteed death."
+
+  # The Conflict (Procedural, not psychological)
+  - id: conflict_pod_mass
+    type: PhysicalConflict
+    cause_a: intent_pilot_save_pod
+    cause_b: engineer_protect_cargo
+    result_action: a_jettison_engineer_cargo_and_self
+  
+  # Actions and Events
+  - id: e_lie_told
+    type: Action (Deceptive)
+    owner: pilot
+    target: engineer
+    description: "Pilot claims recycler is broken (A lie to force compliance)."
+
+  - id: e_mass_jettisoned
+    type: Event
+    caused_by: e_lie_told
+    result: "Engineer and Cargo are forced into the airlock. Air loss ensues."
+
+  - id: s_engineer_realization
+    type: Event
+    caused_by: e_mass_jettisoned
+    result: "Engineer realizes Pilot is lying; trust is permanently destroyed."
+
+edges:
+  # The causal loop of survival logic
+  - source: knowledge_pilot_truth
+    target: e_lie_told
+    type: drives # The truth forces a deceptive action.
+
+  - source: e_mass_jettisoned
+    target: world_state.end
+    type: updates # The physical state changes directly.
+
+  - source: e_mass_jettisoned
+    target: s_engineer_realization
+    type: causes # The act of betrayal forces a new belief.
+
+  - source: s_engineer_realization
+    target: relationship_state.end
+    type: updates # The relationship hits rock bottom.
+
+constraints:
+  - "Engineer's 'Belief' state must remain high until the Event happens."
+  - "The conflict is driven by Resource State (Weight/Oxygen), not just emotion."

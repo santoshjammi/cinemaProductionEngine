@@ -11,6 +11,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.api.v1.pipeline import router as pipeline_router
 from backend.app.api.v1.projects import router as projects_router
 from backend.app.api.v1.profiles import router as profiles_router
+from backend.app.api.v1.genesis3 import router as genesis3_router
+from backend.app.api.v1.genesis2 import router as genesis2_router
+from backend.app.api.v1.genesis import router as genesis_router
+from backend.app.api.v1.production import router as production_router
+from backend.app.api.errors.route import router as errors_router
 from backend.app.core.config import settings
 
 logging.basicConfig(
@@ -39,6 +44,11 @@ app.add_middleware(
 app.include_router(pipeline_router)
 app.include_router(projects_router)
 app.include_router(profiles_router)
+app.include_router(genesis3_router)
+app.include_router(genesis2_router)
+app.include_router(genesis_router)
+app.include_router(production_router)
+app.include_router(errors_router)
 
 os.makedirs(settings.output_dir, exist_ok=True)
 os.makedirs(settings.video_output_dir, exist_ok=True)

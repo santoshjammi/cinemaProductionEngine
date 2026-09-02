@@ -8,7 +8,7 @@ presumptions:
     assumption: "Assumes ComfyUI is running locally on 'http://localhost:8188' and exposes standard websocket channels (/ws) and REST endpoints (/prompt, /history, /view)."
 
   - context: "LMStudio Port Bindings"
-    assumption: "Assumes LMStudio is running locally on 'http://localhost:1234' with the narrative models loaded."
+    assumption: "Assumes LMStudio is running locally on 'http://localhost:11434' with the narrative models loaded."
 
   - context: "System Tool PATH"
     assumption: "Assumes 'ffmpeg' and 'ffprobe' are installed on the host operating system and can be invoked globally from any directory without specifying full absolute paths."

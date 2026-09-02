@@ -13,6 +13,13 @@ class VisualLanguagePhase(PhaseBase):
     phase_number = 8
     phase_name = "Visual Language"
     _REQUIRED: list[str] = ["color", "lighting", "composition"]
+    # P0: Phase08 is a bounded structured call. The local model (qwen3:4b)
+    # rambles into prose when given an unbounded budget, and the 4096-token
+    # global ceiling under a 131072-token context window lets it generate
+    # slowly past the 300s timeout. A phase-specific ceiling + structured
+    # output keeps it schema-constrained and fast. Chosen from the successful
+    # qualification range (mirrors Phase02/03/04/10's proven bounded budgets).
+    _OUTPUT_BUDGET = 512
 
     def build_draft_prompt(self, pkg: dict[str, Any]) -> str:
         prev = self.slice_context(pkg, ["phase_01"])
@@ -37,7 +44,7 @@ class VisualLanguagePhase(PhaseBase):
 
     def parse_draft(self, response: str) -> KnowledgeObject:
         from ..llm_client import _extract_json
-        data = _extract_json(response)
+        data = response if isinstance(response, dict) else _extract_json(response)
         return self._parse(data)
 
     @staticmethod
@@ -47,8 +54,56 @@ class VisualLanguagePhase(PhaseBase):
 
     def draft(self, pkg: dict[str, Any]) -> KnowledgeObject:
         prompt = self.build_draft_prompt(pkg)
-        response = self.llm.generate(prompt)
-        return self.parse_draft(response)
+        from ..models import VisualLanguage
+        response_format = VisualLanguage.model_json_schema()
+        generator = getattr(self.llm, "generate_json")
+        config = getattr(self.llm, "_config", None)
+        if config is not None:
+            original_max_tokens = config.max_tokens
+            config.max_tokens = self._OUTPUT_BUDGET
+            try:
+                try:
+                    response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+                except TypeError:
+                    response = generator(prompt, config, "planner")
+            finally:
+                config.max_tokens = original_max_tokens
+        else:
+            try:
+                response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+            except TypeError:
+                response = generator(prompt)
+        knowledge = self.parse_draft(response)
+        # P0-01/20 repair: the local model sometimes returns an empty or partial
+        # VisualLanguage. Retry once with a focused prompt when a required field
+        # (visual OR base purpose/creative_intent/reasoning) is missing.
+        # Deterministic, repairs the current phase only.
+        if any(not str(getattr(knowledge, f, "") or "").strip() for f in self._REQUIRED) or \
+           any(not str(getattr(knowledge, f, "") or "").strip() for f in ("purpose", "creative_intent", "reasoning")):
+            focused = (
+                "# Phase 08: Visual Language (retry — required fields missing)\n"
+                "Provide complete, concrete values for these EXACT keys. Use the "
+                "synopsis: " + str(pkg.get("synopsis", ""))[:300] + "\n"
+                'Respond with valid JSON only: {"purpose": "...", "creative_intent": "...", '
+                '"reasoning": "...", "color": "...", "lighting": "...", '
+                '"composition": "...", "textures": "...", "atmosphere": "...", '
+                '"camera_intent": "...", "lens_suggestions": "...", '
+                '"movement_philosophy": "...", "environmental_storytelling": "..."}'
+            )
+            try:
+                if config is not None:
+                    config.max_tokens = self._OUTPUT_BUDGET
+                    try:
+                        knowledge = self.parse_draft(generator(focused, "planner", self.phase_name, f"{self.phase_name}:retry", response_format=response_format))
+                    except TypeError:
+                        knowledge = self.parse_draft(generator(focused, config, "planner"))
+                    finally:
+                        config.max_tokens = original_max_tokens
+                else:
+                    knowledge = self.parse_draft(generator(focused, "planner", self.phase_name, f"{self.phase_name}:retry", response_format=response_format))
+            except Exception:
+                pass
+        return knowledge
 
     def _review_specific(self, knowledge: KnowledgeObject) -> list[str]:
         issues: list[str] = []

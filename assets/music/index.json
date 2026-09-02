@@ -1,0 +1,57 @@
+{
+  "tracks": {
+    "cinematic_ambient_piano": {
+      "path": "/Users/santosh/Desktop/projects/videoGen/assets/music/cinematic_ambient_piano.mp3",
+      "available": true,
+      "moods": [
+        "sad",
+        "melancholic",
+        "calm",
+        "reflective",
+        "hopeful"
+      ],
+      "duration_sec": 120,
+      "source": "YouTube Audio Library \u2014 Cinematic Ambient Piano (royalty-free)"
+    },
+    "solitude_piano": {
+      "path": "/Users/santosh/Desktop/projects/videoGen/assets/music/solitude_piano.mp3",
+      "available": true,
+      "moods": [
+        "sad",
+        "melancholic",
+        "calm",
+        "peaceful",
+        "lonely"
+      ],
+      "duration_sec": 240,
+      "source": "YouTube \u2014 Solitude Piano Ambient (royalty-free)"
+    },
+    "isolation_ambient": {
+      "path": "/Users/santosh/Desktop/projects/videoGen/assets/music/isolation_ambient.mp3",
+      "available": true,
+      "moods": [
+        "sad",
+        "melancholic",
+        "tense",
+        "fearful",
+        "dark",
+        "lonely"
+      ],
+      "duration_sec": 3600,
+      "source": "YouTube \u2014 ISOLATION Cinematic Ambient (royalty-free)"
+    },
+    "circle_of_life_sad": {
+      "path": "/Users/santosh/Desktop/projects/videoGen/assets/music/circle_of_life_sad.mp3",
+      "available": true,
+      "moods": [
+        "sad",
+        "melancholic",
+        "reflective",
+        "emotional",
+        "grief"
+      ],
+      "duration_sec": 243,
+      "source": "YouTube \u2014 Circle of Life Ambient (royalty-free)"
+    }
+  }
+}

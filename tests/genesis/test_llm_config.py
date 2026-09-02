@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -41,10 +42,15 @@ class TestMergeConfig:
 
 class TestLoadConfig:
     def test_defaults_when_no_file(self, tmp_path):
-        config = load_config()
-        assert config["backend"] in ("auto", "ollama", "lmstudio", "hf", "none")
-        assert config["default_model"] == "qwen2.5:32b"
-        assert config["timeout"] == 120.0
+        cwd = Path.cwd()
+        try:
+            os.chdir(tmp_path)
+            config = load_config()
+            assert config["backend"] in ("auto", "ollama", "lmstudio", "hf", "none")
+            assert config["default_model"] == "qwen2.5:32b"
+            assert config["timeout"] == 120.0
+        finally:
+            os.chdir(cwd)
 
     def test_loads_from_explicit_path(self, tmp_path):
         cfg_path = tmp_path / "test_llm.yaml"
@@ -59,9 +65,14 @@ class TestLoadConfig:
         config = load_config(str(cfg_path))
         assert config["timeout"] == 30.0
 
-    def test_missing_explicit_path_uses_defaults(self):
-        config = load_config("/nonexistent/path.yaml")
-        assert config["default_model"] == "qwen2.5:32b"
+    def test_missing_explicit_path_uses_defaults(self, tmp_path):
+        cwd = Path.cwd()
+        try:
+            os.chdir(tmp_path)
+            config = load_config("/nonexistent/path.yaml")
+            assert config["default_model"] == "qwen2.5:32b"
+        finally:
+            os.chdir(cwd)
 
 
 class TestDetectBackend:

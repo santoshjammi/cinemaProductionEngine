@@ -5,6 +5,7 @@ version: "1.0"
 ---
 
 # Session Context Template
+# This file acts as a structural placeholder for dynamic session state injection.
 
 current_task: ""
 active_agents: []
@@ -14,3 +15,5 @@ next_action: ""
 
 constraints:
   - "Do not overwrite memory without explicit validation."
+  - "All contexts should be cleared upon successful task completion or session termination."
+

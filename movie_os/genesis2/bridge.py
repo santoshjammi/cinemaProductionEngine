@@ -281,6 +281,28 @@ class Genesis2Bridge:
 
     # -- helpers -----------------------------------------------------------
 
+    def _runtime_mode(self) -> str:
+        """Resolve the run mode from PKP constraints.
+
+        The engine sets ``mode`` on the RunContext from
+        ``constraints.get("mode", "RUNTIME")``.  The bridge reads the same
+        source so it can apply the fail-closed law: creative synopsis fallback
+        is FORBIDDEN in RUNTIME mode and may only run under an explicit
+        fixture/legacy marker.
+        """
+        constraints = self.pkp.constraints or {}
+        return str(constraints.get("mode", "RUNTIME")).upper()
+
+    def _creative_fallback_allowed(self) -> bool:
+        """True only under an explicit fixture/legacy mode marker.
+
+        RUNTIME (the default) must never fabricate creative replacement
+        scenes after an upstream phase failure — missing authoritative
+        scene-planning/dialogue-planning knowledge must remain explicitly
+        missing so the freeze gate can reject the package.
+        """
+        return self._runtime_mode() in ("QUALIFICATION_FIXTURE", "LEGACY_FIXTURE")
+
     def _extract_synopsis_keywords(self, syn_lower: str) -> dict[str, int]:
         """Extract frequency keywords from the synopsis text.
 
@@ -297,6 +319,7 @@ class Genesis2Bridge:
         self._build_dna()
         self._build_scenes()
         self._build_dialogue()
+        self._build_story_lineage()   # P0-03: ending + beat→scene lineage
         self._build_context()
         self._build_parameters()
         self._build_metadata()
@@ -566,18 +589,31 @@ class Genesis2Bridge:
             elif isinstance(s, dict):
                 ne_scenes.append(s)
         # Also pull from acts/sequences when no direct scenes exist
+        # (Deterministic preservation: flatten acts in narrative order, keep a
+        # global scene counter so each scene gets a stable, increasing index
+        # and its own act label. The prior code used the per-act sequence index
+        # as the scene key, which overwrote the same scenes for every act and
+        # reversed act order — see P0-03.)
         if not ne_scenes:
+            global_scene_num = 1
             for act in (ne.acts if hasattr(ne, "acts") else []):
                 act_name = str(act.get("name", "")) if isinstance(act, dict) else str(getattr(act, "name", ""))
+                act_label = str(act.get("act", "")) if isinstance(act, dict) else str(getattr(act, "act", ""))
                 seqs = act.get("sequences") if isinstance(act, dict) else getattr(act, "sequences", [])
                 if not seqs:
                     seqs = []
-                for i, seq in enumerate(seqs):
-                    scene_map[i + 1] = {
-                        "scene_number": i + 1,
-                        "act": act_name or "Act 1",
-                        "title": str(seq.get("name", f"Scene {i+1}")) if isinstance(seq, dict) else str(getattr(seq, "name", f"Scene {i+1}")),
+                for seq in seqs:
+                    seq_name = str(seq.get("name", f"Scene {global_scene_num}")) if isinstance(seq, dict) else str(getattr(seq, "name", f"Scene {global_scene_num}"))
+                    # The act label may be a full name ("Act I: The Silent Wall")
+                    # or just the ordinal; normalize the *act* field to the
+                    # ordinal label, keep the full name as the title anchor.
+                    full_act = act_name or act_label or "Act I"
+                    scene_map[global_scene_num] = {
+                        "scene_number": global_scene_num,
+                        "act": _normalize_act_label(full_act),
+                        "title": seq_name,
                     }
+                    global_scene_num += 1
 
         # Use direct scene list as primary source
         all_structural_scenes = []
@@ -590,18 +626,30 @@ class Genesis2Bridge:
                     "objective": str(getattr(s, "objective", "")),
                     "conflict": str(getattr(s, "conflict", "")),
                     "outcome": str(getattr(s, "outcome", "")),
+                    "description": str(getattr(s, "description", "")),
+                    "reasoning": str(getattr(s, "reasoning", "")),
                     "emotional_objective": str(getattr(s, "emotional_objective", "")),
+                    "narrative_beat": str(getattr(s, "narrative_beat", "")),
+                    "escalation": str(getattr(s, "escalation", "")),
+                    "stakes": str(getattr(s, "stakes", "")),
+                    "tension": str(getattr(s, "tension", "")),
                 })
 
         # Source 2: ScenePlanning (merge on scene_number)
         sp_scenes = sp.scenes if hasattr(sp, "scenes") and sp.scenes else []
 
-        # Populate scene_map from NarrativeExpansion scenes if ScenePlanning is empty
-        if not sp_scenes and all_structural_scenes:
-            for ns in all_structural_scenes:
-                num = int(ns.get("scene_number", 0))
-                if num not in scene_map:
-                    scene_map[num] = {"scene_number": num, "title": ns.get("objective", f"Scene {num}")}
+        # Populate scene_map from NarrativeExpansion scenes FIRST (the full
+        # structural arc), then merge ScenePlanning details on top.  The prior
+        # code only seeded scene_map from NarrativeExpansion when ScenePlanning
+        # was empty, which silently DROPPED every NarrativeExpansion scene whose
+        # number exceeded the ScenePlanning count (e.g. a 6-scene arc collapsed
+        # to 3, discarding the turning_point/climax/resolution units and their
+        # REQ-006/REQ-008 realization).  The union of both sources preserves the
+        # complete arc while still applying ScenePlanning's per-scene details.
+        for ns in all_structural_scenes:
+            num = int(ns.get("scene_number", 0))
+            if num not in scene_map:
+                scene_map[num] = {"scene_number": num, "title": ns.get("objective", f"Scene {num}")}
 
         for s in sp_scenes:
             if isinstance(s, dict):
@@ -609,7 +657,7 @@ class Genesis2Bridge:
                 if num not in scene_map:
                     scene_map[num] = {"scene_number": num}
                 merged = scene_map[num]
-                for k in ("purpose", "conflict", "emotion", "visual_goal", "audio_goal", "character_goal", "transition", "duration"):
+                for k in ("title", "purpose", "conflict", "emotion", "visual_goal", "audio_goal", "character_goal", "transition", "duration"):
                     val = s.get(k) or merged.get("_" + k)
                     if val:
                         merged[k] = val
@@ -618,7 +666,7 @@ class Genesis2Bridge:
                 if num not in scene_map:
                     scene_map[num] = {"scene_number": num}
                 existing = scene_map[num]
-                for k in ("purpose", "conflict", "emotion", "visual_goal", "audio_goal", "character_goal", "transition", "duration"):
+                for k in ("title", "purpose", "conflict", "emotion", "visual_goal", "audio_goal", "character_goal", "transition", "duration"):
                     val = getattr(s, k, None)
                     if val:
                         existing[k] = val
@@ -662,9 +710,38 @@ class Genesis2Bridge:
             # Fill from NarrativeExpansion merge
             if ne_match:
                 if not scene["title"]:
-                    scene["title"] = f"Scene {s_num}"
-                scene["scene_description"] = ne_match.get("objective", "") + " | Conflict: " + str(ne_match.get("conflict", ""))
+                    ne_title = str(ne_match.get("title", "")).strip()
+                    if ne_title:
+                        scene["title"] = ne_title
+                def _ne_value(field: str) -> str:
+                    if isinstance(ne_match, dict):
+                        return str(ne_match.get(field, "") or "").strip()
+                    return str(getattr(ne_match, field, "") or "").strip()
+                ne_objective = _ne_value("objective")
+                ne_conflict = _ne_value("conflict")
+                ne_outcome = _ne_value("outcome")
+                ne_description = _ne_value("description")
+                ne_reasoning = _ne_value("reasoning")
+                ne_emotional = _ne_value("emotional_objective")
+                parts = []
+                if ne_objective:
+                    parts.append(ne_objective)
+                if ne_conflict:
+                    parts.append(f"Conflict: {ne_conflict}")
+                if ne_outcome:
+                    parts.append(f"Outcome: {ne_outcome}")
+                if ne_description and ne_description not in parts:
+                    parts.append(f"Description: {ne_description}")
+                if ne_reasoning and ne_reasoning not in parts:
+                    parts.append(f"Reasoning: {ne_reasoning}")
+                if ne_emotional and ne_emotional not in ne_outcome:
+                    parts.append(f"Emotional objective: {ne_emotional}")
+                scene["scene_description"] = " | ".join(parts)
                 scene["beat"] = str(ne_match.get("sequence", "")) or _act_ordinal(s_num)
+                if isinstance(ne_match, dict):
+                    rids = ne_match.get("realizes_requirements")
+                    if isinstance(rids, list) and rids:
+                        scene["realizes_requirements"] = [str(r) for r in rids]
 
             # Fill from ScenePlan merge
             purpose = info.get("_purpose") or info.get("purpose")
@@ -711,7 +788,12 @@ class Genesis2Bridge:
 
         # Fallback: if no scenes were built from phase data (e.g. MockLLMClient),
         # generate reasonable scenes directly from the synopsis.
-        if not scenes_out:
+        # P0 fail-closed law: this creative synopsis fallback is FORBIDDEN in
+        # RUNTIME mode. Missing authoritative scene-planning knowledge must
+        # remain explicitly missing so the freeze gate can reject the package
+        # (SCENE_PLANNING_PAYLOAD_MISSING) instead of fabricating fake scenes
+        # that later produce misleading DIALOGUE_PLANNING_INCOMPLETE diagnostics.
+        if not scenes_out and self._creative_fallback_allowed():
             scenes_out = self._generate_scenes_from_synopsis()
 
         self.brief["scenes"] = scenes_out
@@ -721,44 +803,55 @@ class Genesis2Bridge:
 
         The brief['dialogues'] list is keyed by scene_number and consumed by the
         PROMETHEUS VoiceStage. Each entry carries:
-          - lines: 3-4 spoken exchanges (speaker, text, emotion)
+          - lines: spoken exchanges (speaker, text, emotion, full performance)
           - inner_voice: the suffering character's whispering inner voice
-        This makes the dialogue audible and balanced (both characters heard),
-        and surfaces the withdrawn character's unspoken pain.
+        P0-04: every authoritative line carries the canonical performance
+        contract (delivery_intent, emotional_state_primary, subtext, objective,
+        voice identity).  Existing authored performance is preserved; orphan
+        dialogue (for non-authoritative scenes) is resolved away and never
+        carried into the PKP.
         """
+        from .performance_model import resolve_authoritative_dialogue, dialogue_authority_reconciliation
+        from .performance_eval import normalize_performance_fields
+
         dp = self.pkp.dialogue_planning or DialoguePlanning()
         dialogues = getattr(dp, "dialogues", []) or []
+        # Authoritative scenes = the brief scenes built by _build_scenes.
+        auth_scenes = sorted(int(s.get("scene_number")) for s in (self.brief.get("scenes") or []))
+        ad = resolve_authoritative_dialogue(dialogues, auth_scenes)
         out: list[dict[str, Any]] = []
-        for d in dialogues:
-            if hasattr(d, "model_dump"):
-                ddata = d.model_dump()
-            elif isinstance(d, dict):
-                ddata = d
-            else:
-                continue
-            scene_num = ddata.get("scene_number", 0)
-            lines = ddata.get("lines", []) or []
-            inner = ddata.get("inner_voice", []) or []
-            # Normalize line dicts
+        for d in ad.authoritative_plans:
+            scene_num = int(d.get("scene_number", 0))
+            lines = d.get("lines", []) or []
+            inner = d.get("inner_voice", []) or []
+
             def _norm(items):
                 result = []
                 for it in items:
                     if isinstance(it, dict):
-                        result.append({
+                        base = {
                             "speaker": str(it.get("speaker", "")),
                             "text": str(it.get("text", "")),
                             "emotion": str(it.get("emotion", "neutral")),
-                        })
+                        }
+                        # Preserve authored performance fields; normalize.
+                        merged = normalize_performance_fields({**base, **it})
+                        result.append(merged)
                 return result
+
             out.append({
                 "scene_number": scene_num,
-                "conversation_intent": ddata.get("conversation_intent", ""),
-                "subtext": ddata.get("subtext", ""),
-                "emotional_state": ddata.get("emotional_state", ""),
+                "conversation_intent": d.get("conversation_intent", ""),
+                "subtext": d.get("subtext", ""),
+                "emotional_state": d.get("emotional_state", ""),
                 "lines": _norm(lines),
                 "inner_voice": _norm(inner),
             })
         self.brief["dialogues"] = out
+        # Record orphan dialogue accounting for the evidence package (§4).
+        self.brief["dialogue_authority_reconciliation"] = dialogue_authority_reconciliation(
+            dialogues, auth_scenes
+        )
 
     def _build_context(self):
         wd = self.pkp.world_development or WorldDevelopment()
@@ -1052,6 +1145,74 @@ class Genesis2Bridge:
 
         return scenes_out
 
+    def _build_story_lineage(self):
+        """P0-03: Preserve story meaning across phases.
+
+        Deterministically derive:
+          - brief['ending'] from the story_foundation's final resolution beat
+            (the beat whose position is Falling Action/Resolution, or the last
+            authored beat). This is NOT fabrication — it carries the model's own
+            authored resolution into the brief. If GENESIS authored no resolution
+            beat, ending is left empty so the freeze gate blocks.
+          - brief['story_requirements'] — the beat lineage (stable ids) so the
+            cross-phase reconciliation gate can verify coverage.
+          - per-scene 'realizes_requirements' — which requirement ids each scene
+            deterministically maps to (by narrative_beat position / title text).
+        """
+        sf = self.pkp.story_foundation or StoryFoundation()
+        beats = getattr(sf, "story_beats", []) or []
+        beat_list: list[dict] = []
+        ending = ""
+
+        for i, b in enumerate(beats):
+            bdata = b.model_dump() if hasattr(b, "model_dump") else (dict(b) if isinstance(b, dict) else {})
+            name = str(bdata.get("name", "") or f"Beat {i+1}")
+            desc = str(bdata.get("description", "") or "")
+            position = str(bdata.get("position", "") or "").strip().lower()
+            beat_id = f"BEAT-{i+1:03d}"
+            beat_list.append({
+                "id": beat_id,
+                "name": name,
+                "description": desc,
+                "position": position,
+            })
+            # The resolution/ending beat: ONLY an explicit resolution-position
+            # beat (Falling Action / Resolution / Ending).  Do NOT reverse-fabricate
+            # the ending from whatever the last scene happened to be (P0-03R).
+            if position in ("falling action", "resolution", "ending"):
+                if desc or name:
+                    ending = f"{name}: {desc}".strip() if desc else name
+
+        # Authoritative upstream resolution: the approved synopsis carries the
+        # episode's intended resolution.  Prefer it over any beat-derived ending
+        # so the ending is preserved from the concept, not reverse-engineered.
+        synopsis = getattr(self.pkp, "synopsis", "") or ""
+        if not ending and synopsis:
+            # The synopsis's final clause is the authoritative resolution.
+            import re as _re
+            m = _re.search(r"until he finally (.*?)[\.\n]|until she (.*?)[\.\n]|finally (.*?)[\.\n]", synopsis)
+            if m:
+                clause = next((g for g in m.groups() if g), "")
+                if clause:
+                    ending = f"Resolution: {clause.strip().capitalize()}"
+
+        if ending:
+            self.brief["ending"] = ending
+        self.brief["story_requirements"] = beat_list
+
+        # Map scenes to the canonical requirements they realize deterministically.
+        # The canonical requirement set is the frozen manifest (REQ-001..N), NOT
+        # the LLM's story_beats.  A scene may realize multiple requirements
+        # (many-to-one is valid); the mapping is onto the frozen set and never
+        # invents new requirement ids.  This is the P0-03R fix: the denominator
+        # must come from the canonical manifest, not from downstream scenes.
+        from movie_os.genesis2.requirement_manifest import map_scene_to_requirements
+        scenes = self.brief.get("scenes") or []
+        for scene in scenes:
+            rids = map_scene_to_requirements(scene)
+            if rids:
+                scene["realizes_requirements"] = rids
+
     def _build_parameters(self):
         v = self.pkp.validation
         cc = self.pkp.creative_critique
@@ -1142,3 +1303,28 @@ def _act_ordinal(n: int) -> str:
     if n <= 7:
         return "Rising Action"
     return "Resolution"
+
+
+def _normalize_act_label(label: str) -> str:
+    """Normalize an act label to an ordinal form (e.g. 'Act I: The Silent Wall'
+    -> 'Act I'). Preserves the narrative act position deterministically."""
+    if not label:
+        return "Act I"
+    low = label.strip()
+    # Already an ordinal like "Act I" / "Act 1" / "ACT_I"
+    import re
+    m = re.match(r"(?i)^\s*act[_:\s]*(i{1,3}|iv|v{1,3}|\d{1,2}|one|two|three)\b", low)
+    if m:
+        num = m.group(1)
+        roman = {"I": "I", "II": "II", "III": "III", "IV": "IV", "V": "V"}
+        if num.lower() in ("one",):
+            num = "I"
+        elif num.lower() in ("two",):
+            num = "II"
+        elif num.lower() in ("three",):
+            num = "III"
+        return f"Act {num.upper()}"
+    # Fall back to act ordinal by full name position if a recognizable prefix
+    if low.startswith(("Act ", "ACT ", "Act_", "ACT_")):
+        return low.split(":", 1)[0].strip()
+    return low

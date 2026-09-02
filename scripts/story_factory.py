@@ -283,8 +283,8 @@ def main():
     # for different deployments (remote LMStudio, Azure OpenAI, etc).
     parser.add_argument(
         "--lmstudio-url",
-        default="http://localhost:1234",
-        help="LMStudio base URL. Default: http://localhost:1234",
+        default="http://localhost:11434",
+        help="LMStudio base URL. Default: http://localhost:11434",
     )
     parser.add_argument(
         "--lmstudio-key",

@@ -883,8 +883,8 @@ psychological_cinema_standard:
     
     # Step 1: Narrative generation — Qwen3-Coder-30B via LMStudio
     narrative_generation:
-      model: "qwen3-coder-30b-a3b-instruct-mlx"
-      provider: "LMStudio (local, http://localhost:1234)"
+      model: "qwen3-coder-30b-a3b-instruct"
+      provider: "LMStudio (local, http://localhost:11434)"
       responsibilities:
         - "Read story markdown + playbook + context files + feedback rules"
         - "Generate 11 scenes following the narrative arc exactly"
@@ -895,7 +895,7 @@ psychological_cinema_standard:
     
     # Step 2: Emotional refinement — second LLM pass
     emotional_refinement:
-      model: "supergemma4-26b-uncensored-mlx-v2"
+      model: "supergemma4-26b-uncensored-v2"
       provider: "LMStudio (local)"
       responsibilities:
         - "Rewrite each scene's voiceover for emotional depth"
@@ -979,14 +979,14 @@ psychological_cinema_standard:
       description: "Qwen3-Coder reads story + playbook + context + feedback rules. Generates 11 scenes following the narrative arc."
       input: "Story + playbook + narrative_arc + characters + feedback rules"
       output: "Generated manifest YAML with 11 scenes (beat, mood, energy, voiceover, visual description, shot language)"
-      model: "qwen3-coder-30b-a3b-instruct-mlx"
+      model: "qwen3-coder-30b-a3b-instruct"
       temperature: 0.7
     
     step_3_emotional_script_refinement:
       description: "Second LLM pass rewrites each voiceover for emotional depth. Cleans artifacts. Ensures climax is devastating."
       input: "11 scenes with draft voiceovers"
       output: "11 scenes with refined voiceovers (recognition, not analysis)"
-      model: "supergemma4-26b-uncensored-mlx-v2"
+      model: "supergemma4-26b-uncensored-v2"
       temperature: 0.6
     
     step_4_review_checkpoint:

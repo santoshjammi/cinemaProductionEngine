@@ -59,7 +59,7 @@ class NarrativeGenerator:
         manifest: dict,
         api_key: str,
         base_url: str,
-        model: str = "qwen3-coder-30b-a3b-instruct-mlx",
+        model: str = "qwen3-coder-30b-a3b-instruct",
         temperature: float = 0.7,
         max_tokens: int = 4000,
     ):
@@ -335,7 +335,7 @@ class EmotionalRefiner:
         self,
         api_key: str,
         base_url: str,
-        model: str = "supergemma4-26b-uncensored-mlx-v2",
+        model: str = "supergemma4-26b-uncensored-v2",
         temperature: float = 0.6,
         max_tokens: int = 2000,
     ):
@@ -1392,15 +1392,15 @@ class PsychologicalCinemaPipeline:
         manifest_path: str,
         topic_dir: str | None = None,
         output_dir: str = "output/videos",
-        lmstudio_url: str = "http://localhost:1234",
+        lmstudio_url: str = "http://localhost:11434",
         lmstudio_key: str = "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W",
         use_adapter: bool = False,
         # LLM configuration — override the defaults per-territory.
         # These come from CLI args or from the manifest's `llm:` block.
-        narrative_model: str = "qwen3-coder-30b-a3b-instruct-mlx",
+        narrative_model: str = "qwen3-coder-30b-a3b-instruct",
         narrative_temperature: float = 0.7,
         narrative_max_tokens: int = 4000,
-        refiner_model: str = "supergemma4-26b-uncensored-mlx-v2",
+        refiner_model: str = "supergemma4-26b-uncensored-v2",
         refiner_temperature: float = 0.6,
         refiner_max_tokens: int = 2000,
     ):
@@ -2134,19 +2134,19 @@ async def main():
     # LLM configuration — these can also be set in the manifest's `llm:` block.
     # CLI overrides manifest overrides built-in defaults.
     parser.add_argument("--narrative-model", default=None,
-                        help="Model name for the NarrativeGenerator (scene generation). Default: qwen3-coder-30b-a3b-instruct-mlx")
+                        help="Model name for the NarrativeGenerator (scene generation). Default: qwen3-coder-30b-a3b-instruct")
     parser.add_argument("--narrative-temperature", type=float, default=None,
                         help="Sampling temperature for scene generation. Default: 0.7")
     parser.add_argument("--narrative-max-tokens", type=int, default=None,
                         help="Max tokens for scene generation. Default: 4000")
     parser.add_argument("--refiner-model", default=None,
-                        help="Model name for the EmotionalRefiner (second-pass narration). Default: supergemma4-26b-uncensored-mlx-v2")
+                        help="Model name for the EmotionalRefiner (second-pass narration). Default: supergemma4-26b-uncensored-v2")
     parser.add_argument("--refiner-temperature", type=float, default=None,
                         help="Sampling temperature for the refiner. Default: 0.6")
     parser.add_argument("--refiner-max-tokens", type=int, default=None,
                         help="Max tokens for the refiner. Default: 2000")
     parser.add_argument("--lmstudio-url", default=None,
-                        help="LMStudio base URL. Default: http://localhost:1234")
+                        help="LMStudio base URL. Default: http://localhost:11434")
     parser.add_argument("--lmstudio-key", default=None,
                         help="LMStudio API key. Default: built-in dev key")
 
@@ -2172,12 +2172,12 @@ async def main():
         topic_dir=args.topic_dir,
         output_dir=args.output_dir,
         use_adapter=args.use_adapter,
-        lmstudio_url=_pick(args.lmstudio_url, "lmstudio_url", "http://localhost:1234"),
+        lmstudio_url=_pick(args.lmstudio_url, "lmstudio_url", "http://localhost:11434"),
         lmstudio_key=_pick(args.lmstudio_key, "lmstudio_key", "sk-lm-TkM3NqaZ:CQdNsDjxGRm17O3Gg59W"),
-        narrative_model=_pick(args.narrative_model, "narrative_model", "qwen3-coder-30b-a3b-instruct-mlx"),
+        narrative_model=_pick(args.narrative_model, "narrative_model", "qwen3-coder-30b-a3b-instruct"),
         narrative_temperature=float(_pick(args.narrative_temperature, "narrative_temperature", 0.7)),
         narrative_max_tokens=int(_pick(args.narrative_max_tokens, "narrative_max_tokens", 4000)),
-        refiner_model=_pick(args.refiner_model, "refiner_model", "supergemma4-26b-uncensored-mlx-v2"),
+        refiner_model=_pick(args.refiner_model, "refiner_model", "supergemma4-26b-uncensored-v2"),
         refiner_temperature=float(_pick(args.refiner_temperature, "refiner_temperature", 0.6)),
         refiner_max_tokens=int(_pick(args.refiner_max_tokens, "refiner_max_tokens", 2000)),
     )

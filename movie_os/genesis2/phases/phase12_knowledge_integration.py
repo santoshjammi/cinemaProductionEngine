@@ -13,6 +13,12 @@ class KnowledgeIntegrationPhase(PhaseBase):
     phase_number = 12
     phase_name = "Knowledge Integration"
     _REQUIRED: list[str] = ["package", "knowledge_graph"]
+    # P0: Phase12 is a bounded structured call. The local model (qwen3:4b)
+    # rambles into prose when given an unbounded budget, and the 4096-token
+    # global ceiling under a 131072-token context window lets it generate
+    # slowly past the 300s timeout. A phase-specific ceiling + structured
+    # output keeps it schema-constrained and fast (mirrors Phase02/03/04/10).
+    _OUTPUT_BUDGET = 512
 
     def build_draft_prompt(self, pkg: dict[str, Any]) -> str:
         previous_keys = [f"phase_{i:02d}" for i in range(1, 12)]
@@ -34,7 +40,7 @@ class KnowledgeIntegrationPhase(PhaseBase):
 
     def parse_draft(self, response: str) -> KnowledgeObject:
         from ..llm_client import _extract_json
-        data = _extract_json(response)
+        data = response if isinstance(response, dict) else _extract_json(response)
         from ..models import (
             KnowledgeGraphNode, KnowledgeGraphEdge, KnowledgeIntegration,
         )
@@ -89,7 +95,25 @@ class KnowledgeIntegrationPhase(PhaseBase):
 
     def draft(self, pkg: dict[str, Any]) -> KnowledgeObject:
         prompt = self.build_draft_prompt(pkg)
-        response = self.llm.generate(prompt)
+        from ..models import KnowledgeIntegration
+        response_format = KnowledgeIntegration.model_json_schema()
+        generator = getattr(self.llm, "generate_json")
+        config = getattr(self.llm, "_config", None)
+        if config is not None:
+            original_max_tokens = config.max_tokens
+            config.max_tokens = self._OUTPUT_BUDGET
+            try:
+                try:
+                    response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+                except TypeError:
+                    response = generator(prompt, config, "planner")
+            finally:
+                config.max_tokens = original_max_tokens
+        else:
+            try:
+                response = generator(prompt, "planner", self.phase_name, self.phase_name, response_format=response_format)
+            except TypeError:
+                response = generator(prompt)
         return self.parse_draft(response)
 
     def _review_specific(self, knowledge: KnowledgeObject) -> list[str]:

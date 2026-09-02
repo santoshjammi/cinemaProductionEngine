@@ -1,30 +1,35 @@
-- image: null
-  prompt: Cinematic wide shot of Visual description for scene 1. natural light with
-    dramatic composition. melancholic atmosphere. Professional cinematography, 8k
-    resolution.
-  scene_id: 1
-  visual_style: cinematic
-- image: null
-  prompt: Cinematic close-up of Visual description for scene 2. dramatic backlight
-    with dramatic composition. melancholic atmosphere. Professional cinematography,
-    8k resolution.
-  scene_id: 2
-  visual_style: cinematic
-- image: null
-  prompt: Cinematic dolly-in of Visual description for scene 3. low-key lighting with
-    dramatic composition. melancholic atmosphere. Professional cinematography, 8k
-    resolution.
-  scene_id: 3
-  visual_style: cinematic
-- image: null
-  prompt: Cinematic panning shot of Visual description for scene 4. soft fill light
-    with dramatic composition. melancholic atmosphere. Professional cinematography,
-    8k resolution.
-  scene_id: 4
-  visual_style: cinematic
-- image: null
-  prompt: Cinematic tracking shot of Visual description for scene 5. natural light
-    with dramatic composition. melancholic atmosphere. Professional cinematography,
-    8k resolution.
-  scene_id: 5
-  visual_style: cinematic
+- scene_id: 1
+  prompt: |
+    BEHAVIORAL_PROMPT: [Cinematic close-up] SARAH reaches out, her hand gently touching MARK's forearm. MARK’s eyes widen with panic (desire is visible in his eyes, but fear is in his body). He instinctively pulls his arm back to grab a glass of water on the table, creating a physical barrier between them.
+    CHARACTER_LORE: SARAH [Medium height, early 30s, light tan skin, long dark wavy hair half-up, expression of gentle concern]. MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, wearing faded button-down shirt, looking physically rigid and anxious].
+    CINEMATIC_STYLE: Shallow depth of field. Warm, soft morning light in the kitchen. Focus is on the split-second panic in Mark's eyes before he looks away.
+
+- scene_id: 2
+  prompt: |
+    BEHAVIORAL_PROMPT: [Medium shot from a distance] MARK is looking at his phone, but we see over his shoulder that he has typed a long message and is deleting it. SARAH sits on the opposite side of the couch, leaning forward slightly toward him (the approach). MARK sees her leaning in and instinctively stiffens, turning his body away from her toward the wall.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, holding phone like a shield]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, looking hopeful but confused by his movement].
+    CINEMATIC_STYLE: Warm room lighting contrasted with the cold blue digital glow of the phone screen reflecting in Mark's eyes.
+
+- scene_id: 3
+  prompt: |
+    BEHAVIORAL_PROMPT: [Over-the-shoulder shot] SARAH is speaking, her face filling the foreground slightly out of focus, looking directly at MARK. MARK is in the background, but he is not looking at her; he is staring intensely at a wall clock or a bookshelf behind her, his jaw clenched tight, refusing to meet her gaze despite being physically close.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, looking exhausted and defensive]. SARAH [Medium height, early 30s, light tan skin, expression shifting from confusion to self-blame/fear that she is the problem].
+    CINEMATIC_STYLE: Harsh overhead kitchen light creating a 'spotlight' effect on Sarah, while Mark sits partially in shadow. The framing emphasizes his refusal to engage.
+
+- scene_id: 4
+  prompt: |
+    BEHAVIORAL_PROMPT: [Wide shot emphasizing negative space] SARAH sits on one side of the couch, extending her hand toward MARK's shoulder (a final attempt at connection). MARK visibly flinches and stands up abruptly, putting a large coffee table between them as a fortress. SARAH looks at him, slowly pulls her hand back, and crosses her arms (she is now emotionally withdrawing too).
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, posture defensively closed off]. SARAH [Medium height, early 30s, light tan skin, sitting on the edge of the couch, hand hovering in mid-air where she touched him, looking defeated].
+    CINEMATIC_STYLE: Wide composition emphasizing the massive gap of negative space between them. Cold blue twilight light creeping into the room from a window behind Mark.
+
+- scene_id: 5
+  prompt: |
+    BEHAVIORAL_PROMPT: [Extreme wide shot focusing on empty space] SARAH stands in the background doorway, her hand on the doorframe, looking back at MARK waiting for him to speak. MARK sits alone in the foreground on a separate armchair. His lips part as if he wants to call her back, but his shoulders slump and he looks down at his hands. She turns and leaves.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, expression of quiet regret]. SARAH [Medium height, early 30s, light tan skin, long dark wavy hair, standing in the threshold between inside and outside, silhouette framed by cold outdoor light].
+    CINEMATIC_STYLE: The camera focuses on the empty space between the armchair and the door. Cold blue twilight dominates; the warm room lights feel like they are fading.
+
+- scene_id: 6
+  prompt: |
+    BEHAVIORAL_PROMPT: [Medium shot focusing on hands -> slow pullback to extreme wide] Close-up of MARK's hands resting on his knees. One hand slowly opens, fingers uncurling as if finally ready to reach out. Cut to a wide shot where Mark occupies only 15% of the frame, surrounded by massive negative space and cold twilight, while the warm light from the doorway he just let close slowly fades to darkness.
+    CHARACTER_LORE: MARK [Tall, lean build, late 30s, warm brown skin, short black hair with silver streak at left temple, expression of hollow realization].
+    CINEMATIC_STYLE: Architecture consumes the frame. The environment is the protagonist now. Cold blue tones.

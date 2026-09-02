@@ -1,0 +1,46 @@
+{
+  "episode_id": "EP-0003",
+  "working_title": "The Gift He Couldn't Accept",
+  "synopsis": "Sarah surprises Mark with a thoughtful gift for their anniversary, but Mark's discomfort with receiving kindness makes him deflect and criticize it. Sarah feels her effort was rejected. The turning point comes when Mark realizes his reaction came from a deep fear of being seen as dependent, and he finally lets himself accept the gift and the love behind it.",
+  "constraints": {
+    "runtime": "3-5 minutes",
+    "platform": "youtube",
+    "grammar": "psychological_cinema",
+    "tone_arc": "warm → defensive → hurt → reflective → vulnerable → accepted",
+    "characters": "MARK (38, responsible, loving, proud, emotionally contained; struggles to receive kindness), SARAH (36, perceptive, patient, affectionate, increasingly hurt by his deflection)",
+    "style": "Cinematic psychological realism. Warm domestic lighting. Minimal narration, strong facial micro-expressions, meaningful blocking and distance, restrained piano score."
+  },
+  "contract": {
+    "episode_id": "EP-0003",
+    "working_title": "The Gift He Couldn't Accept",
+    "classification": {
+      "niche": "Psychology",
+      "domain": "Relationship & Emotional Psychology",
+      "problem_family": "RP-01",
+      "sub_series": "RP-01-S01"
+    },
+    "universe": {
+      "universe_id": "UNIVERSE-MARK-SARAH",
+      "primary_characters": ["Mark", "Sarah"]
+    },
+    "story": {
+      "primary_mechanism": "fear of receiving kindness",
+      "story_context": "An anniversary gift triggers Mark's discomfort with being cared for.",
+      "viewer_recognition": "Deflecting a gift is often a fear of vulnerability, not ingratitude",
+      "responsibility_pattern": "both",
+      "intended_resolution": "Mark accepts the gift and the love behind it."
+    },
+    "format": {
+      "format_profile": "YOUTUBE_LONGFORM_16X9",
+      "target_runtime": "12m"
+    },
+    "continuity": {"required": true},
+    "status": {"contract_state": "approved"}
+  },
+  "ontology_selection": {
+    "niche": "Psychology",
+    "domain": "Relationship & Emotional Psychology",
+    "problem_family": "RP-01",
+    "sub_series": "RP-01-S01"
+  }
+}

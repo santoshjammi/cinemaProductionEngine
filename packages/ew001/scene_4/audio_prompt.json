@@ -1,0 +1,11 @@
+{
+  "artifact_id": "AUDIO-SCENE-04",
+  "sarah_voice_profile": {
+    "freq_target": 250,
+    "mask": "calm_but_pained"
+  },
+  "mark_voice_profile": {
+    "freq_target": 180,
+    "mask": "tight_terror"
+  }
+}

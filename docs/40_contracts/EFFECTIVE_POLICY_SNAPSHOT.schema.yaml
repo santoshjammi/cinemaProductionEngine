@@ -1,0 +1,39 @@
+schema:
+  name: EffectivePolicySnapshot
+  version: '1.0'
+required:
+- policy_snapshot_id
+- episode_contract_id
+- source_versions
+- resolved_rules
+- applicable_standards
+- format_profile
+- conflicts
+- status
+- sha256
+example:
+  policy_snapshot_id: POLICY-EP0001-V1
+  episode_contract_id: EP-0001-V1
+  source_versions:
+    cinema_master_constitution: CMC-001@1.0
+    commercial_distribution_constitution: CDC-001@1.0
+    psychology_sub_constitution: PSC-001@1.0
+    series_constitution: MSSC-001@1.0
+  resolved_rules:
+    niche: psychology
+    one_primary_mechanism: true
+    permanent_separation_allowed: false
+    clinical_diagnosis_allowed: false
+    dialogue_owner: GENESIS
+    production_creative_rewrite_allowed: false
+  applicable_standards:
+  - DIALOGUE_AND_PERFORMANCE@1.0
+  - EMOTIONAL_CONTINUITY@1.0
+  - VISUAL_CHARACTER_CONTINUITY@1.0
+  - VOICE_AUDIO@1.0
+  - MOTION_AND_LIPSYNC@1.0
+  - ANTI_AI_SLOP@1.0
+  format_profile: YOUTUBE_LONGFORM_16X9@1.0
+  conflicts: []
+  status: RESOLVED
+  sha256: <generated>

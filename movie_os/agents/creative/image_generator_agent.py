@@ -168,6 +168,12 @@ class ImageGeneratorAgent(ProductionAgent):
                 self._create_placeholder_image(prompt, placeholder)
                 image_paths.append(str(placeholder))
         
+        # Unload models from ComfyUI
+        try:
+            await client.unload_models()
+        except Exception as e:
+            logger.warning(f"Failed to unload ComfyUI models: {e}")
+
         return image_paths if image_paths else self._generate_placeholder_images(context)
     
     def _generate_placeholder_images(self, context: ProductionContext) -> List[str]:

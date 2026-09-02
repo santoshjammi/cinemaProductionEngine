@@ -23,7 +23,7 @@ DEFAULT_CONFIG_PATH = Path.home() / ".config" / "movie_os" / "genesis_llm.yaml"
 
 DEFAULT_CONFIG: dict[str, Any] = {
     "backend": "auto",
-    "default_model": "deepseek-coder-v2:latest",
+    "default_model": "qwen3:4b",
     "ollama": {
         "url": "http://localhost:11434",
         "python_api": True,
@@ -159,7 +159,7 @@ def get_model_for_tier(config: dict[str, Any], tier: str) -> str:
     backend = config.get("backend", "auto")
 
     if backend == "ollama":
-        return config.get("default_model", "deepseek-coder-v2:latest")
+        return config.get("default_model", "qwen3:4b")
 
     if backend == "hf":
         hf_models = config.get("hf", {}).get("models", {})

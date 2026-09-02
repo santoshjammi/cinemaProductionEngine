@@ -70,7 +70,7 @@ def main() -> int:
     registry.register(sfx_cap)
     # Story: LMStudio (we'll provide timeline via brief, so this is a no-op fallback)
     story_cap = StoryCapability(provider=default_provider_factory(
-        "story", "lmstudio", {"url": "http://127.0.0.1:1234"}, 0.0,
+        "story", "lmstudio", {"url": "http://127.0.0.1:11434"}, 0.0,
     ))
     registry.register(story_cap)
     print(f"  Registered capabilities: {registry.list()}")

@@ -1,0 +1,35 @@
+schema:
+  name: ImmutableRunManifest
+  version: '1.0'
+required:
+- run_id
+- pkp_id
+- pkp_version
+- policy_snapshot_id
+- started_at
+- provider_config
+- input_assets
+- outputs
+- hashes
+- status
+fields:
+  run_id: null
+  pkp_id: null
+  pkp_version: null
+  policy_snapshot_id: null
+  started_at: null
+  completed_at: null
+  provider_config:
+    llm: null
+    image: null
+    image_to_video: null
+    lip_sync: null
+    tts: null
+    music: null
+    renderer: null
+  input_assets: []
+  generation_parameters: {}
+  outputs: []
+  hashes: {}
+  status: started | failed | completed
+  known_limitations: []

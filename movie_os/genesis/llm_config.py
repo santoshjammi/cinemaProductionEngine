@@ -29,7 +29,7 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "python_api": True,
     },
     "lmstudio": {
-        "url": "http://127.0.0.1:1234",
+        "url": "http://127.0.0.1:11434",
     },
     "hf": {
         "enabled": True,
@@ -107,17 +107,17 @@ def _check_lmstudio_running(url: str) -> bool:
 def _detect_backend(config: dict[str, Any]) -> str:
     """Auto-detect which backend is available.
 
-    Priority: ollama > lmstudio > hf
+    Priority: ollama > hf
     """
     ollama_url = config.get("ollama", {}).get("url", "http://localhost:11434")
-    lmstudio_url = config.get("lmstudio", {}).get("url", "http://127.0.0.1:1234")
+    lmstudio_url = config.get("lmstudio", {}).get("url", "http://127.0.0.1:11434")
 
+    if _check_lmstudio_running(lmstudio_url):
+        logger.info("Auto-detect: Ollama running at %s", lmstudio_url)
+        return "lmstudio"
     if _check_ollama_running(ollama_url):
         logger.info("Auto-detect: Ollama running at %s", ollama_url)
         return "ollama"
-    if _check_lmstudio_running(lmstudio_url):
-        logger.info("Auto-detect: LMStudio running at %s", lmstudio_url)
-        return "lmstudio"
     if config.get("hf", {}).get("enabled", True):
         logger.info("Auto-detect: No server found, using HuggingFace")
         return "hf"
