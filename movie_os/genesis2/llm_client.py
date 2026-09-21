@@ -124,7 +124,13 @@ class LLMClient:
             tier_config.max_fallback_attempts = self._config.max_fallback_attempts
             try:
                 started = __import__("time").time()
-                response = provider.generate(prompt, tier_config, response_format=response_format)
+                try:
+                    response = provider.generate(prompt, tier_config, response_format=response_format)
+                except TypeError:
+                    # Some providers (e.g. test/local adapters) do not accept a
+                    # response_format kwarg at all. Retry the call without it —
+                    # pass positionally so the kwarg is omitted entirely.
+                    response = provider.generate(prompt, tier_config)
                 duration_ms = int((__import__("time").time() - started) * 1000)
                 self.call_history.append({
                     "model": model,
@@ -203,11 +209,21 @@ class MockLLMClient(MockLLMProvider):
         })
 
     def generate(self, prompt: str, config: LLMConfig | None = None, tier: str = "planner", phase_name: str | None = None, task_key: str | None = None, *args, **kwargs) -> str:
-        """Return a canned response (ignores tier, same as old behavior)."""
+        """Return a canned response (ignores tier, same as old behavior).
+
+        Phase prompts embed all prior phases' content, so a phase-N prompt
+        always contains earlier phase names too. Returning on the FIRST match
+        (insertion order) wrongly routes phase N to phase 1's fixture (e.g.
+        phase 10 gets "Creative Understanding"). Match the LAST registered key
+        instead — the current phase's own name is the most specific match.
+        """
         self._call_log.append(prompt[:100])
+        matched_key = None
         for key, response in self._responses.items():
             if key.lower() in prompt.lower():
-                return response
+                matched_key = response  # keep the most relevant (last) match
+        if matched_key is not None:
+            return matched_key
         # Phase-specific defaults based on prompt content
         if "Phase 03" in prompt or "Character Psychology" in prompt:
             return json.dumps({

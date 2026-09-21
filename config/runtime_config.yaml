@@ -1,0 +1,92 @@
+# Single consolidated runtime configuration for the videoGen PROMETHEUS pipeline.
+# Canonical source of truth referenced by all runtime stages. Do not scatter
+# these values across ad-hoc scripts — edit here only.
+# Task: SAI-93 / TASK-013 — Consolidate Runtime Configuration
+
+version: 1.0
+production_id: ew001
+default_episode: EP-0006
+
+# ── Rendering engine: ComfyUI ─────────────────────────────────────────────
+comfyui:
+  url: http://localhost:8191
+  install_path: /Users/santosh/ComfyUI-Installs/ComfyUI/ComfyUI
+  launch: detached            # detached = no pipe (avoid KSampler BrokenPipeError)
+  health_check_endpoint: /system_stats
+  health_check_timeout_seconds: 30
+  startup_timeout_seconds: 120
+  shutdown_timeout_seconds: 15
+  reuse_running_server: true   # reuse an already-running instance on <url>
+  pid_file: .runtime/comfyui.pid
+  log_file: .runtime/comfyui.log
+
+# ── FLUX image models ─────────────────────────────────────────────────────
+flux:
+  model: flux1-dev-fp8.safetensors
+  shared_models_dir: /Users/santosh/ComfyUI-Shared/models
+  workflows:
+    image: pipeline/flux_workflow_scene4.json
+    img2img: flux_img2img
+  quality:
+    draft: { steps: 4 }
+    production: { steps: 20 }
+    high_quality: { steps: 28, lora: true }
+  resolution: { width: 1024, height: 576 }
+  dtype: bf16                 # fp16/fp8 unsupported on MPS → NaN
+  denoise: 0.4                # img2img anchor lock
+
+# ── Voice / TTS order of preference ───────────────────────────────────────
+voice:
+  order: [edge_tts, local_tts]
+  providers:
+    edge_tts:                 # primary — intelligible, per-voice
+      command: edge-tts
+      fallback_voice: en-US-GuyNeural
+    local_tts:                # offline fallback (voxcpm / piper)
+      engine: voxcpm
+      venv: ~/.voxcpm-venv
+      sample_rate: 48000
+      channels: 1
+  format: wav
+  normalization:
+    loudness_target_lufs: -16
+    max_peak_db: -3
+
+# ── FFmpeg assembly ───────────────────────────────────────────────────────
+ffmpeg:
+  binary: ffmpeg
+  codecs:
+    audio: aac
+    video: libx264
+  profile: high
+  crf: 20
+  pix_fmt: yuv420p
+  motion: ken_burns          # push-in / pull-back / pan / zoom / static-hold / crossfade
+
+# ── Output locations ──────────────────────────────────────────────────────
+output:
+  root: output
+  run_root_pattern: productions/{episode_id}/runs/{run_id}
+  final_film: render/{clean_name}_final.mp4
+  scene_assets: packages/ew001/scene_{n}
+  mixed_audio: "{n}_mixed.m4a"
+
+# ── Fallback policy (fail-closed mission rule) ───────────────────────────
+fallback:
+  allow_music_fallback: false
+  allow_tts_fallback: false    # edge_tts→local_tts is an adapter swap, not content fallback
+  allow_visual_fallback: false
+  strict_media_validation: true
+  fail_closed: true            # no placeholders, no silent success
+
+# ── Timeouts & retries ────────────────────────────────────────────────────
+timeouts:
+  comfyui_render_seconds: 600
+  tts_generate_seconds: 300
+  ffmpeg_assembly_seconds: 300
+  llm_call_seconds: 120
+
+retry:
+  max_attempts: 3
+  backoff_factor: 2.0
+  retry_on_timeout: true

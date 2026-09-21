@@ -1,0 +1,16 @@
+pkp_id: PKP-EP-0006-v1
+version: '1'
+episode_id: EP-0006
+status: FROZEN
+content_hash: 237ee04b0f407bbec47c272e4b65bae15ab7bfe0864f48d603dc938ed1b97d9e
+production_id: ew001
+title: The Space Between Us
+sealed_at: '2026-09-18'
+artifacts:
+  frozen_pkp: PKP-EP-0006-v1.yaml
+  screenplay_yaml: ../screenplay.yaml
+  screenplay_md: ../screenplay.md
+  shooting_script: ../shooting_script.yaml
+scenes: 5
+dialogue_lines: 30
+shots: 37

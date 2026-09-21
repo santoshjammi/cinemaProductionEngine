@@ -249,15 +249,14 @@ class DialoguePlanningPhase(PhaseBase):
             response = self.llm.generate(prompt)
         knowledge = self.parse_draft(response, pkg)
 
-        # ── P0: drop orphan dialogues (scene_number not in Phase 6 anchors). ──
-        # The local model sometimes emits a stray dialogue (e.g. scene 0) that
-        # is not an authoritative scene. It must not be validated or carried
-        # into the brief. Only anchor-scene dialogues are authoritative.
-        if self._anchor_scene_numbers:
-            knowledge.dialogues = [
-                d for d in getattr(knowledge, "dialogues", [])
-                if getattr(d, "scene_number", None) in self._anchor_scene_numbers
-            ]
+        # ── P0: orphan-scene FAIL-CLOSED gate. ──
+        # Do NOT silently drop dialogues whose scene_number is not an
+        # authoritative anchor. The Guardian's contract is fail-closed: an
+        # orphan reference must surface as a validation ERROR (see
+        # _validate_specific), not be silently discarded. Keeping the orphan
+        # lets validation run and the phase fail closed.
+        # (Removed the prior filter that stripped orphans before validation —
+        # that hid the reference_error and allowed silent success.)
 
         # ── P0-01/20: repair current phase, don't regenerate the story. ──
         # The local model reliably omits some scenes when asked for many at once.

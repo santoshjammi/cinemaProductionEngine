@@ -112,7 +112,11 @@ def _build_mock() -> MockLLMClient:
         "confidence": "inferred",
     }))
     mock.set_response("Scene Planning", json.dumps({
-        "scenes": [{"scene_number": 1, "purpose": "Establish silence", "conflict": "Unspoken", "emotion": "Tension", "visual_goal": "Isolation", "audio_goal": "Silence", "character_goal": "Avoidance", "transition": "Hard cut", "duration": "60s", "dependencies": []}],
+        "scenes": [
+            {"scene_number": 1, "title": "Hook", "purpose": "Establish silence", "conflict": "Unspoken", "emotion": "Tension", "visual_goal": "Isolation", "audio_goal": "Silence", "character_goal": "Avoidance", "transition": "Hard cut", "duration": "60s", "dependencies": [1], "narrative_beat": "hook"},
+            {"scene_number": 2, "title": "Plot", "purpose": "Deepen the divide", "conflict": "Avoidance", "emotion": "Guilt", "visual_goal": "Distance", "audio_goal": "Ambient", "character_goal": "Withdraw", "transition": "Fade", "duration": "60s", "dependencies": [1], "narrative_beat": "plot"},
+            {"scene_number": 3, "title": "Climax", "purpose": "Resolve the silence", "conflict": "Truth", "emotion": "Vulnerable", "visual_goal": "Proximity", "audio_goal": "Dialogue", "character_goal": "Connect", "transition": "Cut", "duration": "60s", "dependencies": [2], "narrative_beat": "climax"},
+        ],
         "purpose": "Plan each scene",
         "creative_intent": "Scene-by-scene blueprint",
         "reasoning": "From narrative expansion",

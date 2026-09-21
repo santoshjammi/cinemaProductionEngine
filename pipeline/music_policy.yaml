@@ -1,0 +1,51 @@
+# Baseline Music Policy — videoGen PROMETHEUS
+# Task: SAI-100 / TASK-020 — Define the Baseline Music Policy
+#
+# Rule: allow ONLY approved local / CC0 tracks OR deliberate silence. Never
+# procedural oscillator "score" presented as real composition. Keep every
+# track's source recorded so the final film is licensable and reproducible.
+
+version: 1.0
+production_id: ew001
+
+allowed_sources:
+  - type: cc0            # public domain / CC0-licensed track
+  - type: local_original # in-house composed track (source file committed)
+  - type: silence        # deliberate absence of music (honours silence map)
+
+forbidden_sources:
+  - type: procedural_tones     # naive sine/oscillator "score" — NOT music
+  - type: unlicensed_web       # scraped track without license record
+  - type: streaming_ripped
+
+# Music must sit UNDER dialogue (never mask spoken voice).
+mixing:
+  music_under_dialogue: true
+  default_music_volume: 0.3
+  ducking:
+    enabled: true
+    threshold_lufs: -16
+    reduction_db: 6.0
+
+# Silence is a first-class option — honour the silence map exactly.
+silence:
+  allow_deliberate_silence: true
+  silence_map_source: sound.silence_strategy   # from frozen PKP
+
+# Provenance / licensing
+provenance:
+  record_source_for_every_track: true
+  required_fields: [track_id, title, license, source_file, composer]
+
+# Music assets currently approved for ew001 scene 4
+approved_tracks:
+  - track_id: scene_4_ambience
+    title: Kitchen ambience (light)
+    license: local_recorded
+    source_file: packages/ew001/scene_4/music/ambience.wav
+    composer: n/a (field recording)
+  - track_id: scene_4_score
+    title: Sparse cello (CC0)
+    license: cc0
+    source_file: packages/ew001/scene_4/music/score.wav
+    composer: CC0 library

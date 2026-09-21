@@ -1,0 +1,4617 @@
+{
+  "pkp_id": "PKP-EP-0006-v1",
+  "version": "1",
+  "episode_id": "EP-0006",
+  "policy_snapshot_id": "POLICY-EP-0006-13e83544f37a",
+  "status": "FROZEN",
+  "created_at": "2026-09-01T06:15:38.363476+00:00",
+  "frozen_at": "2026-09-01T06:15:38.363485+00:00",
+  "content_hash": "237ee04b0f407bbec47c272e4b65bae15ab7bfe0864f48d603dc938ed1b97d9e",
+  "canonical_bible_bindings": {
+    "Mark": {
+      "character_id": "MARK",
+      "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "character_bible_path": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "character_bible_sha256": "4daad6d358378f051e572e7ae51d0eec168464bfa0c8eee713f12f826546f169",
+      "visual_identity_registry_ref": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "visual_identity_path": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "visual_identity_sha256": "c1311e8a4f4114c94fc1b213bed336f714fd97d6218e8b871a2268851ce03752",
+      "voice_registry_ref": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "voice_registry_path": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "voice_registry_sha256": "58041c52fc305f4aaea86700ba9b71e4fb82ac31a4c5d6afac388c42fc222182",
+      "continuity_registry_ref": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+      "continuity_registry_path": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+      "continuity_registry_sha256": "406e98b98cde2c9b65909e84950b2f808a522c5f18a2e433f97dd58f93c2695f"
+    },
+    "Sarah": {
+      "character_id": "SARAH",
+      "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "character_bible_path": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "character_bible_sha256": "4daad6d358378f051e572e7ae51d0eec168464bfa0c8eee713f12f826546f169",
+      "visual_identity_registry_ref": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "visual_identity_path": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "visual_identity_sha256": "c1311e8a4f4114c94fc1b213bed336f714fd97d6218e8b871a2268851ce03752",
+      "voice_registry_ref": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "voice_registry_path": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "voice_registry_sha256": "58041c52fc305f4aaea86700ba9b71e4fb82ac31a4c5d6afac388c42fc222182",
+      "continuity_registry_ref": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+      "continuity_registry_path": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+      "continuity_registry_sha256": "406e98b98cde2c9b65909e84950b2f808a522c5f18a2e433f97dd58f93c2695f"
+    }
+  },
+  "canonical_registry_bindings": {
+    "character_bible_refs": [
+      "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+      "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml"
+    ],
+    "visual_identity_registry_refs": [
+      "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+      "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml"
+    ],
+    "voice_registry_refs": [
+      "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+      "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml"
+    ],
+    "continuity_registry_ref": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml"
+  },
+  "canonical_sources": {
+    "mark_sarah": {
+      "registries": {
+        "character_bible": {
+          "document": {
+            "id": "MSCB-002",
+            "version": "2.0",
+            "status": "CANONICAL",
+            "purpose": "Stable Mark & Sarah identity. Episode-specific emotional problems do not belong here."
+          },
+          "universe_id": "UNIVERSE-MARK-SARAH",
+          "household": {
+            "region": "Seattle\u2013Bellevue\u2013Redmond, Washington State, USA",
+            "relationship_years": 14,
+            "children": [
+              {
+                "child_id": "CHILD-01",
+                "approx_age": 12,
+                "canon_detail_level": "minimal_until_story_requires"
+              },
+              {
+                "child_id": "CHILD-02",
+                "approx_age": 9,
+                "canon_detail_level": "minimal_until_story_requires"
+              },
+              {
+                "child_id": "CHILD-03",
+                "approx_age": 6,
+                "canon_detail_level": "minimal_until_story_requires"
+              }
+            ],
+            "lifestyle": "Typical comfortable US software-industry family; ordinary work, school, household, and community pressures."
+          },
+          "characters": {
+            "MARK": {
+              "approx_age": 40,
+              "identity": "white American",
+              "profession": "software engineer",
+              "series_role": "co-lead",
+              "stable_values": [
+                "family",
+                "responsibility",
+                "competence",
+                "fairness",
+                "providing and participating"
+              ],
+              "ordinary_tendencies": [
+                "practical problem-solving orientation",
+                "can become absorbed in work",
+                "cares deeply about family even when communication is imperfect"
+              ],
+              "not_permanent_traits": [
+                "fear-based withdrawal",
+                "shame",
+                "job insecurity",
+                "emotional unavailability",
+                "being the spouse at fault"
+              ]
+            },
+            "SARAH": {
+              "approx_age": 36,
+              "identity": "white American",
+              "profession": "business operations professional working from home",
+              "series_role": "co-lead",
+              "stable_values": [
+                "family",
+                "partnership",
+                "competence",
+                "fairness",
+                "connection"
+              ],
+              "ordinary_tendencies": [
+                "manages substantial work and household coordination",
+                "can be direct when overloaded",
+                "cares deeply about family even when communication is imperfect"
+              ],
+              "not_permanent_traits": [
+                "therapist-like wisdom",
+                "always reading Mark correctly",
+                "always being emotionally available",
+                "being the spouse who fixes the problem"
+              ]
+            }
+          },
+          "relationship_invariants": [
+            "Permanent separation is prohibited in this series.",
+            "Both spouses may make believable mistakes.",
+            "Responsibility must vary across episodes.",
+            "Past episode consequences may persist.",
+            "Warmth and ordinary affection should exist often enough to establish why the relationship matters."
+          ],
+          "episode_state_boundary": {
+            "rule": "Current pressure, fear, withdrawal, frustration, misunderstanding, and emotional distance belong in the Episode Contract / continuity state, not permanent character canon."
+          },
+          "disclaimer": "Mark and Sarah are fictional characters created for storytelling purposes. Any resemblance to real persons, living or dead, is coincidental and unintended."
+        },
+        "voice_registry": {
+          "document": {
+            "id": "MSVR-001",
+            "version": "1.0",
+            "status": "REQUIRES_REFERENCE_BINDING"
+          },
+          "rule": "Voice identity is series canon. Performance may vary; identity may not.",
+          "characters": {
+            "MARK": {
+              "voice_reference_id": null,
+              "provider": null,
+              "provider_voice_id": null,
+              "reference_audio_path": null,
+              "reference_audio_sha256": null,
+              "language": "en-US",
+              "baseline": {
+                "apparent_age": "around 40",
+                "style": "natural, grounded, restrained",
+                "pace": "conversational",
+                "prohibited": [
+                  "announcer",
+                  "trailer voice",
+                  "exaggerated sadness",
+                  "motivational speaker"
+                ]
+              },
+              "approved_performance_range": [
+                "warm",
+                "neutral",
+                "busy",
+                "concerned",
+                "guarded",
+                "frustrated",
+                "vulnerable",
+                "relieved"
+              ]
+            },
+            "SARAH": {
+              "voice_reference_id": null,
+              "provider": null,
+              "provider_voice_id": null,
+              "reference_audio_path": null,
+              "reference_audio_sha256": null,
+              "language": "en-US",
+              "baseline": {
+                "apparent_age": "mid-30s",
+                "style": "natural, warm, competent, restrained",
+                "pace": "conversational",
+                "prohibited": [
+                  "therapist cadence",
+                  "announcer",
+                  "exaggerated sentiment",
+                  "motivational speaker"
+                ]
+              },
+              "approved_performance_range": [
+                "warm",
+                "neutral",
+                "busy",
+                "concerned",
+                "frustrated",
+                "uncertain",
+                "vulnerable",
+                "relieved"
+              ]
+            }
+          },
+          "binding_instruction": "Attach the creator-approved favorite voice samples/provider IDs here before production approval. Do not infer a permanent voice from an arbitrary generated run."
+        },
+        "visual_identity_registry": {
+          "document": {
+            "id": "MSVI-001",
+            "version": "1.0",
+            "status": "REQUIRES_REFERENCE_BINDING"
+          },
+          "rule": "Approved image references outrank generated prose descriptions.",
+          "characters": {
+            "MARK": {
+              "reference_asset_ids": [],
+              "primary_reference_path": null,
+              "primary_reference_sha256": null,
+              "identity_lock": true,
+              "notes": "Bind the already-approved Mark reference image here."
+            },
+            "SARAH": {
+              "reference_asset_ids": [],
+              "primary_reference_path": null,
+              "primary_reference_sha256": null,
+              "identity_lock": true,
+              "notes": "Bind the already-approved Sarah reference image here."
+            }
+          },
+          "hard_failures": [
+            "face identity drift",
+            "apparent ethnicity drift",
+            "large unexplained age drift",
+            "hair identity drift outside approved variation",
+            "generated asset no longer recognizably matches the approved person"
+          ],
+          "episode_variation_allowed": [
+            "expression",
+            "camera angle",
+            "lighting",
+            "location",
+            "context-appropriate wardrobe",
+            "emotion",
+            "minor grooming variation when continuity supports it"
+          ]
+        },
+        "continuity_registry": {
+          "document": {
+            "id": "MSCR-001",
+            "version": "1.0",
+            "status": "CANONICAL_MUTABLE_REGISTRY"
+          },
+          "universe_id": "UNIVERSE-MARK-SARAH",
+          "current_series_state": {
+            "last_approved_episode_id": null,
+            "relationship_state": "stable committed marriage",
+            "current_open_loops": [],
+            "known_shared_practices": [],
+            "recent_family_events": [],
+            "recent_work_events": []
+          },
+          "event_schema": {
+            "event_id": null,
+            "episode_id": null,
+            "event_type": "promise | discovery | conflict | repair | family | work | routine | other",
+            "summary": null,
+            "characters_affected": [],
+            "persistent_effect": null,
+            "can_be_referenced_later": true
+          },
+          "rule": "GENESIS must load relevant continuity before planning a new episode. It must not rely on model memory alone."
+        },
+        "provenance": {
+          "character_bible": {
+            "path": "/Users/santosh/Desktop/projects/videoGen/docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+            "sha256": "4daad6d358378f051e572e7ae51d0eec168464bfa0c8eee713f12f826546f169",
+            "document_id": "MSCB-002",
+            "version": "2.0",
+            "status": "CANONICAL"
+          },
+          "voice_registry": {
+            "path": "/Users/santosh/Desktop/projects/videoGen/docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+            "sha256": "58041c52fc305f4aaea86700ba9b71e4fb82ac31a4c5d6afac388c42fc222182",
+            "document_id": "MSVR-001",
+            "version": "1.0",
+            "status": "REQUIRES_REFERENCE_BINDING"
+          },
+          "visual_identity_registry": {
+            "path": "/Users/santosh/Desktop/projects/videoGen/docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+            "sha256": "c1311e8a4f4114c94fc1b213bed336f714fd97d6218e8b871a2268851ce03752",
+            "document_id": "MSVI-001",
+            "version": "1.0",
+            "status": "REQUIRES_REFERENCE_BINDING"
+          },
+          "continuity_registry": {
+            "path": "/Users/santosh/Desktop/projects/videoGen/docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+            "sha256": "406e98b98cde2c9b65909e84950b2f808a522c5f18a2e433f97dd58f93c2695f",
+            "document_id": "MSCR-001",
+            "version": "1.0",
+            "status": "CANONICAL_MUTABLE_REGISTRY"
+          }
+        }
+      },
+      "bindings": [
+        {
+          "character_id": "MARK",
+          "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+          "character_bible_path": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+          "character_bible_sha256": "4daad6d358378f051e572e7ae51d0eec168464bfa0c8eee713f12f826546f169",
+          "visual_identity_registry_ref": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+          "visual_identity_path": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+          "visual_identity_sha256": "c1311e8a4f4114c94fc1b213bed336f714fd97d6218e8b871a2268851ce03752",
+          "voice_registry_ref": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+          "voice_registry_path": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+          "voice_registry_sha256": "58041c52fc305f4aaea86700ba9b71e4fb82ac31a4c5d6afac388c42fc222182",
+          "continuity_registry_ref": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+          "continuity_registry_path": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+          "continuity_registry_sha256": "406e98b98cde2c9b65909e84950b2f808a522c5f18a2e433f97dd58f93c2695f"
+        },
+        {
+          "character_id": "SARAH",
+          "character_bible_ref": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+          "character_bible_path": "docs/10_psychology/10_mark_sarah/01_MARK_SARAH_CHARACTER_BIBLE_v2.yaml",
+          "character_bible_sha256": "4daad6d358378f051e572e7ae51d0eec168464bfa0c8eee713f12f826546f169",
+          "visual_identity_registry_ref": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+          "visual_identity_path": "docs/10_psychology/10_mark_sarah/03_MARK_SARAH_VISUAL_IDENTITY_REGISTRY.yaml",
+          "visual_identity_sha256": "c1311e8a4f4114c94fc1b213bed336f714fd97d6218e8b871a2268851ce03752",
+          "voice_registry_ref": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+          "voice_registry_path": "docs/10_psychology/10_mark_sarah/02_MARK_SARAH_VOICE_REGISTRY.yaml",
+          "voice_registry_sha256": "58041c52fc305f4aaea86700ba9b71e4fb82ac31a4c5d6afac388c42fc222182",
+          "continuity_registry_ref": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+          "continuity_registry_path": "docs/10_psychology/10_mark_sarah/04_MARK_SARAH_CONTINUITY_REGISTRY.yaml",
+          "continuity_registry_sha256": "406e98b98cde2c9b65909e84950b2f808a522c5f18a2e433f97dd58f93c2695f"
+        }
+      ]
+    }
+  },
+  "episode_contract_id": "EP-0006",
+  "episode_contract_version": "1.0",
+  "episode_contract_hash": "13e83544f37abb102d390b36a1d931050179cb3e1aaf7cbdb5409120bf9fbc2f",
+  "policy_snapshot_hash": "13e83544f37abb102d390b36a1d931050179cb3e1aaf7cbdb5409120bf9fbc2f",
+  "continuity": {
+    "universe_id": "MARK_SARAH",
+    "continuity_version": "1",
+    "relevant_prior_events": []
+  },
+  "characters": {
+    "character_ids": [
+      {
+        "character_id": "MARK",
+        "display_name": "Mark",
+        "approved_identity": "white American software engineer, co-lead, 40",
+        "visual_reference_ids": [
+          "MSVI-MARK"
+        ],
+        "voice_reference_ids": [
+          "MSVR-MARK"
+        ]
+      },
+      {
+        "character_id": "SARAH",
+        "display_name": "Sarah",
+        "approved_identity": "white American business operations professional, co-lead, 36",
+        "visual_reference_ids": [
+          "MSVI-SARAH"
+        ],
+        "voice_reference_ids": [
+          "MSVR-SARAH"
+        ]
+      }
+    ],
+    "visual_reference_ids": [
+      "MSVI-MARK",
+      "MSVI-SARAH"
+    ],
+    "voice_reference_ids": [
+      "MSVR-MARK",
+      "MSVR-SARAH"
+    ]
+  },
+  "story": {
+    "logline": "True connection begins when we dare to ask the question, even when the fear of the answer is greater than the answer.",
+    "synopsis": "Mark has been carrying a question about their future for weeks but keeps avoiding it. When Sarah notices his distance, he finally admits he's afraid of the answer. Sarah's honest response surprises him \u2014 the fear of asking was worse than any answer she could give.",
+    "beat_graph": [
+      {
+        "scene_number": 1,
+        "number": 1,
+        "title": "The Unspoken Silence",
+        "act": "The Avoidance",
+        "phase": "",
+        "beat": "Mark's Avoidance",
+        "narrative_beat": "hook",
+        "scene_description": "To establish Mark's internal conflict and the stakes of his avoidance | Conflict: Mark's fear of the unknown future leads him to avoid discussing it with Sarah | Outcome: Mark continues to withdraw, manifesting in physical distance and emotional silence | Emotional objective: To show Mark's anxiety about the future and his need for emotional safety\nPurpose: Establish the initial tension: Mark's avoidance of discussing the past event with Sarah",
+        "emotional_state": "Tense, anxious",
+        "energy": 5,
+        "target_duration_seconds": 30.0,
+        "duration_seconds": 30.0,
+        "shot_language": {
+          "shot_size": "Medium"
+        },
+        "characters_present": [
+          "Mark",
+          "Sarah"
+        ],
+        "music_cue": {},
+        "color_palette": "Cool blue tones with soft gradients transitioning to warm amber accents",
+        "lighting": "Soft, diffused natural light from a window casting long shadows, with a subtle highlight on Sarah's face to emphasize her calm presence",
+        "composition": "Low-angle shot focusing on Mark's hands (holding a crumpled paper) and Sarah's face, with a shallow depth of field to isolate their interaction against a blurred background of a quiet room",
+        "camera_intent": "To capture the emotional shift in Mark's expression and body language as he moves from avoidance to admission, using the camera to highlight the contrast between his internal turmoil and Sarah's calm presence",
+        "atmosphere": "Tense yet tender, with a quiet sense of hope emerging from the moment of vulnerability",
+        "realizes_requirements": [
+          "REQ-001",
+          "REQ-002",
+          "REQ-003",
+          "REQ-005",
+          "REQ-007"
+        ],
+        "emotional_progression": [],
+        "entry_state": ""
+      },
+      {
+        "scene_number": 2,
+        "number": 2,
+        "title": "Sarah's Observation",
+        "act": "The Observation",
+        "phase": "",
+        "beat": "Sarah's Observation",
+        "narrative_beat": "plot",
+        "scene_description": "To show Sarah's perceptiveness and the growing relational distance | Conflict: Sarah tries to understand Mark's emotional state without causing further withdrawal | Outcome: Sarah initiates a quiet connection attempt with Mark | Emotional objective: To demonstrate Sarah's empathy and patience in the face of Mark's avoidance\nPurpose: Show Sarah's growing awareness of Mark's emotional withdrawal and her attempt to connect",
+        "emotional_state": "Worried, perceptive",
+        "energy": 5,
+        "target_duration_seconds": 45.0,
+        "duration_seconds": 45.0,
+        "shot_language": {
+          "shot_size": "Medium"
+        },
+        "characters_present": [
+          "Mark",
+          "Sarah"
+        ],
+        "music_cue": {},
+        "color_palette": "Cool blue tones with soft gradients transitioning to warm amber accents",
+        "lighting": "Soft, diffused natural light from a window casting long shadows, with a subtle highlight on Sarah's face to emphasize her calm presence",
+        "composition": "Low-angle shot focusing on Mark's hands (holding a crumpled paper) and Sarah's face, with a shallow depth of field to isolate their interaction against a blurred background of a quiet room",
+        "camera_intent": "To capture the emotional shift in Mark's expression and body language as he moves from avoidance to admission, using the camera to highlight the contrast between his internal turmoil and Sarah's calm presence",
+        "atmosphere": "Tense yet tender, with a quiet sense of hope emerging from the moment of vulnerability",
+        "realizes_requirements": [
+          "REQ-002",
+          "REQ-003",
+          "REQ-004",
+          "REQ-005",
+          "REQ-006",
+          "REQ-007"
+        ],
+        "emotional_progression": [],
+        "entry_state": ""
+      },
+      {
+        "scene_number": 3,
+        "number": 3,
+        "title": "The Breaking Point",
+        "act": "The Escalation",
+        "phase": "",
+        "beat": "Mark's Withdrawal",
+        "narrative_beat": "plot",
+        "scene_description": "To heighten the tension and show the consequences of Mark's avoidance | Conflict: Mark's avoidance intensifies, leading to increased emotional distance | Outcome: Mark becomes increasingly distant and emotionally closed off | Emotional objective: To emphasize the cost of Mark's avoidance on their relationship\nPurpose: Mark's further withdrawal and the confrontation of the central tension",
+        "emotional_state": "Intense, defensive",
+        "energy": 5,
+        "target_duration_seconds": 30.0,
+        "duration_seconds": 30.0,
+        "shot_language": {
+          "shot_size": "Medium"
+        },
+        "characters_present": [
+          "Mark",
+          "Sarah"
+        ],
+        "music_cue": {},
+        "color_palette": "Cool blue tones with soft gradients transitioning to warm amber accents",
+        "lighting": "Soft, diffused natural light from a window casting long shadows, with a subtle highlight on Sarah's face to emphasize her calm presence",
+        "composition": "Low-angle shot focusing on Mark's hands (holding a crumpled paper) and Sarah's face, with a shallow depth of field to isolate their interaction against a blurred background of a quiet room",
+        "camera_intent": "To capture the emotional shift in Mark's expression and body language as he moves from avoidance to admission, using the camera to highlight the contrast between his internal turmoil and Sarah's calm presence",
+        "atmosphere": "Tense yet tender, with a quiet sense of hope emerging from the moment of vulnerability",
+        "realizes_requirements": [
+          "REQ-001",
+          "REQ-002",
+          "REQ-003",
+          "REQ-005",
+          "REQ-006",
+          "REQ-007"
+        ],
+        "emotional_progression": [],
+        "entry_state": ""
+      },
+      {
+        "scene_number": 4,
+        "number": 4,
+        "title": "A Step Forward",
+        "act": "The Confrontation",
+        "phase": "",
+        "beat": "The Confrontation",
+        "narrative_beat": "climax",
+        "scene_description": "To directly address the central tension between Mark and Sarah | Conflict: Mark's fear of the answer is greater than the potential answers he might receive | Outcome: Mark admits he's afraid of the answer, revealing his underlying fear | Emotional objective: To show Mark's vulnerability and the depth of his fear\nPurpose: Observable movement toward reconnection after Mark's revelation",
+        "emotional_state": "Hopeful, tentative",
+        "energy": 5,
+        "target_duration_seconds": 30.0,
+        "duration_seconds": 30.0,
+        "shot_language": {
+          "shot_size": "Medium"
+        },
+        "characters_present": [
+          "Mark",
+          "Sarah"
+        ],
+        "music_cue": {},
+        "color_palette": "Cool blue tones with soft gradients transitioning to warm amber accents",
+        "lighting": "Soft, diffused natural light from a window casting long shadows, with a subtle highlight on Sarah's face to emphasize her calm presence",
+        "composition": "Low-angle shot focusing on Mark's hands (holding a crumpled paper) and Sarah's face, with a shallow depth of field to isolate their interaction against a blurred background of a quiet room",
+        "camera_intent": "To capture the emotional shift in Mark's expression and body language as he moves from avoidance to admission, using the camera to highlight the contrast between his internal turmoil and Sarah's calm presence",
+        "atmosphere": "Tense yet tender, with a quiet sense of hope emerging from the moment of vulnerability",
+        "realizes_requirements": [
+          "REQ-002",
+          "REQ-004",
+          "REQ-006",
+          "REQ-007",
+          "REQ-008"
+        ],
+        "emotional_progression": [],
+        "entry_state": ""
+      },
+      {
+        "scene_number": 5,
+        "number": 5,
+        "title": "To demonstrate Mark and Sarah's movement toward reconnection",
+        "act": "The Resolution",
+        "phase": "",
+        "beat": "The Resolution",
+        "narrative_beat": "resolution",
+        "scene_description": "To demonstrate Mark and Sarah's movement toward reconnection | Conflict: Mark's fear of the answer versus Sarah's need for emotional safety | Outcome: Mark and Sarah share a moment of understanding and reconnection | Emotional objective: To show the relief and hope in their relationship",
+        "emotional_state": "To show the relief and hope in their relationship",
+        "energy": 5,
+        "target_duration_seconds": 0.0,
+        "duration_seconds": 0.0,
+        "shot_language": {
+          "shot_size": "Medium"
+        },
+        "characters_present": [
+          "Mark",
+          "Sarah"
+        ],
+        "music_cue": {},
+        "color_palette": "Cool blue tones with soft gradients transitioning to warm amber accents",
+        "lighting": "Soft, diffused natural light from a window casting long shadows, with a subtle highlight on Sarah's face to emphasize her calm presence",
+        "composition": "Low-angle shot focusing on Mark's hands (holding a crumpled paper) and Sarah's face, with a shallow depth of field to isolate their interaction against a blurred background of a quiet room",
+        "camera_intent": "To capture the emotional shift in Mark's expression and body language as he moves from avoidance to admission, using the camera to highlight the contrast between his internal turmoil and Sarah's calm presence",
+        "atmosphere": "Tense yet tender, with a quiet sense of hope emerging from the moment of vulnerability",
+        "realizes_requirements": [
+          "REQ-002",
+          "REQ-004",
+          "REQ-007",
+          "REQ-008"
+        ],
+        "emotional_progression": [],
+        "entry_state": ""
+      }
+    ],
+    "ending": "Sarah's Revelation: Sarah responds with empathy, stating that the fear of asking was worse than any answer she could give, which surprises and heals Mark.",
+    "primary_mechanism": "fear-based withdrawal",
+    "intended_resolution": "meaningful progress"
+  },
+  "screenplay": {
+    "scenes": [
+      {
+        "scene_id": 1,
+        "narrative_function": "hook",
+        "entry_state": "The Unspoken Silence: establishes the starting emotional state",
+        "turning_point": "The Unspoken Silence: the hook shifts the relationship",
+        "exit_state": "The Unspoken Silence: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_causality": {
+          "cause": "The Unspoken Silence: establishes the starting emotional state",
+          "turning_point": "The Unspoken Silence: the hook shifts the relationship",
+          "effect": "The Unspoken Silence: leaves the characters changed for the next scene",
+          "next_scene_cause": "causal bridge"
+        },
+        "dialogue": [
+          {
+            "line_id": "1:D001",
+            "speaker": "MARK",
+            "text": "I'm not sure I can talk about it.",
+            "delivery_intent": "Setting the boundary",
+            "emotional_state": "Anxious",
+            "subtext": "I am afraid that speaking will expose my weakness or trigger a painful reaction, so I must protect myself by withholding information.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "1:D002",
+            "speaker": "SARAH",
+            "text": "It's okay if you don't want to. I'm here.",
+            "delivery_intent": "Offering support without pressure",
+            "emotional_state": "Gentle",
+            "subtext": "Your silence is not a rejection of me; I accept your boundaries and remain available to you regardless of what you share.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "1:D003",
+            "speaker": "MARK",
+            "text": "I don't know what to say.",
+            "delivery_intent": "Expressing uncertainty",
+            "emotional_state": "Tense",
+            "subtext": "I am paralyzed by the weight of the unspoken truth and lack the emotional tools to articulate it right now.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "1:D004",
+            "speaker": "SARAH",
+            "text": "You don't have to say anything. Just be with me.",
+            "delivery_intent": "Reinforcing emotional safety",
+            "emotional_state": "Calm",
+            "subtext": "The specific words matter less than our connection; I am offering presence as a safer alternative to verbal disclosure.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "1:D005",
+            "speaker": "MARK",
+            "text": "It's too late to change anything.",
+            "delivery_intent": "Concealing the past event",
+            "emotional_state": "Defensive",
+            "subtext": "I believe the damage is irreversible and that admitting fault or discussing it will only cause more pain without fixing anything.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "1:D006",
+            "speaker": "SARAH",
+            "text": "I know it's hard. But we can try.",
+            "delivery_intent": "Encouraging without judgment",
+            "emotional_state": "Patient",
+            "subtext": "While I acknowledge your despair, I refuse to accept defeat; there is still a path forward if we face it together.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          }
+        ]
+      },
+      {
+        "scene_id": 2,
+        "narrative_function": "plot",
+        "entry_state": "Sarah's Observation: establishes the starting emotional state",
+        "turning_point": "Sarah's Observation: the plot shifts the relationship",
+        "exit_state": "Sarah's Observation: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_causality": {
+          "cause": "Sarah's Observation: establishes the starting emotional state",
+          "turning_point": "Sarah's Observation: the plot shifts the relationship",
+          "effect": "Sarah's Observation: leaves the characters changed for the next scene",
+          "next_scene_cause": "causal bridge"
+        },
+        "dialogue": [
+          {
+            "line_id": "2:D001",
+            "speaker": "SARAH",
+            "text": "You've been quiet a lot lately.",
+            "delivery_intent": "Observing Mark's behavior",
+            "emotional_state": "Concerned",
+            "subtext": "I see you pulling away and I want to bridge the gap before it widens.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "2:D002",
+            "speaker": "MARK",
+            "text": "I'm fine.",
+            "delivery_intent": "Defensive response",
+            "emotional_state": "Tense",
+            "subtext": "I am shutting down the conversation to protect my vulnerability; do not push me.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "2:D003",
+            "speaker": "SARAH",
+            "text": "It's okay to not be fine.",
+            "delivery_intent": "Validating Mark's feelings",
+            "emotional_state": "Empathetic",
+            "subtext": "I am offering a safe space where your weakness is not judged, inviting you to stay open.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "2:D004",
+            "speaker": "MARK",
+            "text": "I don't want to talk about it.",
+            "delivery_intent": "Reinforcing avoidance",
+            "emotional_state": "Defensive",
+            "subtext": "The topic is too dangerous for me; I need to maintain this boundary to feel safe.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "2:D005",
+            "speaker": "SARAH",
+            "text": "I understand.",
+            "delivery_intent": "Acknowledging his withdrawal",
+            "emotional_state": "Calm",
+            "subtext": "I respect your boundary but remain present, signaling that my support is unconditional regardless of your silence.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "2:D006",
+            "speaker": "MARK",
+            "text": "I'm not sure if I can trust myself.",
+            "delivery_intent": "Revealing internal conflict",
+            "emotional_state": "Vulnerable",
+            "subtext": "My fear of losing control is greater than my desire to speak; I am admitting a terrifying lack of agency.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          }
+        ]
+      },
+      {
+        "scene_id": 3,
+        "narrative_function": "plot",
+        "entry_state": "The Breaking Point: establishes the starting emotional state",
+        "turning_point": "The Breaking Point: the plot shifts the relationship",
+        "exit_state": "The Breaking Point: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_causality": {
+          "cause": "The Breaking Point: establishes the starting emotional state",
+          "turning_point": "The Breaking Point: the plot shifts the relationship",
+          "effect": "The Breaking Point: leaves the characters changed for the next scene",
+          "next_scene_cause": "causal bridge"
+        },
+        "dialogue": [
+          {
+            "line_id": "3:D001",
+            "speaker": "MARK",
+            "text": "I can't talk about it anymore.",
+            "delivery_intent": "Finalizing avoidance",
+            "emotional_state": "Defensive",
+            "subtext": "I am shutting down to protect myself from further pain or judgment.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "3:D002",
+            "speaker": "SARAH",
+            "text": "It's not too late.",
+            "delivery_intent": "Challenging Mark's avoidance",
+            "emotional_state": "Gentle but firm",
+            "subtext": "There is still a path forward if you choose to take it; I am waiting for you.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "3:D003",
+            "speaker": "MARK",
+            "text": "It's too late.",
+            "delivery_intent": "Reinforcing the past event",
+            "emotional_state": "Intense",
+            "subtext": "The damage is done and irreversible; your optimism is naive or irrelevant to my reality.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "3:D004",
+            "speaker": "SARAH",
+            "text": "I know it's hard, but I'm here.",
+            "delivery_intent": "Reaffirming support",
+            "emotional_state": "Calm",
+            "subtext": "Your struggle is valid, but you are not isolated in it; I am anchoring us together.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "3:D005",
+            "speaker": "MARK",
+            "text": "I don't know what to do.",
+            "delivery_intent": "Expressing helplessness",
+            "emotional_state": "Tense",
+            "subtext": "I have exhausted my own resources and need external guidance or presence to proceed.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "3:D006",
+            "speaker": "SARAH",
+            "text": "You don't have to do it alone.",
+            "delivery_intent": "Offering connection",
+            "emotional_state": "Empathetic",
+            "subtext": "We can share the burden; you are not required to carry this weight by yourself.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          }
+        ]
+      },
+      {
+        "scene_id": 4,
+        "narrative_function": "climax",
+        "entry_state": "A Step Forward: establishes the starting emotional state",
+        "turning_point": "A Step Forward: the climax shifts the relationship",
+        "exit_state": "A Step Forward: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_causality": {
+          "cause": "A Step Forward: establishes the starting emotional state",
+          "turning_point": "A Step Forward: the climax shifts the relationship",
+          "effect": "A Step Forward: leaves the characters changed for the next scene",
+          "next_scene_cause": "causal bridge"
+        },
+        "dialogue": [
+          {
+            "line_id": "4:D001",
+            "speaker": "SARAH",
+            "text": "Mark, I need to know what happened with the project. I've been waiting for you to tell me for weeks.",
+            "delivery_intent": "Direct and urgent",
+            "emotional_state": "Concerned",
+            "subtext": "Sarah's urgency masks a deeper need for control; she is demanding transparency not just for information, but to alleviate her own anxiety about the unknown.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "4:D002",
+            "speaker": "MARK",
+            "text": "I don't know how to say it without it breaking me.",
+            "delivery_intent": "Hesitant and defensive",
+            "emotional_state": "Anxious",
+            "subtext": "Mark is revealing that his silence wasn't avoidance of responsibility, but a protective mechanism against emotional devastation; he fears the truth will destroy him more than failure would.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "4:D003",
+            "speaker": "SARAH",
+            "text": "Then tell me what you're afraid of.",
+            "delivery_intent": "Pressing but gentle",
+            "emotional_state": "Understanding",
+            "subtext": "Sarah shifts from demanding facts to addressing the root cause; she is inviting Mark to confront his internal fear rather than just the external outcome.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "4:D004",
+            "speaker": "MARK",
+            "text": "I'm afraid of the answer, Sarah. More than the potential answers I might receive.",
+            "delivery_intent": "Breaking point, direct admission",
+            "emotional_state": "Vulnerable",
+            "subtext": "Mark distinguishes between the content of the answer and the impact of knowing it; he admits that the anticipation and finality of the truth are more terrifying than any specific negative result.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "4:D005",
+            "speaker": "SARAH",
+            "text": "I know you are. And I'm here to listen.",
+            "delivery_intent": "Supportive and calm",
+            "emotional_state": "Empathetic",
+            "subtext": "Sarah validates Mark's vulnerability without trying to fix it immediately; she offers presence as a safety net, signaling that his fear is acceptable and he is not alone in facing it.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "4:D006",
+            "speaker": "MARK",
+            "text": "Thank you.",
+            "delivery_intent": "Relieved but still tense",
+            "emotional_state": "Relieved",
+            "subtext": "Mark's gratitude is for being heard rather than for a solution; the tension remains because the truth is still unspoken, but the burden of secrecy has been lifted.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          }
+        ]
+      },
+      {
+        "scene_id": 5,
+        "narrative_function": "resolution",
+        "entry_state": "To demonstrate Mark and Sarah's movement toward reconnection: establishes the starting emotional state",
+        "turning_point": "To demonstrate Mark and Sarah's movement toward reconnection: the resolution shifts the relationship",
+        "exit_state": "To demonstrate Mark and Sarah's movement toward reconnection: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_causality": {
+          "cause": "To demonstrate Mark and Sarah's movement toward reconnection: establishes the starting emotional state",
+          "turning_point": "To demonstrate Mark and Sarah's movement toward reconnection: the resolution shifts the relationship",
+          "effect": "To demonstrate Mark and Sarah's movement toward reconnection: leaves the characters changed for the next scene",
+          "next_scene_cause": "causal bridge"
+        },
+        "dialogue": [
+          {
+            "line_id": "5:D001",
+            "speaker": "MARK",
+            "text": "I've been avoiding this for weeks. I don't know how to say it without breaking.",
+            "delivery_intent": "hesitant",
+            "emotional_state": "anxiety",
+            "subtext": "I am terrified of the consequences, but I can no longer maintain this silence.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "5:D002",
+            "speaker": "SARAH",
+            "text": "I need to know what's wrong. I need you to be safe with me.",
+            "delivery_intent": "direct",
+            "emotional_state": "fear",
+            "subtext": "Your emotional safety is my priority; please trust me with your burden.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "5:D003",
+            "speaker": "MARK",
+            "text": "I'm afraid telling you the truth will make you leave me.",
+            "delivery_intent": "vulnerable",
+            "emotional_state": "fear",
+            "subtext": "My pride has caused damage, and I am now exposing my deepest insecurity to you.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "5:D004",
+            "speaker": "SARAH",
+            "text": "Then tell me. I won't leave you. I want to know you.",
+            "delivery_intent": "calm and firm",
+            "emotional_state": "hope",
+            "subtext": "I offer unconditional acceptance; your truth will not change my commitment to us.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "5:D005",
+            "speaker": "MARK",
+            "text": "I did hurt you. I was scared to lose you. I tried, but I failed.",
+            "delivery_intent": "honest",
+            "emotional_state": "regret",
+            "subtext": "I take full responsibility for the pain I caused, admitting my failure was due to fear.",
+            "objective": "",
+            "character_voice_id": "MSVR-MARK",
+            "presentation_mode": "EXTERNAL"
+          },
+          {
+            "line_id": "5:D006",
+            "speaker": "SARAH",
+            "text": "I know. And I'm here. I choose you.",
+            "delivery_intent": "resolute",
+            "emotional_state": "hope",
+            "subtext": "Despite knowing the truth, I am actively choosing to stay and rebuild with you.",
+            "objective": "",
+            "character_voice_id": "MSVR-SARAH",
+            "presentation_mode": "EXTERNAL"
+          }
+        ]
+      }
+    ],
+    "exact_dialogue_text": [
+      "I'm not sure I can talk about it.",
+      "It's okay if you don't want to. I'm here.",
+      "I don't know what to say.",
+      "You don't have to say anything. Just be with me.",
+      "It's too late to change anything.",
+      "I know it's hard. But we can try.",
+      "You've been quiet a lot lately.",
+      "I'm fine.",
+      "It's okay to not be fine.",
+      "I don't want to talk about it.",
+      "I understand.",
+      "I'm not sure if I can trust myself.",
+      "I can't talk about it anymore.",
+      "It's not too late.",
+      "It's too late.",
+      "I know it's hard, but I'm here.",
+      "I don't know what to do.",
+      "You don't have to do it alone.",
+      "Mark, I need to know what happened with the project. I've been waiting for you to tell me for weeks.",
+      "I don't know how to say it without it breaking me.",
+      "Then tell me what you're afraid of.",
+      "I'm afraid of the answer, Sarah. More than the potential answers I might receive.",
+      "I know you are. And I'm here to listen.",
+      "Thank you.",
+      "I've been avoiding this for weeks. I don't know how to say it without breaking.",
+      "I need to know what's wrong. I need you to be safe with me.",
+      "I'm afraid telling you the truth will make you leave me.",
+      "Then tell me. I won't leave you. I want to know you.",
+      "I did hurt you. I was scared to lose you. I tried, but I failed.",
+      "I know. And I'm here. I choose you."
+    ]
+  },
+  "dialogue": {
+    "line_ids": [
+      "1:D001",
+      "1:D002",
+      "1:D003",
+      "1:D004",
+      "1:D005",
+      "1:D006",
+      "2:D001",
+      "2:D002",
+      "2:D003",
+      "2:D004",
+      "2:D005",
+      "2:D006",
+      "3:D001",
+      "3:D002",
+      "3:D003",
+      "3:D004",
+      "3:D005",
+      "3:D006",
+      "4:D001",
+      "4:D002",
+      "4:D003",
+      "4:D004",
+      "4:D005",
+      "4:D006",
+      "5:D001",
+      "5:D002",
+      "5:D003",
+      "5:D004",
+      "5:D005",
+      "5:D006"
+    ],
+    "intent": [
+      "Setting the boundary",
+      "Offering support without pressure",
+      "Expressing uncertainty",
+      "Reinforcing emotional safety",
+      "Concealing the past event",
+      "Encouraging without judgment",
+      "Observing Mark's behavior",
+      "Defensive response",
+      "Validating Mark's feelings",
+      "Reinforcing avoidance",
+      "Acknowledging his withdrawal",
+      "Revealing internal conflict",
+      "Finalizing avoidance",
+      "Challenging Mark's avoidance",
+      "Reinforcing the past event",
+      "Reaffirming support",
+      "Expressing helplessness",
+      "Offering connection",
+      "Direct and urgent",
+      "Hesitant and defensive",
+      "Pressing but gentle",
+      "Breaking point, direct admission",
+      "Supportive and calm",
+      "Relieved but still tense",
+      "hesitant",
+      "direct",
+      "vulnerable",
+      "calm and firm",
+      "honest",
+      "resolute"
+    ],
+    "subtext": [
+      "I am afraid that speaking will expose my weakness or trigger a painful reaction, so I must protect myself by withholding information.",
+      "Your silence is not a rejection of me; I accept your boundaries and remain available to you regardless of what you share.",
+      "I am paralyzed by the weight of the unspoken truth and lack the emotional tools to articulate it right now.",
+      "The specific words matter less than our connection; I am offering presence as a safer alternative to verbal disclosure.",
+      "I believe the damage is irreversible and that admitting fault or discussing it will only cause more pain without fixing anything.",
+      "While I acknowledge your despair, I refuse to accept defeat; there is still a path forward if we face it together.",
+      "I see you pulling away and I want to bridge the gap before it widens.",
+      "I am shutting down the conversation to protect my vulnerability; do not push me.",
+      "I am offering a safe space where your weakness is not judged, inviting you to stay open.",
+      "The topic is too dangerous for me; I need to maintain this boundary to feel safe.",
+      "I respect your boundary but remain present, signaling that my support is unconditional regardless of your silence.",
+      "My fear of losing control is greater than my desire to speak; I am admitting a terrifying lack of agency.",
+      "I am shutting down to protect myself from further pain or judgment.",
+      "There is still a path forward if you choose to take it; I am waiting for you.",
+      "The damage is done and irreversible; your optimism is naive or irrelevant to my reality.",
+      "Your struggle is valid, but you are not isolated in it; I am anchoring us together.",
+      "I have exhausted my own resources and need external guidance or presence to proceed.",
+      "We can share the burden; you are not required to carry this weight by yourself.",
+      "Sarah's urgency masks a deeper need for control; she is demanding transparency not just for information, but to alleviate her own anxiety about the unknown.",
+      "Mark is revealing that his silence wasn't avoidance of responsibility, but a protective mechanism against emotional devastation; he fears the truth will destroy him more than failure would.",
+      "Sarah shifts from demanding facts to addressing the root cause; she is inviting Mark to confront his internal fear rather than just the external outcome.",
+      "Mark distinguishes between the content of the answer and the impact of knowing it; he admits that the anticipation and finality of the truth are more terrifying than any specific negative result.",
+      "Sarah validates Mark's vulnerability without trying to fix it immediately; she offers presence as a safety net, signaling that his fear is acceptable and he is not alone in facing it.",
+      "Mark's gratitude is for being heard rather than for a solution; the tension remains because the truth is still unspoken, but the burden of secrecy has been lifted.",
+      "I am terrified of the consequences, but I can no longer maintain this silence.",
+      "Your emotional safety is my priority; please trust me with your burden.",
+      "My pride has caused damage, and I am now exposing my deepest insecurity to you.",
+      "I offer unconditional acceptance; your truth will not change my commitment to us.",
+      "I take full responsibility for the pain I caused, admitting my failure was due to fear.",
+      "Despite knowing the truth, I am actively choosing to stay and rebuild with you."
+    ],
+    "delivery": [
+      "Setting the boundary",
+      "Offering support without pressure",
+      "Expressing uncertainty",
+      "Reinforcing emotional safety",
+      "Concealing the past event",
+      "Encouraging without judgment",
+      "Observing Mark's behavior",
+      "Defensive response",
+      "Validating Mark's feelings",
+      "Reinforcing avoidance",
+      "Acknowledging his withdrawal",
+      "Revealing internal conflict",
+      "Finalizing avoidance",
+      "Challenging Mark's avoidance",
+      "Reinforcing the past event",
+      "Reaffirming support",
+      "Expressing helplessness",
+      "Offering connection",
+      "Direct and urgent",
+      "Hesitant and defensive",
+      "Pressing but gentle",
+      "Breaking point, direct admission",
+      "Supportive and calm",
+      "Relieved but still tense",
+      "hesitant",
+      "direct",
+      "vulnerable",
+      "calm and firm",
+      "honest",
+      "resolute"
+    ],
+    "consequence": [],
+    "performance": [
+      {
+        "line_id": "1:D001",
+        "speaker": "MARK",
+        "emotional_state": "Anxious",
+        "subtext": "I am afraid that speaking will expose my weakness or trigger a painful reaction, so I must protect myself by withholding information.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "1:D002",
+        "speaker": "SARAH",
+        "emotional_state": "Gentle",
+        "subtext": "Your silence is not a rejection of me; I accept your boundaries and remain available to you regardless of what you share.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "1:D003",
+        "speaker": "MARK",
+        "emotional_state": "Tense",
+        "subtext": "I am paralyzed by the weight of the unspoken truth and lack the emotional tools to articulate it right now.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "1:D004",
+        "speaker": "SARAH",
+        "emotional_state": "Calm",
+        "subtext": "The specific words matter less than our connection; I am offering presence as a safer alternative to verbal disclosure.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "1:D005",
+        "speaker": "MARK",
+        "emotional_state": "Defensive",
+        "subtext": "I believe the damage is irreversible and that admitting fault or discussing it will only cause more pain without fixing anything.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "1:D006",
+        "speaker": "SARAH",
+        "emotional_state": "Patient",
+        "subtext": "While I acknowledge your despair, I refuse to accept defeat; there is still a path forward if we face it together.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D001",
+        "speaker": "SARAH",
+        "emotional_state": "Concerned",
+        "subtext": "I see you pulling away and I want to bridge the gap before it widens.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D002",
+        "speaker": "MARK",
+        "emotional_state": "Tense",
+        "subtext": "I am shutting down the conversation to protect my vulnerability; do not push me.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D003",
+        "speaker": "SARAH",
+        "emotional_state": "Empathetic",
+        "subtext": "I am offering a safe space where your weakness is not judged, inviting you to stay open.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D004",
+        "speaker": "MARK",
+        "emotional_state": "Defensive",
+        "subtext": "The topic is too dangerous for me; I need to maintain this boundary to feel safe.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D005",
+        "speaker": "SARAH",
+        "emotional_state": "Calm",
+        "subtext": "I respect your boundary but remain present, signaling that my support is unconditional regardless of your silence.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "2:D006",
+        "speaker": "MARK",
+        "emotional_state": "Vulnerable",
+        "subtext": "My fear of losing control is greater than my desire to speak; I am admitting a terrifying lack of agency.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D001",
+        "speaker": "MARK",
+        "emotional_state": "Defensive",
+        "subtext": "I am shutting down to protect myself from further pain or judgment.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D002",
+        "speaker": "SARAH",
+        "emotional_state": "Gentle but firm",
+        "subtext": "There is still a path forward if you choose to take it; I am waiting for you.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D003",
+        "speaker": "MARK",
+        "emotional_state": "Intense",
+        "subtext": "The damage is done and irreversible; your optimism is naive or irrelevant to my reality.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D004",
+        "speaker": "SARAH",
+        "emotional_state": "Calm",
+        "subtext": "Your struggle is valid, but you are not isolated in it; I am anchoring us together.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D005",
+        "speaker": "MARK",
+        "emotional_state": "Tense",
+        "subtext": "I have exhausted my own resources and need external guidance or presence to proceed.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "3:D006",
+        "speaker": "SARAH",
+        "emotional_state": "Empathetic",
+        "subtext": "We can share the burden; you are not required to carry this weight by yourself.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D001",
+        "speaker": "SARAH",
+        "emotional_state": "Concerned",
+        "subtext": "Sarah's urgency masks a deeper need for control; she is demanding transparency not just for information, but to alleviate her own anxiety about the unknown.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D002",
+        "speaker": "MARK",
+        "emotional_state": "Anxious",
+        "subtext": "Mark is revealing that his silence wasn't avoidance of responsibility, but a protective mechanism against emotional devastation; he fears the truth will destroy him more than failure would.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D003",
+        "speaker": "SARAH",
+        "emotional_state": "Understanding",
+        "subtext": "Sarah shifts from demanding facts to addressing the root cause; she is inviting Mark to confront his internal fear rather than just the external outcome.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D004",
+        "speaker": "MARK",
+        "emotional_state": "Vulnerable",
+        "subtext": "Mark distinguishes between the content of the answer and the impact of knowing it; he admits that the anticipation and finality of the truth are more terrifying than any specific negative result.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D005",
+        "speaker": "SARAH",
+        "emotional_state": "Empathetic",
+        "subtext": "Sarah validates Mark's vulnerability without trying to fix it immediately; she offers presence as a safety net, signaling that his fear is acceptable and he is not alone in facing it.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "4:D006",
+        "speaker": "MARK",
+        "emotional_state": "Relieved",
+        "subtext": "Mark's gratitude is for being heard rather than for a solution; the tension remains because the truth is still unspoken, but the burden of secrecy has been lifted.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D001",
+        "speaker": "MARK",
+        "emotional_state": "anxiety",
+        "subtext": "I am terrified of the consequences, but I can no longer maintain this silence.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D002",
+        "speaker": "SARAH",
+        "emotional_state": "fear",
+        "subtext": "Your emotional safety is my priority; please trust me with your burden.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D003",
+        "speaker": "MARK",
+        "emotional_state": "fear",
+        "subtext": "My pride has caused damage, and I am now exposing my deepest insecurity to you.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D004",
+        "speaker": "SARAH",
+        "emotional_state": "hope",
+        "subtext": "I offer unconditional acceptance; your truth will not change my commitment to us.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D005",
+        "speaker": "MARK",
+        "emotional_state": "regret",
+        "subtext": "I take full responsibility for the pain I caused, admitting my failure was due to fear.",
+        "objective": "",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL"
+      },
+      {
+        "line_id": "5:D006",
+        "speaker": "SARAH",
+        "emotional_state": "hope",
+        "subtext": "Despite knowing the truth, I am actively choosing to stay and rebuild with you.",
+        "objective": "",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL"
+      }
+    ]
+  },
+  "scene_states": {
+    "scenes": [
+      {
+        "scene_id": 1,
+        "entry": "The Unspoken Silence: establishes the starting emotional state",
+        "turning_point": "The Unspoken Silence: the hook shifts the relationship",
+        "exit": "The Unspoken Silence: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_emotions": [
+          "Anxious",
+          "Gentle",
+          "Tense",
+          "Calm",
+          "Defensive",
+          "Patient"
+        ]
+      },
+      {
+        "scene_id": 2,
+        "entry": "Sarah's Observation: establishes the starting emotional state",
+        "turning_point": "Sarah's Observation: the plot shifts the relationship",
+        "exit": "Sarah's Observation: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_emotions": [
+          "Concerned",
+          "Tense",
+          "Empathetic",
+          "Defensive",
+          "Calm",
+          "Vulnerable"
+        ]
+      },
+      {
+        "scene_id": 3,
+        "entry": "The Breaking Point: establishes the starting emotional state",
+        "turning_point": "The Breaking Point: the plot shifts the relationship",
+        "exit": "The Breaking Point: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_emotions": [
+          "Defensive",
+          "Gentle but firm",
+          "Intense",
+          "Calm",
+          "Tense",
+          "Empathetic"
+        ]
+      },
+      {
+        "scene_id": 4,
+        "entry": "A Step Forward: establishes the starting emotional state",
+        "turning_point": "A Step Forward: the climax shifts the relationship",
+        "exit": "A Step Forward: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_emotions": [
+          "Concerned",
+          "Anxious",
+          "Understanding",
+          "Vulnerable",
+          "Empathetic",
+          "Relieved"
+        ]
+      },
+      {
+        "scene_id": 5,
+        "entry": "To demonstrate Mark and Sarah's movement toward reconnection: establishes the starting emotional state",
+        "turning_point": "To demonstrate Mark and Sarah's movement toward reconnection: the resolution shifts the relationship",
+        "exit": "To demonstrate Mark and Sarah's movement toward reconnection: leaves the characters changed for the next scene",
+        "next_scene_cause": "causal bridge",
+        "emotional_progression": [
+          "steady",
+          "uneasy",
+          "changed"
+        ],
+        "dialogue_emotions": [
+          "anxiety",
+          "fear",
+          "fear",
+          "hope",
+          "regret",
+          "hope"
+        ]
+      }
+    ]
+  },
+  "visual_bible": {
+    "style": "cinematic",
+    "locations": [],
+    "wardrobe": [],
+    "lighting": [],
+    "identity_controls": [
+      {
+        "character_id": "MARK",
+        "display_name": "Mark",
+        "approved_identity": "white American software engineer, co-lead, 40",
+        "visual_reference_ids": [
+          "MSVI-MARK"
+        ],
+        "voice_reference_ids": [
+          "MSVR-MARK"
+        ]
+      },
+      {
+        "character_id": "SARAH",
+        "display_name": "Sarah",
+        "approved_identity": "white American business operations professional, co-lead, 36",
+        "visual_reference_ids": [
+          "MSVI-SARAH"
+        ],
+        "voice_reference_ids": [
+          "MSVR-SARAH"
+        ]
+      }
+    ]
+  },
+  "shots": {
+    "shots": [
+      {
+        "shot_id": "SC01-SH01",
+        "scene_id": 1,
+        "sequence_index": 1,
+        "purpose": "ESTABLISHING",
+        "narrative_function": "Establish location/time/physical relationship for The Unspoken Silence.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "WIDE"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": "spatial context"
+        },
+        "composition": {
+          "relationship": "establishes distance and environment"
+        },
+        "visual_action": "show the space containing the scene's emotional field",
+        "emotional_intent": "Tense, anxious",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": null,
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 2,
+          "post_dialogue_hold": 0
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      },
+      {
+        "shot_id": "SC01-SH02",
+        "scene_id": 1,
+        "sequence_index": 2,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Anxious",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Anxious",
+          "delivery_intent": "Setting the boundary",
+          "subtext": "I am afraid that speaking will expose my weakness or trigger a painful reaction, so I must protect myself by withholding information.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "1:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D001"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC01-SH03",
+        "scene_id": 1,
+        "sequence_index": 3,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "1:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "1:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC01-SH04",
+        "scene_id": 1,
+        "sequence_index": 4,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "1:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "1:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC01-SH05",
+        "scene_id": 1,
+        "sequence_index": 5,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "Tense, anxious",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "1:D002",
+            "1:D003",
+            "1:D004"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D002",
+            "1:D003",
+            "1:D004"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.5,
+          "dialogue_span": 3,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D002",
+            "1:D003",
+            "1:D004"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC01-SH06",
+        "scene_id": 1,
+        "sequence_index": 6,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "Tense, anxious",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "1:D005",
+            "1:D006"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D005",
+            "1:D006"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": "SC01-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 2,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "1:D005",
+            "1:D006"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC01-SH07",
+        "scene_id": 1,
+        "sequence_index": 7,
+        "purpose": "EMOTIONAL_HOLD",
+        "narrative_function": "Leave the audience on the scene's Tense, anxious state.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "residual / after effect"
+        },
+        "visual_action": "linger on the reaction / physical distance",
+        "emotional_intent": "Tense, anxious",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC01-SH00",
+          "next_shot_id": null
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 3
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      },
+      {
+        "shot_id": "SC02-SH08",
+        "scene_id": 2,
+        "sequence_index": 8,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Concerned",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Concerned",
+          "delivery_intent": "Observing Mark's behavior",
+          "subtext": "I see you pulling away and I want to bridge the gap before it widens.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "2:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D001"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": null,
+          "next_shot_id": "SC02-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC02-SH09",
+        "scene_id": 2,
+        "sequence_index": 9,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "Worried, perceptive",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "2:D002",
+            "2:D003",
+            "2:D004"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D002",
+            "2:D003",
+            "2:D004"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC02-SH00",
+          "next_shot_id": "SC02-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.5,
+          "dialogue_span": 3,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D002",
+            "2:D003",
+            "2:D004"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC02-SH10",
+        "scene_id": 2,
+        "sequence_index": 10,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "Worried, perceptive",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "2:D005",
+            "2:D006"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D005",
+            "2:D006"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC02-SH00",
+          "next_shot_id": "SC02-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 2,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "2:D005",
+            "2:D006"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC02-SH11",
+        "scene_id": 2,
+        "sequence_index": 11,
+        "purpose": "EMOTIONAL_HOLD",
+        "narrative_function": "Leave the audience on the scene's Worried, perceptive state.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "residual / after effect"
+        },
+        "visual_action": "linger on the reaction / physical distance",
+        "emotional_intent": "Worried, perceptive",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC02-SH00",
+          "next_shot_id": null
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 3
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      },
+      {
+        "shot_id": "SC03-SH12",
+        "scene_id": 3,
+        "sequence_index": 12,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Defensive",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Defensive",
+          "delivery_intent": "Finalizing avoidance",
+          "subtext": "I am shutting down to protect myself from further pain or judgment.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D001"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": null,
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH13",
+        "scene_id": 3,
+        "sequence_index": 13,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "3:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH14",
+        "scene_id": 3,
+        "sequence_index": 14,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "3:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH15",
+        "scene_id": 3,
+        "sequence_index": 15,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Gentle but firm",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Gentle but firm",
+          "delivery_intent": "Challenging Mark's avoidance",
+          "subtext": "There is still a path forward if you choose to take it; I am waiting for you.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D002"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D002"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D002"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH16",
+        "scene_id": 3,
+        "sequence_index": 16,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Intense",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Intense",
+          "delivery_intent": "Reinforcing the past event",
+          "subtext": "The damage is done and irreversible; your optimism is naive or irrelevant to my reality.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D003"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D003"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D003"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH17",
+        "scene_id": 3,
+        "sequence_index": 17,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Calm",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Calm",
+          "delivery_intent": "Reaffirming support",
+          "subtext": "Your struggle is valid, but you are not isolated in it; I am anchoring us together.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D004"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D004"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D004"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH18",
+        "scene_id": 3,
+        "sequence_index": 18,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Tense",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Tense",
+          "delivery_intent": "Expressing helplessness",
+          "subtext": "I have exhausted my own resources and need external guidance or presence to proceed.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D005"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D005"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D005"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH19",
+        "scene_id": 3,
+        "sequence_index": 19,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Empathetic",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Empathetic",
+          "delivery_intent": "Offering connection",
+          "subtext": "We can share the burden; you are not required to carry this weight by yourself.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "3:D006"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D006"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": "SC03-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "3:D006"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC03-SH20",
+        "scene_id": 3,
+        "sequence_index": 20,
+        "purpose": "EMOTIONAL_HOLD",
+        "narrative_function": "Leave the audience on the scene's Intense, defensive state.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "residual / after effect"
+        },
+        "visual_action": "linger on the reaction / physical distance",
+        "emotional_intent": "Intense, defensive",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC03-SH00",
+          "next_shot_id": null
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 3
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      },
+      {
+        "shot_id": "SC04-SH21",
+        "scene_id": 4,
+        "sequence_index": 21,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Concerned",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Concerned",
+          "delivery_intent": "Direct and urgent",
+          "subtext": "Sarah's urgency masks a deeper need for control; she is demanding transparency not just for information, but to alleviate her own anxiety about the unknown.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D001"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": null,
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH22",
+        "scene_id": 4,
+        "sequence_index": 22,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Anxious",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Anxious",
+          "delivery_intent": "Hesitant and defensive",
+          "subtext": "Mark is revealing that his silence wasn't avoidance of responsibility, but a protective mechanism against emotional devastation; he fears the truth will destroy him more than failure would.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D002"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D002"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D002"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH23",
+        "scene_id": 4,
+        "sequence_index": 23,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D002"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D002"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH24",
+        "scene_id": 4,
+        "sequence_index": 24,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Sarah's reaction to MARK's line.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Sarah registers the shift",
+        "performance_context": {
+          "reacting_character": "Sarah",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D002"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D002"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH25",
+        "scene_id": 4,
+        "sequence_index": 25,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Understanding",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Understanding",
+          "delivery_intent": "Pressing but gentle",
+          "subtext": "Sarah shifts from demanding facts to addressing the root cause; she is inviting Mark to confront his internal fear rather than just the external outcome.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D003"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D003"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D003"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH26",
+        "scene_id": 4,
+        "sequence_index": 26,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Mark's reaction to SARAH's line.",
+        "visual_subject": {
+          "primary": "Mark",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Mark registers the shift",
+        "performance_context": {
+          "reacting_character": "Mark",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D003"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D003"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH27",
+        "scene_id": 4,
+        "sequence_index": 27,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Mark's reaction to SARAH's line.",
+        "visual_subject": {
+          "primary": "Mark",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Mark registers the shift",
+        "performance_context": {
+          "reacting_character": "Mark",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D003"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D003"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH28",
+        "scene_id": 4,
+        "sequence_index": 28,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Vulnerable",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Vulnerable",
+          "delivery_intent": "Breaking point, direct admission",
+          "subtext": "Mark distinguishes between the content of the answer and the impact of knowing it; he admits that the anticipation and finality of the truth are more terrifying than any specific negative result.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D004"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D004"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D004"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH29",
+        "scene_id": 4,
+        "sequence_index": 29,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture SARAH delivering a key line.",
+        "visual_subject": {
+          "primary": "SARAH",
+          "secondary": [
+            "Mark"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Empathetic",
+        "performance_context": {
+          "speaker": "SARAH",
+          "emotional_state_primary": "Empathetic",
+          "delivery_intent": "Supportive and calm",
+          "subtext": "Sarah validates Mark's vulnerability without trying to fix it immediately; she offers presence as a safety net, signaling that his fear is acceptable and he is not alone in facing it.",
+          "character_voice_id": "MSVR-SARAH",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D005"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D005"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "SARAH"
+          ],
+          "active_visible_speaker": "SARAH",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D005"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH30",
+        "scene_id": 4,
+        "sequence_index": 30,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Mark's reaction to SARAH's line.",
+        "visual_subject": {
+          "primary": "Mark",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Mark registers the shift",
+        "performance_context": {
+          "reacting_character": "Mark",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D005"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "SARAH"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "SARAH",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D005"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH31",
+        "scene_id": 4,
+        "sequence_index": 31,
+        "purpose": "LISTENER_REACTION",
+        "narrative_function": "Capture Mark's reaction to SARAH's line.",
+        "visual_subject": {
+          "primary": "Mark",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "isolated / alone"
+        },
+        "visual_action": "reaction / processing",
+        "emotional_intent": "Mark registers the shift",
+        "performance_context": {
+          "reacting_character": "Mark",
+          "reaction_intent": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D005"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "Mark",
+          "visible": true
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "NOT_VISIBLE",
+          "dialogue_line_ids": [
+            "4:D005"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH32",
+        "scene_id": 4,
+        "sequence_index": 32,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "Relieved",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "Relieved",
+          "delivery_intent": "Relieved but still tense",
+          "subtext": "Mark's gratitude is for being heard rather than for a solution; the tension remains because the truth is still unspoken, but the burden of secrecy has been lifted.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "4:D006"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D006"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": "SC04-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "4:D006"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC04-SH33",
+        "scene_id": 4,
+        "sequence_index": 33,
+        "purpose": "EMOTIONAL_HOLD",
+        "narrative_function": "Leave the audience on the scene's Hopeful, tentative state.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "residual / after effect"
+        },
+        "visual_action": "linger on the reaction / physical distance",
+        "emotional_intent": "Hopeful, tentative",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC04-SH00",
+          "next_shot_id": null
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 3
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      },
+      {
+        "shot_id": "SC05-SH34",
+        "scene_id": 5,
+        "sequence_index": 34,
+        "purpose": "SPEAKER_COVERAGE",
+        "narrative_function": "Capture MARK delivering a key line.",
+        "visual_subject": {
+          "primary": "MARK",
+          "secondary": [
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "speaking",
+        "emotional_intent": "anxiety",
+        "performance_context": {
+          "speaker": "MARK",
+          "emotional_state_primary": "anxiety",
+          "delivery_intent": "hesitant",
+          "subtext": "I am terrified of the consequences, but I can no longer maintain this silence.",
+          "character_voice_id": "MSVR-MARK",
+          "presentation_mode": "EXTERNAL",
+          "physical_gaze": "",
+          "physical_action": "",
+          "objective": ""
+        },
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "5:D001"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "MARK"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D001"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "Sarah",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": null,
+          "next_shot_id": "SC05-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 1,
+          "pre_dialogue_hold": 0.5,
+          "post_dialogue_hold": 0.5
+        },
+        "execution_metadata": {
+          "audible_speaker": "MARK",
+          "visible_characters": [
+            "MARK"
+          ],
+          "active_visible_speaker": "MARK",
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D001"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC05-SH35",
+        "scene_id": 5,
+        "sequence_index": 35,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "To show the relief and hope in their relationship",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "5:D002",
+            "5:D003",
+            "5:D004"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D002",
+            "5:D003",
+            "5:D004"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC05-SH00",
+          "next_shot_id": "SC05-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.5,
+          "dialogue_span": 3,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D002",
+            "5:D003",
+            "5:D004"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC05-SH36",
+        "scene_id": 5,
+        "sequence_index": 36,
+        "purpose": "TWO_SHOT",
+        "narrative_function": "Sustained two-shot carrying a natural multi-line exchange without cutting.",
+        "visual_subject": {
+          "primary": "",
+          "secondary": [
+            "Mark",
+            "Sarah"
+          ]
+        },
+        "framing": {
+          "type": "TWO_SHOT"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "intimacy / shared frame"
+        },
+        "visual_action": "natural dialogue exchange",
+        "emotional_intent": "To show the relief and hope in their relationship",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [
+            "5:D005",
+            "5:D006"
+          ],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": "alternating"
+        },
+        "speaker_visibility": {
+          "visible": true,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D005",
+            "5:D006"
+          ]
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC05-SH00",
+          "next_shot_id": "SC05-SH00"
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 3.0,
+          "dialogue_span": 2,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 1
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "CLEAR",
+          "dialogue_line_ids": [
+            "5:D005",
+            "5:D006"
+          ],
+          "speech_mode": "EXTERNAL",
+          "lipsync_intent": "NOT_REQUIRED"
+        }
+      },
+      {
+        "shot_id": "SC05-SH37",
+        "scene_id": 5,
+        "sequence_index": 37,
+        "purpose": "EMOTIONAL_HOLD",
+        "narrative_function": "Leave the audience on the scene's To show the relief and hope in their relationship state.",
+        "visual_subject": {
+          "primary": "Sarah",
+          "secondary": []
+        },
+        "framing": {
+          "type": "CLOSE_UP"
+        },
+        "camera": {
+          "angle": "EYE_LEVEL",
+          "movement": "STATIC",
+          "lens_intent": ""
+        },
+        "composition": {
+          "relationship": "residual / after effect"
+        },
+        "visual_action": "linger on the reaction / physical distance",
+        "emotional_intent": "To show the relief and hope in their relationship",
+        "performance_context": {},
+        "dialogue_mapping": {
+          "active_dialogue_line_ids": [],
+          "starts_during_line": null,
+          "ends_during_line": null
+        },
+        "audio_context": {
+          "audible_speaker": ""
+        },
+        "speaker_visibility": {
+          "visible": false,
+          "mouth_readability": "NONE",
+          "dialogue_line_ids": []
+        },
+        "listener_visibility": {
+          "character_id": "",
+          "visible": false
+        },
+        "continuity": {
+          "previous_shot_id": "SC05-SH00",
+          "next_shot_id": null
+        },
+        "transition_intent": "CUT",
+        "timing": {
+          "estimated_duration_seconds": 4.0,
+          "dialogue_span": 0,
+          "pre_dialogue_hold": 0,
+          "post_dialogue_hold": 3
+        },
+        "execution_metadata": {
+          "audible_speaker": null,
+          "visible_characters": [],
+          "active_visible_speaker": null,
+          "mouth_readability": "NOT_APPLICABLE",
+          "dialogue_line_ids": [],
+          "speech_mode": "NONE",
+          "lipsync_intent": "NOT_APPLICABLE"
+        }
+      }
+    ]
+  },
+  "voices": {
+    "voice_ids": [
+      "MSVR-MARK",
+      "MSVR-SARAH"
+    ],
+    "line_directions": [
+      {
+        "line_id": "1:D001",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Setting the boundary"
+      },
+      {
+        "line_id": "1:D002",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Offering support without pressure"
+      },
+      {
+        "line_id": "1:D003",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Expressing uncertainty"
+      },
+      {
+        "line_id": "1:D004",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Reinforcing emotional safety"
+      },
+      {
+        "line_id": "1:D005",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Concealing the past event"
+      },
+      {
+        "line_id": "1:D006",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Encouraging without judgment"
+      },
+      {
+        "line_id": "2:D001",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Observing Mark's behavior"
+      },
+      {
+        "line_id": "2:D002",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Defensive response"
+      },
+      {
+        "line_id": "2:D003",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Validating Mark's feelings"
+      },
+      {
+        "line_id": "2:D004",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Reinforcing avoidance"
+      },
+      {
+        "line_id": "2:D005",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Acknowledging his withdrawal"
+      },
+      {
+        "line_id": "2:D006",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Revealing internal conflict"
+      },
+      {
+        "line_id": "3:D001",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Finalizing avoidance"
+      },
+      {
+        "line_id": "3:D002",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Challenging Mark's avoidance"
+      },
+      {
+        "line_id": "3:D003",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Reinforcing the past event"
+      },
+      {
+        "line_id": "3:D004",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Reaffirming support"
+      },
+      {
+        "line_id": "3:D005",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Expressing helplessness"
+      },
+      {
+        "line_id": "3:D006",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Offering connection"
+      },
+      {
+        "line_id": "4:D001",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Direct and urgent"
+      },
+      {
+        "line_id": "4:D002",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Hesitant and defensive"
+      },
+      {
+        "line_id": "4:D003",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Pressing but gentle"
+      },
+      {
+        "line_id": "4:D004",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Breaking point, direct admission"
+      },
+      {
+        "line_id": "4:D005",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Supportive and calm"
+      },
+      {
+        "line_id": "4:D006",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "Relieved but still tense"
+      },
+      {
+        "line_id": "5:D001",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "hesitant"
+      },
+      {
+        "line_id": "5:D002",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "direct"
+      },
+      {
+        "line_id": "5:D003",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "vulnerable"
+      },
+      {
+        "line_id": "5:D004",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "calm and firm"
+      },
+      {
+        "line_id": "5:D005",
+        "speaker": "MARK",
+        "character_voice_id": "MSVR-MARK",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "honest"
+      },
+      {
+        "line_id": "5:D006",
+        "speaker": "SARAH",
+        "character_voice_id": "MSVR-SARAH",
+        "presentation_mode": "EXTERNAL",
+        "delivery_intent": "resolute"
+      }
+    ],
+    "pronunciation": []
+  },
+  "sound": {
+    "ambience": [],
+    "music_intent": "",
+    "silence_strategy": []
+  },
+  "assets": {
+    "required_references": [
+      "MSVI-MARK",
+      "MSVI-SARAH",
+      "MSVR-MARK",
+      "MSVR-SARAH"
+    ],
+    "reusable_assets": []
+  },
+  "execution_constraints": {
+    "allowed_fallbacks": [],
+    "forbidden_substitutions": [
+      "dialogue rewrite",
+      "narration insertion"
+    ]
+  },
+  "validation_requirements": {
+    "standards": [],
+    "blocking_gates": [
+      "frozen_pkp",
+      "dialogue_immutable"
+    ]
+  },
+  "production": {
+    "episode_id": "EP-0006",
+    "run_id": "RUN-20260901-114335"
+  }
+}

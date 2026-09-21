@@ -1,0 +1,29 @@
+validation_status: passed
+generator: GENESIS2 12-phase engine (frozen PKP + derived artifacts)
+checked:
+  frozen_pkp: passed
+  status_is_frozen: true
+  characters_present:
+  - character_id: MARK
+    display_name: Mark
+    approved_identity: white American software engineer, co-lead, 40
+    visual_reference_ids:
+    - MSVI-MARK
+    voice_reference_ids:
+    - MSVR-MARK
+  - character_id: SARAH
+    display_name: Sarah
+    approved_identity: white American business operations professional, co-lead, 36
+    visual_reference_ids:
+    - MSVI-SARAH
+    voice_reference_ids:
+    - MSVR-SARAH
+  canonical_characters_only: false
+  screenplay_scenes: 5
+  dialogue_lines: 30
+  shots: 37
+  episode_contract_hash_matches_policy: true
+artifacts_derived:
+- screenplay.yaml
+- screenplay.md
+- shooting_script.yaml

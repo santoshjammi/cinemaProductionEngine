@@ -1,0 +1,15 @@
+builder: PROMETHEUS
+input_pkp: ../pkp/PKP-EP-0006-v1.yaml
+input_screenplay: ../screenplay.yaml
+input_shooting_script: ../shooting_script.yaml
+runtime_config: config/runtime_config.yaml
+media_policy: pipeline/music_policy.yaml
+voice_profiles: movie_os/providers/voice/voice_profiles.py
+stages:
+- Storyboard
+- ImageGeneration
+- VoiceOver
+- MusicComposition
+- Editing
+- Film
+entry_contract: Load frozen PKP; fail closed on any placeholder; honor forbidden_substitutions.

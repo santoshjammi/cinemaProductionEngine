@@ -1,0 +1,132 @@
+production_id: ew001
+version: '1.0'
+title: The Space Between Us
+logline: True connection begins when we dare to ask the question, even when the fear
+  of the answer is greater than the answer.
+mechanism: fear-based withdrawal
+scenes:
+- scene_id: 1
+  narrative_function: hook
+  entry_state: 'The Unspoken Silence: establishes the starting emotional state'
+  turning_point: 'The Unspoken Silence: the hook shifts the relationship'
+  exit_state: 'The Unspoken Silence: leaves the characters changed for the next scene'
+  dialogue:
+  - line_id: 1:D001
+    speaker: MARK
+    text: I'm not sure I can talk about it.
+  - line_id: 1:D002
+    speaker: SARAH
+    text: It's okay if you don't want to. I'm here.
+  - line_id: 1:D003
+    speaker: MARK
+    text: I don't know what to say.
+  - line_id: 1:D004
+    speaker: SARAH
+    text: You don't have to say anything. Just be with me.
+  - line_id: 1:D005
+    speaker: MARK
+    text: It's too late to change anything.
+  - line_id: 1:D006
+    speaker: SARAH
+    text: I know it's hard. But we can try.
+- scene_id: 2
+  narrative_function: plot
+  entry_state: 'Sarah''s Observation: establishes the starting emotional state'
+  turning_point: 'Sarah''s Observation: the plot shifts the relationship'
+  exit_state: 'Sarah''s Observation: leaves the characters changed for the next scene'
+  dialogue:
+  - line_id: 2:D001
+    speaker: SARAH
+    text: You've been quiet a lot lately.
+  - line_id: 2:D002
+    speaker: MARK
+    text: I'm fine.
+  - line_id: 2:D003
+    speaker: SARAH
+    text: It's okay to not be fine.
+  - line_id: 2:D004
+    speaker: MARK
+    text: I don't want to talk about it.
+  - line_id: 2:D005
+    speaker: SARAH
+    text: I understand.
+  - line_id: 2:D006
+    speaker: MARK
+    text: I'm not sure if I can trust myself.
+- scene_id: 3
+  narrative_function: plot
+  entry_state: 'The Breaking Point: establishes the starting emotional state'
+  turning_point: 'The Breaking Point: the plot shifts the relationship'
+  exit_state: 'The Breaking Point: leaves the characters changed for the next scene'
+  dialogue:
+  - line_id: 3:D001
+    speaker: MARK
+    text: I can't talk about it anymore.
+  - line_id: 3:D002
+    speaker: SARAH
+    text: It's not too late.
+  - line_id: 3:D003
+    speaker: MARK
+    text: It's too late.
+  - line_id: 3:D004
+    speaker: SARAH
+    text: I know it's hard, but I'm here.
+  - line_id: 3:D005
+    speaker: MARK
+    text: I don't know what to do.
+  - line_id: 3:D006
+    speaker: SARAH
+    text: You don't have to do it alone.
+- scene_id: 4
+  narrative_function: climax
+  entry_state: 'A Step Forward: establishes the starting emotional state'
+  turning_point: 'A Step Forward: the climax shifts the relationship'
+  exit_state: 'A Step Forward: leaves the characters changed for the next scene'
+  dialogue:
+  - line_id: 4:D001
+    speaker: SARAH
+    text: Mark, I need to know what happened with the project. I've been waiting for
+      you to tell me for weeks.
+  - line_id: 4:D002
+    speaker: MARK
+    text: I don't know how to say it without it breaking me.
+  - line_id: 4:D003
+    speaker: SARAH
+    text: Then tell me what you're afraid of.
+  - line_id: 4:D004
+    speaker: MARK
+    text: I'm afraid of the answer, Sarah. More than the potential answers I might
+      receive.
+  - line_id: 4:D005
+    speaker: SARAH
+    text: I know you are. And I'm here to listen.
+  - line_id: 4:D006
+    speaker: MARK
+    text: Thank you.
+- scene_id: 5
+  narrative_function: resolution
+  entry_state: 'To demonstrate Mark and Sarah''s movement toward reconnection: establishes
+    the starting emotional state'
+  turning_point: 'To demonstrate Mark and Sarah''s movement toward reconnection: the
+    resolution shifts the relationship'
+  exit_state: 'To demonstrate Mark and Sarah''s movement toward reconnection: leaves
+    the characters changed for the next scene'
+  dialogue:
+  - line_id: 5:D001
+    speaker: MARK
+    text: I've been avoiding this for weeks. I don't know how to say it without breaking.
+  - line_id: 5:D002
+    speaker: SARAH
+    text: I need to know what's wrong. I need you to be safe with me.
+  - line_id: 5:D003
+    speaker: MARK
+    text: I'm afraid telling you the truth will make you leave me.
+  - line_id: 5:D004
+    speaker: SARAH
+    text: Then tell me. I won't leave you. I want to know you.
+  - line_id: 5:D005
+    speaker: MARK
+    text: I did hurt you. I was scared to lose you. I tried, but I failed.
+  - line_id: 5:D006
+    speaker: SARAH
+    text: I know. And I'm here. I choose you.

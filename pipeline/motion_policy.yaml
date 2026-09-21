@@ -1,0 +1,41 @@
+# Baseline Motion Policy — videoGen PROMETHEUS
+# Task: SAI-101 / TASK-021 — Implement Baseline Motion
+#
+# Deterministic, reproducible motion for every scene via ffmpeg (Ken Burns)
+# or Remotion. No random camera drift — each scene's shot plan selects one of
+# these canonical moves, applied by the FFmpeg engine.
+
+version: 1.0
+production_id: ew001
+
+# Canonical, deterministic motion set (one per scene/shot).
+moves:
+  push_in:
+    description: Dolly / scale toward the subject over the scene duration.
+    ffmpeg: "zoompan=z='min(zoom+0.0015,1.10)':d={frames}:s={w}x{h}"
+  pull_back:
+    description: Scale away from the subject, opening up the frame.
+    ffmpeg: "zoompan=z='max(zoom-0.0015,0.92)':d={frames}:s={w}x{h}"
+  pan:
+    description: Horizontal (or vertical) camera pivot.
+    ffmpeg: "crop=w='iw-{dx}':h=ih:x='{dir}*min(t*{vx},{dx})':y=0"
+  zoom:      # alias of push_in (same deterministic scale)
+    ffmpeg: "zoompan=z='min(zoom+0.0015,1.10)':d={frames}:s={w}x{h}"
+  static_hold:
+    description: No movement — frame is a fixed still scaled to duration.
+    ffmpeg: "null"
+  crossfade:
+    description: Cross-dissolve between the outgoing and incoming shot.
+    ffmpeg: "xfade=transition=fade:duration=0.6"
+
+# How motion is chosen (deterministic, not random):
+selection:
+  mode: from_shot_plan   # motion comes from the frozen PKP shot plan
+  default: static_hold
+  source: shots[].camera / shots[].movement
+
+# Reproducibility
+reproducibility:
+  fixed_fps: 24
+  fixed_seed: 0            # no randomized motion
+  deterministic: true      # same shot plan -> same motion, byte-identical

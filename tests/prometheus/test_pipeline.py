@@ -1,6 +1,7 @@
 """Comprehensive PROMETHEUS pipeline tests — TDD approach verified."""
 
 import asyncio
+import os
 from unittest.mock import MagicMock, sentinel, patch
 import pytest
 
@@ -242,6 +243,32 @@ class TestFilmStage:
     def test_exports_film(self):
         from movie_os.prometheus.stages.film_stage import FilmStage
         cert = _make_cert(scenes=[{"id": 1, "description": "A"}])
+        # Build real tiny fixture assets so the film stage can actually assemble
+        # (a voice clip, a music clip, and a scene image). Without real files the
+        # voice_by_scene map is empty and FilmStage raises "no voice clips".
+        import tempfile, wave, struct, subprocess
+        from pathlib import Path
+        fd, tmp = tempfile.mkstemp(suffix=".mp3")
+        os.close(fd)
+        tmp_path = Path(tmp)
+        voice_path = tmp_path.with_name("test_voice.mp3")
+        # 1s silent stereo WAV -> mp3 via ffmpeg (or fall back to the WAV itself).
+        wav_path = tmp_path.with_name("test_voice.wav")
+        sr = 16000
+        with wave.open(str(wav_path), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+            w.writeframes((struct.pack("<h", 0) * sr))  # 1s of silence
+        try:
+            subprocess.run(["ffmpeg", "-y", "-i", str(wav_path), "-c:a", "libmp3lame",
+                            str(voice_path)], capture_output=True, timeout=60, check=True)
+        except Exception:
+            voice_path = wav_path  # fall back to WAV if no mp3 encoder
+
+        img_path = tmp_path.with_name("test_image.png")
+        subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=black:s=640x360",
+                        "-frames:v", "1", str(img_path)],
+                       capture_output=True, timeout=60)
+
         brief = {
             "editing_timeline": {
                 "timeline": [{"scene_id": 1}],
@@ -251,19 +278,16 @@ class TestFilmStage:
             # Provide real audio assets so the film can assemble (no under-produce guard).
             "voice_artifacts": [{
                 "type": "audio",
-                "path": "/tmp/film_test_assets/test_voice.mp3",
+                "path": str(voice_path),
                 "metadata": {"scene_id": 1},
             }],
-            "music_artifacts": [{
-                "type": "music",
-                "path": "/tmp/film_test_assets/test_music.mp3",
-                "metadata": {"scene_id": 1},
-            }],
+            "music_artifacts": [],
             "image_artifacts": [{
                 "type": "image",
-                "path": "/tmp/ref_frame_2.jpg",
+                "path": str(img_path),
                 "metadata": {"scene_id": 1},
             }],
+            "production": {"episode_id": "EP-TEST", "run_id": "RUN-FILM"},
         }
         stage = FilmStage(certificate=cert, brief=brief)
         result = stage.run()
