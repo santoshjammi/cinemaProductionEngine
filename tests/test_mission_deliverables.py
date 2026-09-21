@@ -166,6 +166,36 @@ class TestMediaValidation:
         assert check.passed
 
 
+# ── SAI-85 / TASK-005: Context Manager (all 9 capsule types) ──────────────
+class TestContextManager:
+    def test_supports_all_nine_task_types(self):
+        from pipeline.architect.context_manager import ALL_TASK_TYPES, ContextManager
+        contract = {
+            "production_id": "ew001", "contract_id": "EP-0006", "contract_version": "1.0",
+            "characters": [{"id": "MARK"}, {"id": "SARAH"}],
+            "ending": "separation", "core_conflict": {"withdrawal_mechanism": "fear-based withdrawal"},
+            "tone": ["melancholic"],
+            "exact_dialogue_text": [{"line_id": "1:D001", "text": "hi"}],
+        }
+        cm = ContextManager(contract)
+        assert len(ALL_TASK_TYPES) == 9
+        for t in ALL_TASK_TYPES:
+            caps = cm.get_capsule(t, contract)
+            assert caps["task_type"] == t
+            assert "immutable_constraints" in caps
+            assert "parent_memory" in caps  # always carried from approved parent
+
+    def test_dialogue_capsule_constraints(self):
+        from pipeline.architect.context_manager import ContextManager
+        contract = {
+            "characters": [], "ending": "x", "tone": [],
+            "exact_dialogue_text": [] if False else [{"line_id": "1", "text": "hi"}],
+        }
+        caps = ContextManager(contract).get_capsule("generate_dialogue", contract)
+        assert caps["constraints"]["new_characters_forbidden"] is True
+        assert caps["constraints"]["max_words"] == 28
+
+
 # ── SAI-100 / TASK-020: Music policy ─────────────────────────────────────────
 class TestMusicPolicy:
     def test_policy_allows_cc0_only(self):
