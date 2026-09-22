@@ -123,13 +123,28 @@ def mix_scene_audio(music_path: Path | None, voice_paths: list[Path],
     # so the music bed plays through the whole scene instead of being cut off
     # at the dialogue length (which left the scene tail silent).
     if music_path and music_path.exists():
-        # music [m] + dialogue voices [v1..vN] -> amix
-        mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
-        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[vout]")
-        filters.append("[vout][m]amix=inputs=2:duration=longest:dropout_transition=3[out]")
+        # music [m] + dialogue voices [v1..vN] -> amix. amix requires >=2
+        # inputs, so a lone dialogue line is padded with a silent anullsrc.
+        if idx == 1:
+            # No voice inputs processed (only music) — music alone is the mix.
+            filters.append(f"[0:a]volume={duck}[out]")
+        else:
+            mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
+            if idx == 2:
+                filters.append(f"{mix_inputs}amix=inputs=2:duration=longest:dropout_transition=3[vout]")
+            else:
+                filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[vout]")
+            filters.append("[vout][m]amix=inputs=2:duration=longest:dropout_transition=3[out]")
     else:
-        mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
-        filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[out]")
+        if idx == 1:
+            # Single dialogue line — pad with a silent anullsrc so amix has >=2
+            # inputs (ffmpeg amix rejects a lone input).
+            inputs += ["-f", "lavfi", "-t", str(duration_s), "-i", "anullsrc=r=48000:cl=stereo"]
+            filters.append(f"[{idx}:a]anull[out_sil]")
+            filters.append(f"[v{idx-1}][out_sil]amix=inputs=2:duration=longest:dropout_transition=3[out]")
+        else:
+            mix_inputs = "".join(f"[v{i}]" for i in range(1, idx))
+            filters.append(f"{mix_inputs}amix=inputs={idx-1}:duration=longest:dropout_transition=3[out]")
 
     cmd = (["ffmpeg", "-y"] + inputs +
            ["-filter_complex", ";".join(filters), "-map", "[out]",
@@ -374,9 +389,35 @@ class FilmStage:
                 shutil.move(str(graded), str(final_path))
                 logger.info(f"  [film] vibrant color grade applied to {final_path}")
 
-        film_ok = final_path.exists() and final_path.stat().st_size > 10000
+        # Probe the ACTUAL rendered file (decode check) rather than trusting the
+        # editing timeline's stale duration. film_ok requires the file to exist,
+        # be a non-trivial size, AND be decodable by ffprobe (exit 0 + valid duration).
+        film_ok = False
+        probed_duration = 0.0
+        if final_path.exists() and final_path.stat().st_size > 10000:
+            try:
+                probe_r = subprocess.run(
+                    ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                     "-of", "default=noprint_wrappers=1:nokey=1", str(final_path)],
+                    capture_output=True, text=True, timeout=20)
+                probed_duration = float(probe_r.stdout.strip())
+                film_ok = probe_r.returncode == 0 and probed_duration > 0
+            except Exception:
+                probed_duration = 0.0
+                film_ok = False
+
         if film_ok:
-            logger.info(f"  [film] FINAL FILM: {final_path} ({final_path.stat().st_size//1024}KB)")
+            logger.info(f"  [film] FINAL FILM: {final_path} ({final_path.stat().st_size//1024}KB, "
+                        f"{probed_duration:.2f}s)")
+        else:
+            raise RuntimeError(
+                f"FilmStage: final film MP4 is missing or invalid — cannot receive a "
+                f"successful final-film status. path={output_path}, "
+                f"exists={final_path.exists()}, size={final_path.stat().st_size if final_path.exists() else 0}, "
+                f"probed_duration={probed_duration}."
+            )
+
+        expected_duration = float(editing_data.get("duration_seconds", scene_count * 5.0) or 0.0)
 
         artifacts_list = [{
             "type": "film",
@@ -386,7 +427,9 @@ class FilmStage:
                 "project_name": getattr(self.certificate, "project_name", "") if self.certificate else "",
                 "certificate_id": getattr(self.certificate, "certificate_id", "") if self.certificate else "",
                 "scene_count": scene_count,
-                "duration_seconds": editing_data.get("duration_seconds", scene_count * 5.0),
+                "duration_seconds": probed_duration,
+                "expected_duration_seconds": expected_duration,
+                "duration_agrees": abs(probed_duration - expected_duration) < 2.0,
                 "total_artifacts": len(all_images) + len(all_audio) + len(all_music),
                 "mixed_audio_clips": len(mixed_audio),
                 "scene_videos_rendered": len(scene_videos),

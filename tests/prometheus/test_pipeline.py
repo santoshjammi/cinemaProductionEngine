@@ -228,10 +228,19 @@ class TestEditingStage:
 
     def test_composes_timeline(self):
         from movie_os.prometheus.stages.editing_stage import EditingStage
+        import tempfile
+        from pathlib import Path
+        tmp = tempfile.mkdtemp()
+        vp = Path(tmp) / "v1.wav"
+        vp.write_bytes(b"x")
         images = [{"id": 1, "metadata": {"scene_id": 1}}]
         brief = {
             "image_artifacts": images,
-            "voice_artifacts": [{"id": 1}],
+            "voice_artifacts": [{
+                "type": "audio", "path": str(vp),
+                "metadata": {"scene_id": 1, "line_id": "1:N001", "speaker": "NARRATOR",
+                             "duration_seconds": 1.0},
+            }],
         }
         stage = EditingStage(brief=brief)
         result = stage.run()

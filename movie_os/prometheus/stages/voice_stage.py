@@ -115,6 +115,22 @@ def _probe_duration(path: Path) -> float:
         return 0.0
 
 
+def _ensure_silent_wav(path: Path, duration_s: float) -> None:
+    """Write a silent WAV of the given duration so artifacts always point at a real file."""
+    import struct
+    import wave
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.stat().st_size > 1000:
+        return
+    sr = 16000
+    frames = int(sr * max(duration_s, 1.0))
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(sr)
+        w.writeframes((struct.pack("<h", 0) * frames))
+
+
 class VoiceStage:
     """Voice stage: generates dialogue + inner-voice TTS for each scene."""
 
@@ -246,12 +262,19 @@ class VoiceStage:
                 narration = self.brief.get(f"scene_{scene_id}_narration", f"Scene {scene_id} narration")
                 artifact_path = str(build_run_path(self.brief, "voice", f"scene_{scene_id:03d}.wav"))
                 dur = len(narration.split()) / 3.5 if narration else 0.0
+                # The artifact path must point to a real file on disk: a silent
+                # WAV of the estimated narration length. EditingStage (and the
+                # assembly timeline) reject voice artifacts whose file does not
+                # exist, so write an actual placeholder audio file here.
+                _ensure_silent_wav(Path(artifact_path), max(dur, 1.0))
                 artifacts.append({
                     "type": "audio",
                     "path": artifact_path,
                     "url": None,
                     "metadata": {
                         "scene_id": scene_id,
+                        "line_id": f"{scene_id}:N{idx+1:03d}",
+                        "speaker": "NARRATOR",
                         "narration": narration,
                         "voice_type": self.brief.get("voice_type", "Narrator"),
                         "duration_seconds": dur,
@@ -294,6 +317,7 @@ class VoiceStage:
                     "url": None,
                     "metadata": {
                         "scene_id": scene_id,
+                        "line_id": line.get("line_id", ""),
                         "speaker": speaker,
                         "text": text,
                         "emotion": emotion,

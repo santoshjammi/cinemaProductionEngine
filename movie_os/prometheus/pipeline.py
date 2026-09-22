@@ -190,6 +190,12 @@ class PrometheusPipeline:
                     context["brief"]["music_artifacts"] = stage_artifacts
                 elif stage_name == "Editing":
                     context["brief"]["editing_artifacts"] = stage_artifacts
+                    # FilmStage reads the timeline from brief["editing_timeline"].
+                    # Surface the editing stage's raw timeline data so it flows
+                    # to FilmStage (previously stored only as "editing_artifacts").
+                    if stage_artifacts:
+                        raw = stage_artifacts[0].get("metadata", {}).get("raw_data", {})
+                        context["brief"]["editing_timeline"] = raw
             except StageError as exc:
                 failed_stage = name
                 stage_entry["stage"]["status"] = "failed"
