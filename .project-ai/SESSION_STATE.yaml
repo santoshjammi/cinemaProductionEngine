@@ -1,20 +1,38 @@
-## Session State (V12 - Finalized)
+session: EP-0001 timeline plus conversation-proof smoke
+state: verified_live
 
-## Completed Work
-- [COMPLETED] Visuals: Created `pipeline/flux_workflow_scene4.json` for FLUX bf16 rendering.
-- [COMPLETED] Audio: Created `setup_local_tts.sh` for local Kokelo/Piper installation.
-- [COMPLETED] Builder: Created `run_final_validation.py` to enforce "fail-closed" asset integrity.
+complete_timeline:
+  - branch switched main to genesis 78aabeda
+  - EditingStage 18-line timeline with scene ids 1,2,3 and 0.7s pause
+  - FilmStage ffprobe decode gate raising on invalid MP4
+  - timeline and render agree with DEFAULT_PAUSE 0.7
+  - tests: test_editing_timeline 7 of 7, prometheus suite 78 of 78
 
-## Final Task Status
-| Task ID | Name | Status | Dependency |
-|---|---|---|---|
-| P1-01 | FLUX Workflow Logic | ✅ Done | Ready for local submit |
-| P1-02 | FLUX Runtime (ComfyUI) | ⏳ Pending | Requires ComfyUI launch |
-| P1-03 | Local TTS Engine | ⏳ Pending | Requires `setup_local_tts.sh` run |
-| P1-04 | Final Assembly | ⏳ Pending | Requires real assets from P1-02 & 03 |
+complete_smoke_3D001:
+  - isolated venv .venv-musetalk torch-free python 3.11
+  - model mlx-community/MuseTalk-1.5-fp16 at revision ad54104 (1.9GB)
+  - port xocialize-musetalk-mlx at c6eb30e
+  - all licenses MIT and commercial OK
+  - smoke_3d001.py pipeline uses MLX whisper chunks then UNet then VAE then mask paste
+  - runs natively on M1 Max MLX GPU
+  - timing: setup 0.1s audio 1.2s gen 10.3s blend 4.4s enc 0.7s total 16.7s for 88 frames
+  - peak RSS 2.23GB
+  - ffprobe h264 plus aac 1122x1402 25fps 3.52s decodes
+  - mouth articulation verified oral cavity 7px closed to 15px open
+  - sync is real
 
-## Execution Brief
-1. Launch ComfyUI: `python3 models/ComfyUI/main.py --listen 127.0.0.1 --port 8188`
-2. Submit FLUX Workflow: `curl -X POST "http://localhost:8188/prompt" -d @pipeline/flux_workflow_scene4.json`
-3. Install TTS: `bash setup_local_tts.sh`
-4. Run Validator: `python3 pipeline/run_final_validation.py`
+known_limitation:
+  - composite not sync issue when pasting 256px output on sharp portrait
+  - torch-free constraint has no bisenet face-parse blend
+  - composite below commercial grade, sync itself correct
+
+next_decision:
+  - approve or deny bisenet blend dependency for commercial composite
+  - or accept 256px proof of sync only
+
+non_blocking:
+  - SC02-SH09 audible speaker and prev next continuity not consumed by renderer
+  - full EP-0001 final MP4 still requires FLUX image generation
+
+next_action:
+  - do not claim commercial final film until a clean decodable MP4 exists

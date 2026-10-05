@@ -1,24 +1,41 @@
 # Restart Prompt
 
 ## Current Focus
-ComfyUI freeze is fixed, and VRAM memory optimization is integrated so models are actively released when generation finishes. `pipeline/run_v7.py` and `verify_pipeline.py` are fully functional and pass all tests and E2E validation checks.
+EP-0001 timeline is verified on `genesis` (78aabeda). Conversation-proof Phase 1 smoke
+(3:D001, Sarah close-up) is COMPLETE: MuseTalk 1.5 MLX fp16 runs natively on M1 Max,
+mouth articulates correctly, proof MP4 produced.
 
-## Unfinished Work
-1. Tune LLM prompt configurations for PKP-02/05/09/10 to avoid missing required fields under deepseek-coder-v2.
-2. Resolve PKP-15 (Blueprint) generation from the dependency chain.
-3. Wire the Genesis backend APIs into the frontend panels.
+## Verified Facts
+- Canonical entry: run_prometheus_ep0001.py -> PrometheusPipeline (6 stages) consuming
+  frozen PKP-EP-0001-v1.yaml (RUN-20260828-161752). Tests green (editing 7/7, prom 78/78).
+- Smoke isolated venv .venv-musetalk (py3.11, torch-free). Model mlx-community/MuseTalk-1.5-
+  fp16 @ ad54104 (1.9GB). Port xocialize/musetalk-mlx @ c6eb30e. Licenses MIT, commercial OK.
+- proof_3D001.mp4: h264+aac, 1122x1402, 25fps, 3.52s, decodes. 16.7s generate, RSS 2.23GB.
+- Mouth articulation REAL: oral cavity 7px(closed f68)->15px(open f14), 88/88 frames.
+
+## Current Block
+- Composite is below commercial grade: pasting 256px model output on sharp portrait causes
+  mouth softness / mask-boundary seam. Torch-free path (no bisenet face-parse blend) is the
+  cause. Sync itself is correct.
+
+## Unfinished Work (Board decision required)
+1. Approve/deny bisenet face-parse blend dependency (pulls torch + small face-parsing model)
+   to reach commercial-grade composite for the 4-line proof.
+2. If approved: integrate blend, re-run 3:D001 fully, repeat for 3:D002-3:D004 (Mark close-ups
+   + Sarah silent reactions), assemble 12-20s proof MP4 on the corrected timeline.
+3. Full EP-0001 final MP4 still requires FLUX scene-image generation (out of earlier scope).
 
 ## Constraints
-- Pipeline requires local Ollama (port 11434) and ComfyUI (port 8188) to be running for real generation.
-- Python tests must use the local virtual environment `venv/bin/pytest`.
+- Preserve frozen GENESIS, exact dialogue, existing voices/music, character identities.
+- Do NOT integrate conflicting providers or modify GENESIS.
+- Do NOT claim a commercial final film until a clean decodable MP4 exists on disk.
 
-## Files in Scope
-- `movie_os/genesis/` — all agent files, engine, CLI, serializers, mock_data
-- `movie_os/workflows/` — comfyui client and workflow templates
-- `pipeline/` — generation and audio pipeline scripts
+## Files in Scope (this increment)
+- .workspace-musetalk/ (smoke_3d001.py, dist model, deliverables/, io/)
+- .venv-musetalk/ (isolated env)
+- run_prometheus_ep0001.py, movie_os/prometheus/stages/*.py
+- productions/EP-0001/runs/RUN-20260828-161752/genesis/pkp/PKP-EP-0001-v1.yaml
 
 ## Next Action
-To tune the PKP prompt templates:
-```bash
-venv/bin/python -m movie_os.genesis run --synopsis ./synopsis/001-psychology-emotional-withdrawal.md --output ./output/genesis/
-```
+Board: decide on bisenet blend dependency. If approved, refine composite to commercial grade;
+if not, deliver the 256px composite as proof-of-sync only.
